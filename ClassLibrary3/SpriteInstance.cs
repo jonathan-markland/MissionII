@@ -1,0 +1,33 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace GameClassLibrary
+{
+    public class SpriteInstance
+    {
+        /// <summary>
+        /// Position of sprite with respect to left edge of room.
+        /// (Not left edge of screen!)
+        /// </summary>
+        public int RoomX;
+
+        /// <summary>
+        /// Position of sprite with respect to top of room.
+        /// (Not top edge of screen!)
+        /// </summary>
+        public int RoomY;
+
+        /// <summary>
+        /// Defines the graphic image, or images, for this sprite instance.
+        /// </summary>
+        public SpriteTraits Traits;
+
+        public Rectangle GetBoundingRectangle()
+        {
+            return new Rectangle(RoomX, RoomY, Traits.BoardWidth, Traits.BoardHeight);
+        }
+    }
+}

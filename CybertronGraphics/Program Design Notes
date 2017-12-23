@@ -1,0 +1,47 @@
+
+Monster Traits
+--------------
+
+Image list
+Animation switching interval
+
+
+
+Play state
+----------
+
+Score
+Level
+Lives
+Carried Items  (flags)
+
+Walls of current room
+
+Man Position
+Man Facing Direction
+
+List of objects (polymorphic):
+
+Monster:
+- Monster type
+- Monster position
+- Game-Time created  (to calc anim)
+
+Bullet:
+- Bullet position
+- Bullet direction
+
+Explosion:
+- Game-Time that explosion commenced
+- Explosion position
+
+Gold / ring / key:
+- Position
+
+Potion:
+- Position
+- Game-Time created  (to calc anim)
+
+
+
+
