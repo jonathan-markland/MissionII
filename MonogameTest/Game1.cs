@@ -13,6 +13,7 @@ namespace MonogameTest
     {
         GraphicsDeviceManager _graphicsDeviceManager;
         SpriteBatch _spriteBatch;
+        RenderTarget2D _backingScreen;
         MonoGameDrawingTarget _monoGameDrawingTarget;
         GameClassLibrary.CybertronGameBoard _cybertronGameBoard;
         GameClassLibrary.CybertronKeyStates _cybertronKeyStates;
@@ -20,6 +21,8 @@ namespace MonogameTest
 
         public Game1()
         {
+            base.Window.AllowUserResizing = true;
+
             _cybertronKeyStates = new GameClassLibrary.CybertronKeyStates();
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -70,6 +73,7 @@ namespace MonogameTest
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            _backingScreen = new RenderTarget2D(GraphicsDevice, 320, 256);
             _monoGameDrawingTarget = new MonoGameDrawingTarget(_spriteBatch);
 
             // TODO: use this.Content to load your game content here
@@ -149,6 +153,7 @@ namespace MonogameTest
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
+            GraphicsDevice.SetRenderTarget(_backingScreen);
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
@@ -162,6 +167,13 @@ namespace MonogameTest
             _spriteBatch.End();
 
             base.Draw(gameTime);
+
+            GraphicsDevice.SetRenderTarget(null);
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(_backingScreen, new Rectangle(0, 0,
+                Window.ClientBounds.Width,
+                Window.ClientBounds.Height), Color.White);
+            _spriteBatch.End();
         }
     }
 }
