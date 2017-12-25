@@ -12,5 +12,7 @@ namespace GameClassLibrary
         public const int RoomOriginY = 28;
         public const int TileWidth = 12;
         public const int TileHeight = 8;
+        public const int RoomClearingBonusScore = 250;
+        public const int MonsterKillingScore = 20;
     }
 }

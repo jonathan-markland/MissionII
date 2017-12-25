@@ -192,6 +192,10 @@ namespace GameClassLibrary
             SpriteInstance.RoomX += deltaSpriteWidth;
             SpriteInstance.RoomY += roomHeight * deltaRoomHeight;
             SpriteInstance.RoomY += deltaSpriteHeight;
+            if (theGameBoard.DroidsInRoom.Count == 0)
+            {
+                CybertronGameStateUpdater.IncrementScore(theGameBoard, CybertronGameBoardConstants.RoomClearingBonusScore);
+            }
             CybertronGameStateUpdater.PrepareForNewRoom(theGameBoard);
         }
 

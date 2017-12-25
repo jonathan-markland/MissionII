@@ -204,7 +204,7 @@ namespace GameClassLibrary
                     thisDroid.CreateYourExplosion(gameBoard);
                     System.Diagnostics.Debug.Assert(gameBoard.DroidsInRoom.Count == n); // CreateYourExplosion() must NOT invalidate the count!
                     gameBoard.DroidsInRoom.RemoveAt(i);
-                    IncrementScore(gameBoard, Constants.KillMonsterScoreDelta);
+                    IncrementScore(gameBoard, CybertronGameBoardConstants.MonsterKillingScore);
                     return true;
                 }
             }

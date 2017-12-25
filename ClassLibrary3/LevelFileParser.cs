@@ -16,7 +16,6 @@ namespace GameClassLibrary
         public const int MaxDisplayedLives = 8;
         public const int BulletSpacing = 1;
         public const int InventoryItemSpacing = 4;
-        public const int KillMonsterScoreDelta = 10;
     }
 
 

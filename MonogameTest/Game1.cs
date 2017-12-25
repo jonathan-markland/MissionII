@@ -39,7 +39,7 @@ namespace MonogameTest
                     BoardWidth = 320,
                     BoardHeight = 256,
                     LevelNumber = 1,
-                    RoomNumber = 15,
+                    RoomNumber = 1,
                     Score = 0,
                     Lives = 3
                 };
@@ -92,7 +92,7 @@ namespace MonogameTest
             _cybertronGameBoard.Key = new GameClassLibrary.CybertronKey(100, 100, 1);
             _cybertronGameBoard.Ring = new GameClassLibrary.CybertronRing(100, 100, 4);
             _cybertronGameBoard.Gold = new GameClassLibrary.CybertronGold(100, 100, 16);
-            _cybertronGameBoard.Man.Alive(0, 150, 170);
+            _cybertronGameBoard.Man.Alive(0, 17, 92);
 
             GameClassLibrary.CybertronGameStateUpdater.PrepareForNewRoom(_cybertronGameBoard);
 
