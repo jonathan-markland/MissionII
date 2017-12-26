@@ -20,7 +20,6 @@ namespace GameClassLibrary
         }
 
 
-
         public static List<string> ExpandWalls(List<string> wallData)
         {
             // 789       78889
@@ -66,5 +65,22 @@ namespace GameClassLibrary
         {
             return c == ' ' ? " " : "#";
         }
+
+
+       /* public static List<string> WidenPassages(List<string> list)
+        {
+            var height = list.Count;
+            var width = list[0].Length;
+
+            for (int y = 1; y < (height-1); y++)
+            {
+                for (int x = 1; x < (width-1); x++)
+                {
+
+                }
+            }
+        }*/
+
+
     }
 }
