@@ -11,12 +11,18 @@ namespace GameClassLibrary
         public MovementDeltas(int dx, int dy) { this.dx = dx; this.dy = dy; }
         public int dx;
         public int dy;
+
+        public bool Stationary { get { return dx == 0 && dy == 0; } }
     }
 
 
 
     public static class CybertronGameStateUpdater
     {
+        public static Random RandomGenerator = new Random();
+
+
+
         public static void UpdateTo(GameTimeSpan timeSinceGameStart, CybertronGameBoard gameBoard, CybertronKeyStates keyStates)
         {
             // TODO: Not yet using timeSinceGameStart properly (clock the following several times as needed):
@@ -54,22 +60,71 @@ namespace GameClassLibrary
 
         public static CollisionDetection.WallHitTestResult MoveManOnePixel(CybertronGameBoard gameBoard, MovementDeltas movementDeltas)
         {
-            var proposedManX = gameBoard.Man.SpriteInstance.RoomX + movementDeltas.dx;
-            var proposedManY = gameBoard.Man.SpriteInstance.RoomY + movementDeltas.dy;
+            return MoveSpriteInstanceOnePixel(
+                gameBoard.CurrentRoomWallData,
+                gameBoard.Man.SpriteInstance, 
+                movementDeltas);
+        }
+
+
+
+        public static CollisionDetection.WallHitTestResult MoveAdversaryOnePixel(
+            CybertronGameBoard gameBoard, 
+            SpriteInstance spriteInstance, 
+            MovementDeltas movementDeltas)
+        {
+            var oldX = spriteInstance.RoomX;
+            var oldY = spriteInstance.RoomY;
+
+            var myNewRectangle = new Rectangle(
+                oldX + movementDeltas.dx, 
+                oldY + movementDeltas.dy, 
+                spriteInstance.Traits.BoardWidth, 
+                spriteInstance.Traits.BoardHeight);
+
+            foreach(var theDroid in gameBoard.DroidsInRoom)
+            {
+                var droidRectangle = theDroid.GetBoundingRectangle();
+                if (droidRectangle.Left != oldX || droidRectangle.Top != oldY) // TODO: crude way of avoiding self-intersection test
+                {
+                    if (droidRectangle.Intersects(myNewRectangle))
+                    {
+                        return CollisionDetection.WallHitTestResult.HitWall; // Pretend other monsters are wall.  Doesn't matter.
+                    }
+                }
+            }
+
+            if (myNewRectangle.Intersects(gameBoard.Man.SpriteInstance.GetBoundingRectangle()))
+            {
+                return CollisionDetection.WallHitTestResult.HitWall; // Pretend man is wall.  Doesn't matter.
+            }
+
+            return MoveSpriteInstanceOnePixel(
+                gameBoard.CurrentRoomWallData,
+                spriteInstance,
+                movementDeltas);
+        }
+
+
+
+        public static CollisionDetection.WallHitTestResult MoveSpriteInstanceOnePixel(WallMatrix wallMatrix, SpriteInstance spriteInstance, MovementDeltas movementDeltas)
+        {
+            var proposedX = spriteInstance.RoomX + movementDeltas.dx;
+            var proposedY = spriteInstance.RoomY + movementDeltas.dy;
 
             var hitResult = CollisionDetection.HitsWalls(
-                    gameBoard.CurrentRoomWallData,
+                    wallMatrix,
                     CybertronGameBoardConstants.TileWidth,
                     CybertronGameBoardConstants.TileHeight,
-                    proposedManX,
-                    proposedManY,
-                    gameBoard.Man.SpriteInstance.Traits.BoardWidth,
-                    gameBoard.Man.SpriteInstance.Traits.BoardHeight);
+                    proposedX,
+                    proposedY,
+                    spriteInstance.Traits.BoardWidth,
+                    spriteInstance.Traits.BoardHeight);
 
             if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
             {
-                gameBoard.Man.SpriteInstance.RoomX = proposedManX;
-                gameBoard.Man.SpriteInstance.RoomY = proposedManY;
+                spriteInstance.RoomX = proposedX;
+                spriteInstance.RoomY = proposedY;
             }
 
             return hitResult;
@@ -273,13 +328,15 @@ namespace GameClassLibrary
                     return true;
                 });
 
-            var randomNum = new Random(); // TODO: move out
-            Business.Shuffle(pointsList, randomNum);
+            Business.Shuffle(pointsList, RandomGenerator);
 
             // TODO: position keys etc too, where keys are priority.
 
             var droidsList = pointsList.Take(5).Select(
-                o => new CybertronDroid(o.X, o.Y, GameClassLibrary.CybertronSpriteTraits.Monster1)).ToList();
+                o => new CybertronDroid(
+                    o.X, o.Y, 
+                    GameClassLibrary.CybertronSpriteTraits.Monster2, 
+                    new ArtificialIntelligence.SingleMinded())).ToList();
 
             theGameBoard.DroidsInRoom = droidsList;
         }

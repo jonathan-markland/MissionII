@@ -53,5 +53,10 @@ namespace GameClassLibrary
             if (Top >= otherRectangle.Bottom) return false;
             return true;
         }
+
+        public Point Centre
+        {
+            get { return new Point((Left + Right) / 2, (Top + Bottom) / 2); }
+        }
     }
 }
