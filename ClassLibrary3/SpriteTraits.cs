@@ -8,19 +8,11 @@ namespace GameClassLibrary
 {
     public class SpriteTraits
     {
-        public SpriteTraits(int boardWidth, int boardHeight, List<object> hostImageObjects, GameTimeSpan timeBetweenFrames)
+        public SpriteTraits(int boardWidth, int boardHeight, List<object> hostImageObjects)
         {
-            if (hostImageObjects.Count > 1)
-            {
-                if (timeBetweenFrames.Milliseconds == 0)
-                {
-                    throw new Exception("Cannot register animated SpriteTraits with zero time between frames!");
-                }
-            }
             BoardWidth = boardWidth;
             BoardHeight = boardHeight;
             HostImageObjects = hostImageObjects;
-            TimeBetweenFrames = timeBetweenFrames;
         }
         
         /// <summary>
@@ -34,6 +26,5 @@ namespace GameClassLibrary
         public int BoardHeight { get; private set;  }
 
         public List<object> HostImageObjects { get; private set; }
-        public GameTimeSpan TimeBetweenFrames { get; private set; }
     }
 }

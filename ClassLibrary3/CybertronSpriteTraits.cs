@@ -72,7 +72,7 @@ namespace GameClassLibrary
         /// </summary>
         public static void Load(Func<string, HostSuppliedSprite> hostSpriteSupplier)
         {
-            Func<string, int, GameTimeSpan, SpriteTraits> loadImage = (spriteName, imageCount, timeBetweenFrames) =>
+            Func<string, int, SpriteTraits> loadImage = (spriteName, imageCount) =>
             {
                 // When there are multiple images:
                 // - We append "_1", "_2" .. etc to the spriteName
@@ -106,57 +106,52 @@ namespace GameClassLibrary
                     hostImageObjects.Add(thisHostImageInfo.HostObject);
                 }
 
-                return new SpriteTraits(boardWidth, boardHeight, hostImageObjects, timeBetweenFrames);
+                return new SpriteTraits(boardWidth, boardHeight, hostImageObjects);
             };
 
-            var notApplicable = new GameTimeSpan { Milliseconds = 0 };
-            var twentyMs = new GameTimeSpan { Milliseconds = 20 };
-            var oneHundredMs = new GameTimeSpan { Milliseconds = 100 };
-            var walkSpeedMs = new GameTimeSpan { Milliseconds = 250 };
-
-            Bullet = loadImage("Bullet", 1, notApplicable);
-            Dead = loadImage("Dead", 1, notApplicable);
-            Electrocution = loadImage("Electrocution", 2, twentyMs);
-            Explosion = loadImage("Explosion", 3, twentyMs);
-            FacingDown = loadImage("FacingDown", 1, notApplicable);
-            FacingLeft = loadImage("FacingLeft", 1, notApplicable);
-            FacingLeftDown = loadImage("FacingLeftDown", 1, notApplicable);
-            FacingLeftUp = loadImage("FacingLeftUp", 1, notApplicable);
-            FacingRight = loadImage("FacingRight", 1, notApplicable);
-            FacingRightDown = loadImage("FacingRightDown", 1, notApplicable);
-            FacingRightUp = loadImage("FacingRightUp", 1, notApplicable);
-            FacingUp = loadImage("FacingUp", 1, notApplicable);
-            WalkingDown = loadImage("WalkingDown", 2, walkSpeedMs);
-            WalkingLeft = loadImage("WalkingLeft", 2, walkSpeedMs);
-            WalkingLeftDown = loadImage("WalkingLeftDown", 2, walkSpeedMs);
-            WalkingLeftUp = loadImage("WalkingLeftUp", 2, walkSpeedMs);
-            WalkingRight = loadImage("WalkingRight", 2, walkSpeedMs);
-            WalkingRightDown = loadImage("WalkingRightDown", 2, walkSpeedMs);
-            WalkingRightUp = loadImage("WalkingRightUp", 2, walkSpeedMs);
-            WalkingUp = loadImage("WalkingUp", 2, walkSpeedMs);
-            Font0 = loadImage("Font0", 1, notApplicable);
-            Font1 = loadImage("Font1", 1, notApplicable);
-            Font2 = loadImage("Font2", 1, notApplicable);
-            Font3 = loadImage("Font3", 1, notApplicable);
-            Font4 = loadImage("Font4", 1, notApplicable);
-            Font5 = loadImage("Font5", 1, notApplicable);
-            Font6 = loadImage("Font6", 1, notApplicable);
-            Font7 = loadImage("Font7", 1, notApplicable);
-            Font8 = loadImage("Font8", 1, notApplicable);
-            Font9 = loadImage("Font9", 1, notApplicable);
-            Ghost = loadImage("Ghost", 1, notApplicable);
-            Gold = loadImage("Gold", 1, notApplicable);
-            Key = loadImage("Key", 1, notApplicable);
-            Life = loadImage("Life", 1, notApplicable);
-            Monster1 = loadImage("Monster1", 2, oneHundredMs);
-            Monster2 = loadImage("Monster2", 2, oneHundredMs);
-            Monster3 = loadImage("Monster3", 1, notApplicable);
-            Potion = loadImage("Potion", 2, oneHundredMs);
-            Ring = loadImage("Ring", 1, notApplicable);
-            Room = loadImage("Room", 1, notApplicable);
-            Safe = loadImage("Safe", 1, notApplicable);
-            Score = loadImage("Score", 1, notApplicable);
-            WallBlock = loadImage("WallBlock", 1, notApplicable);
+            Bullet = loadImage("Bullet", 1);
+            Dead = loadImage("Dead", 1);
+            Electrocution = loadImage("Electrocution", 2);
+            Explosion = loadImage("Explosion", 3);
+            FacingDown = loadImage("FacingDown", 1);
+            FacingLeft = loadImage("FacingLeft", 1);
+            FacingLeftDown = loadImage("FacingLeftDown", 1);
+            FacingLeftUp = loadImage("FacingLeftUp", 1);
+            FacingRight = loadImage("FacingRight", 1);
+            FacingRightDown = loadImage("FacingRightDown", 1);
+            FacingRightUp = loadImage("FacingRightUp", 1);
+            FacingUp = loadImage("FacingUp", 1);
+            WalkingDown = loadImage("WalkingDown", 2);
+            WalkingLeft = loadImage("WalkingLeft", 2);
+            WalkingLeftDown = loadImage("WalkingLeftDown", 2);
+            WalkingLeftUp = loadImage("WalkingLeftUp", 2);
+            WalkingRight = loadImage("WalkingRight", 2);
+            WalkingRightDown = loadImage("WalkingRightDown", 2);
+            WalkingRightUp = loadImage("WalkingRightUp", 2);
+            WalkingUp = loadImage("WalkingUp", 2);
+            Font0 = loadImage("Font0", 1);
+            Font1 = loadImage("Font1", 1);
+            Font2 = loadImage("Font2", 1);
+            Font3 = loadImage("Font3", 1);
+            Font4 = loadImage("Font4", 1);
+            Font5 = loadImage("Font5", 1);
+            Font6 = loadImage("Font6", 1);
+            Font7 = loadImage("Font7", 1);
+            Font8 = loadImage("Font8", 1);
+            Font9 = loadImage("Font9", 1);
+            Ghost = loadImage("Ghost", 1);
+            Gold = loadImage("Gold", 1);
+            Key = loadImage("Key", 1);
+            Life = loadImage("Life", 1);
+            Monster1 = loadImage("Monster1", 2);
+            Monster2 = loadImage("Monster2", 2);
+            Monster3 = loadImage("Monster3", 1);
+            Potion = loadImage("Potion", 2);
+            Ring = loadImage("Ring", 1);
+            Room = loadImage("Room", 1);
+            Safe = loadImage("Safe", 1);
+            Score = loadImage("Score", 1);
+            WallBlock = loadImage("WallBlock", 1);
 
             // Now build a list of the numbers for convenience of the drawing routines:
             TheNumbers = new List<SpriteTraits>
@@ -197,22 +192,22 @@ namespace GameClassLibrary
                 WalkingLeftUp
             };
 
-            FacingDown = loadImage("FacingDown", 1, notApplicable);
-            FacingLeft = loadImage("FacingLeft", 1, notApplicable);
-            FacingLeftDown = loadImage("FacingLeftDown", 1, notApplicable);
-            FacingLeftUp = loadImage("FacingLeftUp", 1, notApplicable);
-            FacingRight = loadImage("FacingRight", 1, notApplicable);
-            FacingRightDown = loadImage("FacingRightDown", 1, notApplicable);
-            FacingRightUp = loadImage("FacingRightUp", 1, notApplicable);
-            FacingUp = loadImage("FacingUp", 1, notApplicable);
-            WalkingDown = loadImage("WalkingDown", 2, walkSpeedMs);
-            WalkingLeft = loadImage("WalkingLeft", 2, walkSpeedMs);
-            WalkingLeftDown = loadImage("WalkingLeftDown", 2, walkSpeedMs);
-            WalkingLeftUp = loadImage("WalkingLeftUp", 2, walkSpeedMs);
-            WalkingRight = loadImage("WalkingRight", 2, walkSpeedMs);
-            WalkingRightDown = loadImage("WalkingRightDown", 2, walkSpeedMs);
-            WalkingRightUp = loadImage("WalkingRightUp", 2, walkSpeedMs);
-            WalkingUp = loadImage("WalkingUp", 2, walkSpeedMs);
+            FacingDown = loadImage("FacingDown", 1);
+            FacingLeft = loadImage("FacingLeft", 1);
+            FacingLeftDown = loadImage("FacingLeftDown", 1);
+            FacingLeftUp = loadImage("FacingLeftUp", 1);
+            FacingRight = loadImage("FacingRight", 1);
+            FacingRightDown = loadImage("FacingRightDown", 1);
+            FacingRightUp = loadImage("FacingRightUp", 1);
+            FacingUp = loadImage("FacingUp", 1);
+            WalkingDown = loadImage("WalkingDown", 2);
+            WalkingLeft = loadImage("WalkingLeft", 2);
+            WalkingLeftDown = loadImage("WalkingLeftDown", 2);
+            WalkingLeftUp = loadImage("WalkingLeftUp", 2);
+            WalkingRight = loadImage("WalkingRight", 2);
+            WalkingRightDown = loadImage("WalkingRightDown", 2);
+            WalkingRightUp = loadImage("WalkingRightUp", 2);
+            WalkingUp = loadImage("WalkingUp", 2);
 
         }
     }
