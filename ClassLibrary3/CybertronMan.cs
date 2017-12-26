@@ -186,8 +186,8 @@ namespace GameClassLibrary
         {
             theGameBoard.RoomNumber += roomNumberDelta;
             // Note: We sort of assume all the rooms are the same size!  (Which they are!)
-            var roomWidth = theGameBoard.CurrentRoomWallData[0].Length * CybertronGameBoardConstants.TileWidth; // TODO: Not ideal having these possibly repeated calculations.
-            var roomHeight = theGameBoard.CurrentRoomWallData.Count * CybertronGameBoardConstants.TileHeight; // TODO: Not ideal having these possibly repeated calculations.
+            var roomWidth = theGameBoard.CurrentRoomWallData.CountH * CybertronGameBoardConstants.TileWidth; // TODO: Not ideal having these possibly repeated calculations.
+            var roomHeight = theGameBoard.CurrentRoomWallData.CountV * CybertronGameBoardConstants.TileHeight; // TODO: Not ideal having these possibly repeated calculations.
             SpriteInstance.RoomX += roomWidth * deltaRoomWidth;
             SpriteInstance.RoomX += deltaSpriteWidth;
             SpriteInstance.RoomY += roomHeight * deltaRoomHeight;

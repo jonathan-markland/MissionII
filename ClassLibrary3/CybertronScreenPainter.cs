@@ -74,14 +74,15 @@ namespace GameClassLibrary
         }
 
 
-        public static void DrawWalls(int leftX, int topY, int tileWidth, int tileHeight, List<string> wallData, IDrawingTarget drawingTarget)
+        public static void DrawWalls(int leftX, int topY, int tileWidth, int tileHeight, WallMatrix wallData, IDrawingTarget drawingTarget)
         {
-            foreach(string rowStr in wallData)
+            for(int y=0; y < wallData.CountV; y++)
             {
                 int a = leftX;
-                foreach(char ch in rowStr)
+                for(int x=0; x < wallData.CountH; x++)
                 {
-                    if (ch != ' ')
+                    var ch = wallData.Read(x, y);
+                    if (ch.Wall)
                     {
                         DrawFirstSprite(leftX, topY, CybertronSpriteTraits.WallBlock, drawingTarget);
                     }

@@ -19,7 +19,7 @@ namespace GameClassLibrary
         }
 
         public static WallHitTestResult HitsWalls(
-            List<string> wallData,
+            WallMatrix wallData,
             int tileWidth,
             int tileHeight,
             int objectX,
@@ -27,11 +27,10 @@ namespace GameClassLibrary
             int objectWidth,
             int objectHeight)
         {
-            // Empty room ALWAYS reports collision:
-            if (wallData.Count == 0) return WallHitTestResult.HitWall;
+            if (wallData.Empty) return WallHitTestResult.HitWall; // Required.
 
-            var roomWidth = wallData[0].Length * tileWidth; // TODO: Not ideal having these possibly repeated calculations.
-            var roomHeight = wallData.Count * tileHeight; // TODO: Not ideal having these possibly repeated calculations.
+            var roomWidth = wallData.CountH * tileWidth; // TODO: Not ideal having these possibly repeated calculations.
+            var roomHeight = wallData.CountV * tileHeight; // TODO: Not ideal having these possibly repeated calculations.
 
             // Non-inclusive bottom right corner of object:
             var objectX2 = objectX + objectWidth;
@@ -53,10 +52,9 @@ namespace GameClassLibrary
 
             for (int y=cY; y<cy2; y++)
             {
-                var thisRow = wallData[y];
                 for (int x = cX; x < cx2; x++)
                 {
-                    if (thisRow[x] != ' ') return WallHitTestResult.HitWall;  // hit wall block  // NB: If indexing fails, all rows MUST be the same length!
+                    if (wallData.Read(x,y).Wall) return WallHitTestResult.HitWall;  // hit wall block  // NB: If indexing fails, all rows MUST be the same length!
                 }
             }
 

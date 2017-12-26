@@ -20,7 +20,7 @@ namespace GameClassLibrary
         public uint Score;
         public uint Lives;
         public WorldWallData TheWorldWallData;
-        public List<string> CurrentRoomWallData;
+        public WallMatrix CurrentRoomWallData;
         public CybertronMan Man = new CybertronMan();
         public List<CybertronBullet> BulletsInRoom = new List<CybertronBullet>();
         public List<CybertronDroid> DroidsInRoom = new List<CybertronDroid>();

@@ -37,9 +37,17 @@ namespace GameClassLibrary
 
     public class Room
     {
+        public Room(int x, int y, WallMatrix fileWallData)
+        {
+            RoomX = x;
+            RoomY = y;
+            FileWallData = fileWallData;
+        }
+
         public int RoomX;
         public int RoomY;
-        public List<string> WallData;
+        public WallMatrix FileWallData;
+        public WallMatrix WallData;
     }
 
 
@@ -141,7 +149,7 @@ namespace GameClassLibrary
 
         public static Room ParseRoom(StreamReader streamReader, int roomX, int roomY)
         {
-            var thisWallData = new List<string>();
+            var thisWallData = new WallMatrix(Constants.SourceFileCharsHorizontally, Constants.SourceFileCharsVertically);
 
             for (int rowNumber = 0; rowNumber < Constants.SourceFileCharsVertically; ++rowNumber)
             {
@@ -151,10 +159,22 @@ namespace GameClassLibrary
                     throw new Exception("Room definition has invalid number of characters on he row:  Expected 15.");
                 }
                 CheckWallDefinitionCharacters(thisLine);
-                thisWallData.Add(thisLine);
+                PaintLine(thisWallData, rowNumber, thisLine);
             }
 
-            return new Room { RoomX = roomX, RoomY = roomY, WallData = thisWallData };
+            return new Room(roomX, roomY, thisWallData);
+        }
+
+
+
+        public static void PaintLine(WallMatrix targetMatrix, int rowNumber, string thisLine)
+        {
+            int x = 0;
+            foreach(char ch in thisLine)
+            {
+                targetMatrix.Write(x, rowNumber, new WallMatrixChar { WallChar = ch });
+                x++;
+            }
         }
 
 

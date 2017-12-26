@@ -19,15 +19,15 @@ namespace GameClassLibrary
         /// <param name="tallestHeight">Height of TALLEST sprite to be positioned.</param>
         /// <param name="lambdaFunc">Callback function passed top left (x,y) of locations found.</param>
         public static void ForEachEmptyCell(
-                        List<string> wallData,
+                        WallMatrix wallData,
                         int tileWidth,
                         int tileHeight,
                         int tallestWidth,
                         int tallestHeight,
                         Func<int,int,bool> lambdaFunc)
         {
-            var roomWidth = wallData[0].Length * tileWidth; // TODO: Not ideal having these possibly repeated calculations.
-            var roomHeight = wallData.Count * tileHeight; // TODO: Not ideal having these possibly repeated calculations.
+            var roomWidth = wallData.CountH * tileWidth; // TODO: Not ideal having these possibly repeated calculations.
+            var roomHeight = wallData.CountV * tileHeight; // TODO: Not ideal having these possibly repeated calculations.
 
             var countHorz = (int)roomWidth / tallestWidth;
             var countVert = (int)roomHeight / tallestHeight;

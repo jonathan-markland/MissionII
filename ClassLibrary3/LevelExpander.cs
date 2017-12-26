@@ -8,19 +8,22 @@ namespace GameClassLibrary
 {
     public static class LevelExpander
     {
+        private const int ExpandSize = 5;
+
+
         public static void ExpandWallsInWorld(WorldWallData theWorld)
         {
             foreach(var thisLevel in theWorld.Levels)
             {
                 foreach(var thisRoom in thisLevel.Rooms)
                 {
-                    thisRoom.WallData = ExpandWalls(thisRoom.WallData);
+                    thisRoom.WallData = ExpandWalls(thisRoom.FileWallData);
                 }
             }
         }
 
 
-        public static List<string> ExpandWalls(List<string> wallData)
+        public static WallMatrix ExpandWalls(WallMatrix sourceMatrix)
         {
             // 789       78889
             // 456 ----> 45556
@@ -28,42 +31,50 @@ namespace GameClassLibrary
             //           45556
             //           12223
 
-            var resultList = new List<string>();
+            var resultMatrix = new WallMatrix(
+                Constants.ClustersHorizonally * ExpandSize,
+                Constants.ClustersVertically * ExpandSize);
 
-            for(int y=0; y<Constants.SourceFileCharsVertically; y += Constants.ClusterSide)
+            int destY = 0;
+
+            for(int sourceY=0; sourceY < Constants.SourceFileCharsVertically; sourceY += Constants.ClusterSide)
             {
-                resultList.Add(ExpandRow(wallData[y]));
-                resultList.Add(ExpandRow(wallData[y+1]));
-                resultList.Add(ExpandRow(wallData[y+1]));
-                resultList.Add(ExpandRow(wallData[y+1]));
-                resultList.Add(ExpandRow(wallData[y+2]));
+                PaintExpandedRow(sourceMatrix, resultMatrix, sourceY+0, destY+0);
+                PaintExpandedRow(sourceMatrix, resultMatrix, sourceY+1, destY+1);
+                PaintExpandedRow(sourceMatrix, resultMatrix, sourceY+1, destY+2);
+                PaintExpandedRow(sourceMatrix, resultMatrix, sourceY+1, destY+3);
+                PaintExpandedRow(sourceMatrix, resultMatrix, sourceY+2, destY+4);
+                destY += ExpandSize;
             }
 
-            return resultList;
+            return resultMatrix;
         }
 
 
 
-        public static string ExpandRow(string levelSourceFileRow)
+        public static void PaintExpandedRow(WallMatrix sourceWallData, WallMatrix destMatrix, int sourceY, int destY)
         {
-            var resultStr = String.Empty;  // TODO: Garbage optimisation
+            int destX = 0;
 
-            for ( int x=0; x < Constants.SourceFileCharsHorizontally; x += Constants.ClusterSide )
+            for ( int sourceX=0; sourceX < Constants.SourceFileCharsHorizontally; sourceX += Constants.ClusterSide )
             {
-                var c1 = RemapChar(levelSourceFileRow[x]);
-                var c2 = RemapChar(levelSourceFileRow[x+1]);
-                var c3 = RemapChar(levelSourceFileRow[x+2]);
-                resultStr += c1 + c2 + c2 + c2 + c3;
+                var c1 = RemapChar(sourceWallData.Read(sourceX, sourceY));
+                var c2 = RemapChar(sourceWallData.Read(sourceX + 1, sourceY));
+                var c3 = RemapChar(sourceWallData.Read(sourceX + 2, sourceY));
+                destMatrix.Write(destX + 0, destY, c1);
+                destMatrix.Write(destX + 1, destY, c2);
+                destMatrix.Write(destX + 2, destY, c2);
+                destMatrix.Write(destX + 3, destY, c2);
+                destMatrix.Write(destX + 4, destY, c3);
+                destX += ExpandSize;
             }
-
-            return resultStr;
         }
 
 
 
-        public static string RemapChar(char c)
+        public static WallMatrixChar RemapChar(WallMatrixChar c)
         {
-            return c == ' ' ? " " : "#";
+            return new WallMatrixChar { WallChar = (c.Space ? ' ' : '#' ) };
         }
 
 

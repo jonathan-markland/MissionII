@@ -71,6 +71,7 @@
     <Compile Include="Rectangle.cs" />
     <Compile Include="SpriteInstance.cs" />
     <Compile Include="SpriteTraits.cs" />
+    <Compile Include="WallMatrix.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

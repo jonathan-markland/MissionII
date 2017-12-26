@@ -13,7 +13,7 @@ namespace GameClassLibrary
                 {
                     try
                     {
-                        ExpectValidPathsInRoom(thisRoom.WallData);
+                        ExpectValidPathsInRoom(thisRoom.FileWallData);
                         ExpectEdgeDoorwaysMatchOtherRooms(thisRoom, thisLevel.Rooms);
                     }
                     catch(Exception e)
@@ -26,7 +26,7 @@ namespace GameClassLibrary
 
 
 
-        public static void ExpectValidPathsInRoom(List<string> wallData)
+        public static void ExpectValidPathsInRoom(WallMatrix fileWallData)
         {
             // Validations for each 3x3 group of tiles individually:
 
@@ -34,7 +34,7 @@ namespace GameClassLibrary
             {
                 for (int x = 0; x < Constants.SourceFileCharsHorizontally - Constants.ClusterSide; x += Constants.ClusterSide)
                 {
-                    ExpectValidThreeByThree(wallData, x, y);
+                    ExpectValidThreeByThree(fileWallData, x, y);
                 }
             }
 
@@ -44,25 +44,25 @@ namespace GameClassLibrary
             {
                 for (int x = 2; x <= Constants.SourceFileCharsHorizontally - 4; x += Constants.ClusterSide)
                 {
-                    ValidateTileConnection(wallData, x, y, 1, 0);  // Horizontal connections
-                    ValidateTileConnection(wallData, y, x, 0, 1);  // Vertical connections
+                    ValidateTileConnection(fileWallData, x, y, 1, 0);  // Horizontal connections
+                    ValidateTileConnection(fileWallData, y, x, 0, 1);  // Vertical connections
                 }
             }
         }
 
 
 
-        public static bool BothAreSpaceOrBothAreWall(char c1, char c2)
+        public static bool BothAreSpaceOrBothAreWall(WallMatrixChar c1, WallMatrixChar c2)
         {
-            return !((c1 == ' ') ^ (c2 == ' '));
+            return !((c1.Space) ^ (c2.Space));
         }
 
 
 
-        public static void ValidateTileConnection(List<string> wallData, int x, int y, int dx, int dy)
+        public static void ValidateTileConnection(WallMatrix fileWallData, int x, int y, int dx, int dy)
         {
-            char c1 = wallData[y][x];
-            char c2 = wallData[y + dy][x + dx];
+            var c1 = fileWallData.Read(x, y);
+            var c2 = fileWallData.Read(x + dx, y + dy);
             if (! BothAreSpaceOrBothAreWall(c1, c2))
             {
                 throw new Exception($"Invalid connection between 3 x 3 tiles at ({x},{y}).  Both must be spaces, or both must be wall.");
@@ -110,11 +110,11 @@ namespace GameClassLibrary
 
             for (int i=0; i<Constants.ClustersHorizonally; i++) // TODO: collapse H/V constants to one.
             {
-                var thisRoomSquare = thisRoom.WallData[startY][startX];
+                var thisRoomSquare = thisRoom.FileWallData.Read(startX, startY);
 
                 if (otherRoomIsOffMap)
                 {
-                    if (thisRoomSquare == ' ')
+                    if (thisRoomSquare.Space)
                     {
                         throw new Exception($"No doorway must exist at ({startX},{startY}) because it leads off the map.");
                     }
@@ -130,7 +130,7 @@ namespace GameClassLibrary
                     var otherRoomPosY = travellingHorizontally ? (n - startY) : startY; 
 
                     // Fetch corresponding char in adjacent room, and check:
-                    var otherRoomSquare = otherRoom.WallData[otherRoomPosY][otherRoomPosX];
+                    var otherRoomSquare = otherRoom.FileWallData.Read(otherRoomPosX, otherRoomPosY);
 
                     if (! BothAreSpaceOrBothAreWall(thisRoomSquare, otherRoomSquare))
                     {
@@ -162,54 +162,54 @@ namespace GameClassLibrary
 
 
 
-        public static void ExpectValidThreeByThree(List<string> wallData, int x, int y)
+        public static void ExpectValidThreeByThree(WallMatrix fileWallData, int x, int y)
         {
             // 789
             // 456
             // 123
 
-            char c7 = wallData[y][x];
-            char c8 = wallData[y][x + 1];
-            char c9 = wallData[y][x + 2];
-            char c4 = wallData[y + 1][x];
-            char c5 = wallData[y + 1][x + 1];
-            char c6 = wallData[y + 1][x + 2];
-            char c1 = wallData[y + 2][x];
-            char c2 = wallData[y + 2][x + 1];
-            char c3 = wallData[y + 2][x + 2];
+            var c7 = fileWallData.Read(x + 0, y + 0);
+            var c8 = fileWallData.Read(x + 1, y + 0);
+            var c9 = fileWallData.Read(x + 2, y + 0);
+            var c4 = fileWallData.Read(x + 0, y + 1);
+            var c5 = fileWallData.Read(x + 1, y + 1);
+            var c6 = fileWallData.Read(x + 2, y + 1);
+            var c1 = fileWallData.Read(x + 0, y + 2);
+            var c2 = fileWallData.Read(x + 1, y + 2);
+            var c3 = fileWallData.Read(x + 2, y + 2);
 
-            var spaceIn8246 = (c8 == ' ' || c2 == ' ' || c4 == ' ' || c6 == ' ');
+            var spaceIn8246 = (c8.Space || c2.Space || c4.Space || c6.Space);
 
             // Centre square space-check rules.
 
-            if (spaceIn8246 && c5 != ' ')
+            if (spaceIn8246 && c5.Wall)
             {
                 throw new Exception($"Character at ({x+1},{y+1}) must be a space!");
             }
 
-            if (c5 == ' ' && !spaceIn8246)
+            if (c5.Space && !spaceIn8246)
             {
                 throw new Exception($"Character at ({x+1},{y+1}) cannot be a space without a space above, below, to the left or to the right!");
             }
 
             // Corner squares cannot just be spaces.
 
-            if (c7 == ' ' && !(c4 == ' ' && c5 == ' ' && c8 == ' '))
+            if (c7.Space && !(c4.Space && c5.Space && c8.Space))
             {
                 throw new Exception($"Corner square at ({x},{y}) cannot be a space.");
             }
 
-            if (c9 == ' ' && !(c6 == ' ' && c5 == ' ' && c8 == ' '))
+            if (c9.Space && !(c6.Space && c5.Space && c8.Space))
             {
                 throw new Exception($"Corner square at ({x+2},{y}) cannot be a space.");
             }
 
-            if (c3 == ' ' && !(c2 == ' ' && c5 == ' ' && c6 == ' '))
+            if (c3.Space && !(c2.Space && c5.Space && c6.Space))
             {
                 throw new Exception($"Corner square at ({x+2},{y+2}) cannot be a space.");
             }
 
-            if (c1 == ' ' && !(c2 == ' ' && c5 == ' ' && c4 == ' '))
+            if (c1.Space && !(c2.Space && c5.Space && c4.Space))
             {
                 throw new Exception($"Corner square at ({x},{y+2}) cannot be a space.");
             }
