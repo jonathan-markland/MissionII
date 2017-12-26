@@ -66,7 +66,7 @@ namespace GameClassLibrary
 
                     // Collision between man and room objects?
 
-                    var manRectangle = this.GetBoundingRectangle();
+                    var manRectangle = GetBoundingRectangle();
                     theGameBoard.ForEachDo(roomObject =>
                     {
                         if (manRectangle.Intersects(roomObject.GetBoundingRectangle()))

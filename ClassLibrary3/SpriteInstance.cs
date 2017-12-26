@@ -29,5 +29,15 @@ namespace GameClassLibrary
         {
             return new Rectangle(RoomX, RoomY, Traits.BoardWidth, Traits.BoardHeight);
         }
+
+        public bool Intersects(SpriteInstance otherSprite)
+        {
+            return GetBoundingRectangle().Intersects(otherSprite.GetBoundingRectangle());
+        }
+
+        public Point Centre
+        {
+            get { return GetBoundingRectangle().Centre; }
+        }
     }
 }

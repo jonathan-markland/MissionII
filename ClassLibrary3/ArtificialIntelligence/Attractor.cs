@@ -15,8 +15,8 @@ namespace GameClassLibrary.ArtificialIntelligence
             _operationEnable = !_operationEnable;  // ie: operate only ever other cycle
             if (_operationEnable)
             {
-                var manCentre = theGameBoard.Man.SpriteInstance.GetBoundingRectangle().Centre;
-                var myCentre = spriteInstance.GetBoundingRectangle().Centre;
+                var manCentre = theGameBoard.Man.SpriteInstance.Centre;
+                var myCentre = spriteInstance.Centre;
 
                 // We must separate horizontal and vertical movement in order to avoid
                 // things getting 'stuck' on walls because they can't move horizontally

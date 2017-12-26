@@ -227,7 +227,8 @@ namespace GameClassLibrary
                 {
                     theBullet.Sprite.RoomX = proposedX;
                     theBullet.Sprite.RoomY = proposedY;
-                    if (KillThingsIfShot(gameBoard, proposedX, proposedY, theBullet.IncreasesScore))
+
+                    if (KillThingsIfShot(gameBoard, theBullet))
                     {
                         gameBoard.BulletsInRoom.RemoveAt(i);
                     }
@@ -241,12 +242,12 @@ namespace GameClassLibrary
 
 
 
-        public static bool KillThingsIfShot(CybertronGameBoard gameBoard, int bulletX, int bulletY, bool increasesScore)
+        public static bool KillThingsIfShot(CybertronGameBoard gameBoard, CybertronBullet theBullet)
         {
             // TODO: We are NOT considering the dimensions of the bullet!
             // Only a single point, which is actually just the top left corner!
 
-            if (Intersects(bulletX, bulletY, gameBoard.Man.SpriteInstance))
+            if (theBullet.Sprite.Intersects(gameBoard.Man.SpriteInstance))
             {
                 gameBoard.Man.Die();
                 return true;
@@ -256,12 +257,12 @@ namespace GameClassLibrary
             for(int i=n-1; i>=0; --i)
             {
                 var thisDroid = gameBoard.DroidsInRoom[i];
-                if (Intersects(bulletX, bulletY, thisDroid.SpriteInstance))
+                if (theBullet.Sprite.Intersects(thisDroid.SpriteInstance))
                 {
                     thisDroid.CreateYourExplosion(gameBoard);
                     System.Diagnostics.Debug.Assert(gameBoard.DroidsInRoom.Count == n); // CreateYourExplosion() must NOT invalidate the count!
                     gameBoard.DroidsInRoom.RemoveAt(i);
-                    if (increasesScore)
+                    if (theBullet.IncreasesScore)
                     {
                         IncrementScore(gameBoard, CybertronGameBoardConstants.MonsterKillingScore);
                     }
@@ -364,16 +365,5 @@ namespace GameClassLibrary
             theGameBoard.DroidsInRoom = droidsList;
         }
 
-
-
-        public static bool Intersects(int bulletX, int bulletY, SpriteInstance spriteInstance)
-        {
-            // TODO: We are NOT considering the dimensions of the bullet!
-            if (bulletX < spriteInstance.RoomX) return false;
-            if (bulletY < spriteInstance.RoomY) return false;
-            if (bulletX >= (spriteInstance.RoomX + spriteInstance.Traits.BoardWidth)) return false;
-            if (bulletY >= (spriteInstance.RoomY + spriteInstance.Traits.BoardWidth)) return false;
-            return true;
-        }
     }
 }
