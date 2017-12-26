@@ -82,6 +82,9 @@ namespace GameClassLibrary
 
         public static void CarveWiderRoutes(WallMatrix expandedData)
         {
+            // BUG:  Carving invalidates the door thickness matching between rooms
+            // (potentially) .
+
             // TODO: The CarveRun calls could be randomly omitted for artistic effect
             for (int i = 0; i < 25; i++)
             {
