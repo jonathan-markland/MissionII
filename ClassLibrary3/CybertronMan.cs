@@ -6,7 +6,7 @@ namespace GameClassLibrary
         public SpriteInstance SpriteInstance = new SpriteInstance();
         private bool _isDead;
         private bool _isElectrocuting;
-        private int _facingDirection = 0;
+        private int _facingDirection = 2;  // TODO: This is the man's initial facing direction.  Sort out properly.z
         private int _imageIndex = 0;
         private int _animationCountdown = WalkingAnimationReset;
         private const int WalkingAnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
@@ -88,7 +88,7 @@ namespace GameClassLibrary
                     {
                         if (!_awaitingFireRelease)
                         {
-                            CybertronGameStateUpdater.StartBullet(SpriteInstance, _facingDirection, theGameBoard);
+                            CybertronGameStateUpdater.StartBullet(SpriteInstance, _facingDirection, theGameBoard, true);
                             _awaitingFireRelease = true; // require press-release sequence for firing bullets.
                         }
                     }

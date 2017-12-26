@@ -5,11 +5,13 @@ namespace GameClassLibrary
     {
         public SpriteInstance Sprite;
         public MovementDeltas BulletDirection;
+        public bool _increasesScore;
 
-        public CybertronBullet(SpriteInstance theSprite, MovementDeltas bulletDirection)
+        public CybertronBullet(SpriteInstance theSprite, MovementDeltas bulletDirection, bool increasesScore)
         {
             Sprite = theSprite;
             BulletDirection = bulletDirection;
+            _increasesScore = increasesScore;
         }
 
         public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, CybertronKeyStates theKeyStates)
@@ -30,6 +32,11 @@ namespace GameClassLibrary
         public override Rectangle GetBoundingRectangle()
         {
             return Sprite.GetBoundingRectangle();
+        }
+
+        public bool IncreasesScore
+        {
+            get { return _increasesScore; }
         }
     }
 }

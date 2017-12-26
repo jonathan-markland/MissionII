@@ -135,7 +135,8 @@ namespace GameClassLibrary
         public static void StartBullet(
             SpriteInstance sourceSprite, 
             int facingDirection,
-            CybertronGameBoard cybertronGameBoard)
+            CybertronGameBoard cybertronGameBoard,
+            bool increasesScore)
         {
             // TODO: Separate out a bit for unit testing?
 
@@ -187,6 +188,7 @@ namespace GameClassLibrary
                         Traits = theBulletTraits
                     }
                     , bulletDirection
+                    , increasesScore
                 ));
         }
 
@@ -225,7 +227,7 @@ namespace GameClassLibrary
                 {
                     theBullet.Sprite.RoomX = proposedX;
                     theBullet.Sprite.RoomY = proposedY;
-                    if (KillThingsIfShot(gameBoard, proposedX, proposedY))
+                    if (KillThingsIfShot(gameBoard, proposedX, proposedY, theBullet.IncreasesScore))
                     {
                         gameBoard.BulletsInRoom.RemoveAt(i);
                     }
@@ -239,7 +241,7 @@ namespace GameClassLibrary
 
 
 
-        public static bool KillThingsIfShot(CybertronGameBoard gameBoard, int bulletX, int bulletY)
+        public static bool KillThingsIfShot(CybertronGameBoard gameBoard, int bulletX, int bulletY, bool increasesScore)
         {
             // TODO: We are NOT considering the dimensions of the bullet!
             // Only a single point, which is actually just the top left corner!
@@ -259,7 +261,10 @@ namespace GameClassLibrary
                     thisDroid.CreateYourExplosion(gameBoard);
                     System.Diagnostics.Debug.Assert(gameBoard.DroidsInRoom.Count == n); // CreateYourExplosion() must NOT invalidate the count!
                     gameBoard.DroidsInRoom.RemoveAt(i);
-                    IncrementScore(gameBoard, CybertronGameBoardConstants.MonsterKillingScore);
+                    if (increasesScore)
+                    {
+                        IncrementScore(gameBoard, CybertronGameBoardConstants.MonsterKillingScore);
+                    }
                     return true;
                 }
             }
@@ -332,11 +337,29 @@ namespace GameClassLibrary
 
             // TODO: position keys etc too, where keys are priority.
 
-            var droidsList = pointsList.Take(5).Select(
-                o => new CybertronDroid(
-                    o.X, o.Y, 
-                    GameClassLibrary.CybertronSpriteTraits.Monster2, 
-                    new ArtificialIntelligence.SingleMinded())).ToList();
+            var droidPoints = pointsList.Take(8);
+            var droidsList = new List<CybertronDroid>();
+
+            foreach(var droidPoint in droidPoints)
+            {
+                var monsterType = (RandomGenerator.Next(10));
+
+                var monsterGraphic =
+                    (monsterType < 6)
+                    ? GameClassLibrary.CybertronSpriteTraits.Monster1
+                    : GameClassLibrary.CybertronSpriteTraits.Monster2;
+
+                var monsterAI =
+                    (monsterType < 6)
+                        ? new ArtificialIntelligence.Attractor() as ArtificialIntelligence.AbstractIntelligenceProvider
+                        : new ArtificialIntelligence.SingleMinded() as ArtificialIntelligence.AbstractIntelligenceProvider;
+
+                droidsList.Add(
+                    new CybertronDroid(
+                        droidPoint.X, droidPoint.Y,
+                        monsterGraphic,
+                        monsterAI));
+            }
 
             theGameBoard.DroidsInRoom = droidsList;
         }

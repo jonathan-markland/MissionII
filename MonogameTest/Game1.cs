@@ -142,7 +142,7 @@ namespace MonogameTest
             _cybertronKeyStates.Up = theKeyboard.IsKeyDown(Keys.Up);
             _cybertronKeyStates.Left = theKeyboard.IsKeyDown(Keys.Left);
             _cybertronKeyStates.Right = theKeyboard.IsKeyDown(Keys.Right);
-            _cybertronKeyStates.Fire = theKeyboard.IsKeyDown(Keys.Space);
+            _cybertronKeyStates.Fire = theKeyboard.IsKeyDown(Keys.Z);
             _cybertronKeyStates.Quit = theKeyboard.IsKeyDown(Keys.Escape);
             _cybertronKeyStates.Pause = theKeyboard.IsKeyDown(Keys.P);
         }

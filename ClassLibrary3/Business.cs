@@ -47,14 +47,14 @@ namespace GameClassLibrary
 
         private static MovementDeltas[] g_MovementDeltas = new MovementDeltas[]
         {
-            new MovementDeltas { dx = 0, dy = -1 },
-            new MovementDeltas { dx = 1, dy = -1 },
-            new MovementDeltas { dx = 1, dy = 0 },
-            new MovementDeltas { dx = 1, dy = 1 },
-            new MovementDeltas { dx = 0, dy = 1 },
-            new MovementDeltas { dx = -1, dy = 1 },
-            new MovementDeltas { dx = -1, dy = 0 },
-            new MovementDeltas { dx = -1, dy = -1 },
+            new MovementDeltas { dx =  0, dy = -1 }, // up
+            new MovementDeltas { dx =  1, dy = -1 }, // up right
+            new MovementDeltas { dx =  1, dy =  0 }, // right
+            new MovementDeltas { dx =  1, dy =  1 }, // down right
+            new MovementDeltas { dx =  0, dy =  1 }, // down
+            new MovementDeltas { dx = -1, dy =  1 }, // down left
+            new MovementDeltas { dx = -1, dy =  0 }, // left 
+            new MovementDeltas { dx = -1, dy = -1 }, // left up
         };
 
 
