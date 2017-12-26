@@ -140,7 +140,7 @@ namespace GameClassLibrary
         public static void MoveBullets(CybertronGameBoard gameBoard)
         {
             if (gameBoard.BulletsInRoom.Count == 0) return; // optimisation
-            for( int i=0; i<3; i++)
+            for( int i=0; i < Constants.BulletCycles; i++)
             {
                 MoveBulletsOnePixel(gameBoard);
             }

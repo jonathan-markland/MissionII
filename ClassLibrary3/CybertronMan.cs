@@ -40,7 +40,7 @@ namespace GameClassLibrary
                     var hitResult = CybertronGameStateUpdater.MoveManOnePixel(theGameBoard, movementDeltas);
                     if (hitResult == CollisionDetection.WallHitTestResult.HitWall)
                     {
-                        // TODO: Put back in:  Electrocute();
+                        Electrocute();
                         return;
                     }
                     else if (hitResult == CollisionDetection.WallHitTestResult.OutsideRoomAbove)

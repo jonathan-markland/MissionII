@@ -17,11 +17,12 @@ namespace GameClassLibrary
             {
                 foreach(var thisRoom in thisLevel.Rooms)
                 {
-                    thisRoom.WallData = ExpandWalls(thisRoom.FileWallData);
+                    var expandedData = ExpandWalls(thisRoom.FileWallData);
+                    CarveWiderRoutes(expandedData);
+                    thisRoom.WallData = expandedData;
                 }
             }
         }
-
 
         public static WallMatrix ExpandWalls(WallMatrix sourceMatrix)
         {
@@ -78,19 +79,48 @@ namespace GameClassLibrary
         }
 
 
-       /* public static List<string> WidenPassages(List<string> list)
+
+        public static void CarveWiderRoutes(WallMatrix expandedData)
         {
-            var height = list.Count;
-            var width = list[0].Length;
-
-            for (int y = 1; y < (height-1); y++)
+            // TODO: The CarveRun calls could be randomly omitted for artistic effect
+            for (int i = 0; i < 25; i++)
             {
-                for (int x = 1; x < (width-1); x++)
-                {
-
-                }
+                CarveRun(expandedData, i, 0, 0, 1, 25);
+                CarveRun(expandedData, i, 24, 0, -1, 25);
             }
-        }*/
+            for (int i = 0; i < 25; i++)
+            {
+                CarveRun(expandedData, 0, i, 1, 0, 25);
+                CarveRun(expandedData, 24, i, -1, 0, 25);
+            }
+        }
+
+
+
+        public static void CarveRun(WallMatrix wallData, int x1, int y1, int dx, int dy, int c)
+        {
+            var spaceChar = new WallMatrixChar { WallChar = ' ' }; // TODO: sort out constructor
+            int runSize = 0;
+            while (c > 0)
+            {
+                var block1 = wallData.Read(x1, y1);
+                if (block1.Space)
+                {
+                    if (runSize > 3) // TODO: This constant could be parameterised for different effects.
+                    {
+                        wallData.Write(x1 - dx, y1 - dy, spaceChar);
+                    }
+                    runSize = 0;
+                }
+                else
+                {
+                    ++runSize;
+                }
+                x1 += dx;
+                y1 += dy;
+                --c;
+            }
+        }
 
 
     }
