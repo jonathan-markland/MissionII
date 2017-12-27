@@ -71,7 +71,7 @@ namespace GameClassLibrary
                     {
                         if (manRectangle.Intersects(roomObject.GetBoundingRectangle()))
                         {
-                            roomObject.DoManIntersectionAction(theGameBoard);
+                            roomObject.ManWalkedIntoYou(theGameBoard);
                             if (_isDead) return false;
                         }
                         return true;
@@ -204,7 +204,7 @@ namespace GameClassLibrary
             return SpriteInstance.GetBoundingRectangle();
         }
 
-        public override void DoManIntersectionAction(CybertronGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
         {
             // No action for self-intersection.
         }

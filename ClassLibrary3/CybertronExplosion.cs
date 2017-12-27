@@ -39,7 +39,7 @@
             return SpriteInstance.GetBoundingRectangle();
         }
 
-        public override void DoManIntersectionAction(CybertronGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
         {
             // No action required.
         }

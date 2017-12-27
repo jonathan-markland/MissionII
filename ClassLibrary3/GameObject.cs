@@ -11,6 +11,6 @@ namespace GameClassLibrary
         public abstract void AdvanceOneCycle(T theGameBoard, K theKeyStates);
         public abstract void Draw(T theGameBoard, IDrawingTarget drawingTarget);
         public abstract Rectangle GetBoundingRectangle();
-        public abstract void DoManIntersectionAction(T theGameBoard);
+        public abstract void ManWalkedIntoYou(T theGameBoard);
     }
 }

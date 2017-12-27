@@ -46,7 +46,7 @@ namespace GameClassLibrary
             return SpriteInstance.GetBoundingRectangle();
         }
 
-        public override void DoManIntersectionAction(CybertronGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
         {
             theGameBoard.Man.Die();
         }

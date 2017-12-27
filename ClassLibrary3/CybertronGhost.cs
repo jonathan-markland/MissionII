@@ -54,10 +54,20 @@ namespace GameClassLibrary
                 CybertronGameStateUpdater.MoveAdversaryOnePixelUnchecked(
                     _spriteInstance,
                     moveDeltas);
+
+                if (_spriteInstance.Intersects(theGameBoard.Man.SpriteInstance))
+                {
+                    KillMan(theGameBoard);
+                }
             }
         }
 
-        public override void DoManIntersectionAction(CybertronGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
+        {
+            KillMan(theGameBoard); // This is not as important as the other call site.
+        }
+
+        private void KillMan(CybertronGameBoard theGameBoard)
         {
             if (_stunCountDown == 0 && !_killedMan)
             {

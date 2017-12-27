@@ -33,7 +33,7 @@ namespace GameClassLibrary
             // No action required.
         }
 
-        public override void DoManIntersectionAction(CybertronGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
         {
             if (theGameBoard.RoomNumber == _roomNumber)
             {

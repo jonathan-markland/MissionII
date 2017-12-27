@@ -19,7 +19,7 @@ namespace GameClassLibrary
             // Not handled here.  Handled at global level.
         }
 
-        public override void DoManIntersectionAction(CybertronGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
         {
             // Not handled here.  Handled at global level.  // TODO: could this be handled here?
         }
