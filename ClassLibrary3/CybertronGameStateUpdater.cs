@@ -107,6 +107,14 @@ namespace GameClassLibrary
 
 
 
+        public static void MoveAdversaryOnePixelUnchecked(SpriteInstance spriteInstance, MovementDeltas movementDeltas)
+        {
+            spriteInstance.RoomX = spriteInstance.RoomX + movementDeltas.dx;
+            spriteInstance.RoomY = spriteInstance.RoomY + movementDeltas.dy;
+        }
+
+
+
         public static CollisionDetection.WallHitTestResult MoveSpriteInstanceOnePixel(WallMatrix wallMatrix, SpriteInstance spriteInstance, MovementDeltas movementDeltas)
         {
             var proposedX = spriteInstance.RoomX + movementDeltas.dx;
@@ -253,6 +261,8 @@ namespace GameClassLibrary
                 return true;
             }
 
+            var ghostRect = gameBoard.Ghost.GetBoundingRectangle();
+
             int n = gameBoard.DroidsInRoom.Count;
             for(int i=n-1; i>=0; --i)
             {
@@ -267,6 +277,10 @@ namespace GameClassLibrary
                         IncrementScore(gameBoard, CybertronGameBoardConstants.MonsterKillingScore);
                     }
                     return true;
+                }
+                else if(theBullet.Sprite.GetBoundingRectangle().Intersects(ghostRect)) // TODO: Allow man's bullets to stun only.
+                {
+                    gameBoard.Ghost.Stunned();
                 }
             }
 
@@ -363,7 +377,25 @@ namespace GameClassLibrary
             }
 
             theGameBoard.DroidsInRoom = droidsList;
+
+            theGameBoard.Ghost.NotifyNewRoom();
         }
+
+
+
+        public static MovementDeltas GetMovementDeltasToHeadTowards(SpriteInstance aggressorSprite, SpriteInstance targetSprite)
+        {
+            var targetCentre = targetSprite.Centre;
+            var aggressorCentre = aggressorSprite.Centre;
+            int dx = 0;
+            if (targetCentre.X < aggressorCentre.X) dx = -1;
+            if (targetCentre.X > aggressorCentre.X) dx = 1;
+            int dy = 0;
+            if (targetCentre.Y < aggressorCentre.Y) dy = -1;
+            if (targetCentre.Y > aggressorCentre.Y) dy = 1;
+            return new MovementDeltas(dx, dy);
+        }
+
 
     }
 }

@@ -15,8 +15,9 @@ namespace GameClassLibrary.ArtificialIntelligence
             _operationEnable = !_operationEnable;  // ie: operate only ever other cycle
             if (_operationEnable)
             {
-                var manCentre = theGameBoard.Man.SpriteInstance.Centre;
-                var myCentre = spriteInstance.Centre;
+                var moveDeltas = CybertronGameStateUpdater.GetMovementDeltasToHeadTowards(
+                    spriteInstance, 
+                    theGameBoard.Man.SpriteInstance);
 
                 // We must separate horizontal and vertical movement in order to avoid
                 // things getting 'stuck' on walls because they can't move horizontally
@@ -24,21 +25,15 @@ namespace GameClassLibrary.ArtificialIntelligence
                 // directions at once results in rejection of the move, and the
                 // sticking problem.
 
-                int dx = 0;
-                if (manCentre.X < myCentre.X) dx = -1;
-                if (manCentre.X > myCentre.X) dx = 1;
                 CybertronGameStateUpdater.MoveAdversaryOnePixel(
                     theGameBoard,
                     spriteInstance,
-                    new MovementDeltas(dx, 0));
+                    new MovementDeltas(moveDeltas.dx, 0));
 
-                int dy = 0;
-                if (manCentre.Y < myCentre.Y) dy = -1;
-                if (manCentre.Y > myCentre.Y) dy = 1;
                 CybertronGameStateUpdater.MoveAdversaryOnePixel(
                     theGameBoard,
                     spriteInstance,
-                    new MovementDeltas(0, dy));
+                    new MovementDeltas(0, moveDeltas.dy));
             }
         }
     }

@@ -65,6 +65,11 @@ namespace GameClassLibrary
             drawingTarget.DrawSprite(x, y, theSprite.HostImageObjects[0]);
         }
 
+        public static void DrawFirstSprite(SpriteInstance theSprite, IDrawingTarget drawingTarget)
+        {
+            drawingTarget.DrawSprite(theSprite.RoomX, theSprite.RoomY, theSprite.Traits.HostImageObjects[0]);
+        }
+
         public static void DrawIndexedSprite(SpriteInstance theSprite, int spriteIndex, IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawSprite(

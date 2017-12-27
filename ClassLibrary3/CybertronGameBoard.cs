@@ -27,7 +27,7 @@ namespace GameClassLibrary
         public List<CybertronObject> ObjectsInRoom = new List<CybertronObject>();
         public List<CybertronExplosion> ExplosionsInRoom = new List<CybertronExplosion>();
         public List<CybertronExplosion> ExplosionsToRemove = new List<CybertronExplosion>();
-        public CybertronGhost Ghost;
+        public CybertronGhost Ghost = new CybertronGhost();
         // TODO: List<??> Inventory;   // What's carried.    TODO: Paint inventory    TODO: Manage list when collecting an item.
         public List<CybertronObject> PlayerInventory = new List<CybertronObject>();
         public CybertronKey Key;
@@ -49,10 +49,7 @@ namespace GameClassLibrary
             {
                 if (!theAction(theExplosion)) return false;
             }
-            if (Ghost != null) // TODO: Will we use null at all?
-            {
-                if (!theAction(Ghost)) return false;
-            }
+            if (!theAction(Ghost)) return false;
             foreach (var theObject in ObjectsInRoom)
             {
                 if (!theAction(theObject)) return false;
