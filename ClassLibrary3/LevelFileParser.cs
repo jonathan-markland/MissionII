@@ -7,8 +7,8 @@ namespace GameClassLibrary
     public static class Constants  // TODO: Location of some of these constants is suspect, in view of general name "Constants"
     {
         public const int BulletCycles = 4;
-        public const int GhostStartCycles = 4000;
-        public const int GhostStunnedCycles = 2000;
+        public const int GhostStartCycles = 400;
+        public const int GhostStunnedCycles = 200;
         public const int RoomsHorizontally = 4;
         public const int RoomsVertically = 4;
         public const int ClustersHorizonally = 5;

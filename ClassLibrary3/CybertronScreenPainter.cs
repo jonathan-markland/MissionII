@@ -67,7 +67,10 @@ namespace GameClassLibrary
 
         public static void DrawFirstSprite(SpriteInstance theSprite, IDrawingTarget drawingTarget)
         {
-            drawingTarget.DrawSprite(theSprite.RoomX, theSprite.RoomY, theSprite.Traits.HostImageObjects[0]);
+            drawingTarget.DrawSprite(
+                CybertronGameBoardConstants.RoomOriginX + theSprite.RoomX,
+                CybertronGameBoardConstants.RoomOriginY + theSprite.RoomY, 
+                theSprite.Traits.HostImageObjects[0]);
         }
 
         public static void DrawIndexedSprite(SpriteInstance theSprite, int spriteIndex, IDrawingTarget drawingTarget)

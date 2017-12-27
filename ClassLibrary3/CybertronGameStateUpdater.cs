@@ -34,6 +34,8 @@ namespace GameClassLibrary
                 thisDroid.AdvanceOneCycle(gameBoard, keyStates);
             }
 
+            gameBoard.Ghost.AdvanceOneCycle(gameBoard, keyStates);
+
             MoveBullets(gameBoard);
 
             foreach (var thisExplosion in gameBoard.ExplosionsInRoom)
@@ -387,12 +389,15 @@ namespace GameClassLibrary
         {
             var targetCentre = targetSprite.Centre;
             var aggressorCentre = aggressorSprite.Centre;
+
             int dx = 0;
             if (targetCentre.X < aggressorCentre.X) dx = -1;
             if (targetCentre.X > aggressorCentre.X) dx = 1;
+
             int dy = 0;
             if (targetCentre.Y < aggressorCentre.Y) dy = -1;
             if (targetCentre.Y > aggressorCentre.Y) dy = 1;
+
             return new MovementDeltas(dx, dy);
         }
 
