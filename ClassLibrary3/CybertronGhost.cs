@@ -47,17 +47,20 @@ namespace GameClassLibrary
             }
             else
             {
-                var moveDeltas = CybertronGameStateUpdater.GetMovementDeltasToHeadTowards(
-                    _spriteInstance,
-                    theGameBoard.Man.SpriteInstance);
-
-                CybertronGameStateUpdater.MoveAdversaryOnePixelUnchecked(
-                    _spriteInstance,
-                    moveDeltas);
-
-                if (_spriteInstance.Intersects(theGameBoard.Man.SpriteInstance))
+                for (int i = 0; i < Constants.GhostMovementCycles; i++)
                 {
-                    KillMan(theGameBoard);
+                    var moveDeltas = CybertronGameStateUpdater.GetMovementDeltasToHeadTowards(
+                        _spriteInstance,
+                        theGameBoard.Man.SpriteInstance);
+
+                    CybertronGameStateUpdater.MoveAdversaryOnePixelUnchecked(
+                        _spriteInstance,
+                        moveDeltas);
+
+                    if (_spriteInstance.Intersects(theGameBoard.Man.SpriteInstance))
+                    {
+                        KillMan(theGameBoard);
+                    }
                 }
             }
         }
@@ -99,7 +102,7 @@ namespace GameClassLibrary
             {
                 return _spriteInstance.GetBoundingRectangle();
             }
-            else return new Rectangle(); // empty if ghost not started
+            else return new Rectangle(-1,-1,0,0); // empty if ghost not started
         }
     }
 }
