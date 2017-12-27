@@ -47,6 +47,7 @@ namespace GameClassLibrary
         public static SpriteTraits Font8;
         public static SpriteTraits Font9;
         public static SpriteTraits Ghost;
+        public static SpriteTraits GhostStunned;
         public static SpriteTraits Gold;
         public static SpriteTraits Key;
         public static SpriteTraits Life;
@@ -140,6 +141,7 @@ namespace GameClassLibrary
             Font8 = loadImage("Font8", 1);
             Font9 = loadImage("Font9", 1);
             Ghost = loadImage("Ghost", 1);
+            GhostStunned = loadImage("GhostStunned", 1);
             Gold = loadImage("Gold", 1);
             Key = loadImage("Key", 1);
             Life = loadImage("Life", 1);
