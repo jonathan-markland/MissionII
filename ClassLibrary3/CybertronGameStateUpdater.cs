@@ -23,10 +23,8 @@ namespace GameClassLibrary
 
 
 
-        public static void UpdateTo(GameTimeSpan timeSinceGameStart, CybertronGameBoard gameBoard, CybertronKeyStates keyStates)
+        public static void UpdateTo(CybertronGameBoard gameBoard, CybertronKeyStates keyStates)
         {
-            // TODO: Not yet using timeSinceGameStart properly (clock the following several times as needed):
-
             gameBoard.Man.AdvanceOneCycle(gameBoard, keyStates);
 
             foreach (var thisDroid in gameBoard.DroidsInRoom)

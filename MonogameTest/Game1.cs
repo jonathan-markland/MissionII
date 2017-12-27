@@ -129,8 +129,8 @@ namespace MonogameTest
 
             // TODO: Add your update logic here
             ReadAndStorePlayerInputs();
-            var elapsedTime = GetGameTimeElapsed(gameTime);
-            GameClassLibrary.CybertronGameStateUpdater.UpdateTo(elapsedTime, _cybertronGameBoard, _cybertronKeyStates);
+            // TODO: remove function called:  var elapsedTime = GetGameTimeElapsed(gameTime);
+            GameClassLibrary.CybertronGameStateUpdater.UpdateTo(_cybertronGameBoard, _cybertronKeyStates);
 
             base.Update(gameTime);
         }
