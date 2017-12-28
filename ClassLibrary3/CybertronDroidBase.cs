@@ -1,7 +1,7 @@
 ﻿
 namespace GameClassLibrary
 {
-    public class CybertronDroid : CybertronGameObject
+    public class CybertronDroidBase : CybertronGameObject
     {
         public SpriteInstance SpriteInstance = new SpriteInstance();
         private int _imageIndex = 0;
@@ -9,7 +9,7 @@ namespace GameClassLibrary
         private const int AnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
         private ArtificialIntelligence.AbstractIntelligenceProvider _intelligenceProvider;
 
-        public CybertronDroid(
+        public CybertronDroidBase(
             int roomX, 
             int roomY, 
             SpriteTraits spriteTraits, 

@@ -20,6 +20,7 @@ namespace GameClassLibrary
         public const int BulletSpacing = 1;
         public const int InventoryItemSpacing = 4;
         public const int GhostMovementCycles = 2;
+        public const int ExclusionZoneAroundMan = 32;
     }
 
 

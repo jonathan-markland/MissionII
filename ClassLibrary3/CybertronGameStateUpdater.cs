@@ -328,7 +328,10 @@ namespace GameClassLibrary
 
             var pointsList = new List<Point>();
 
-            var manRectangle = theGameBoard.Man.GetBoundingRectangle(); // Man should have been positioned by caller.
+            // Man should have been positioned by caller.
+            var exclusionRectangle = 
+                theGameBoard.Man.GetBoundingRectangle()
+                .Inflate(Constants.ExclusionZoneAroundMan);
 
             int posnWidth = 20;
             int posnHeight = 20;
@@ -341,7 +344,7 @@ namespace GameClassLibrary
                 posnHeight, // HACK : calculate height of tallest sprite being positioned.
                 (x,y) =>
                 {
-                    if (!manRectangle.Intersects(new Rectangle(x, y, posnWidth, posnHeight)))
+                    if (!exclusionRectangle.Intersects(new Rectangle(x, y, posnWidth, posnHeight)))
                     {
                         pointsList.Add(new Point(x, y));
                     }
@@ -353,27 +356,15 @@ namespace GameClassLibrary
             // TODO: position keys etc too, where keys are priority.
 
             var droidPoints = pointsList.Take(8);
-            var droidsList = new List<CybertronDroid>();
+            var droidsList = new List<CybertronDroidBase>();
 
             foreach(var droidPoint in droidPoints)
             {
                 var monsterType = (RandomGenerator.Next(10));
-
-                var monsterGraphic =
-                    (monsterType < 6)
-                    ? GameClassLibrary.CybertronSpriteTraits.Monster1
-                    : GameClassLibrary.CybertronSpriteTraits.Monster2;
-
-                var monsterAI =
-                    (monsterType < 6)
-                        ? new ArtificialIntelligence.Attractor() as ArtificialIntelligence.AbstractIntelligenceProvider
-                        : new ArtificialIntelligence.SingleMinded() as ArtificialIntelligence.AbstractIntelligenceProvider;
-
                 droidsList.Add(
-                    new CybertronDroid(
-                        droidPoint.X, droidPoint.Y,
-                        monsterGraphic,
-                        monsterAI));
+                    (monsterType < 6)
+                        ? new CybertronRedDroid(droidPoint.X, droidPoint.Y) as CybertronDroidBase
+                        : new CybertronBlueDroid(droidPoint.X, droidPoint.Y) as CybertronDroidBase);
             }
 
             theGameBoard.DroidsInRoom = droidsList;

@@ -58,5 +58,10 @@ namespace GameClassLibrary
         {
             get { return new Point((Left + Right) / 2, (Top + Bottom) / 2); }
         }
+
+        public Rectangle Inflate(int n)
+        {
+            return new Rectangle(Left - n, Top - n, Width + (2 * n), Height + (2 * n));
+        }
     }
 }

@@ -1,0 +1,14 @@
+[ ] Droids can shoot ghost - should not happen
+[ ] Ideally monsters should not be positioned too close to the man when he enters a new room.
+[ ] Increase lives at 10,000 points
+[ ] Revisit the positioner -- it was going to place keys etc and all the droids.
+    Possibly unify the containers for droids and keys/door/etc...
+[ ] Title screen needed.  Just use large sprites of instructions.  Cycle between.
+[ ] Hi-score table (although we need a proper font for this).
+[ ] Lose life, pause for a bit, restart room, or end game.
+[ ] PAUSE GAME key.
+[ ] Sweep up numeric literals into constant declarations.
+[ ] Open maximised
+[ ] New game init
+[ ] New level init
+

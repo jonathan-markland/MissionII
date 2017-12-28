@@ -23,7 +23,7 @@ namespace GameClassLibrary
         public WallMatrix CurrentRoomWallData;
         public CybertronMan Man = new CybertronMan();
         public List<CybertronBullet> BulletsInRoom = new List<CybertronBullet>();
-        public List<CybertronDroid> DroidsInRoom = new List<CybertronDroid>();
+        public List<CybertronDroidBase> DroidsInRoom = new List<CybertronDroidBase>();
         public List<CybertronObject> ObjectsInRoom = new List<CybertronObject>();
         public List<CybertronExplosion> ExplosionsInRoom = new List<CybertronExplosion>();
         public List<CybertronExplosion> ExplosionsToRemove = new List<CybertronExplosion>();
