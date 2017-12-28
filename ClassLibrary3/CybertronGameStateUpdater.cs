@@ -191,55 +191,6 @@ namespace GameClassLibrary
 
 
 
-        /*public static void MoveBullets(CybertronGameBoard gameBoard)
-        {
-            if (gameBoard.BulletsInRoom.Count == 0) return; // optimisation
-            for( int i=0; i < Constants.BulletCycles; i++) // TODO: Do inside AdvanceOneCycle()
-            {
-                MoveBulletsOnePixel(gameBoard);
-            }
-        }*/
-
-
-/*
-        public static void MoveBulletsOnePixel(CybertronGameBoard gameBoard) // TODO: Should this be done in bullet object AdvanceOneCycle?
-        {
-            var n = gameBoard.BulletsInRoom.Count;
-            for (int i=n-1; i >= 0; --i) // Don't do this, have a BulletsToRemove collection.
-            {
-                // TODO: Do inside AdvanceOneCycle()
-                var theBullet = gameBoard.BulletsInRoom[i];
-                var proposedX = theBullet.Sprite.RoomX + theBullet.BulletDirection.dx;
-                var proposedY = theBullet.Sprite.RoomY + theBullet.BulletDirection.dy;
-
-                var hitResult = CollisionDetection.HitsWalls(
-                    gameBoard.CurrentRoomWallData,
-                    CybertronGameBoardConstants.TileWidth,
-                    CybertronGameBoardConstants.TileHeight,
-                    proposedX,
-                    proposedY,
-                    theBullet.Sprite.Traits.BoardWidth,
-                    theBullet.Sprite.Traits.BoardHeight);
-
-                if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
-                {
-                    theBullet.Sprite.RoomX = proposedX;
-                    theBullet.Sprite.RoomY = proposedY;
-
-                    if (KillThingsIfShot(gameBoard, theBullet))
-                    {
-                        gameBoard.BulletsInRoom.RemoveAt(i);
-                    }
-                }
-                else // Bullet hit wall or went outside room.
-                {
-                    gameBoard.BulletsInRoom.RemoveAt(i);
-                }
-            }
-        }
-        */
-
-
         public static bool KillThingsIfShot(CybertronGameBoard gameBoard, CybertronBullet theBullet)
         {
             // TODO: We are NOT considering the dimensions of the bullet!
