@@ -16,12 +16,42 @@ namespace GameClassLibrary
 
         public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, CybertronKeyStates theKeyStates)
         {
-            // Not handled here.  Handled at global level.
+            for (int i = 0; i < Constants.BulletCycles; i++) // TODO: Do inside AdvanceOneCycle()
+            {
+                var proposedX = Sprite.RoomX + BulletDirection.dx;
+                var proposedY = Sprite.RoomY + BulletDirection.dy;
+
+                var hitResult = CollisionDetection.HitsWalls(
+                    theGameBoard.CurrentRoomWallData,
+                    CybertronGameBoardConstants.TileWidth,
+                    CybertronGameBoardConstants.TileHeight,
+                    proposedX,
+                    proposedY,
+                    Sprite.Traits.BoardWidth,
+                    Sprite.Traits.BoardHeight);
+
+                if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
+                {
+                    Sprite.RoomX = proposedX;
+                    Sprite.RoomY = proposedY;
+
+                    if (CybertronGameStateUpdater.KillThingsIfShot(theGameBoard, this))
+                    {
+                        theGameBoard.BulletsToRemove.Add(this);
+                        return;
+                    }
+                }
+                else // Bullet hit wall or went outside room.
+                {
+                    theGameBoard.BulletsToRemove.Add(this);
+                    return;
+                }
+            }
         }
 
         public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
         {
-            // Not handled here.  Handled at global level.  // TODO: could this be handled here?
+            // Not handled here.  Bullets killing man happens in AdvanceOneCycle().
         }
 
         public override void Draw(CybertronGameBoard theGameBoard, IDrawingTarget drawingTarget)

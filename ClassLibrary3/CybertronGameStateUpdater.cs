@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameClassLibrary
 {
@@ -34,18 +32,26 @@ namespace GameClassLibrary
 
             gameBoard.Ghost.AdvanceOneCycle(gameBoard, keyStates);
 
-            MoveBullets(gameBoard);
+            foreach (var thisBullet in gameBoard.BulletsInRoom) // TODO: Use AdvanceOneCycle() then refactor all of this to use ForEachDo
+            {
+                thisBullet.AdvanceOneCycle(gameBoard, keyStates);
+            }
 
             foreach (var thisExplosion in gameBoard.ExplosionsInRoom)
             {
                 thisExplosion.AdvanceOneCycle(gameBoard, keyStates);
             }
 
+            foreach (var bulletToRemove in gameBoard.BulletsToRemove)
+            {
+                gameBoard.BulletsInRoom.Remove(bulletToRemove);
+            }
+            gameBoard.BulletsToRemove.Clear();
+
             foreach (var explosionToRemove in gameBoard.ExplosionsToRemove)
             {
                 gameBoard.ExplosionsInRoom.Remove(explosionToRemove);
             }
-
             gameBoard.ExplosionsToRemove.Clear();
         }
 
@@ -202,22 +208,23 @@ namespace GameClassLibrary
 
 
 
-        public static void MoveBullets(CybertronGameBoard gameBoard)
+        /*public static void MoveBullets(CybertronGameBoard gameBoard)
         {
             if (gameBoard.BulletsInRoom.Count == 0) return; // optimisation
-            for( int i=0; i < Constants.BulletCycles; i++)
+            for( int i=0; i < Constants.BulletCycles; i++) // TODO: Do inside AdvanceOneCycle()
             {
                 MoveBulletsOnePixel(gameBoard);
             }
-        }
+        }*/
 
 
-
+/*
         public static void MoveBulletsOnePixel(CybertronGameBoard gameBoard) // TODO: Should this be done in bullet object AdvanceOneCycle?
         {
             var n = gameBoard.BulletsInRoom.Count;
-            for (int i=n-1; i >= 0; --i)
+            for (int i=n-1; i >= 0; --i) // Don't do this, have a BulletsToRemove collection.
             {
+                // TODO: Do inside AdvanceOneCycle()
                 var theBullet = gameBoard.BulletsInRoom[i];
                 var proposedX = theBullet.Sprite.RoomX + theBullet.BulletDirection.dx;
                 var proposedY = theBullet.Sprite.RoomY + theBullet.BulletDirection.dy;
@@ -247,13 +254,15 @@ namespace GameClassLibrary
                 }
             }
         }
-
+        */
 
 
         public static bool KillThingsIfShot(CybertronGameBoard gameBoard, CybertronBullet theBullet)
         {
             // TODO: We are NOT considering the dimensions of the bullet!
             // Only a single point, which is actually just the top left corner!
+
+            // TODO:  Do with polymorphism as much as possible.  Implies Man objects should be in ObjectsInRoom collection.
 
             if (theBullet.Sprite.Intersects(gameBoard.Man.SpriteInstance))
             {
@@ -274,7 +283,7 @@ namespace GameClassLibrary
                 if (theBullet.Sprite.Intersects(thisDroid.SpriteInstance))
                 {
                     thisDroid.YouHaveBeenShot(gameBoard);
-                    System.Diagnostics.Debug.Assert(gameBoard.DroidsInRoom.Count == n); // CreateYourExplosion() must NOT invalidate the count!
+                    System.Diagnostics.Debug.Assert(gameBoard.DroidsInRoom.Count == n); // YouHaveBeenShot() must NOT invalidate the count!
                     gameBoard.DroidsInRoom.RemoveAt(i);
                     if (theBullet.IncreasesScore)
                     {
@@ -316,6 +325,7 @@ namespace GameClassLibrary
             theGameBoard.ObjectsInRoom.Clear();
             theGameBoard.ExplosionsInRoom.Clear();
             theGameBoard.ExplosionsToRemove.Clear();
+            theGameBoard.BulletsToRemove.Clear();
 
             // Are any objects in this room?
 
