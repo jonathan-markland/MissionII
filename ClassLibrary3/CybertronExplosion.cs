@@ -43,5 +43,10 @@
         {
             // No action required.
         }
+
+        public override void YouHaveBeenShot(CybertronGameBoard theGameBoard)
+        {
+            // no action required
+        }
     }
 }

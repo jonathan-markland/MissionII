@@ -8,21 +8,20 @@ namespace GameClassLibrary
 {
     public class CybertronGhost : CybertronGameObject
     {
-        private int _startCountDown = 0;
         private int _stunCountDown = 0;
-        private bool _killedMan = false;
+        private int _startCountDown = Constants.GhostStartCycles;
         private SpriteInstance _spriteInstance;
+        private ArtificialIntelligence.AbstractIntelligenceProvider _intelligenceProvider;
 
         public CybertronGhost()
         {
+            _intelligenceProvider = new ArtificialIntelligence.Swoop();
             _spriteInstance = new SpriteInstance();
         }
 
-        public void NotifyNewRoom()
+        private bool IsActive
         {
-            _startCountDown = Constants.GhostStartCycles;
-            _stunCountDown = 0;
-            _killedMan = false;
+            get { return _startCountDown == 0; }
         }
 
         public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, CybertronKeyStates theKeyStates)
@@ -47,47 +46,24 @@ namespace GameClassLibrary
             }
             else
             {
-                for (int i = 0; i < Constants.GhostMovementCycles; i++)
-                {
-                    var moveDeltas = CybertronGameStateUpdater.GetMovementDeltasToHeadTowards(
-                        _spriteInstance,
-                        theGameBoard.Man.SpriteInstance);
-
-                    CybertronGameStateUpdater.MoveAdversaryOnePixelUnchecked(
-                        _spriteInstance,
-                        moveDeltas);
-
-                    if (_spriteInstance.Intersects(theGameBoard.Man.SpriteInstance))
-                    {
-                        KillMan(theGameBoard);
-                    }
-                }
+                _intelligenceProvider.AdvanceOneCycle(theGameBoard, _spriteInstance);
             }
         }
 
         public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
         {
-            KillMan(theGameBoard); // This is not as important as the other call site.
-        }
-
-        private void KillMan(CybertronGameBoard theGameBoard)
-        {
-            if (_stunCountDown == 0 && !_killedMan)
-            {
-                theGameBoard.Man.Die();
-                _killedMan = true; // only make the call once per room.
-            }
+            // The ghost kills the man via its AI.  No action needed here.
         }
 
         public override void Draw(CybertronGameBoard theGameBoard, IDrawingTarget drawingTarget)
         {
-            if (_startCountDown == 0)
+            if (IsActive)
             {
                 CybertronScreenPainter.DrawFirstSprite(_spriteInstance, drawingTarget);
             }
         }
 
-        public void Stunned()
+        public override void YouHaveBeenShot(CybertronGameBoard gameBoard)
         {
             if (_stunCountDown == 0) // multiply-stunning has no effect
             {
@@ -95,10 +71,10 @@ namespace GameClassLibrary
                 _spriteInstance.Traits = CybertronSpriteTraits.GhostStunned;
             }
         }
-
+    
         public override Rectangle GetBoundingRectangle()
         {
-            if (_startCountDown == 0)
+            if (IsActive)
             {
                 return _spriteInstance.GetBoundingRectangle();
             }

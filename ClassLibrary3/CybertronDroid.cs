@@ -32,7 +32,7 @@ namespace GameClassLibrary
             CybertronScreenPainter.DrawIndexedSprite(SpriteInstance, _imageIndex, drawingTarget);
         }
 
-        public void CreateYourExplosion(CybertronGameBoard theGameBoard)
+        public override void YouHaveBeenShot(CybertronGameBoard theGameBoard)
         {
             // TODO: FUTURE: We assume the explosion dimensions match the droid.
             theGameBoard.ExplosionsInRoom.Add(new CybertronExplosion(

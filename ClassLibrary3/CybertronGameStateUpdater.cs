@@ -257,19 +257,23 @@ namespace GameClassLibrary
 
             if (theBullet.Sprite.Intersects(gameBoard.Man.SpriteInstance))
             {
-                gameBoard.Man.Die();
+                gameBoard.Man.YouHaveBeenShot(gameBoard);
                 return true;
             }
 
-            var ghostRect = gameBoard.Ghost.GetBoundingRectangle();
+            if (theBullet.Sprite.GetBoundingRectangle().Intersects(gameBoard.Ghost.GetBoundingRectangle())) // TODO: Allow man's bullets to stun only.
+            {
+                gameBoard.Ghost.YouHaveBeenShot(gameBoard);
+                return true;
+            }
 
             int n = gameBoard.DroidsInRoom.Count;
-            for(int i=n-1; i>=0; --i)
+            for(int i = n-1; i >= 0; --i)
             {
                 var thisDroid = gameBoard.DroidsInRoom[i];
                 if (theBullet.Sprite.Intersects(thisDroid.SpriteInstance))
                 {
-                    thisDroid.CreateYourExplosion(gameBoard);
+                    thisDroid.YouHaveBeenShot(gameBoard);
                     System.Diagnostics.Debug.Assert(gameBoard.DroidsInRoom.Count == n); // CreateYourExplosion() must NOT invalidate the count!
                     gameBoard.DroidsInRoom.RemoveAt(i);
                     if (theBullet.IncreasesScore)
@@ -277,10 +281,6 @@ namespace GameClassLibrary
                         IncrementScore(gameBoard, CybertronGameBoardConstants.MonsterKillingScore);
                     }
                     return true;
-                }
-                else if(theBullet.Sprite.GetBoundingRectangle().Intersects(ghostRect)) // TODO: Allow man's bullets to stun only.
-                {
-                    gameBoard.Ghost.Stunned();
                 }
             }
 
@@ -378,7 +378,7 @@ namespace GameClassLibrary
 
             theGameBoard.DroidsInRoom = droidsList;
 
-            theGameBoard.Ghost.NotifyNewRoom();
+            theGameBoard.Ghost = new CybertronGhost();
         }
 
 

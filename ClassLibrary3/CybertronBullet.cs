@@ -34,6 +34,11 @@ namespace GameClassLibrary
             return Sprite.GetBoundingRectangle();
         }
 
+        public override void YouHaveBeenShot(CybertronGameBoard theGameBoard)
+        {
+            // No action -- bullets cannot be shot.
+        }
+
         public bool IncreasesScore
         {
             get { return _increasesScore; }

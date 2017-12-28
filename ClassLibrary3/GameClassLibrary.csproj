@@ -44,6 +44,7 @@
     <Compile Include="ArtificialIntelligence\AbstractIntelligenceProvider.cs" />
     <Compile Include="ArtificialIntelligence\Attractor.cs" />
     <Compile Include="ArtificialIntelligence\SingleMinded.cs" />
+    <Compile Include="ArtificialIntelligence\Swoop.cs" />
     <Compile Include="CybertronBullet.cs" />
     <Compile Include="Business.cs" />
     <Compile Include="CollisionDetection.cs" />
