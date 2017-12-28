@@ -4,6 +4,7 @@ namespace GameClassLibrary
     public class CybertronMan : CybertronGameObject
     {
         public SpriteInstance SpriteInstance = new SpriteInstance();
+        private bool _debugInvulnerable = false;
         private bool _isDead;
         private bool _isElectrocuting;
         private int _facingDirection = 2;  // TODO: This is the man's initial facing direction.  Sort out properly.z
@@ -108,6 +109,7 @@ namespace GameClassLibrary
 
         private void Electrocute()
         {
+            if (_debugInvulnerable) return;
             _isElectrocuting = true;
             _electrocutionCycles = ElectrocutionAnimationReset * 5;
             SpriteInstance.Traits = CybertronSpriteTraits.Electrocution;
@@ -137,6 +139,7 @@ namespace GameClassLibrary
 
         public void Die()
         {
+            if (_debugInvulnerable) return;
             if (!_isDead)
             {
                 _isDead = true;
