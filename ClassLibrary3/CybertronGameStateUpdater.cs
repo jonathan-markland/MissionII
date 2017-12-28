@@ -23,24 +23,7 @@ namespace GameClassLibrary
 
         public static void UpdateTo(CybertronGameBoard gameBoard, CybertronKeyStates keyStates)
         {
-            gameBoard.Man.AdvanceOneCycle(gameBoard, keyStates);
-
-            foreach (var thisDroid in gameBoard.DroidsInRoom)
-            {
-                thisDroid.AdvanceOneCycle(gameBoard, keyStates);
-            }
-
-            gameBoard.Ghost.AdvanceOneCycle(gameBoard, keyStates);
-
-            foreach (var thisBullet in gameBoard.BulletsInRoom) // TODO: Use AdvanceOneCycle() then refactor all of this to use ForEachDo
-            {
-                thisBullet.AdvanceOneCycle(gameBoard, keyStates);
-            }
-
-            foreach (var thisExplosion in gameBoard.ExplosionsInRoom)
-            {
-                thisExplosion.AdvanceOneCycle(gameBoard, keyStates);
-            }
+            gameBoard.ForEachDo(o => { o.AdvanceOneCycle(gameBoard, keyStates); return true; } );
 
             foreach (var bulletToRemove in gameBoard.BulletsToRemove)
             {
