@@ -32,13 +32,16 @@ namespace GameClassLibrary
             CybertronScreenPainter.DrawIndexedSprite(SpriteInstance, _imageIndex, drawingTarget);
         }
 
-        public override void YouHaveBeenShot(CybertronGameBoard theGameBoard)
+        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard)
         {
             // TODO: FUTURE: We assume the explosion dimensions match the droid.
             theGameBoard.ExplosionsInRoom.Add(new CybertronExplosion(
                 SpriteInstance.RoomX,
                 SpriteInstance.RoomY,
                 CybertronSpriteTraits.Explosion));
+
+            theGameBoard.DroidsToRemove.Add(this);
+            return true;
         }
 
         public override Rectangle GetBoundingRectangle()

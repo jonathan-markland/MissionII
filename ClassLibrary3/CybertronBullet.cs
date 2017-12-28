@@ -16,7 +16,7 @@ namespace GameClassLibrary
 
         public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, CybertronKeyStates theKeyStates)
         {
-            for (int i = 0; i < Constants.BulletCycles; i++) // TODO: Do inside AdvanceOneCycle()
+            for (int i = 0; i < Constants.BulletCycles; i++)
             {
                 var proposedX = Sprite.RoomX + BulletDirection.dx;
                 var proposedY = Sprite.RoomY + BulletDirection.dy;
@@ -64,9 +64,10 @@ namespace GameClassLibrary
             return Sprite.GetBoundingRectangle();
         }
 
-        public override void YouHaveBeenShot(CybertronGameBoard theGameBoard)
+        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard)
         {
             // No action -- bullets cannot be shot.
+            return false;
         }
 
         public bool IncreasesScore

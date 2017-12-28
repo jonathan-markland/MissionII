@@ -217,9 +217,10 @@ namespace GameClassLibrary
             // No action for self-intersection.
         }
 
-        public override void YouHaveBeenShot(CybertronGameBoard theGameBoard)
+        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard)
         {
             Die();
+            return true;
         }
     }
 }

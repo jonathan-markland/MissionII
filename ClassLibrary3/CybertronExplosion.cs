@@ -44,9 +44,10 @@
             // No action required.
         }
 
-        public override void YouHaveBeenShot(CybertronGameBoard theGameBoard)
+        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard)
         {
             // no action required
+            return false; // ignore this.
         }
     }
 }

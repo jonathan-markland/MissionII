@@ -55,9 +55,10 @@ namespace GameClassLibrary
             return Sprite.GetBoundingRectangle(); // Note: applies in every room!
         }
 
-        public override void YouHaveBeenShot(CybertronGameBoard theGameBoard)
+        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard)
         {
-            // No action when shooting this.
+            // This cannot be shot (ignore)
+            return false;
         }
     }
 }

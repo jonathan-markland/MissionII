@@ -63,13 +63,14 @@ namespace GameClassLibrary
             }
         }
 
-        public override void YouHaveBeenShot(CybertronGameBoard gameBoard)
+        public override bool YouHaveBeenShot(CybertronGameBoard gameBoard)
         {
             if (_stunCountDown == 0) // multiply-stunning has no effect
             {
                 _stunCountDown = Constants.GhostStunnedCycles;
                 _spriteInstance.Traits = CybertronSpriteTraits.GhostStunned;
             }
+            return true;
         }
     
         public override Rectangle GetBoundingRectangle()

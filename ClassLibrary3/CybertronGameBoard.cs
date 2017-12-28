@@ -28,6 +28,7 @@ namespace GameClassLibrary
         public List<CybertronExplosion> ExplosionsInRoom = new List<CybertronExplosion>();
         public List<CybertronExplosion> ExplosionsToRemove = new List<CybertronExplosion>();
         public List<CybertronBullet> BulletsToRemove = new List<CybertronBullet>();
+        public List<CybertronDroidBase> DroidsToRemove = new List<CybertronDroidBase>();
         public CybertronGhost Ghost = new CybertronGhost();
         // TODO: List<??> Inventory;   // What's carried.    TODO: Paint inventory    TODO: Manage list when collecting an item.
         public List<CybertronObject> PlayerInventory = new List<CybertronObject>();

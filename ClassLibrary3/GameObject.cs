@@ -12,6 +12,6 @@ namespace GameClassLibrary
         public abstract void Draw(T theGameBoard, IDrawingTarget drawingTarget);
         public abstract Rectangle GetBoundingRectangle();
         public abstract void ManWalkedIntoYou(T theGameBoard);
-        public abstract void YouHaveBeenShot(T theGameBoard);
+        public abstract bool YouHaveBeenShot(T theGameBoard);
     }
 }

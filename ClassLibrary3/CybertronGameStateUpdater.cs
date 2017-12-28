@@ -36,6 +36,12 @@ namespace GameClassLibrary
                 gameBoard.ExplosionsInRoom.Remove(explosionToRemove);
             }
             gameBoard.ExplosionsToRemove.Clear();
+
+            foreach (var droidToRemove in gameBoard.DroidsToRemove)
+            {
+                gameBoard.DroidsInRoom.Remove(droidToRemove);
+            }
+            gameBoard.DroidsToRemove.Clear();
         }
 
 
@@ -193,41 +199,27 @@ namespace GameClassLibrary
 
         public static bool KillThingsIfShot(CybertronGameBoard gameBoard, CybertronBullet theBullet)
         {
-            // TODO: We are NOT considering the dimensions of the bullet!
-            // Only a single point, which is actually just the top left corner!
-
             // TODO:  Do with polymorphism as much as possible.  Implies Man objects should be in ObjectsInRoom collection.
 
-            if (theBullet.Sprite.Intersects(gameBoard.Man.SpriteInstance))
-            {
-                gameBoard.Man.YouHaveBeenShot(gameBoard);
-                return true;
-            }
+            bool hitSomething = false;
 
-            if (theBullet.Sprite.GetBoundingRectangle().Intersects(gameBoard.Ghost.GetBoundingRectangle())) // TODO: Allow man's bullets to stun only.
+            gameBoard.ForEachDo(o => 
             {
-                gameBoard.Ghost.YouHaveBeenShot(gameBoard);
-                return true;
-            }
-
-            int n = gameBoard.DroidsInRoom.Count;
-            for(int i = n-1; i >= 0; --i)
-            {
-                var thisDroid = gameBoard.DroidsInRoom[i];
-                if (theBullet.Sprite.Intersects(thisDroid.SpriteInstance))
+                if (o.GetBoundingRectangle().Intersects(theBullet.GetBoundingRectangle()))
                 {
-                    thisDroid.YouHaveBeenShot(gameBoard);
-                    System.Diagnostics.Debug.Assert(gameBoard.DroidsInRoom.Count == n); // YouHaveBeenShot() must NOT invalidate the count!
-                    gameBoard.DroidsInRoom.RemoveAt(i);
-                    if (theBullet.IncreasesScore)
+                    if (o.YouHaveBeenShot(gameBoard))
                     {
-                        IncrementScore(gameBoard, CybertronGameBoardConstants.MonsterKillingScore);
+                        if (theBullet.IncreasesScore) // TODO: Code not quite the same as before.  Score increment to move into target classes.
+                        {
+                            IncrementScore(gameBoard, CybertronGameBoardConstants.MonsterKillingScore);
+                        }
+                        hitSomething = true;
                     }
-                    return true;
                 }
-            }
+                return true;
+            });
 
-            return false; // hit nothing.
+            return hitSomething;
         }
 
 
