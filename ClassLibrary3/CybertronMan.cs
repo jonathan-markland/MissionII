@@ -137,9 +137,14 @@ namespace GameClassLibrary
 
         public void Die()
         {
-            _isDead = true;
-            _imageIndex = 0;
-            SpriteInstance.Traits = CybertronSpriteTraits.Dead;
+            if (!_isDead)
+            {
+                _isDead = true;
+                _imageIndex = 0;
+                SpriteInstance.Traits = CybertronSpriteTraits.Dead;
+                // TODO: Sound
+                // TODO: Reduce lives.
+            }
         }
 
         private void RoomUp(CybertronGameBoard theGameBoard)
