@@ -11,7 +11,6 @@ namespace GameClassLibrary.ArtificialIntelligence
         private int _countDown = 0;
         private int _facingDirection = 0;
         private MovementDeltas _movementDeltas = new MovementDeltas(0, 0);
-        private bool _firing = false;
         private bool _operationEnable = false;
 
         public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, SpriteInstance spriteInstance)
@@ -30,9 +29,13 @@ namespace GameClassLibrary.ArtificialIntelligence
                             spriteInstance,
                             _movementDeltas);
 
-                        if (_firing && (_countDown & 31) == 0) // TODO: firing time constant
+                        if ((_countDown & 31) == 0) // TODO: firing time constant
                         {
-                            CybertronGameStateUpdater.StartBullet(spriteInstance, _facingDirection, theGameBoard, false);
+                            if (!_movementDeltas.Stationary 
+                                && CybertronGameStateUpdater.RandomGenerator.Next(100) < 20)
+                            {
+                                CybertronGameStateUpdater.StartBullet(spriteInstance, _facingDirection, theGameBoard, false);
+                            }
                         }
 
                         if (hitResult == CollisionDetection.WallHitTestResult.HitWall)
@@ -49,7 +52,6 @@ namespace GameClassLibrary.ArtificialIntelligence
                     _movementDeltas = theRng.Next(8) < 1
                         ? new MovementDeltas(0, 0)
                         : Business.GetMovementDeltas(_facingDirection);
-                    _firing = !_movementDeltas.Stationary && theRng.Next(100) < 20; // TODO: tuneable percentage for agression?
                 }
             }
         }

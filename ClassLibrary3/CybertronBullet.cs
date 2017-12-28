@@ -37,13 +37,13 @@ namespace GameClassLibrary
 
                     if (CybertronGameStateUpdater.KillThingsIfShot(theGameBoard, this))
                     {
-                        theGameBoard.BulletsToRemove.Add(this);
+                        theGameBoard.ObjectsToRemove.Add(this);
                         return;
                     }
                 }
                 else // Bullet hit wall or went outside room.
                 {
-                    theGameBoard.BulletsToRemove.Add(this);
+                    theGameBoard.ObjectsToRemove.Add(this);
                     return;
                 }
             }

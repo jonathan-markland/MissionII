@@ -34,13 +34,14 @@ namespace GameClassLibrary
 
         public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard)
         {
-            // TODO: FUTURE: We assume the explosion dimensions match the droid.
-            theGameBoard.ExplosionsInRoom.Add(new CybertronExplosion(
-                SpriteInstance.RoomX,
-                SpriteInstance.RoomY,
-                CybertronSpriteTraits.Explosion));
+            // TODO: FUTURE: We assume the explosion dimensions match the droid.  We should centre it about the droid.
+            theGameBoard.ObjectsInRoom.Add(
+                new CybertronExplosion(
+                    SpriteInstance.RoomX,
+                    SpriteInstance.RoomY,
+                    CybertronSpriteTraits.Explosion));
 
-            theGameBoard.DroidsToRemove.Add(this);
+            theGameBoard.ObjectsToRemove.Add(this);
             return true;
         }
 

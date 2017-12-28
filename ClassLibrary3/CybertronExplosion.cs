@@ -24,7 +24,7 @@
                 --_explosionCountDown;
                 if (_explosionCountDown == 0)
                 {
-                    theGameBoard.ExplosionsToRemove.Add(this);  // It gets removed by the framework when we add it to this list.
+                    theGameBoard.ObjectsToRemove.Add(this);  // It gets removed by the framework when we add it to this list.
                 }
             }
         }

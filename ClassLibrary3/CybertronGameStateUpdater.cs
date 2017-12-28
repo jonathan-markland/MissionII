@@ -25,23 +25,12 @@ namespace GameClassLibrary
         {
             gameBoard.ForEachDo(o => { o.AdvanceOneCycle(gameBoard, keyStates); return true; } );
 
-            foreach (var bulletToRemove in gameBoard.BulletsToRemove)
+            foreach (var objectToRemove in gameBoard.ObjectsToRemove)
             {
-                gameBoard.BulletsInRoom.Remove(bulletToRemove);
+                gameBoard.ObjectsInRoom.Remove(objectToRemove);
             }
-            gameBoard.BulletsToRemove.Clear();
 
-            foreach (var explosionToRemove in gameBoard.ExplosionsToRemove)
-            {
-                gameBoard.ExplosionsInRoom.Remove(explosionToRemove);
-            }
-            gameBoard.ExplosionsToRemove.Clear();
-
-            foreach (var droidToRemove in gameBoard.DroidsToRemove)
-            {
-                gameBoard.DroidsInRoom.Remove(droidToRemove);
-            }
-            gameBoard.DroidsToRemove.Clear();
+            gameBoard.ObjectsToRemove.Clear();
         }
 
 
@@ -77,18 +66,19 @@ namespace GameClassLibrary
                 spriteInstance.Traits.BoardWidth, 
                 spriteInstance.Traits.BoardHeight);
 
-            foreach(var theDroid in gameBoard.DroidsInRoom)
+            foreach(var theObject in gameBoard.ObjectsInRoom)
             {
-                var droidRectangle = theDroid.GetBoundingRectangle();
-                if (droidRectangle.Left != oldX || droidRectangle.Top != oldY) // TODO: crude way of avoiding self-intersection test
+                var objectRectangle = theObject.GetBoundingRectangle();
+                if (objectRectangle.Left != oldX || objectRectangle.Top != oldY) // TODO: crude way of avoiding self-intersection test
                 {
-                    if (droidRectangle.Intersects(myNewRectangle))
+                    if (objectRectangle.Intersects(myNewRectangle))
                     {
-                        return CollisionDetection.WallHitTestResult.HitWall; // Pretend other monsters are wall.  Doesn't matter.
+                        return CollisionDetection.WallHitTestResult.HitWall; // Pretend other objects are wall.  Doesn't matter.
                     }
                 }
             }
 
+            // TODO: remove when man is in the objects list:
             if (myNewRectangle.Intersects(gameBoard.Man.SpriteInstance.GetBoundingRectangle()))
             {
                 return CollisionDetection.WallHitTestResult.HitWall; // Pretend man is wall.  Doesn't matter.
@@ -181,7 +171,7 @@ namespace GameClassLibrary
                 return;  // Cannot ascertain a direction away from the source sprite, so do nothing.
             }
 
-            cybertronGameBoard.BulletsInRoom.Add(
+            cybertronGameBoard.ObjectsInRoom.Add(
                 new CybertronBullet
                 (
                     new SpriteInstance
@@ -246,12 +236,8 @@ namespace GameClassLibrary
                     .Rooms[thisRoomNumber - 1]
                     .WallData;
 
-            theGameBoard.BulletsInRoom.Clear();
-            theGameBoard.DroidsInRoom.Clear();
             theGameBoard.ObjectsInRoom.Clear();
-            theGameBoard.ExplosionsInRoom.Clear();
-            theGameBoard.ExplosionsToRemove.Clear();
-            theGameBoard.BulletsToRemove.Clear();
+            theGameBoard.ObjectsToRemove.Clear();
 
             // Are any objects in this room?
 
@@ -291,21 +277,23 @@ namespace GameClassLibrary
 
             // TODO: position keys etc too, where keys are priority.
 
+            var objectsList = new List<CybertronGameObject>();
+
             var droidPoints = pointsList.Take(8);
-            var droidsList = new List<CybertronDroidBase>();
 
             foreach(var droidPoint in droidPoints)
             {
                 var monsterType = (RandomGenerator.Next(10));
-                droidsList.Add(
+                objectsList.Add(
                     (monsterType < 6)
                         ? new CybertronRedDroid(droidPoint.X, droidPoint.Y) as CybertronDroidBase
                         : new CybertronBlueDroid(droidPoint.X, droidPoint.Y) as CybertronDroidBase);
             }
 
-            theGameBoard.DroidsInRoom = droidsList;
+            theGameBoard.ObjectsInRoom = objectsList;
 
-            theGameBoard.Ghost = new CybertronGhost();
+            // TODO: put the man in the list.
+            theGameBoard.Ghost = new CybertronGhost(); // TODO: put the ghost in the list
         }
 
 
