@@ -213,7 +213,7 @@ namespace GameClassLibrary
 
 
 
-        public static void MoveBulletsOnePixel(CybertronGameBoard gameBoard)
+        public static void MoveBulletsOnePixel(CybertronGameBoard gameBoard) // TODO: Should this be done in bullet object AdvanceOneCycle?
         {
             var n = gameBoard.BulletsInRoom.Count;
             for (int i=n-1; i >= 0; --i)

@@ -57,7 +57,7 @@ namespace GameClassLibrary
         }
     }
 
-    public struct WallMatrixChar
+    public struct WallMatrixChar // TODO: refactor with constructor.
     {
         public bool Space { get { return WallChar == ' '; } }
         public bool Wall { get { return WallChar != ' '; } }

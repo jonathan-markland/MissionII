@@ -82,9 +82,6 @@ namespace GameClassLibrary
 
         public static void CarveWiderRoutes(WallMatrix expandedData)
         {
-            // BUG:  Carving invalidates the door thickness matching between rooms
-            // (potentially) .
-
             // TODO: The CarveRun calls could be randomly omitted for artistic effect
             for (int i = 0; i < 25; i++)
             {
@@ -95,6 +92,46 @@ namespace GameClassLibrary
             {
                 CarveRun(expandedData, 0, i, 1, 0, 25);
                 CarveRun(expandedData, 24, i, -1, 0, 25);
+            }
+
+            // Carving invalidates the door thickness matching 
+            // (potentially), but it will only be because the outermost row
+            // is WIDER than inner ones, in a given room.
+
+            int thickCount = ExpandSize;
+            CarveDoorIfPresent(expandedData, new Point(0,  0), new MovementDeltas(1, 0), new MovementDeltas( 0, 1), thickCount);
+            CarveDoorIfPresent(expandedData, new Point(0, 24), new MovementDeltas(1, 0), new MovementDeltas( 0,-1), thickCount);
+            CarveDoorIfPresent(expandedData, new Point(0,  0), new MovementDeltas(0, 1), new MovementDeltas( 1, 0), thickCount);
+            CarveDoorIfPresent(expandedData, new Point(24, 0), new MovementDeltas(0, 1), new MovementDeltas(-1, 0), thickCount);
+        }
+
+
+
+        private static void CarveDoorIfPresent(WallMatrix expandedData, Point point, MovementDeltas withinRow, MovementDeltas betweenRows, int thickCount)
+        {
+            int x = point.X;
+            int y = point.Y;
+            for(int i=0; i<25; i++)
+            {
+                if (expandedData.Read(x,y).Space)
+                {
+                    CarveDoorHole(expandedData, x, y, betweenRows, thickCount);
+                }
+                x += withinRow.dx;
+                y += withinRow.dy;
+            }
+        }
+
+
+
+        private static void CarveDoorHole(WallMatrix expandedData, int x, int y, MovementDeltas moveDelta, int thickCount)
+        {
+            while (thickCount > 0)
+            {
+                expandedData.Write(x, y, new WallMatrixChar { WallChar = ' ' });
+                x += moveDelta.dx;
+                y += moveDelta.dy;
+                --thickCount;
             }
         }
 
