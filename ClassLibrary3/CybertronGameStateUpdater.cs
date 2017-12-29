@@ -298,7 +298,7 @@ namespace GameClassLibrary
             // Add other objects to the list, that don't require the positioner.
 
             objectsList.Add(new CybertronGhost());
-            // TODO: put the man in the list.
+            objectsList.Add(theGameBoard.Man);
 
             theGameBoard.ObjectsInRoom = objectsList;
         }

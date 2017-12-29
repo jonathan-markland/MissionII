@@ -60,7 +60,7 @@ namespace GameClassLibrary
             { 
                 if (!theAction(ObjectsInRoom[i])) return false;
             }
-            return theAction(Man); // TODO: remove
+            return true;
         }
     }
 }
