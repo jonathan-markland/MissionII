@@ -3,7 +3,7 @@ namespace GameClassLibrary
 {
     public class CybertronDroidBase : CybertronGameObject
     {
-        public SpriteInstance SpriteInstance = new SpriteInstance();
+        public SpriteInstance SpriteInstance = new SpriteInstance(); // TODO: private?
         private int _imageIndex = 0;
         private int _animationCountdown = AnimationReset;
         private const int AnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units

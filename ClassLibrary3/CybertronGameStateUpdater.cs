@@ -277,7 +277,12 @@ namespace GameClassLibrary
 
             // TODO: position keys etc too, where keys are priority.
 
+            // Build objects list:    
+
             var objectsList = new List<CybertronGameObject>();
+
+            // Add those objects to the list that require positioning:
+            // We have limited slots, so we position the most important first.
 
             var droidPoints = pointsList.Take(8);
 
@@ -290,10 +295,12 @@ namespace GameClassLibrary
                         : new CybertronBlueDroid(droidPoint.X, droidPoint.Y) as CybertronDroidBase);
             }
 
-            theGameBoard.ObjectsInRoom = objectsList;
+            // Add other objects to the list, that don't require the positioner.
 
+            objectsList.Add(new CybertronGhost());
             // TODO: put the man in the list.
-            theGameBoard.Ghost = new CybertronGhost(); // TODO: put the ghost in the list
+
+            theGameBoard.ObjectsInRoom = objectsList;
         }
 
 
