@@ -239,21 +239,17 @@ namespace GameClassLibrary
             theGameBoard.ObjectsInRoom.Clear();
             theGameBoard.ObjectsToRemove.Clear();
 
-            // Are any objects in this room?
-
-            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Key);
-            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Ring);
-            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Gold);
-            // TODO:  AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Safe);
-
-            // HACKS
-
-            var pointsList = new List<Point>();
-
             // Man should have been positioned by caller.
+            // Establish an exclusion zone around the man so that nothing
+            // is positioned too close to him.
+
             var exclusionRectangle = 
                 theGameBoard.Man.GetBoundingRectangle()
                 .Inflate(Constants.ExclusionZoneAroundMan);
+
+            // Now find a list of points on which we can position the objects:
+
+            var pointsList = new List<Point>();
 
             int posnWidth = 20;
             int posnHeight = 20;
@@ -279,28 +275,33 @@ namespace GameClassLibrary
 
             // Build objects list:    
 
-            var objectsList = new List<CybertronGameObject>();
-
             // Add those objects to the list that require positioning:
             // We have limited slots, so we position the most important first.
+
+            // Collectible objects are the most important items requiring positioning:
+
+            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Key);
+            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Ring);
+            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Gold);
+            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Safe);
+
+            // Droids are much less important items that need positioning:
 
             var droidPoints = pointsList.Take(8);
 
             foreach(var droidPoint in droidPoints)
             {
                 var monsterType = (RandomGenerator.Next(10));
-                objectsList.Add(
+                theGameBoard.ObjectsInRoom.Add(
                     (monsterType < 6)
                         ? new CybertronRedDroid(droidPoint.X, droidPoint.Y) as CybertronDroidBase
                         : new CybertronBlueDroid(droidPoint.X, droidPoint.Y) as CybertronDroidBase);
             }
 
-            // Add other objects to the list, that don't require the positioner.
+            // Add other objects to the list, that don't require the positioner:
 
-            objectsList.Add(new CybertronGhost());
-            objectsList.Add(theGameBoard.Man);
-
-            theGameBoard.ObjectsInRoom = objectsList;
+            theGameBoard.ObjectsInRoom.Add(new CybertronGhost());
+            theGameBoard.ObjectsInRoom.Add(theGameBoard.Man);
         }
 
 

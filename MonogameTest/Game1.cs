@@ -92,7 +92,8 @@ namespace MonogameTest
             _cybertronGameBoard.Key = new GameClassLibrary.CybertronKey(100, 100, 1);
             _cybertronGameBoard.Ring = new GameClassLibrary.CybertronRing(100, 100, 4);
             _cybertronGameBoard.Gold = new GameClassLibrary.CybertronGold(100, 100, 16);
-            _cybertronGameBoard.aMan.Alive(0, 17, 92);
+            _cybertronGameBoard.Safe = new GameClassLibrary.CybertronLevelSafe(100, 100, 3);
+            _cybertronGameBoard.Man.Alive(0, 17, 92);
 
             GameClassLibrary.CybertronGameStateUpdater.PrepareForNewRoom(_cybertronGameBoard);
 

@@ -28,6 +28,7 @@ namespace GameClassLibrary
         public CybertronKey Key;
         public CybertronRing Ring;
         public CybertronGold Gold;
+        public CybertronLevelSafe Safe;
         
         /// <summary>
         /// Returns true if any droids exist in the room.
