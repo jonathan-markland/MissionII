@@ -35,19 +35,14 @@ namespace GameClassLibrary
 
         public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
         {
-            if (theGameBoard.RoomNumber == _roomNumber)
-            {
-                theGameBoard.PlayerInventory.Add(this);
-                _roomNumber = -1; // so will not Draw or action again.
-            }
+            theGameBoard.PlayerInventory.Add(this);
+            _roomNumber = -1; // so will not be added to ObjectsInRoom container again.
+            theGameBoard.ObjectsToRemove.Add(this);
         }
 
         public override void Draw(CybertronGameBoard theGameBoard, IDrawingTarget drawingTarget)
         {
-            if (theGameBoard.RoomNumber == _roomNumber)
-            {
-                CybertronScreenPainter.DrawIndexedSprite(Sprite, 0, drawingTarget);
-            }
+            CybertronScreenPainter.DrawIndexedSprite(Sprite, 0, drawingTarget);
         }
 
         public override Rectangle GetBoundingRectangle()

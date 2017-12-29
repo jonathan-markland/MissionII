@@ -8,6 +8,10 @@ namespace GameClassLibrary
         {
         }
 
-        // TODO:  Consider how to move to the next level when the man is carrying all the objects necessary.
+
+        public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
+        {
+            // TODO:  Consider how to move to the next level when the man is carrying all the objects necessary.
+        }
     }
 }
