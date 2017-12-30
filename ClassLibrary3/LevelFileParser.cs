@@ -21,6 +21,9 @@ namespace GameClassLibrary
         public const int InventoryItemSpacing = 4;
         public const int GhostMovementCycles = 2;
         public const int ExclusionZoneAroundMan = 32;
+        public const int ManDeadDelayCycles = 100;
+        public const int MaxLives = 15;
+        public const int NewLifeBoundary = 10000;
     }
 
 

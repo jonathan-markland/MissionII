@@ -89,10 +89,10 @@ namespace MonogameTest
             });
 
             // HACKS
-            _cybertronGameBoard.Key = new GameClassLibrary.CybertronKey(100, 100, 1);
-            _cybertronGameBoard.Ring = new GameClassLibrary.CybertronRing(100, 100, 4);
-            _cybertronGameBoard.Gold = new GameClassLibrary.CybertronGold(100, 100, 16);
-            _cybertronGameBoard.Safe = new GameClassLibrary.CybertronLevelSafe(100, 100, 3);
+            _cybertronGameBoard.Key =  new GameClassLibrary.CybertronKey (1);
+            _cybertronGameBoard.Ring = new GameClassLibrary.CybertronRing(4);
+            _cybertronGameBoard.Gold = new GameClassLibrary.CybertronGold(16);
+            _cybertronGameBoard.Safe = new GameClassLibrary.CybertronLevelSafe(3);
             _cybertronGameBoard.Man.Alive(0, 17, 92);
 
             GameClassLibrary.CybertronGameStateUpdater.PrepareForNewRoom(_cybertronGameBoard);
@@ -131,7 +131,7 @@ namespace MonogameTest
             // TODO: Add your update logic here
             ReadAndStorePlayerInputs();
             // TODO: remove function called:  var elapsedTime = GetGameTimeElapsed(gameTime);
-            GameClassLibrary.CybertronGameStateUpdater.UpdateTo(_cybertronGameBoard, _cybertronKeyStates);
+            GameClassLibrary.CybertronGameStateUpdater.Update(_cybertronGameBoard, _cybertronKeyStates);
 
             base.Update(gameTime);
         }

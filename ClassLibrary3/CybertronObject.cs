@@ -28,6 +28,15 @@ namespace GameClassLibrary
             get { return _roomNumber; }
         }
 
+        public Point Position
+        {
+            set
+            {
+                Sprite.RoomX = value.X;
+                Sprite.RoomY = value.Y;
+            }
+        }
+
         public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, CybertronKeyStates theKeyStates)
         {
             // No action required.

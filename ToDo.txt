@@ -1,7 +1,7 @@
 [ ] Droids can shoot ghost - should not happen
 [ ] Ideally monsters should not be positioned too close to the man when he enters a new room.
 [ ] Increase lives at 10,000 points
-[ ] Revisit the positioner -- it was going to place keys etc and all the droids.
+[X] Revisit the positioner -- it was going to place keys etc and all the droids.
 [ ] Possibly unify the containers for droids and keys/door/etc...  man / ghost too.
 [ ] Title screen needed.  Just use large sprites of instructions.  Cycle between.
 [ ] Hi-score table (although we need a proper font for this).
@@ -12,3 +12,7 @@
 [ ] New game init
 [ ] New level init
 [ ] Droid are obstructed by explosions.  We need to handle this.
+[X] Moving rooms invalidates the entire ObjectsInRoom container, which crashes ForEachDo() that
+    is currently handling the AdvanceOneCycle() that caused the room-switch.  In fact, the
+	ForEachDo() no longer applies at the point of the room-switch.
+[ ] LoseLife does not restore the correct facing direction as it was on room entry (seen in first room).

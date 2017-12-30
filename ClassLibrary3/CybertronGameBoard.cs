@@ -29,7 +29,10 @@ namespace GameClassLibrary
         public CybertronRing Ring;
         public CybertronGold Gold;
         public CybertronLevelSafe Safe;
-        
+        public CybertronManPosition ManPositionOnRoomEntry;
+
+        private bool _abandonForEachDo;
+
         /// <summary>
         /// Returns true if any droids exist in the room.
         /// </summary>
@@ -58,10 +61,22 @@ namespace GameClassLibrary
             // Note: We support the collection being appended while this loop executes.
             var n = ObjectsInRoom.Count;
             for (int i=0; i<n; i++)
-            { 
+            {
+                if (_abandonForEachDo) return false; // TODO: Remove the need for the lamnda to return a bool?
+                System.Diagnostics.Debug.Assert(ObjectsInRoom.Count >= n);
                 if (!theAction(ObjectsInRoom[i])) return false;
             }
             return true;
+        }
+
+        internal void AllowForEachDo()
+        {
+            _abandonForEachDo = false;
+        }
+
+        public void AbandonForEachDo()
+        {
+            _abandonForEachDo = true;
         }
     }
 }

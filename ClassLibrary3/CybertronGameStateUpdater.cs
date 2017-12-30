@@ -21,8 +21,10 @@ namespace GameClassLibrary
 
 
 
-        public static void UpdateTo(CybertronGameBoard gameBoard, CybertronKeyStates keyStates)
+        public static void Update(CybertronGameBoard gameBoard, CybertronKeyStates keyStates)
         {
+            gameBoard.AllowForEachDo();
+
             gameBoard.ForEachDo(o => { o.AdvanceOneCycle(gameBoard, keyStates); return true; } );
 
             foreach (var objectToRemove in gameBoard.ObjectsToRemove)
@@ -37,7 +39,16 @@ namespace GameClassLibrary
 
         public static void IncrementScore(CybertronGameBoard gameBoard, int scoreDelta)
         {
+            var thresholdBefore = gameBoard.Score / Constants.NewLifeBoundary;
             gameBoard.Score = (uint) (gameBoard.Score + scoreDelta);
+            var thresholdAfter = gameBoard.Score / Constants.NewLifeBoundary;
+            if (thresholdBefore < thresholdAfter)
+            {
+                if (gameBoard.Lives < Constants.MaxLives)
+                {
+                    ++gameBoard.Lives;
+                }
+            }
         }
 
 
@@ -214,12 +225,41 @@ namespace GameClassLibrary
 
 
 
-        public static void AddObjectIfInCurrentRoom(CybertronGameBoard theGameBoard, CybertronObject theObject)
+        public static void AddObjectIfInCurrentRoom(CybertronGameBoard theGameBoard, List<Point> pointsList, CybertronObject theObject)
         {
             if (theObject.RoomNumber == theGameBoard.RoomNumber)
             {
-                theGameBoard.ObjectsInRoom.Add(theObject);
+                var i = pointsList.Count;
+                if (i > 0)
+                {
+                    --i;
+                    theObject.Position = pointsList[i];
+                    theGameBoard.ObjectsInRoom.Add(theObject);
+                    pointsList.RemoveAt(i);
+                }
             }
+        }
+
+
+
+        public static void LoseLife(CybertronGameBoard theGameBoard)
+        {
+            if (theGameBoard.Lives > 0)
+            {
+                --theGameBoard.Lives;
+                RestartCurrentRoom(theGameBoard);
+            }
+            else
+            {
+                // TODO: sort out game over
+            }
+        }
+
+
+        public static void RestartCurrentRoom(CybertronGameBoard theGameBoard)
+        {
+            theGameBoard.Man.Position = theGameBoard.ManPositionOnRoomEntry;
+            PrepareForNewRoom(theGameBoard);
         }
 
 
@@ -227,6 +267,9 @@ namespace GameClassLibrary
         public static void PrepareForNewRoom(CybertronGameBoard theGameBoard)
         {
             // The Man must already be positioned.
+
+            // Remember initial position of man in case of loss of life:
+            theGameBoard.ManPositionOnRoomEntry = theGameBoard.Man.Position;
 
             var thisRoomNumber = theGameBoard.RoomNumber;
 
@@ -280,10 +323,10 @@ namespace GameClassLibrary
 
             // Collectible objects are the most important items requiring positioning:
 
-            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Key);
-            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Ring);
-            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Gold);
-            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Safe);
+            AddObjectIfInCurrentRoom(theGameBoard, pointsList, theGameBoard.Key);
+            AddObjectIfInCurrentRoom(theGameBoard, pointsList, theGameBoard.Ring);
+            AddObjectIfInCurrentRoom(theGameBoard, pointsList, theGameBoard.Gold);
+            AddObjectIfInCurrentRoom(theGameBoard, pointsList, theGameBoard.Safe);
 
             // Droids are much less important items that need positioning:
 

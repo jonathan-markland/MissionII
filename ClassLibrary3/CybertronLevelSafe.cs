@@ -3,8 +3,8 @@ namespace GameClassLibrary
 {
     public class CybertronLevelSafe : CybertronObject
     {
-        public CybertronLevelSafe(int roomX, int roomY, int roomNumber) 
-            : base(new SpriteInstance { RoomX = roomX, RoomY = roomY, Traits = CybertronSpriteTraits.Safe }, roomNumber)
+        public CybertronLevelSafe(int roomNumber) 
+            : base(new SpriteInstance { Traits = CybertronSpriteTraits.Safe }, roomNumber)
         {
         }
 

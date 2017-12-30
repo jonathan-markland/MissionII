@@ -1,6 +1,12 @@
 ﻿
 namespace GameClassLibrary
 {
+    public struct CybertronManPosition
+    {
+        public Point Position;
+        public int FacingDirection;
+    }
+
     public class CybertronMan : CybertronGameObject
     {
         public SpriteInstance SpriteInstance = new SpriteInstance();
@@ -14,6 +20,26 @@ namespace GameClassLibrary
         private const int ElectrocutionAnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
         private int _electrocutionCycles = 0;
         private bool _awaitingFireRelease = true;
+        private int _whileDeadCount = 0;
+
+        public CybertronManPosition Position
+        {
+            get
+            {
+                return new CybertronManPosition
+                {
+                    Position = new Point(SpriteInstance.RoomX, SpriteInstance.RoomY),
+                    FacingDirection = _facingDirection
+                };
+            }
+            set
+            {
+                _isDead = false;
+                SpriteInstance.RoomX = value.Position.X;
+                SpriteInstance.RoomY = value.Position.Y;
+                Standing(value.FacingDirection);
+            }
+        }
 
         public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, CybertronKeyStates keyStates)
         {
@@ -23,6 +49,7 @@ namespace GameClassLibrary
                 --_electrocutionCycles;
                 if (_electrocutionCycles == 0)
                 {
+                    _isElectrocuting = false;
                     Die();
                 }
             }
@@ -100,6 +127,18 @@ namespace GameClassLibrary
                     }
                 }
             }
+            else
+            {
+                System.Diagnostics.Debug.Assert(_isDead);
+                if (_whileDeadCount > 0)
+                {
+                    --_whileDeadCount;
+                }
+                else
+                {
+                    CybertronGameStateUpdater.LoseLife(theGameBoard);
+                }
+            }
         }
 
         private void AdvanceAnimation()
@@ -129,7 +168,7 @@ namespace GameClassLibrary
             CybertronScreenPainter.DrawIndexedSprite(SpriteInstance, _imageIndex, drawingTarget);
         }
 
-        public void Alive(int theDirection, int roomX, int roomY)
+        public void Alive(int theDirection, int roomX, int roomY) // TODO: refactor to use the Position property.
         {
             _isDead = false;
             Standing(theDirection);
@@ -147,6 +186,7 @@ namespace GameClassLibrary
                 SpriteInstance.Traits = CybertronSpriteTraits.Dead;
                 // TODO: Sound
                 // TODO: Reduce lives.
+                _whileDeadCount = Constants.ManDeadDelayCycles;
             }
         }
 
@@ -204,7 +244,8 @@ namespace GameClassLibrary
             {
                 CybertronGameStateUpdater.IncrementScore(theGameBoard, CybertronGameBoardConstants.RoomClearingBonusScore);
             }
-            CybertronGameStateUpdater.PrepareForNewRoom(theGameBoard);
+            CybertronGameStateUpdater.PrepareForNewRoom(theGameBoard); // TODO <-- do not do here.  Use the "states" framework when that is done.
+            theGameBoard.AbandonForEachDo();
         }
 
         public override Rectangle GetBoundingRectangle()
