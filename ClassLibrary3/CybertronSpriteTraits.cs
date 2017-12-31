@@ -60,6 +60,7 @@ namespace GameClassLibrary
         public static SpriteTraits Safe;
         public static SpriteTraits Score;
         public static SpriteTraits WallBlock;
+        public static SpriteTraits WallElectric;
 
         // And references to the above, for convenience:
         public static List<SpriteTraits> TheNumbers;
@@ -154,6 +155,7 @@ namespace GameClassLibrary
             Safe = loadImage("Safe", 1);
             Score = loadImage("Score", 1);
             WallBlock = loadImage("WallBlock", 1);
+            WallElectric = loadImage("WallElectric", 1);
 
             // Now build a list of the numbers for convenience of the drawing routines:
             TheNumbers = new List<SpriteTraits>

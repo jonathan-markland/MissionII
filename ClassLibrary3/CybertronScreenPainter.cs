@@ -31,12 +31,19 @@ namespace GameClassLibrary
 
             // The Room:
 
+            var wallSpriteTraits =
+                (cybertronGameBoard.Man.IsBeingElectrocuted)
+                ? CybertronSpriteTraits.WallElectric
+                : CybertronSpriteTraits.WallBlock;
+
             DrawWalls(
                 CybertronGameBoardConstants.RoomOriginX, 
                 CybertronGameBoardConstants.RoomOriginY,
                 CybertronGameBoardConstants.TileWidth,
                 CybertronGameBoardConstants.TileHeight, 
-                cybertronGameBoard.CurrentRoomWallData, drawingTarget);
+                cybertronGameBoard.CurrentRoomWallData,
+                wallSpriteTraits,
+                drawingTarget);
 
             // Draw objects in the room:
 
@@ -82,7 +89,7 @@ namespace GameClassLibrary
         }
 
 
-        public static void DrawWalls(int leftX, int topY, int tileWidth, int tileHeight, WallMatrix wallData, IDrawingTarget drawingTarget)
+        public static void DrawWalls(int leftX, int topY, int tileWidth, int tileHeight, WallMatrix wallData, SpriteTraits wallSpriteTraits, IDrawingTarget drawingTarget)
         {
             for(int y=0; y < wallData.CountV; y++)
             {
@@ -92,7 +99,7 @@ namespace GameClassLibrary
                     var ch = wallData.Read(x, y);
                     if (ch.Wall)
                     {
-                        DrawFirstSprite(leftX, topY, CybertronSpriteTraits.WallBlock, drawingTarget);
+                        DrawFirstSprite(leftX, topY, wallSpriteTraits, drawingTarget);
                     }
                     leftX += tileWidth;
                 }

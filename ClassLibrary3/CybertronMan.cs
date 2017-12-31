@@ -272,6 +272,11 @@ namespace GameClassLibrary
         }
 
         public override bool IsSolid { get { return true; } }
+
+        public bool IsBeingElectrocuted
+        {
+            get { return _isElectrocuting; }
+        }
     }
 }
 
