@@ -29,6 +29,7 @@ namespace GameClassLibrary
         public CybertronRing Ring;
         public CybertronGold Gold;
         public CybertronLevelSafe Safe;
+        public CybertronPotion Potion;
         public CybertronManPosition ManPositionOnRoomEntry;
 
         private bool _abandonForEachDo;
@@ -60,11 +61,13 @@ namespace GameClassLibrary
         {
             // Note: We support the collection being appended while this loop executes.
             var n = ObjectsInRoom.Count;
+            CybertronGameObject mostRecentObjectDebug = null;
             for (int i=0; i<n; i++)
             {
                 if (_abandonForEachDo) return false; // TODO: Remove the need for the lamnda to return a bool?
                 System.Diagnostics.Debug.Assert(ObjectsInRoom.Count >= n);
-                if (!theAction(ObjectsInRoom[i])) return false;
+                mostRecentObjectDebug = ObjectsInRoom[i]; // TODO: remove
+                if (!theAction(mostRecentObjectDebug)) return false;
             }
             return true;
         }

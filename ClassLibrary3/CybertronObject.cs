@@ -45,8 +45,16 @@ namespace GameClassLibrary
         public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
         {
             theGameBoard.PlayerInventory.Add(this);
-            _roomNumber = -1; // so will not be added to ObjectsInRoom container again.
-            theGameBoard.ObjectsToRemove.Add(this);
+            RemoveThisObject(theGameBoard);
+        }
+
+        protected void RemoveThisObject(CybertronGameBoard theGameBoard)
+        {
+            if (_roomNumber != -1)
+            {
+                _roomNumber = -1; // so will not be added to ObjectsInRoom container again.
+                theGameBoard.ObjectsToRemove.Add(this);
+            }
         }
 
         public override void Draw(CybertronGameBoard theGameBoard, IDrawingTarget drawingTarget)

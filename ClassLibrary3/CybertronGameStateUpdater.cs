@@ -44,10 +44,17 @@ namespace GameClassLibrary
             var thresholdAfter = gameBoard.Score / Constants.NewLifeBoundary;
             if (thresholdBefore < thresholdAfter)
             {
-                if (gameBoard.Lives < Constants.MaxLives)
-                {
-                    ++gameBoard.Lives;
-                }
+                IncrementLives(gameBoard);
+            }
+        }
+
+
+
+        public static void IncrementLives(CybertronGameBoard gameBoard)
+        {
+            if (gameBoard.Lives < Constants.MaxLives)
+            {
+                ++gameBoard.Lives;
             }
         }
 
@@ -292,6 +299,7 @@ namespace GameClassLibrary
             AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Ring);
             AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Gold);
             AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Safe);
+            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Potion);
 
             for (int j=0; j<Constants.IdealDroidCountPerRoom; j++)
             {
