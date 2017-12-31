@@ -10,6 +10,7 @@
 [ ] New level init
 [ ] Red monsters on level 1 only.  Introduce blues on level 2 etc...
 [ ] Carving removes too much.
+[ ] Getting assert in ForEachDo() still -- trace where from.
 
 [X] Ideally monsters should not be positioned too close to the man when he enters a new room.
 [X] Increase lives at 10,000 points
