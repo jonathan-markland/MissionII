@@ -225,18 +225,11 @@ namespace GameClassLibrary
 
 
 
-        public static void AddObjectIfInCurrentRoom(CybertronGameBoard theGameBoard, List<Point> pointsList, CybertronObject theObject)
+        public static void AddObjectIfInCurrentRoom(CybertronGameBoard theGameBoard, CybertronObject theObject)
         {
             if (theObject.RoomNumber == theGameBoard.RoomNumber)
             {
-                var i = pointsList.Count;
-                if (i > 0)
-                {
-                    --i;
-                    theObject.Position = pointsList[i];
-                    theGameBoard.ObjectsInRoom.Add(theObject);
-                    pointsList.RemoveAt(i);
-                }
+                theGameBoard.ObjectsInRoom.Add(theObject);
             }
         }
 
@@ -290,19 +283,44 @@ namespace GameClassLibrary
                 theGameBoard.Man.GetBoundingRectangle()
                 .Inflate(Constants.ExclusionZoneAroundMan);
 
-            // Now find a list of points on which we can position the objects:
+            // Make a list of those things that need positioning.
+
+            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Key);
+            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Ring);
+            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Gold);
+            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Safe);
+
+            for (int j=0; j<Constants.IdealDroidCountPerRoom; j++)
+            {
+                var monsterType = (RandomGenerator.Next(10));
+                theGameBoard.ObjectsInRoom.Add(
+                    (monsterType < 6)
+                        ? new CybertronRedDroid() as CybertronDroidBase
+                        : new CybertronBlueDroid() as CybertronDroidBase);
+            }
+
+            // Now measure the max dimensions of the things that need measuring.
+
+            int posnWidth = Constants.PositionerShapeSizeMinium;
+            int posnHeight = Constants.PositionerShapeSizeMinium;
+
+            foreach (var obj in theGameBoard.ObjectsInRoom)
+            {
+                var objRect = obj.GetBoundingRectangle();
+                posnWidth = Math.Max(objRect.Width, posnWidth);
+                posnHeight = Math.Max(objRect.Height, posnHeight);
+            }
+
+            // Now find a list of points on which we can position objects.
 
             var pointsList = new List<Point>();
-
-            int posnWidth = 20;
-            int posnHeight = 20;
 
             PositionFinder.ForEachEmptyCell(
                 theGameBoard.CurrentRoomWallData,
                 CybertronGameBoardConstants.TileWidth,
                 CybertronGameBoardConstants.TileHeight,
-                posnWidth, // HACK : calculate width of widest sprite being positioned.
-                posnHeight, // HACK : calculate height of tallest sprite being positioned.
+                posnWidth, 
+                posnHeight, 
                 (x,y) =>
                 {
                     if (!exclusionRectangle.Intersects(new Rectangle(x, y, posnWidth, posnHeight)))
@@ -314,31 +332,18 @@ namespace GameClassLibrary
 
             Business.Shuffle(pointsList, RandomGenerator);
 
-            // TODO: position keys etc too, where keys are priority.
+            // Apply positions:
+            // If this is LESS THAN ObjectsInRoom.Count then we cull the ObjectsInRoom container.
 
-            // Build objects list:    
-
-            // Add those objects to the list that require positioning:
-            // We have limited slots, so we position the most important first.
-
-            // Collectible objects are the most important items requiring positioning:
-
-            AddObjectIfInCurrentRoom(theGameBoard, pointsList, theGameBoard.Key);
-            AddObjectIfInCurrentRoom(theGameBoard, pointsList, theGameBoard.Ring);
-            AddObjectIfInCurrentRoom(theGameBoard, pointsList, theGameBoard.Gold);
-            AddObjectIfInCurrentRoom(theGameBoard, pointsList, theGameBoard.Safe);
-
-            // Droids are much less important items that need positioning:
-
-            var droidPoints = pointsList.Take(8);
-
-            foreach(var droidPoint in droidPoints)
+            int i = 0;
+            for (; i<pointsList.Count; i++)
             {
-                var monsterType = (RandomGenerator.Next(10));
-                theGameBoard.ObjectsInRoom.Add(
-                    (monsterType < 6)
-                        ? new CybertronRedDroid(droidPoint.X, droidPoint.Y) as CybertronDroidBase
-                        : new CybertronBlueDroid(droidPoint.X, droidPoint.Y) as CybertronDroidBase);
+                if (i >= theGameBoard.ObjectsInRoom.Count) break;
+                theGameBoard.ObjectsInRoom[i].TopLeftPosition = pointsList[i];
+            }
+            if (i < theGameBoard.ObjectsInRoom.Count)
+            {
+                theGameBoard.ObjectsInRoom.RemoveRange(i, theGameBoard.ObjectsInRoom.Count - i);
             }
 
             // Add other objects to the list, that don't require the positioner:

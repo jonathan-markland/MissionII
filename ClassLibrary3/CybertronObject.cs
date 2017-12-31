@@ -64,5 +64,11 @@ namespace GameClassLibrary
             // This cannot be shot (ignore)
             return false;
         }
+
+        public override Point TopLeftPosition
+        {
+            get { return Sprite.TopLeftPosition; }
+            set { Sprite.TopLeftPosition = value; }
+        }
     }
 }

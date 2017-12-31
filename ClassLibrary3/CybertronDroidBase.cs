@@ -10,13 +10,9 @@ namespace GameClassLibrary
         private ArtificialIntelligence.AbstractIntelligenceProvider _intelligenceProvider;
 
         public CybertronDroidBase(
-            int roomX, 
-            int roomY, 
             SpriteTraits spriteTraits, 
             ArtificialIntelligence.AbstractIntelligenceProvider intelligenceProvider)
         {
-            SpriteInstance.RoomX = roomX;
-            SpriteInstance.RoomY = roomY;
             SpriteInstance.Traits = spriteTraits;
             _intelligenceProvider = intelligenceProvider;
         }
@@ -53,6 +49,12 @@ namespace GameClassLibrary
         public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
         {
             theGameBoard.Man.Die();
+        }
+
+        public override Point TopLeftPosition
+        {
+            get { return SpriteInstance.TopLeftPosition; }
+            set { SpriteInstance.TopLeftPosition = value; }
         }
     }
 }

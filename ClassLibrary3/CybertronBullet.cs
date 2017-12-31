@@ -74,5 +74,11 @@ namespace GameClassLibrary
         {
             get { return _increasesScore; }
         }
+
+        public override Point TopLeftPosition
+        {
+            get { return Sprite.TopLeftPosition; }
+            set { Sprite.TopLeftPosition = value; }
+        }
     }
 }

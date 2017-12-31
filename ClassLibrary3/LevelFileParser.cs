@@ -24,6 +24,8 @@ namespace GameClassLibrary
         public const int ManDeadDelayCycles = 100;
         public const int MaxLives = 15;
         public const int NewLifeBoundary = 10000;
+        public const int IdealDroidCountPerRoom = 10;
+        public const int PositionerShapeSizeMinium = 10; // sort of srbitrary
     }
 
 

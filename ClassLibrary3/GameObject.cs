@@ -13,5 +13,6 @@ namespace GameClassLibrary
         public abstract Rectangle GetBoundingRectangle();
         public abstract void ManWalkedIntoYou(T theGameBoard);
         public abstract bool YouHaveBeenShot(T theGameBoard);
+        public abstract Point TopLeftPosition { get; set; }
     }
 }

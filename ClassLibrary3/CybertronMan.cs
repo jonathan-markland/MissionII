@@ -37,6 +37,7 @@ namespace GameClassLibrary
                 _isDead = false;
                 SpriteInstance.RoomX = value.Position.X;
                 SpriteInstance.RoomY = value.Position.Y;
+                _facingDirection = value.FacingDirection;
                 Standing(value.FacingDirection);
             }
         }
@@ -262,6 +263,12 @@ namespace GameClassLibrary
         {
             Die();
             return true;
+        }
+
+        public override Point TopLeftPosition
+        {
+            get { return SpriteInstance.TopLeftPosition; }
+            set { SpriteInstance.TopLeftPosition = value; }
         }
     }
 }

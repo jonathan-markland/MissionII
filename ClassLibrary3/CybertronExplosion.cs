@@ -49,5 +49,11 @@
             // no action required
             return false; // ignore this.
         }
+
+        public override Point TopLeftPosition
+        {
+            get { return SpriteInstance.TopLeftPosition; }
+            set { SpriteInstance.TopLeftPosition = value; }
+        }
     }
 }

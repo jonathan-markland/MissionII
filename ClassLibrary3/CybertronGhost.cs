@@ -81,5 +81,11 @@ namespace GameClassLibrary
             }
             else return new Rectangle(-1,-1,0,0); // empty if ghost not started
         }
+
+        public override Point TopLeftPosition
+        {
+            get { return _spriteInstance.TopLeftPosition; }
+            set { _spriteInstance.TopLeftPosition = value; }
+        }
     }
 }

@@ -39,5 +39,11 @@ namespace GameClassLibrary
         {
             get { return GetBoundingRectangle().Centre; }
         }
+
+        public Point TopLeftPosition
+        {
+            get { return new Point(RoomX, RoomY); }
+            set { RoomX = value.X; RoomY = value.Y; }
+        }
     }
 }
