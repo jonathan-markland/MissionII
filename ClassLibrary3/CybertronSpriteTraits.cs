@@ -61,6 +61,10 @@ namespace GameClassLibrary
         public static SpriteTraits Score;
         public static SpriteTraits WallBlock;
         public static SpriteTraits WallElectric;
+        public static SpriteTraits TitleScreen;
+        public static SpriteTraits InstructionsKeys;
+        public static SpriteTraits EnteringLevel;
+        public static SpriteTraits GameOver;
 
         // And references to the above, for convenience:
         public static List<SpriteTraits> TheNumbers;
@@ -156,9 +160,14 @@ namespace GameClassLibrary
             Score = loadImage("Score", 1);
             WallBlock = loadImage("WallBlock", 1);
             WallElectric = loadImage("WallElectric", 1);
+            TitleScreen = loadImage("TitleScreen", 1);
+            InstructionsKeys = loadImage("InstructionsKeys", 1);
+            EnteringLevel = loadImage("EnteringLevel", 1);
+            GameOver = loadImage("GameOver", 1);
 
-            // Now build a list of the numbers for convenience of the drawing routines:
-            TheNumbers = new List<SpriteTraits>
+
+        // Now build a list of the numbers for convenience of the drawing routines:
+        TheNumbers = new List<SpriteTraits>
             {
                 Font0,
                 Font1,

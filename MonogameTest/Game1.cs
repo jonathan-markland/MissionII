@@ -15,7 +15,6 @@ namespace MonogameTest
         SpriteBatch _spriteBatch;
         RenderTarget2D _backingScreen;
         MonoGameDrawingTarget _monoGameDrawingTarget;
-        GameClassLibrary.CybertronGameBoard _cybertronGameBoard;
         GameClassLibrary.CybertronKeyStates _cybertronKeyStates;
 
 
@@ -26,29 +25,6 @@ namespace MonogameTest
             _cybertronKeyStates = new GameClassLibrary.CybertronKeyStates();
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
-
-            using (var sr = new StreamReader("Resources\\Levels.txt"))
-            {
-                var loadedWorld = GameClassLibrary.LevelFileParser.Parse(sr);
-                GameClassLibrary.LevelFileValidator.ExpectValidPathsInWorld(loadedWorld);
-                GameClassLibrary.LevelExpander.ExpandWallsInWorld(loadedWorld);
-
-                _cybertronGameBoard = new GameClassLibrary.CybertronGameBoard() // TODO: HACK
-                {
-                    TheWorldWallData = loadedWorld,
-                    BoardWidth = 320,
-                    BoardHeight = 256,
-                    LevelNumber = 1,
-                    RoomNumber = 1,
-                    Score = 0,
-                    Lives = 3
-                };
-
-                // TODO: PrepareForNewGame() function
-                // TODO: PrepareForNewLevel() function
-                // TODO: Initialise man position?
-
-            }
         }
 
 
@@ -88,16 +64,6 @@ namespace MonogameTest
                 };
             });
 
-            // HACKS
-            _cybertronGameBoard.Key =  new GameClassLibrary.CybertronKey (1);
-            _cybertronGameBoard.Ring = new GameClassLibrary.CybertronRing(4);
-            _cybertronGameBoard.Gold = new GameClassLibrary.CybertronGold(16);
-            _cybertronGameBoard.Safe = new GameClassLibrary.CybertronLevelSafe(3);
-            _cybertronGameBoard.Potion = new GameClassLibrary.CybertronPotion(2);
-            _cybertronGameBoard.Man.Alive(0, 17, 92);
-
-            GameClassLibrary.CybertronGameStateUpdater.PrepareForNewRoom(_cybertronGameBoard);
-
         }
 
         private GameClassLibrary.GameTimeSpan GetGameTimeElapsed(GameTime gameTime)
@@ -126,13 +92,17 @@ namespace MonogameTest
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
+                || Keyboard.GetState().IsKeyDown(Keys.Escape))
+            {
                 Exit();
+            }
 
             // TODO: Add your update logic here
             ReadAndStorePlayerInputs();
             // TODO: remove function called:  var elapsedTime = GetGameTimeElapsed(gameTime);
-            GameClassLibrary.CybertronGameStateUpdater.Update(_cybertronGameBoard, _cybertronKeyStates);
+
+            GameClassLibrary.CybertronGameModeSelector.ModeSelector.CurrentMode.AdvanceOneCycle(_cybertronKeyStates);
 
             base.Update(gameTime);
         }
@@ -162,9 +132,7 @@ namespace MonogameTest
 
             var elapsedTime = GetGameTimeElapsed(gameTime);
 
-            GameClassLibrary.CybertronScreenPainter.DrawBoardToTarget(
-                _cybertronGameBoard,
-                _monoGameDrawingTarget);
+            GameClassLibrary.CybertronGameModeSelector.ModeSelector.CurrentMode.Draw(_monoGameDrawingTarget);
 
             _spriteBatch.End();
 

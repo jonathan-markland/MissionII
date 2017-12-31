@@ -66,6 +66,8 @@
     <Compile Include="CybertronRing.cs" />
     <Compile Include="CybertronScreenPainter.cs" />
     <Compile Include="CybertronSpriteTraits.cs" />
+    <Compile Include="CybertronTitleScreen.cs" />
+    <Compile Include="GameMode.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameTimeSpan.cs" />
     <Compile Include="IDrawingTarget.cs" />

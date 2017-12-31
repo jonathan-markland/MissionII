@@ -254,7 +254,8 @@ namespace GameClassLibrary
             }
             else
             {
-                // TODO: sort out game over
+                CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronGameOverMode();
+                theGameBoard.AbandonForEachDo();
             }
         }
 

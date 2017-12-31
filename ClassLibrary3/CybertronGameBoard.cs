@@ -10,6 +10,35 @@ namespace GameClassLibrary
     {
     }
 
+    public class CybertronGameMode: GameMode<CybertronKeyStates>
+    {
+
+    }
+
+    public static class CybertronGameModeSelector
+    {
+        public static CybertronGameModes ModeSelector = new CybertronGameModes();
+    }
+
+    public class CybertronGameModes
+    {
+        private CybertronGameMode _currentMode;
+
+        public CybertronGameModes()
+        {
+            CurrentMode = new CybertronTitleScreenMode();
+        }
+
+        public CybertronGameMode CurrentMode
+        {
+            get { return _currentMode; }
+            set
+            {
+                _currentMode = value;
+            }
+        }
+    }
+
     public class CybertronGameBoard
     {
         public bool IsPaused;
