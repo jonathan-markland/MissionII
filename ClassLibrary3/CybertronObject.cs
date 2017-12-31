@@ -70,5 +70,7 @@ namespace GameClassLibrary
             get { return Sprite.TopLeftPosition; }
             set { Sprite.TopLeftPosition = value; }
         }
+
+        public override bool IsSolid { get { return true; } }
     }
 }

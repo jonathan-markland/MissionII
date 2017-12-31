@@ -79,12 +79,15 @@ namespace GameClassLibrary
 
             foreach(var theObject in gameBoard.ObjectsInRoom)
             {
-                var objectRectangle = theObject.GetBoundingRectangle();
-                if (objectRectangle.Left != oldX || objectRectangle.Top != oldY) // TODO: crude way of avoiding self-intersection test
+                if (theObject.IsSolid)
                 {
-                    if (objectRectangle.Intersects(myNewRectangle))
+                    var objectRectangle = theObject.GetBoundingRectangle();
+                    if (objectRectangle.Left != oldX || objectRectangle.Top != oldY) // TODO: crude way of avoiding self-intersection test
                     {
-                        return CollisionDetection.WallHitTestResult.HitWall; // Pretend other objects are wall.  Doesn't matter.
+                        if (objectRectangle.Intersects(myNewRectangle))
+                        {
+                            return CollisionDetection.WallHitTestResult.HitWall; // Pretend other objects are wall.  Doesn't matter.
+                        }
                     }
                 }
             }

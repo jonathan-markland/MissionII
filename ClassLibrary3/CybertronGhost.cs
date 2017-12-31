@@ -87,5 +87,7 @@ namespace GameClassLibrary
             get { return _spriteInstance.TopLeftPosition; }
             set { _spriteInstance.TopLeftPosition = value; }
         }
+
+        public override bool IsSolid { get { return false; } }
     }
 }
