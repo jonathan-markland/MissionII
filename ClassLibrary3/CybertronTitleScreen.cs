@@ -71,7 +71,7 @@ namespace GameClassLibrary
                     TheWorldWallData = loadedWorld,
                     BoardWidth = 320,
                     BoardHeight = 256,
-                    LevelNumber = 1,
+                    LevelNumber = 2,
                     RoomNumber = 1,
                     Score = 0,
                     Lives = 3
