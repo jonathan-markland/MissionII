@@ -14,7 +14,7 @@ namespace GameClassLibrary
 
 
 
-    public static partial class CybertronGameStateUpdater
+    public static class CybertronGameStateUpdater
     {
         public static Random RandomGenerator = new Random();
 
@@ -253,15 +253,17 @@ namespace GameClassLibrary
         {
             // The LevelNumber is already set.
             theGameBoard.RoomNumber = 1;
+            theGameBoard.PlayerInventory = new List<CybertronObject>();
 
             // TODO: This could be done better, as it's a bit weird requiring the objects already to
             //       be created, and then only to replace them.  At least this way we have ONE
-            //       place that decides what is to be found on the level.
+            //       place that decides what is to be found on the level (ForEachThingWeHaveToFindOnThisLevel)
             theGameBoard.Key = new GameClassLibrary.CybertronKey(0);
             theGameBoard.Ring = new GameClassLibrary.CybertronRing(0);
             theGameBoard.Gold = new GameClassLibrary.CybertronGold(0);
 
             var roomNumberAllocator = new UniqueNumberAllocator(1, Constants.NumRooms);
+            // var roomNumberAllocator = new IncrementingNumberAllocator(1, Constants.NumRooms); // For testing purposes.
 
             theGameBoard.ForEachThingWeHaveToFindOnThisLevel(o =>
             {
@@ -342,11 +344,20 @@ namespace GameClassLibrary
             AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Safe, objectsList);
             AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Potion, objectsList);
 
-            for (int j=0; j<Constants.IdealDroidCountPerRoom; j++)
+            int redBlueThreshold = Constants.IdealDroidCountPerRoom;
+            if (theGameBoard.LevelNumber == 2)
             {
-                var monsterType = (RandomGenerator.Next(10));
+                redBlueThreshold = Constants.IdealDroidCountPerRoom - 2;
+            }
+            else if (theGameBoard.LevelNumber > 2)
+            {
+                redBlueThreshold = Constants.IdealDroidCountPerRoom - 4;
+            }
+
+            for (int j=0; j < Constants.IdealDroidCountPerRoom; j++)
+            {
                 objectsList.Add(
-                    (monsterType < 6)
+                    (j < redBlueThreshold)
                         ? new CybertronRedDroid() as CybertronDroidBase
                         : new CybertronBlueDroid() as CybertronDroidBase);
             }
