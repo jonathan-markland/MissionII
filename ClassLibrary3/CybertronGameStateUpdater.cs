@@ -99,12 +99,6 @@ namespace GameClassLibrary
                 return hitResult;
             }
 
-            // TODO: remove when man is in the objects list:
-            if (myNewRectangle.Intersects(gameBoard.Man.SpriteInstance.GetBoundingRectangle()))
-            {
-                return CollisionDetection.WallHitTestResult.HitWall; // Pretend man is wall.  Doesn't matter.
-            }
-
             return MoveSpriteInstanceOnePixel(
                 gameBoard.CurrentRoomWallData,
                 spriteInstance,
