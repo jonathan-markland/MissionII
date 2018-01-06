@@ -23,15 +23,8 @@ namespace GameClassLibrary
 
         public static void Update(CybertronGameBoard gameBoard, CybertronKeyStates keyStates)
         {
-            gameBoard.AllowForEachDo();
-
-            gameBoard.ForEachDo(o => { o.AdvanceOneCycle(gameBoard, keyStates); return true; } );
-
-            foreach (var objectToRemove in gameBoard.ObjectsToRemove)
-            {
-                gameBoard.ObjectsInRoom.Remove(objectToRemove);
-            }
-
+            gameBoard.ObjectsInRoom.ForEachDo(o => { o.AdvanceOneCycle(gameBoard, keyStates); } );
+            gameBoard.ObjectsInRoom.RemoveThese(gameBoard.ObjectsToRemove);
             gameBoard.ObjectsToRemove.Clear();
         }
 
@@ -84,19 +77,26 @@ namespace GameClassLibrary
                 spriteInstance.Traits.BoardWidth, 
                 spriteInstance.Traits.BoardHeight);
 
-            foreach(var theObject in gameBoard.ObjectsInRoom)
+            var hitResult = CollisionDetection.WallHitTestResult.NothingHit;
+            gameBoard.ObjectsInRoom.ForEachDo(theObject =>
             {
-                if (theObject.IsSolid)
+                if (hitResult == CollisionDetection.WallHitTestResult.NothingHit
+                    && theObject.IsSolid)
                 {
                     var objectRectangle = theObject.GetBoundingRectangle();
                     if (objectRectangle.Left != oldX || objectRectangle.Top != oldY) // TODO: crude way of avoiding self-intersection test
                     {
                         if (objectRectangle.Intersects(myNewRectangle))
                         {
-                            return CollisionDetection.WallHitTestResult.HitWall; // Pretend other objects are wall.  Doesn't matter.
+                            hitResult = CollisionDetection.WallHitTestResult.HitWall; // Pretend other objects are wall.  Doesn't matter.
                         }
                     }
                 }
+            });
+
+            if (hitResult != CollisionDetection.WallHitTestResult.NothingHit)
+            {
+                return hitResult;
             }
 
             // TODO: remove when man is in the objects list:
@@ -214,7 +214,7 @@ namespace GameClassLibrary
 
             bool hitSomething = false;
 
-            gameBoard.ForEachDo(o => 
+            gameBoard.ObjectsInRoom.ForEachDo(o => 
             {
                 if (o.GetBoundingRectangle().Intersects(theBullet.GetBoundingRectangle()))
                 {
@@ -227,7 +227,6 @@ namespace GameClassLibrary
                         hitSomething = true;
                     }
                 }
-                return true;
             });
 
             return hitSomething;
@@ -235,11 +234,11 @@ namespace GameClassLibrary
 
 
 
-        public static void AddObjectIfInCurrentRoom(CybertronGameBoard theGameBoard, CybertronObject theObject)
+        public static void AddObjectIfInCurrentRoom(CybertronGameBoard theGameBoard, CybertronObject theObject, List<CybertronGameObject> targetList)
         {
             if (theObject.RoomNumber == theGameBoard.RoomNumber)
             {
-                theGameBoard.ObjectsInRoom.Add(theObject);
+                targetList.Add(theObject);
             }
         }
 
@@ -271,8 +270,6 @@ namespace GameClassLibrary
         {
             // The Man must already be positioned.
 
-            theGameBoard.AbandonForEachDo();
-
             // Remember initial position of man in case of loss of life:
             theGameBoard.ManPositionOnRoomEntry = theGameBoard.Man.Position;
 
@@ -284,7 +281,8 @@ namespace GameClassLibrary
                     .Rooms[thisRoomNumber - 1]
                     .WallData;
 
-            theGameBoard.ObjectsInRoom.Clear();
+            var objectsList = new List<CybertronGameObject>(); 
+
             theGameBoard.ObjectsToRemove.Clear();
 
             // Man should have been positioned by caller.
@@ -297,16 +295,16 @@ namespace GameClassLibrary
 
             // Make a list of those things that need positioning.
 
-            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Key);
-            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Ring);
-            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Gold);
-            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Safe);
-            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Potion);
+            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Key, objectsList);
+            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Ring, objectsList);
+            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Gold, objectsList);
+            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Safe, objectsList);
+            AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Potion, objectsList);
 
             for (int j=0; j<Constants.IdealDroidCountPerRoom; j++)
             {
                 var monsterType = (RandomGenerator.Next(10));
-                theGameBoard.ObjectsInRoom.Add(
+                objectsList.Add(
                     (monsterType < 6)
                         ? new CybertronRedDroid() as CybertronDroidBase
                         : new CybertronBlueDroid() as CybertronDroidBase);
@@ -317,7 +315,7 @@ namespace GameClassLibrary
             int posnWidth = Constants.PositionerShapeSizeMinium;
             int posnHeight = Constants.PositionerShapeSizeMinium;
 
-            foreach (var obj in theGameBoard.ObjectsInRoom)
+            foreach(var obj in objectsList)
             {
                 var objRect = obj.GetBoundingRectangle();
                 posnWidth = Math.Max(objRect.Width, posnWidth);
@@ -351,18 +349,20 @@ namespace GameClassLibrary
             int i = 0;
             for (; i<pointsList.Count; i++)
             {
-                if (i >= theGameBoard.ObjectsInRoom.Count) break;
-                theGameBoard.ObjectsInRoom[i].TopLeftPosition = pointsList[i];
+                if (i >= objectsList.Count) break;
+                objectsList[i].TopLeftPosition = pointsList[i];
             }
-            if (i < theGameBoard.ObjectsInRoom.Count)
+            if (i < objectsList.Count)
             {
-                theGameBoard.ObjectsInRoom.RemoveRange(i, theGameBoard.ObjectsInRoom.Count - i);
+                objectsList.RemoveRange(i, objectsList.Count - i);
             }
 
             // Add other objects to the list, that don't require the positioner:
 
-            theGameBoard.ObjectsInRoom.Add(new CybertronGhost());
-            theGameBoard.ObjectsInRoom.Add(theGameBoard.Man);
+            objectsList.Add(new CybertronGhost());
+            objectsList.Add(theGameBoard.Man);
+
+            theGameBoard.ObjectsInRoom.ReplaceWith(objectsList);
         }
 
 

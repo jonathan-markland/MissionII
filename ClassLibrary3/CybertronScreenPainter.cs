@@ -47,7 +47,7 @@ namespace GameClassLibrary
 
             // Draw objects in the room:
 
-            cybertronGameBoard.ForEachDo(o => { o.Draw(cybertronGameBoard, drawingTarget); return true; });
+            cybertronGameBoard.ObjectsInRoom.ForEachDo(o => { o.Draw(cybertronGameBoard, drawingTarget); });
 
             // Lives:
 

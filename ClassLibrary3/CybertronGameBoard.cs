@@ -39,6 +39,58 @@ namespace GameClassLibrary
         }
     }
 
+    public class SuddenlyReplaceableList<T>
+    {
+        private List<T> _theList;
+
+        public SuddenlyReplaceableList()
+        {
+            Clear();
+        }
+
+        public void Clear()
+        {
+            _theList = new List<T>();
+        }
+
+        public void Add(T objectToAdd)
+        {
+           _theList.Add(objectToAdd);
+        }
+
+        public void RemoveThese(List<T> listOfObjects)
+        {
+            // Making a fresh list with items removed.
+            // Making a fresh list will have a different instance address
+            // for the List<T>, thus will terminate any ForEachDo() in operation.
+            var newList = new List<T>();
+            newList.AddRange(_theList);
+            foreach(var o in listOfObjects)
+            {
+                newList.Remove(o);
+            }
+            ReplaceWith(newList);
+        }
+
+        public void ReplaceWith(List<T> newItems)
+        {
+            _theList = newItems;
+        }
+
+        public void ForEachDo(Action<T> theAction)
+        {
+            var addressOfOriginalList = _theList;
+            // Note: We support the collection being appended while this loop executes.
+            var originalListLength = _theList.Count;
+            for (int i = 0; i < _theList.Count; i++)
+            {
+                System.Diagnostics.Debug.Assert(_theList.Count >= originalListLength);
+                theAction(_theList[i]);
+                // _theList might have been invalidated.
+                if (!object.ReferenceEquals(_theList, addressOfOriginalList)) break; // abort because client replaced list during iteration.
+            }
+        }
+    }
 
     public class CybertronGameBoard
     {
@@ -52,7 +104,7 @@ namespace GameClassLibrary
         public WorldWallData TheWorldWallData;
         public WallMatrix CurrentRoomWallData;
         public CybertronMan Man = new CybertronMan();
-        public List<CybertronGameObject> ObjectsInRoom = new List<CybertronGameObject>();
+        public SuddenlyReplaceableList<CybertronGameObject> ObjectsInRoom = new SuddenlyReplaceableList<CybertronGameObject>();
         public List<CybertronGameObject> ObjectsToRemove = new List<CybertronGameObject>();
         public List<CybertronObject> PlayerInventory = new List<CybertronObject>();
         public CybertronKey Key;
@@ -62,8 +114,6 @@ namespace GameClassLibrary
         public CybertronPotion Potion;
         public CybertronManPosition ManPositionOnRoomEntry;
 
-        private bool _abandonForEachDo;
-
         /// <summary>
         /// Returns true if any droids exist in the room.
         /// </summary>
@@ -71,14 +121,15 @@ namespace GameClassLibrary
         {
             get
             {
-                foreach (var theObject in ObjectsInRoom)
+                bool foundDroids = false;
+                ObjectsInRoom.ForEachDo(o => 
                 {
-                    if (theObject is CybertronDroidBase)
+                    if (o is CybertronDroidBase)
                     {
-                        return true;
+                        foundDroids = true;
                     }
-                }
-                return false;
+                });
+                return foundDroids;
             }
         }
 
@@ -93,36 +144,6 @@ namespace GameClassLibrary
             {
                 theAction(Gold);
             }
-        }
-
-        /// <summary>
-        /// Iterate all game objects in the room and call the callback.
-        /// The callback must return 'true' to continue, or 'false' to terminate.
-        /// </summary>
-        /// <returns>true if enumeration succeeded normally.  false if callback stopped enumeration.</returns>
-        public bool ForEachDo(Func<CybertronGameObject, bool> theAction)
-        {
-            // Note: We support the collection being appended while this loop executes.
-            var n = ObjectsInRoom.Count;
-            CybertronGameObject mostRecentObjectDebug = null;
-            for (int i=0; i<n; i++)
-            {
-                if (_abandonForEachDo) return false; // TODO: Remove the need for the lamnda to return a bool?
-                System.Diagnostics.Debug.Assert(ObjectsInRoom.Count >= n);
-                mostRecentObjectDebug = ObjectsInRoom[i]; // TODO: remove
-                if (!theAction(mostRecentObjectDebug)) return false;
-            }
-            return true;
-        }
-
-        internal void AllowForEachDo()
-        {
-            _abandonForEachDo = false;
-        }
-
-        public void AbandonForEachDo()
-        {
-            _abandonForEachDo = true;
         }
     }
 }

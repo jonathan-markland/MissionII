@@ -96,14 +96,12 @@ namespace GameClassLibrary
                     // Collision between man and room objects?
 
                     var manRectangle = GetBoundingRectangle();
-                    theGameBoard.ForEachDo(roomObject =>
+                    theGameBoard.ObjectsInRoom.ForEachDo(roomObject =>
                     {
-                        if (manRectangle.Intersects(roomObject.GetBoundingRectangle()))
+                        if (!_isDead && manRectangle.Intersects(roomObject.GetBoundingRectangle()))
                         {
                             roomObject.ManWalkedIntoYou(theGameBoard);
-                            if (_isDead) return false;
                         }
-                        return true;
                     });
                 }
                 else
