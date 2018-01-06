@@ -245,8 +245,7 @@ namespace GameClassLibrary
             {
                 CybertronGameStateUpdater.IncrementScore(theGameBoard, CybertronGameBoardConstants.RoomClearingBonusScore);
             }
-            CybertronGameStateUpdater.PrepareForNewRoom(theGameBoard); // TODO <-- do not do here.  Use the "states" framework when that is done.
-            theGameBoard.AbandonForEachDo();
+            CybertronGameStateUpdater.PrepareForNewRoom(theGameBoard);
         }
 
         public override Rectangle GetBoundingRectangle()

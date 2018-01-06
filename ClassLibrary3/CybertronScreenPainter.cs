@@ -67,6 +67,14 @@ namespace GameClassLibrary
             }
         }
 
+        public static void DrawFirstSpriteCentred(int cx, int cy, SpriteTraits theSprite, IDrawingTarget drawingTarget)
+        {
+            drawingTarget.DrawSprite(
+                cx - theSprite.BoardWidth / 2, 
+                cy - theSprite.BoardHeight / 2, 
+                theSprite.HostImageObjects[0]);
+        }
+
         public static void DrawFirstSprite(int x, int y, SpriteTraits theSprite, IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawSprite(x, y, theSprite.HostImageObjects[0]);

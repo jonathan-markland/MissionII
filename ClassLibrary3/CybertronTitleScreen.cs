@@ -101,7 +101,7 @@ namespace GameClassLibrary
     public class CybertronEnteringLevelMode : CybertronGameMode
     {
         private CybertronGameBoard _cybertronGameBoard;
-        private int _countDown = 50;
+        private int _countDown = 150;
 
         public CybertronEnteringLevelMode(CybertronGameBoard theGameBoard)
         {
@@ -125,7 +125,19 @@ namespace GameClassLibrary
         {
             drawingTarget.ClearScreen();
             drawingTarget.DrawSprite(0, 0, CybertronSpriteTraits.EnteringLevel.HostImageObjects[0]);
-            // TODO: Show the things you need to find.
+
+            // Show the things you need to find on this level.
+
+            int x = 160; // TODO centre
+            int y = 150; // TODO: constant
+            int dy = 24; // TODO: constant
+
+            _cybertronGameBoard.ForEachThingWeHaveToFindOnThisLevel(
+                o =>
+                {
+                    CybertronScreenPainter.DrawFirstSpriteCentred(x, y, o.SpriteTraits, drawingTarget);
+                    y += dy;
+                });
         }
     }
 

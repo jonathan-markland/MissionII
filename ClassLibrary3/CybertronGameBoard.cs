@@ -39,6 +39,7 @@ namespace GameClassLibrary
         }
     }
 
+
     public class CybertronGameBoard
     {
         public bool IsPaused;
@@ -78,6 +79,19 @@ namespace GameClassLibrary
                     }
                 }
                 return false;
+            }
+        }
+
+        public void ForEachThingWeHaveToFindOnThisLevel(Action<CybertronObject> theAction)
+        {
+            theAction(Key);
+            if (LevelNumber > 1)
+            {
+                theAction(Ring);
+            }
+            if (LevelNumber > 2)
+            {
+                theAction(Gold);
             }
         }
 

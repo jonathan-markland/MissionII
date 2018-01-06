@@ -255,7 +255,6 @@ namespace GameClassLibrary
             else
             {
                 CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronGameOverMode();
-                theGameBoard.AbandonForEachDo();
             }
         }
 
@@ -271,6 +270,8 @@ namespace GameClassLibrary
         public static void PrepareForNewRoom(CybertronGameBoard theGameBoard)
         {
             // The Man must already be positioned.
+
+            theGameBoard.AbandonForEachDo();
 
             // Remember initial position of man in case of loss of life:
             theGameBoard.ManPositionOnRoomEntry = theGameBoard.Man.Position;
