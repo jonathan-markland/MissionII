@@ -85,6 +85,7 @@
     <Compile Include="SpriteInstance.cs" />
     <Compile Include="SpriteTraits.cs" />
     <Compile Include="SuddenlyReplaceableList.cs" />
+    <Compile Include="UniqueNumberAllocator.cs" />
     <Compile Include="WallMatrix.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -11,6 +11,7 @@ namespace GameClassLibrary
         public const int GhostStunnedCycles = 200;
         public const int RoomsHorizontally = 4;
         public const int RoomsVertically = 4;
+        public const int NumRooms = RoomsHorizontally * RoomsVertically;
         public const int ClustersHorizonally = 5;
         public const int ClustersVertically = 5;
         public const int ClusterSide = 3;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GameClassLibrary
 {
@@ -15,7 +14,7 @@ namespace GameClassLibrary
 
 
 
-    public static class CybertronGameStateUpdater
+    public static partial class CybertronGameStateUpdater
     {
         public static Random RandomGenerator = new Random();
 
@@ -204,8 +203,6 @@ namespace GameClassLibrary
 
         public static bool KillThingsIfShot(CybertronGameBoard gameBoard, CybertronBullet theBullet)
         {
-            // TODO:  Do with polymorphism as much as possible.  Implies Man objects should be in ObjectsInRoom collection.
-
             bool hitSomething = false;
 
             gameBoard.ObjectsInRoom.ForEachDo(o => 
@@ -252,6 +249,54 @@ namespace GameClassLibrary
         }
 
 
+        public static void PrepareForNewLevel(CybertronGameBoard theGameBoard)
+        {
+            // The LevelNumber is already set.
+            theGameBoard.RoomNumber = 1;
+
+            // TODO: This could be done better, as it's a bit weird requiring the objects already to
+            //       be created, and then only to replace them.  At least this way we have ONE
+            //       place that decides what is to be found on the level.
+            theGameBoard.Key = new GameClassLibrary.CybertronKey(0);
+            theGameBoard.Ring = new GameClassLibrary.CybertronRing(0);
+            theGameBoard.Gold = new GameClassLibrary.CybertronGold(0);
+
+            var roomNumberAllocator = new UniqueNumberAllocator(1, Constants.NumRooms);
+
+            theGameBoard.ForEachThingWeHaveToFindOnThisLevel(o =>
+            {
+                var roomNumber = roomNumberAllocator.Next();
+                if (o is CybertronKey)
+                {
+                    theGameBoard.Key = new GameClassLibrary.CybertronKey(roomNumber);
+                }
+                else if (o is CybertronRing)
+                {
+                    theGameBoard.Ring = new GameClassLibrary.CybertronRing(roomNumber);
+                }
+                else if (o is CybertronGold)
+                {
+                    theGameBoard.Gold = new GameClassLibrary.CybertronGold(roomNumber);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.Assert(false); // What have we been passed ???
+                }
+            });
+
+            theGameBoard.Safe = new GameClassLibrary.CybertronLevelSafe(roomNumberAllocator.Next());
+            theGameBoard.Potion = new GameClassLibrary.CybertronPotion(roomNumberAllocator.Next());
+
+            // TODO: sort out initial man position on level.
+            theGameBoard.Man.Alive(0, 17, 92);
+
+            PrepareForNewRoom(theGameBoard);
+
+            CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronEnteringLevelMode(theGameBoard);
+        }
+
+
+
         public static void RestartCurrentRoom(CybertronGameBoard theGameBoard)
         {
             theGameBoard.Man.Position = theGameBoard.ManPositionOnRoomEntry;
@@ -269,9 +314,11 @@ namespace GameClassLibrary
 
             var thisRoomNumber = theGameBoard.RoomNumber;
 
+            var maxLevelNumber = theGameBoard.TheWorldWallData.Levels.Count;
+
             theGameBoard.CurrentRoomWallData = 
                 theGameBoard.TheWorldWallData
-                    .Levels[theGameBoard.LevelNumber - 1]
+                    .Levels[(theGameBoard.LevelNumber - 1) % maxLevelNumber]
                     .Rooms[thisRoomNumber - 1]
                     .WallData;
 

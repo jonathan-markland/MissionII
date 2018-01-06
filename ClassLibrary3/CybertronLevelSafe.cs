@@ -11,7 +11,21 @@ namespace GameClassLibrary
 
         public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
         {
-            // TODO:  Consider how to move to the next level when the man is carrying all the objects necessary.
+            bool carryingEverything = true;
+            theGameBoard.ForEachThingWeHaveToFindOnThisLevel(o => 
+            {
+                if (!theGameBoard.PlayerInventory.Contains(o))
+                {
+                    carryingEverything = false;
+                }
+            });
+            if (carryingEverything)
+            {
+                var thisLevelNumber = theGameBoard.LevelNumber;
+                ++thisLevelNumber;
+                theGameBoard.LevelNumber = thisLevelNumber;
+                GameClassLibrary.CybertronGameStateUpdater.PrepareForNewLevel(theGameBoard);
+            }
         }
     }
 }

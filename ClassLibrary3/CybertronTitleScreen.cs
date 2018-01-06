@@ -64,31 +64,19 @@ namespace GameClassLibrary
                 GameClassLibrary.LevelExpander.ExpandWallsInWorld(loadedWorld);
 
                 // TODO: PrepareForNewGame() function
-                // TODO: PrepareForNewLevel() function
 
                 var cybertronGameBoard = new GameClassLibrary.CybertronGameBoard() // TODO: HACK
                 {
                     TheWorldWallData = loadedWorld,
                     BoardWidth = 320,
                     BoardHeight = 256,
-                    LevelNumber = 2,
+                    LevelNumber = 1,
                     RoomNumber = 1,
                     Score = 0,
                     Lives = 3
                 };
 
-                // HACKS
-                cybertronGameBoard.Key = new GameClassLibrary.CybertronKey(1);
-                cybertronGameBoard.Ring = new GameClassLibrary.CybertronRing(4);
-                cybertronGameBoard.Gold = new GameClassLibrary.CybertronGold(16);
-                cybertronGameBoard.Safe = new GameClassLibrary.CybertronLevelSafe(3);
-                cybertronGameBoard.Potion = new GameClassLibrary.CybertronPotion(2);
-                cybertronGameBoard.Man.Alive(0, 17, 92);
-
-                GameClassLibrary.CybertronGameStateUpdater.PrepareForNewRoom(cybertronGameBoard);
-
-                CybertronGameModeSelector.ModeSelector.CurrentMode
-                    = new CybertronEnteringLevelMode(cybertronGameBoard);
+                GameClassLibrary.CybertronGameStateUpdater.PrepareForNewLevel(cybertronGameBoard);
             }
         }
 
