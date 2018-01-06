@@ -53,6 +53,10 @@
     <Compile Include="CybertronExplosion.cs" />
     <Compile Include="CybertronGameBoard.cs" />
     <Compile Include="CybertronGameBoardConstants.cs" />
+    <Compile Include="CybertronGameMode.cs" />
+    <Compile Include="CybertronGameModes.cs" />
+    <Compile Include="CybertronGameModeSelector.cs" />
+    <Compile Include="CybertronGameObject.cs" />
     <Compile Include="CybertronGameStateUpdater.cs" />
     <Compile Include="CybertronGhost.cs" />
     <Compile Include="CybertronGold.cs" />
@@ -80,6 +84,7 @@
     <Compile Include="Rectangle.cs" />
     <Compile Include="SpriteInstance.cs" />
     <Compile Include="SpriteTraits.cs" />
+    <Compile Include="SuddenlyReplaceableList.cs" />
     <Compile Include="WallMatrix.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

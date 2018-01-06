@@ -128,7 +128,7 @@ namespace GameClassLibrary
 
             // Show the things you need to find on this level.
 
-            int x = 160; // TODO centre
+            int x = 160; // TODO: Find centre
             int y = 150; // TODO: constant
             int dy = 24; // TODO: constant
 
