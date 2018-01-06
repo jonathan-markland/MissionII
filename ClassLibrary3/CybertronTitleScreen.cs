@@ -5,7 +5,7 @@ namespace GameClassLibrary
 {
     public class CybertronTitleScreenMode : CybertronGameMode
     {
-        private int _countDown = 100;
+        private int _countDown = 400;
 
         public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
         {
@@ -28,7 +28,7 @@ namespace GameClassLibrary
 
     public class CybertronInstructionsKeysMode : CybertronGameMode
     {
-        private int _countDown = 100;
+        private int _countDown = 400;
 
         public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
         {
