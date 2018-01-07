@@ -4,11 +4,11 @@
 [ ] Design some further level maps
 [ ] Droids can shoot ghost - should not happen
 [ ] Hi-score table (although we need a proper font for this).
-[ ] PAUSE GAME key.
 [ ] Sweep up numeric literals into constant declarations.
 [ ] Open maximised
 
 
+[X] PAUSE GAME key.
 [X] implement level switching.
 [X] Choose adversaries by level number. Red monsters on level 1 only.  Introduce blues on level 2 etc...
 [X] New level init

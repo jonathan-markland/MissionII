@@ -98,6 +98,7 @@ namespace GameClassLibrary
 
         public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
         {
+            if (CybertronModes.HandlePause(theKeyStates, this)) return;
             if (_countDown > 0)
             {
                 --_countDown;
@@ -140,6 +141,7 @@ namespace GameClassLibrary
 
         public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
         {
+            if (CybertronModes.HandlePause(theKeyStates, this)) return;
             GameClassLibrary.CybertronGameStateUpdater.Update(_cybertronGameBoard, theKeyStates); // TODO: pull logic into this class
         }
 
@@ -161,6 +163,7 @@ namespace GameClassLibrary
 
         public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
         {
+            if (CybertronModes.HandlePause(theKeyStates, this)) return;
             if (_countDown > 0)
             {
                 --_countDown;
@@ -199,7 +202,47 @@ namespace GameClassLibrary
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, CybertronSpriteTraits.GameOver.HostImageObjects[0]);
+            CybertronScreenPainter.DrawFirstSpriteScreenCentred(CybertronSpriteTraits.GameOver, drawingTarget);
+        }
+    }
+
+    public class CybertronPauseMode : CybertronGameMode
+    {
+        private CybertronGameMode _originalMode;
+        private bool _keyReleaseSeen;
+        private bool _restartGameOnNextRelease;
+
+        public CybertronPauseMode(CybertronGameMode originalMode)
+        {
+            _originalMode = originalMode;
+            _keyReleaseSeen = false; // PAUSE key is held at the time this object is created.
+            _restartGameOnNextRelease = false;
+        }
+
+        public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
+        {
+            if (!_keyReleaseSeen)
+            {
+                if (!theKeyStates.Pause)
+                {
+                    _keyReleaseSeen = true;
+                    if (_restartGameOnNextRelease)
+                    {
+                        CybertronGameModeSelector.ModeSelector.CurrentMode = _originalMode;
+                    }
+                }
+            }
+            else if (theKeyStates.Pause)
+            {
+                _restartGameOnNextRelease = true;
+                _keyReleaseSeen = false;
+            }
+        }
+
+        public override void Draw(IDrawingTarget drawingTarget)
+        {
+            _originalMode.Draw(drawingTarget);
+            CybertronScreenPainter.DrawFirstSpriteScreenCentred(CybertronSpriteTraits.Paused, drawingTarget);
         }
     }
 }

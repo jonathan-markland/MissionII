@@ -65,6 +65,7 @@ namespace GameClassLibrary
         public static SpriteTraits InstructionsKeys;
         public static SpriteTraits EnteringLevel;
         public static SpriteTraits GameOver;
+        public static SpriteTraits Paused;
 
         // And references to the above, for convenience:
         public static List<SpriteTraits> TheNumbers;
@@ -164,10 +165,11 @@ namespace GameClassLibrary
             InstructionsKeys = loadImage("InstructionsKeys", 1);
             EnteringLevel = loadImage("EnteringLevel", 1);
             GameOver = loadImage("GameOver", 1);
+            Paused = loadImage("Paused", 1);
 
 
-        // Now build a list of the numbers for convenience of the drawing routines:
-        TheNumbers = new List<SpriteTraits>
+            // Now build a list of the numbers for convenience of the drawing routines:
+            TheNumbers = new List<SpriteTraits>
             {
                 Font0,
                 Font1,

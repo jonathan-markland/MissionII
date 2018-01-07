@@ -62,6 +62,7 @@
     <Compile Include="CybertronGold.cs" />
     <Compile Include="CybertronKey.cs" />
     <Compile Include="CybertronLevelSafe.cs" />
+    <Compile Include="CybertronModes.cs" />
     <Compile Include="CybertronObject.cs" />
     <Compile Include="CybertronKeyStates.cs" />
     <Compile Include="CybertronMan.cs" />
