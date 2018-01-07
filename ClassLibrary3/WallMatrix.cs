@@ -61,6 +61,8 @@ namespace GameClassLibrary
     {
         public bool Space { get { return WallChar == ' '; } }
         public bool Wall { get { return WallChar != ' '; } }
+        public bool Wall1 { get { return WallChar == '#'; } }
+        public bool Wall2 { get { return WallChar == '@'; } }
         public char WallChar;
     }
 }

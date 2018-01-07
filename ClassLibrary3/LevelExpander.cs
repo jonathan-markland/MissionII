@@ -18,7 +18,7 @@ namespace GameClassLibrary
                 foreach(var thisRoom in thisLevel.Rooms)
                 {
                     var expandedData = ExpandWalls(thisRoom.FileWallData);
-                    CarveWiderRoutes(expandedData);
+                    // CarveWiderRoutes(expandedData);
                     thisRoom.WallData = expandedData;
                 }
             }
@@ -36,39 +36,77 @@ namespace GameClassLibrary
                 Constants.ClustersHorizonally * ExpandSize,
                 Constants.ClustersVertically * ExpandSize);
 
+            var innerWallChar = new WallMatrixChar { WallChar = '@' };
+
             int destY = 0;
 
             for(int sourceY=0; sourceY < Constants.SourceFileCharsVertically; sourceY += Constants.ClusterSide)
             {
-                PaintExpandedRow(sourceMatrix, resultMatrix, sourceY+0, destY+0);
-                PaintExpandedRow(sourceMatrix, resultMatrix, sourceY+1, destY+1);
-                PaintExpandedRow(sourceMatrix, resultMatrix, sourceY+1, destY+2);
-                PaintExpandedRow(sourceMatrix, resultMatrix, sourceY+1, destY+3);
-                PaintExpandedRow(sourceMatrix, resultMatrix, sourceY+2, destY+4);
+                int destX = 0;
+
+                for (int sourceX = 0;
+                    sourceX < Constants.SourceFileRoomCharsHorizontally;
+                    sourceX += Constants.ClusterSide)
+                {
+                    if (ThreeByThreeIsFullyWall(sourceMatrix, sourceX, sourceY))
+                    {
+                        PaintFiveByFiveFullyWall(resultMatrix, destX, destY, innerWallChar);
+                    }
+                    else
+                    {
+                        PaintExpandThreeByThreeToFiveByFive(sourceMatrix, resultMatrix, sourceX, sourceY + 0, destX, destY + 0);
+                        PaintExpandThreeByThreeToFiveByFive(sourceMatrix, resultMatrix, sourceX, sourceY + 1, destX, destY + 1);
+                        PaintExpandThreeByThreeToFiveByFive(sourceMatrix, resultMatrix, sourceX, sourceY + 1, destX, destY + 2);
+                        PaintExpandThreeByThreeToFiveByFive(sourceMatrix, resultMatrix, sourceX, sourceY + 1, destX, destY + 3);
+                        PaintExpandThreeByThreeToFiveByFive(sourceMatrix, resultMatrix, sourceX, sourceY + 2, destX, destY + 4);
+                    }
+                    destX += ExpandSize;
+                }
+
                 destY += ExpandSize;
             }
 
             return resultMatrix;
         }
 
-
-
-        public static void PaintExpandedRow(WallMatrix sourceWallData, WallMatrix destMatrix, int sourceY, int destY)
+        private static void PaintFiveByFiveFullyWall(WallMatrix resultMatrix, int destX, int destY, WallMatrixChar wallChar)
         {
-            int destX = 0;
-
-            for ( int sourceX=0; sourceX < Constants.SourceFileRoomCharsHorizontally; sourceX += Constants.ClusterSide )
+            for(int y=0; y < ExpandSize; y++)
             {
-                var c1 = RemapChar(sourceWallData.Read(sourceX, sourceY));
-                var c2 = RemapChar(sourceWallData.Read(sourceX + 1, sourceY));
-                var c3 = RemapChar(sourceWallData.Read(sourceX + 2, sourceY));
-                destMatrix.Write(destX + 0, destY, c1);
-                destMatrix.Write(destX + 1, destY, c2);
-                destMatrix.Write(destX + 2, destY, c2);
-                destMatrix.Write(destX + 3, destY, c2);
-                destMatrix.Write(destX + 4, destY, c3);
-                destX += ExpandSize;
+                for (int x = 0; x < ExpandSize; x++)
+                {
+                    resultMatrix.Write(destX + x, destY + y, wallChar);
+                }
             }
+        }
+
+        private static bool ThreeByThreeIsFullyWall(WallMatrix sourceMatrix, int x, int y)
+        {
+            return ThreeAdjacentAreWall(sourceMatrix, x, y+0)
+                && ThreeAdjacentAreWall(sourceMatrix, x, y+1)
+                && ThreeAdjacentAreWall(sourceMatrix, x, y+2);
+        }
+
+        private static bool ThreeAdjacentAreWall(WallMatrix sourceMatrix, int x, int y)
+        {
+            return sourceMatrix.Read(x+0, y).Wall
+                && sourceMatrix.Read(x+1, y).Wall
+                && sourceMatrix.Read(x+2, y).Wall;
+        }
+
+        public static void PaintExpandThreeByThreeToFiveByFive(
+            WallMatrix sourceWallData, WallMatrix destMatrix, 
+            int sourceX, int sourceY,
+            int destX, int destY)
+        {
+            var c1 = RemapChar(sourceWallData.Read(sourceX, sourceY));
+            var c2 = RemapChar(sourceWallData.Read(sourceX + 1, sourceY));
+            var c3 = RemapChar(sourceWallData.Read(sourceX + 2, sourceY));
+            destMatrix.Write(destX + 0, destY, c1);
+            destMatrix.Write(destX + 1, destY, c2);
+            destMatrix.Write(destX + 2, destY, c2);
+            destMatrix.Write(destX + 3, destY, c2);
+            destMatrix.Write(destX + 4, destY, c3);
         }
 
 

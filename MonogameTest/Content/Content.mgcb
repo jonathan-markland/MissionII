@@ -697,7 +697,7 @@
 /processorParam:TextureFormat=Color
 /build:Monster3.bmp
 
-#begin WallBlock.bmp
+#begin WallBlock1.bmp
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -707,7 +707,19 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:WallBlock.bmp
+/build:WallBlock1.bmp
+
+#begin WallBlock2.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:WallBlock2.bmp
 
 #begin WallElectric.bmp
 /importer:TextureImporter

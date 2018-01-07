@@ -31,10 +31,10 @@ namespace GameClassLibrary
 
             // The Room:
 
-            var wallSpriteTraits =
+            var outlineWallSpriteTraits =
                 (cybertronGameBoard.Man.IsBeingElectrocuted)
                 ? CybertronSpriteTraits.WallElectric
-                : CybertronSpriteTraits.WallBlock;
+                : CybertronSpriteTraits.WallBlock1;
 
             DrawWalls(
                 CybertronGameBoardConstants.RoomOriginX, 
@@ -42,7 +42,8 @@ namespace GameClassLibrary
                 CybertronGameBoardConstants.TileWidth,
                 CybertronGameBoardConstants.TileHeight, 
                 cybertronGameBoard.CurrentRoomWallData,
-                wallSpriteTraits,
+                outlineWallSpriteTraits,
+                CybertronSpriteTraits.WallBlock2,
                 drawingTarget);
 
             // Draw objects in the room:
@@ -102,7 +103,12 @@ namespace GameClassLibrary
         }
 
 
-        public static void DrawWalls(int leftX, int topY, int tileWidth, int tileHeight, WallMatrix wallData, SpriteTraits wallSpriteTraits, IDrawingTarget drawingTarget)
+        public static void DrawWalls(
+            int leftX, int topY, int tileWidth, int tileHeight, 
+            WallMatrix wallData, 
+            SpriteTraits outlineWallSpriteTraits,
+            SpriteTraits innerWallSpriteTraits,
+            IDrawingTarget drawingTarget)
         {
             for(int y=0; y < wallData.CountV; y++)
             {
@@ -110,9 +116,13 @@ namespace GameClassLibrary
                 for(int x=0; x < wallData.CountH; x++)
                 {
                     var ch = wallData.Read(x, y);
-                    if (ch.Wall)
+                    if (ch.Wall1)
                     {
-                        DrawFirstSprite(leftX, topY, wallSpriteTraits, drawingTarget);
+                        DrawFirstSprite(leftX, topY, outlineWallSpriteTraits, drawingTarget);
+                    }
+                    else if (ch.Wall)
+                    {
+                        DrawFirstSprite(leftX, topY, innerWallSpriteTraits, drawingTarget);
                     }
                     leftX += tileWidth;
                 }
