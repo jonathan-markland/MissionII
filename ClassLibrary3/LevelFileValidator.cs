@@ -187,10 +187,11 @@ namespace GameClassLibrary
                 throw new Exception($"Character at ({x+1},{y+1}) must be a space!");
             }
 
-            if (c5.Space && !spaceIn8246)
-            {
-                throw new Exception($"Character at ({x+1},{y+1}) cannot be a space without a space above, below, to the left or to the right!");
-            }
+            // Relaxed for artistic purposes.
+            // if (c5.Space && !spaceIn8246)
+            // {
+            //     throw new Exception($"Character at ({x+1},{y+1}) cannot be a space without a space above, below, to the left or to the right!");
+            // }
 
             // Corner squares cannot just be spaces.
 
