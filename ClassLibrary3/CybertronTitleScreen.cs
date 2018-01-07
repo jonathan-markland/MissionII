@@ -145,9 +145,38 @@ namespace GameClassLibrary
 
         public override void Draw(IDrawingTarget drawingTarget)
         {
-            GameClassLibrary.CybertronScreenPainter.DrawBoardToTarget(
-                _cybertronGameBoard,
-                drawingTarget); // TODO: pull logic into this class
+            GameClassLibrary.CybertronScreenPainter.DrawBoardToTarget(_cybertronGameBoard, drawingTarget);
+        }
+    }
+
+    public class CybertronLeavingLevelMode : CybertronGameMode
+    {
+        private CybertronGameBoard _cybertronGameBoard;
+        private int _countDown = 100; // TODO: These literals in this file!!!
+
+        public CybertronLeavingLevelMode(CybertronGameBoard cybertronGameBoard)
+        {
+            _cybertronGameBoard = cybertronGameBoard;
+        }
+
+        public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
+        {
+            if (_countDown > 0)
+            {
+                --_countDown;
+            }
+            else
+            {
+                var thisLevelNumber = _cybertronGameBoard.LevelNumber;
+                ++thisLevelNumber;
+                _cybertronGameBoard.LevelNumber = thisLevelNumber;
+                GameClassLibrary.CybertronGameStateUpdater.PrepareForNewLevel(_cybertronGameBoard);
+            }
+        }
+
+        public override void Draw(IDrawingTarget drawingTarget)
+        {
+            GameClassLibrary.CybertronScreenPainter.DrawBoardToTarget(_cybertronGameBoard, drawingTarget);
         }
     }
 

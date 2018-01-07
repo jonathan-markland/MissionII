@@ -262,8 +262,8 @@ namespace GameClassLibrary
             theGameBoard.Ring = new GameClassLibrary.CybertronRing(0);
             theGameBoard.Gold = new GameClassLibrary.CybertronGold(0);
 
-            var roomNumberAllocator = new UniqueNumberAllocator(1, Constants.NumRooms);
-            // var roomNumberAllocator = new IncrementingNumberAllocator(1, Constants.NumRooms); // For testing purposes.
+            // var roomNumberAllocator = new UniqueNumberAllocator(1, Constants.NumRooms);
+            var roomNumberAllocator = new IncrementingNumberAllocator(1, Constants.NumRooms); // For testing purposes.
 
             theGameBoard.ForEachThingWeHaveToFindOnThisLevel(o =>
             {

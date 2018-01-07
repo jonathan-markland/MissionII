@@ -1,18 +1,19 @@
 
 [ ] BUG: Carving removes too much eg room 6.
-[ ] BUG: Getting assert in ForEachDo() still -- trace where from.  There is still a container invalidation issue.
 
-[ ] Design some further level maps, and implement level switching.
-[ ] Choose the objects that should be placed, by level number.  
-[ ] Choose adversaries by level number.
-    Red monsters on level 1 only.  Introduce blues on level 2 etc...
+[ ] Design some further level maps
 [ ] Droids can shoot ghost - should not happen
 [ ] Hi-score table (although we need a proper font for this).
 [ ] PAUSE GAME key.
 [ ] Sweep up numeric literals into constant declarations.
 [ ] Open maximised
-[ ] New level init
 
+
+[X] implement level switching.
+[X] Choose adversaries by level number. Red monsters on level 1 only.  Introduce blues on level 2 etc...
+[X] New level init
+[X] Choose the objects that should be placed, by level number.  
+[X] BUG: Getting assert in ForEachDo() still -- trace where from.  There is still a container invalidation issue.
 [X] New game init
 [X] end game.
 [X] Title screen needed.  Just use large sprites of instructions.  Cycle between.

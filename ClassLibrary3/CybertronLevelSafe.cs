@@ -21,10 +21,7 @@ namespace GameClassLibrary
             });
             if (carryingEverything)
             {
-                var thisLevelNumber = theGameBoard.LevelNumber;
-                ++thisLevelNumber;
-                theGameBoard.LevelNumber = thisLevelNumber;
-                GameClassLibrary.CybertronGameStateUpdater.PrepareForNewLevel(theGameBoard);
+                CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronLeavingLevelMode(theGameBoard);
             }
         }
     }
