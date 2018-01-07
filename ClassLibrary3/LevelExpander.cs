@@ -57,7 +57,7 @@ namespace GameClassLibrary
         {
             int destX = 0;
 
-            for ( int sourceX=0; sourceX < Constants.SourceFileCharsHorizontally; sourceX += Constants.ClusterSide )
+            for ( int sourceX=0; sourceX < Constants.SourceFileRoomCharsHorizontally; sourceX += Constants.ClusterSide )
             {
                 var c1 = RemapChar(sourceWallData.Read(sourceX, sourceY));
                 var c2 = RemapChar(sourceWallData.Read(sourceX + 1, sourceY));

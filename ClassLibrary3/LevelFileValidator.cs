@@ -18,7 +18,7 @@ namespace GameClassLibrary
                     }
                     catch(Exception e)
                     {
-                        throw new Exception($"{e.Message}  In room {thisRoom.RoomX},{thisRoom.RoomY} in level {thisLevel.LevelNumber}.", e);
+                        throw new Exception($"{e.Message}  In room ({thisRoom.RoomX},{thisRoom.RoomY}) in level {thisLevel.LevelNumber}.", e);
                     }
                 }
             }
@@ -32,7 +32,7 @@ namespace GameClassLibrary
 
             for(int y = 0; y < Constants.SourceFileCharsVertically - Constants.ClusterSide; y += Constants.ClusterSide)
             {
-                for (int x = 0; x < Constants.SourceFileCharsHorizontally - Constants.ClusterSide; x += Constants.ClusterSide)
+                for (int x = 0; x < Constants.SourceFileRoomCharsHorizontally - Constants.ClusterSide; x += Constants.ClusterSide)
                 {
                     ExpectValidThreeByThree(fileWallData, x, y);
                 }
@@ -42,7 +42,7 @@ namespace GameClassLibrary
 
             for (int y = 1; y <= Constants.SourceFileCharsVertically - 2; y += Constants.ClusterSide)
             {
-                for (int x = 2; x <= Constants.SourceFileCharsHorizontally - 4; x += Constants.ClusterSide)
+                for (int x = 2; x <= Constants.SourceFileRoomCharsHorizontally - 4; x += Constants.ClusterSide)
                 {
                     ValidateTileConnection(fileWallData, x, y, 1, 0);  // Horizontal connections
                     ValidateTileConnection(fileWallData, y, x, 0, 1);  // Vertical connections
@@ -125,7 +125,7 @@ namespace GameClassLibrary
                     // Only one of these two will actually calculate a reflection:
                     var travellingVertically = (dx == 0);
                     var travellingHorizontally = (dy == 0);
-                    var n = Constants.SourceFileCharsHorizontally - 1;
+                    var n = Constants.SourceFileRoomCharsHorizontally - 1;
                     var otherRoomPosX = travellingVertically ? (n - startX) : startX; 
                     var otherRoomPosY = travellingHorizontally ? (n - startY) : startY; 
 

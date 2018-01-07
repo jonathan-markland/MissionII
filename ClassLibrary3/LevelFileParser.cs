@@ -15,7 +15,9 @@ namespace GameClassLibrary
         public const int ClustersHorizonally = 5;
         public const int ClustersVertically = 5;
         public const int ClusterSide = 3;
-        public const int SourceFileCharsHorizontally = ClustersHorizonally * ClusterSide;
+        public const int CharsPerRoomSeparator = 3;
+        public const int SourceFileRoomCharsHorizontally = (ClustersHorizonally * ClusterSide);
+        public const int SourceFileRowOfRoomCharsHorizontally = SourceFileRoomCharsHorizontally * RoomsHorizontally + (RoomsHorizontally-1) * CharsPerRoomSeparator;
         public const int SourceFileCharsVertically = ClustersVertically * ClusterSide;
         public const int MaxDisplayedLives = 8;
         public const int BulletSpacing = 1;
@@ -76,11 +78,8 @@ namespace GameClassLibrary
 
                 for (int roomY = 1; roomY <= Constants.RoomsVertically; ++roomY)
                 {
-                    for (int roomX = 1; roomX <= Constants.RoomsHorizontally; ++roomX)
-                    {
-                        ExpectRoomHeader(streamReader, roomX, roomY);
-                        roomsList.Add(ParseRoom(streamReader, roomX, roomY));
-                    }
+                    // TODO:  no more:  ExpectRoomHeader(streamReader, roomX, roomY);
+                    roomsList.AddRange(ParseRowOfRooms(streamReader, roomY));
                 }
 
                 levelsList.Add(new Level { LevelNumber = nextLevelNumber, Rooms = roomsList });
@@ -158,22 +157,51 @@ namespace GameClassLibrary
 
 
 
-        public static Room ParseRoom(StreamReader streamReader, int roomX, int roomY)
+        public static List<Room> ParseRowOfRooms(StreamReader streamReader, int roomY)
         {
-            var thisWallData = new WallMatrix(Constants.SourceFileCharsHorizontally, Constants.SourceFileCharsVertically);
+            var rowOfRooms = new List<Room>(Constants.RoomsHorizontally);
+            for (int roomX = 0; roomX < Constants.RoomsHorizontally; ++roomX)
+            {
+                rowOfRooms.Add(new Room(roomX + 1, roomY, 
+                    new WallMatrix(Constants.SourceFileRoomCharsHorizontally, Constants.SourceFileCharsVertically)));
+            }
+
+            if (streamReader.ReadLine().Length != 0)
+            {
+                throw new Exception("One empty line expected before starting row of rooms.");
+            }
 
             for (int rowNumber = 0; rowNumber < Constants.SourceFileCharsVertically; ++rowNumber)
             {
                 var thisLine = streamReader.ReadLine();
-                if (thisLine.Length != Constants.SourceFileCharsHorizontally)
+                if (thisLine.Length != Constants.SourceFileRowOfRoomCharsHorizontally)
                 {
-                    throw new Exception("Room definition has invalid number of characters on he row:  Expected 15.");
+                    throw new Exception($"Room-row definition has invalid number of characters on the row:  Expected {Constants.SourceFileRoomCharsHorizontally}.");
                 }
-                CheckWallDefinitionCharacters(thisLine);
-                PaintLine(thisWallData, rowNumber, thisLine);
+
+                var theSplittings = thisLine.Split(new [] { " | " }, StringSplitOptions.None);
+                if (theSplittings.Length != Constants.RoomsHorizontally)
+                {
+                    throw new Exception($"Room definition has invalid number of rooms on the row.  Expected {Constants.RoomsHorizontally}.");
+                }
+
+                foreach(var str in theSplittings)
+                {
+                    if (str.Length != Constants.SourceFileRoomCharsHorizontally)
+                    {
+                        throw new Exception($"Room definition has invalid number of rooms on the row.  Expected {Constants.RoomsHorizontally}.");
+                    }
+
+                    CheckWallDefinitionCharacters(str);
+                }
+
+                for (int roomX = 1; roomX <= Constants.RoomsHorizontally; ++roomX)
+                {
+                    PaintLine(rowOfRooms[roomX-1].FileWallData, rowNumber, theSplittings[roomX-1]);
+                }
             }
 
-            return new Room(roomX, roomY, thisWallData);
+            return rowOfRooms;
         }
 
 
