@@ -189,7 +189,7 @@ namespace GameClassLibrary
 
 
 
-        private static bool SurroundedByWall4(WallMatrix wallMatrix, int x, int y)
+        private static bool SurroundedByWall4(WallMatrix wallMatrix, int x, int y) // TODO: We could be arty and call this instead.
         {
             return
                    wallMatrix.Read(x, y - 1).Wall

@@ -1,5 +1,5 @@
 
-[ ] BUG: Carving removes too much eg room 6.
+[ ] BUG: Carving removes too much eg room 106.
 
 [ ] Design some further level maps
 [ ] Droids can shoot ghost - should not happen
@@ -12,6 +12,7 @@
 [ ] Droid firing -- more aggressive as levels progress.
 [ ] Ghost timing -- change as levels progress?
 [ ] Penalise shooting inaccuracy on later levels?
+[ ] Instruction screens
 
 
 [X] PAUSE GAME key.
