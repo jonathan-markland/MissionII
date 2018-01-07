@@ -6,6 +6,12 @@
 [ ] Hi-score table (although we need a proper font for this).
 [ ] Sweep up numeric literals into constant declarations.
 [ ] Open maximised
+[ ] Proper parser state machine for loading levels so we can report line numbers very easily.
+[ ] Different types of brick for walls, and different decoration formats.
+[ ] Screen stretching like Jynx.
+[ ] Droid firing -- more aggressive as levels progress.
+[ ] Ghost timing -- change as levels progress?
+[ ] Penalise shooting inaccuracy on later levels?
 
 
 [X] PAUSE GAME key.
