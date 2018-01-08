@@ -54,7 +54,7 @@ namespace GameClassLibrary
 
         public static bool BothAreSpaceOrBothAreWall(WallMatrixChar c1, WallMatrixChar c2)
         {
-            return !((c1.Space) ^ (c2.Space));
+            return !((c1 == WallMatrixChar.Space) ^ (c2 == WallMatrixChar.Space));
         }
 
 
@@ -108,13 +108,13 @@ namespace GameClassLibrary
 
             var otherRoom = otherRoomIsOffMap ? null : FindRoom(rooms, otherRoomX, otherRoomY);
 
-            for (int i=0; i<Constants.ClustersHorizonally; i++) // TODO: collapse H/V constants to one.
+            for (int i=0; i < Constants.ClustersHorizonally; i++) // TODO: collapse H/V constants to one.
             {
                 var thisRoomSquare = thisRoom.FileWallData.Read(startX, startY);
 
                 if (otherRoomIsOffMap)
                 {
-                    if (thisRoomSquare.Space)
+                    if (thisRoomSquare == WallMatrixChar.Space)
                     {
                         throw new Exception($"No doorway must exist at ({startX},{startY}) because it leads off the map.");
                     }
@@ -178,11 +178,11 @@ namespace GameClassLibrary
             var c2 = fileWallData.Read(x + 1, y + 2);
             var c3 = fileWallData.Read(x + 2, y + 2);
 
-            var spaceIn8246 = (c8.Space || c2.Space || c4.Space || c6.Space);
+            var spaceIn8246 = (c8 == WallMatrixChar.Space || c2 == WallMatrixChar.Space || c4 == WallMatrixChar.Space || c6 == WallMatrixChar.Space);
 
             // Centre square space-check rules.
 
-            if (spaceIn8246 && c5.Wall)
+            if (spaceIn8246 && c5 != WallMatrixChar.Space)
             {
                 throw new Exception($"Character at ({x+1},{y+1}) must be a space!");
             }
@@ -195,22 +195,22 @@ namespace GameClassLibrary
 
             // Corner squares cannot just be spaces.
 
-            if (c7.Space && !(c4.Space && c5.Space && c8.Space))
+            if (c7 == WallMatrixChar.Space && !(c4 == WallMatrixChar.Space && c5 == WallMatrixChar.Space && c8 == WallMatrixChar.Space))
             {
                 throw new Exception($"Corner square at ({x},{y}) cannot be a space.");
             }
 
-            if (c9.Space && !(c6.Space && c5.Space && c8.Space))
+            if (c9 == WallMatrixChar.Space && !(c6 == WallMatrixChar.Space && c5 == WallMatrixChar.Space && c8 == WallMatrixChar.Space))
             {
                 throw new Exception($"Corner square at ({x+2},{y}) cannot be a space.");
             }
 
-            if (c3.Space && !(c2.Space && c5.Space && c6.Space))
+            if (c3 == WallMatrixChar.Space && !(c2 == WallMatrixChar.Space && c5 == WallMatrixChar.Space && c6 == WallMatrixChar.Space))
             {
                 throw new Exception($"Corner square at ({x+2},{y+2}) cannot be a space.");
             }
 
-            if (c1.Space && !(c2.Space && c5.Space && c4.Space))
+            if (c1 == WallMatrixChar.Space && !(c2 == WallMatrixChar.Space && c5 == WallMatrixChar.Space && c4 == WallMatrixChar.Space))
             {
                 throw new Exception($"Corner square at ({x},{y+2}) cannot be a space.");
             }

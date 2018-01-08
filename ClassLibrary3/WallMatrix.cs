@@ -57,12 +57,10 @@ namespace GameClassLibrary
         }
     }
 
-    public struct WallMatrixChar // TODO: refactor with constructor.
+    public enum WallMatrixChar : byte
     {
-        public bool Space { get { return WallChar == ' '; } }
-        public bool Wall { get { return WallChar != ' '; } }
-        public bool Wall1 { get { return WallChar == '#'; } }
-        public bool Wall2 { get { return WallChar == '@'; } }
-        public char WallChar;
+        Space = 0,
+        Brick = 1,
+        Electric = 2
     }
 }

@@ -206,12 +206,23 @@ namespace GameClassLibrary
 
 
 
+        public static WallMatrixChar CharToWallMatrixChar(char ch)
+        {
+            if (ch == ' ') return WallMatrixChar.Space;
+            if (ch == '#') return WallMatrixChar.Electric;
+            if (ch == '@') return WallMatrixChar.Electric;
+            // NB: There is no specification of any other WallMatrixChar kinds in the source text file.
+            throw new Exception($"Cannot recognise character '{ch}' as a valid wall layout character.");
+        }
+
+
+
         public static void PaintLine(WallMatrix targetMatrix, int rowNumber, string thisLine)
         {
             int x = 0;
             foreach(char ch in thisLine)
             {
-                targetMatrix.Write(x, rowNumber, new WallMatrixChar { WallChar = ch });
+                targetMatrix.Write(x, rowNumber, CharToWallMatrixChar(ch));
                 x++;
             }
         }

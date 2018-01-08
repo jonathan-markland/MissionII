@@ -82,7 +82,10 @@ namespace GameClassLibrary
 
         public static WallMatrixChar RemapChar(WallMatrixChar c)
         {
-            return new WallMatrixChar { WallChar = (c.Space ? ' ' : '#' ) };
+            // All the non-space areas are flagged as Electric when expanding.
+            return (c == WallMatrixChar.Space) 
+                ? WallMatrixChar.Space 
+                : WallMatrixChar.Electric;
         }
 
 
@@ -120,7 +123,7 @@ namespace GameClassLibrary
             int y = point.Y;
             for(int i=0; i<25; i++)
             {
-                if (expandedData.Read(x,y).Space)
+                if (expandedData.Read(x,y) == WallMatrixChar.Space)
                 {
                     CarveDoorHole(expandedData, x, y, betweenRows, thickCount);
                 }
@@ -135,7 +138,7 @@ namespace GameClassLibrary
         {
             while (thickCount > 0)
             {
-                expandedData.Write(x, y, new WallMatrixChar { WallChar = ' ' });
+                expandedData.Write(x, y, WallMatrixChar.Space);
                 x += moveDelta.dx;
                 y += moveDelta.dy;
                 --thickCount;
@@ -146,16 +149,15 @@ namespace GameClassLibrary
 
         public static void CarveRun(WallMatrix wallData, int x1, int y1, int dx, int dy, int c)
         {
-            var spaceChar = new WallMatrixChar { WallChar = ' ' }; // TODO: sort out constructor
             int runSize = 0;
             while (c > 0)
             {
                 var block1 = wallData.Read(x1, y1);
-                if (block1.Space)
+                if (block1 == WallMatrixChar.Space)
                 {
                     if (runSize > 3) // TODO: This constant could be parameterised for different effects.
                     {
-                        wallData.Write(x1 - dx, y1 - dy, spaceChar);
+                        wallData.Write(x1 - dx, y1 - dy, WallMatrixChar.Space);
                     }
                     runSize = 0;
                 }
@@ -173,7 +175,7 @@ namespace GameClassLibrary
 
         private static void SecondBrickIze(WallMatrix expandedData)
         {
-            var innerWallChar = new WallMatrixChar { WallChar = '@' };
+            // Turn Electric areas into Brick leaving just an Electric outline.
 
             for (int y = 1; y < 24; ++y)
             {
@@ -181,7 +183,7 @@ namespace GameClassLibrary
                 {
                     if (SurroundedByWall8(expandedData, x, y))
                     {
-                        expandedData.Write(x, y, innerWallChar);
+                        expandedData.Write(x, y, WallMatrixChar.Brick);
                     }
                 }
             }
@@ -192,10 +194,10 @@ namespace GameClassLibrary
         private static bool SurroundedByWall4(WallMatrix wallMatrix, int x, int y) // TODO: We could be arty and call this instead.
         {
             return
-                   wallMatrix.Read(x, y - 1).Wall
-                && wallMatrix.Read(x, y + 1).Wall
-                && wallMatrix.Read(x - 1, y).Wall
-                && wallMatrix.Read(x + 1, y).Wall;
+                   wallMatrix.Read(x, y - 1) != WallMatrixChar.Space
+                && wallMatrix.Read(x, y + 1) != WallMatrixChar.Space
+                && wallMatrix.Read(x - 1, y) != WallMatrixChar.Space
+                && wallMatrix.Read(x + 1, y) != WallMatrixChar.Space;
         }
 
 
@@ -203,14 +205,14 @@ namespace GameClassLibrary
         private static bool SurroundedByWall8(WallMatrix wallMatrix, int x, int y)
         {
             return
-                   wallMatrix.Read(x, y - 1).Wall
-                && wallMatrix.Read(x, y + 1).Wall
-                && wallMatrix.Read(x - 1, y).Wall
-                && wallMatrix.Read(x + 1, y).Wall
-                && wallMatrix.Read(x - 1, y - 1).Wall
-                && wallMatrix.Read(x + 1, y - 1).Wall
-                && wallMatrix.Read(x - 1, y + 1).Wall
-                && wallMatrix.Read(x + 1, y + 1).Wall;
+                   wallMatrix.Read(x, y - 1) != WallMatrixChar.Space
+                && wallMatrix.Read(x, y + 1) != WallMatrixChar.Space
+                && wallMatrix.Read(x - 1, y) != WallMatrixChar.Space
+                && wallMatrix.Read(x + 1, y) != WallMatrixChar.Space
+                && wallMatrix.Read(x - 1, y - 1) != WallMatrixChar.Space
+                && wallMatrix.Read(x + 1, y - 1) != WallMatrixChar.Space
+                && wallMatrix.Read(x - 1, y + 1) != WallMatrixChar.Space
+                && wallMatrix.Read(x + 1, y + 1) != WallMatrixChar.Space;
         }
     }
 }

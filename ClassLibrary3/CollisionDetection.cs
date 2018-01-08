@@ -54,7 +54,10 @@ namespace GameClassLibrary
             {
                 for (int x = cX; x < cx2; x++)
                 {
-                    if (wallData.Read(x,y).Wall) return WallHitTestResult.HitWall;  // hit wall block  // NB: If indexing fails, all rows MUST be the same length!
+                    if (wallData.Read(x, y) != WallMatrixChar.Space)
+                    {
+                        return WallHitTestResult.HitWall;  // hit wall block  // NB: If indexing fails, all rows MUST be the same length!
+                    }
                 }
             }
 
