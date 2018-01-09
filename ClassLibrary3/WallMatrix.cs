@@ -32,6 +32,18 @@ namespace GameClassLibrary
             throw new Exception("WallMatrix class read outside bounds.");
         }
 
+        public WallMatrixChar Read(int x, int y, WallMatrixChar defaultIfOutsideBounds)
+        {
+            if (x >= 0 && x < _blockCountH)
+            {
+                if (y >= 0 && y < _blockCountV)
+                {
+                    return _wallData[y * _blockCountH + x];
+                }
+            }
+            return defaultIfOutsideBounds;
+        }
+
         public void Write(int x, int y, WallMatrixChar ch)
         {
             if (x >= 0 && x < _blockCountH)
