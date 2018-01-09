@@ -161,14 +161,31 @@ namespace GameClassLibrary
                     }
                     runSize = 0;
                 }
-                else
+                else if (HasWallOneSide(wallData, x1, y1, dx, dy))
                 {
                     ++runSize;
+                }
+                else
+                {
+                    runSize = 0;
                 }
                 x1 += dx;
                 y1 += dy;
                 --c;
             }
+        }
+
+
+
+        private static bool HasWallOneSide(WallMatrix wallData, int x1, int y1, int dx, int dy)
+        {
+            // dx,dy gives the direction of travel of the primary scanner.
+            // We look perpendicular to this, one block either side, hence
+            // mixing the x's and y's here!
+            // Note that one of the deltas will always be zero.
+            System.Diagnostics.Debug.Assert((dx == 0) ^ (dy == 0));
+            return wallData.Read(x1 + dy, y1 + dx, WallMatrixChar.Space) != WallMatrixChar.Space
+                ^ wallData.Read(x1 - dy, y1 - dx, WallMatrixChar.Space) != WallMatrixChar.Space;
         }
 
 
