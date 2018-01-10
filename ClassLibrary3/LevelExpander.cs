@@ -161,14 +161,14 @@ namespace GameClassLibrary
                     }
                     runSize = 0;
                 }
-                else if (HasWallOneSide(wallData, x1, y1, dx, dy))
+                else //if (HasWallOneSide(wallData, x1, y1, dx, dy))
                 {
                     ++runSize;
                 }
-                else
-                {
-                    runSize = 0;
-                }
+                // else
+                // {
+                //     runSize = 0;
+                // }
                 x1 += dx;
                 y1 += dy;
                 --c;
