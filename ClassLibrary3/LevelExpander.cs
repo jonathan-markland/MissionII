@@ -18,7 +18,8 @@ namespace GameClassLibrary
                 foreach(var thisRoom in thisLevel.Rooms)
                 {
                     var expandedData = ExpandWalls(thisRoom.FileWallData);
-                    CarveWiderRoutes(expandedData);
+                    // CarveWiderRoutes(expandedData);
+                    CarveDoorways(expandedData);
                     SecondBrickIze(expandedData);
                     thisRoom.WallData = expandedData;
                 }
@@ -90,20 +91,8 @@ namespace GameClassLibrary
 
 
 
-        public static void CarveWiderRoutes(WallMatrix expandedData)
+        public static void CarveDoorways(WallMatrix expandedData)
         {
-            // TODO: The CarveRun calls could be randomly omitted for artistic effect
-            for (int i = 0; i < 25; i++)
-            {
-                CarveRun(expandedData, i, 0, 0, 1, 25);
-                CarveRun(expandedData, i, 24, 0, -1, 25);
-            }
-            for (int i = 0; i < 25; i++)
-            {
-                CarveRun(expandedData, 0, i, 1, 0, 25);
-                CarveRun(expandedData, 24, i, -1, 0, 25);
-            }
-
             // Carving invalidates the door thickness matching 
             // (potentially), but it will only be because the outermost row
             // is WIDER than inner ones, in a given room.
@@ -143,49 +132,6 @@ namespace GameClassLibrary
                 y += moveDelta.dy;
                 --thickCount;
             }
-        }
-
-
-
-        public static void CarveRun(WallMatrix wallData, int x1, int y1, int dx, int dy, int c)
-        {
-            int runSize = 0;
-            while (c > 0)
-            {
-                var block1 = wallData.Read(x1, y1);
-                if (block1 == WallMatrixChar.Space)
-                {
-                    if (runSize > 3) // TODO: This constant could be parameterised for different effects.
-                    {
-                        wallData.Write(x1 - dx, y1 - dy, WallMatrixChar.Space);
-                    }
-                    runSize = 0;
-                }
-                else //if (HasWallOneSide(wallData, x1, y1, dx, dy))
-                {
-                    ++runSize;
-                }
-                // else
-                // {
-                //     runSize = 0;
-                // }
-                x1 += dx;
-                y1 += dy;
-                --c;
-            }
-        }
-
-
-
-        private static bool HasWallOneSide(WallMatrix wallData, int x1, int y1, int dx, int dy)
-        {
-            // dx,dy gives the direction of travel of the primary scanner.
-            // We look perpendicular to this, one block either side, hence
-            // mixing the x's and y's here!
-            // Note that one of the deltas will always be zero.
-            System.Diagnostics.Debug.Assert((dx == 0) ^ (dy == 0));
-            return wallData.Read(x1 + dy, y1 + dx, WallMatrixChar.Space) != WallMatrixChar.Space
-                ^ wallData.Read(x1 - dy, y1 - dx, WallMatrixChar.Space) != WallMatrixChar.Space;
         }
 
 
