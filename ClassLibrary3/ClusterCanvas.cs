@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameClassLibrary
 {
-    public struct ClusterPainter // TODO: rename ClusterCanvas?
+    public struct ClusterCanvas
     {
 		private WallMatrix _wallMatrix;
 		private int _originX;
@@ -16,7 +16,7 @@ namespace GameClassLibrary
 		
 		
 		
-		public ClusterPainter(WallMatrix wallMatrix, int clusterIndexX, int clusterIndexY, int clusterSide)
+		public ClusterCanvas(WallMatrix wallMatrix, int clusterIndexX, int clusterIndexY, int clusterSide)
 		{
 			_wallMatrix = wallMatrix;
 			_originX = clusterIndexX * clusterSide;
