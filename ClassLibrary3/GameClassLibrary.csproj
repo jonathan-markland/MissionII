@@ -72,6 +72,8 @@
     <Compile Include="CybertronScreenPainter.cs" />
     <Compile Include="CybertronSpriteTraits.cs" />
     <Compile Include="CybertronTitleScreen.cs" />
+    <Compile Include="ExpandWallsWithThickPassages.cs" />
+    <Compile Include="ExpandWallsWithThinPassages.cs" />
     <Compile Include="GameMode.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="GameTimeSpan.cs" />
