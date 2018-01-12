@@ -16,6 +16,11 @@ namespace GameClassLibrary
             X = x;
             Y = y;
         }
+
+        public static Point operator+(Point p, MovementDeltas md)
+        {
+            return new Point(p.X + md.dx, p.Y + md.dy);
+        }
     }
 
 

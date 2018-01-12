@@ -20,6 +20,11 @@ namespace GameClassLibrary
 
         public bool Empty { get { return _blockCountH == 0 || _blockCountV == 0; } }
 
+        public WallMatrixChar Read(Point p)
+        {
+            return Read(p.X, p.Y);
+        }
+
         public WallMatrixChar Read(int x, int y)
         {
             if (x >= 0 && x < _blockCountH)
@@ -42,6 +47,11 @@ namespace GameClassLibrary
                 }
             }
             return defaultIfOutsideBounds;
+        }
+
+        public void Write(Point p, WallMatrixChar ch)
+        {
+            Write(p.X, p.Y, ch);
         }
 
         public void Write(int x, int y, WallMatrixChar ch)

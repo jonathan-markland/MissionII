@@ -45,8 +45,6 @@ namespace GameClassLibrary
 
             CentrePiece(sourceMatrix, destMatrix, x, y);
 
-
-
             CornerPiece(destMatrix, x, y, 1, 2, 4); // 1 = 2 | 4
             CornerPiece(destMatrix, x, y, 3, 2, 6); // 3 = 2 | 6
             CornerPiece(destMatrix, x, y, 7, 4, 8); // 7 = 4 | 8

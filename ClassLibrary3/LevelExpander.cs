@@ -15,64 +15,102 @@ namespace GameClassLibrary
         {
             foreach(var thisLevel in theWorld.Levels)
             {
-                foreach(var thisRoom in thisLevel.Rooms)
+                var roomsList = thisLevel.Rooms;
+
+                // Expand all the rooms from the size they are in the source
+                // text files to the size they need to be for targetting the
+                // screen.
+
+                foreach (var thisRoom in roomsList)
                 {
-                    var expandedData = ExpandWallsWithThickPassages.ExpandWalls(thisRoom.FileWallData);
-                    //CarveDoorways(expandedData);
-                    SecondBrickIze(expandedData);
-                    thisRoom.WallData = expandedData;
+                    thisRoom.WallData = ExpandWallsWithThickPassages.ExpandWalls(thisRoom.FileWallData);
+                }
+
+                // Now we know all the rooms, ensure the doorways line up.
+
+                AlignDoorways(roomsList);
+
+                // Now add decorative brickwork via a filter.
+
+                foreach (var thisRoom in roomsList)
+                {
+                    AddDecorativeBrickwork(thisRoom.WallData);
                 }
             }
         }
 
 
 
-        public static void CarveDoorways(WallMatrix expandedData)
+        private static void AlignDoorways(List<Room> roomsList)
         {
-            // Carving invalidates the door thickness matching 
-            // (potentially), but it will only be because the outermost row
-            // is WIDER than inner ones, in a given room.
-
-            int thickCount = ExpandSize;
-            CarveDoorIfPresent(expandedData, new Point(0,  0), new MovementDeltas(1, 0), new MovementDeltas( 0, 1), thickCount);
-            CarveDoorIfPresent(expandedData, new Point(0, 24), new MovementDeltas(1, 0), new MovementDeltas( 0,-1), thickCount);
-            CarveDoorIfPresent(expandedData, new Point(0,  0), new MovementDeltas(0, 1), new MovementDeltas( 1, 0), thickCount);
-            CarveDoorIfPresent(expandedData, new Point(24, 0), new MovementDeltas(0, 1), new MovementDeltas(-1, 0), thickCount);
-        }
-
-
-
-        private static void CarveDoorIfPresent(WallMatrix expandedData, Point point, MovementDeltas withinRow, MovementDeltas betweenRows, int thickCount)
-        {
-            int x = point.X;
-            int y = point.Y;
-            for(int i=0; i<25; i++)
+            for (int y = 0; y < Constants.RoomsVertically; y++)
             {
-                if (expandedData.Read(x,y) == WallMatrixChar.Space)
+                for (int x = 0; x < Constants.RoomsHorizontally - 1; x++)
                 {
-                    CarveDoorHole(expandedData, x, y, betweenRows, thickCount);
+                    AlignDoorwaysGoingLeftRight(
+                        roomsList[y * Constants.RoomsHorizontally + x].WallData,
+                        roomsList[y * Constants.RoomsHorizontally + x + 1].WallData);
                 }
-                x += withinRow.dx;
-                y += withinRow.dy;
             }
-        }
 
-
-
-        private static void CarveDoorHole(WallMatrix expandedData, int x, int y, MovementDeltas moveDelta, int thickCount)
-        {
-            while (thickCount > 0)
+            for (int y=0; y<Constants.RoomsVertically-1; y++)
             {
-                expandedData.Write(x, y, WallMatrixChar.Space);
-                x += moveDelta.dx;
-                y += moveDelta.dy;
-                --thickCount;
+                for (int x = 0; x < Constants.RoomsHorizontally; x++)
+                {
+                    AlignDoorwaysGoingUpDown(
+                        roomsList[y * Constants.RoomsHorizontally + x].WallData,
+                        roomsList[(y+1) * Constants.RoomsHorizontally + x].WallData);
+                }
             }
         }
 
 
 
-        private static void SecondBrickIze(WallMatrix expandedData)
+        private static void AlignDoorwaysGoingLeftRight(WallMatrix room1, WallMatrix room2)
+        {
+            AlignDoorwaysScan(
+                room1, new Point(24, 0), 
+                room2, new Point(0, 0), 
+                new MovementDeltas(0, 1), 
+                25);
+        }
+
+
+
+        private static void AlignDoorwaysGoingUpDown(WallMatrix room1, WallMatrix room2)
+        {
+            AlignDoorwaysScan(
+                room1, new Point(0, 24),
+                room2, new Point(0, 0),
+                new MovementDeltas(1, 0),
+                25);
+        }
+
+
+
+        private static void AlignDoorwaysScan(
+            WallMatrix room1, Point point1,
+            WallMatrix room2, Point point2,
+            MovementDeltas movementDeltas,
+            int blockCount)
+        {
+            while (blockCount > 0)
+            {
+                if (   room1.Read(point1) != WallMatrixChar.Space
+                    || room2.Read(point2) != WallMatrixChar.Space)
+                {
+                    room1.Write(point1, WallMatrixChar.Electric);
+                    room2.Write(point2, WallMatrixChar.Electric);
+                }
+                point1 = point1 + movementDeltas;
+                point2 = point2 + movementDeltas;
+                --blockCount;
+            }
+        }
+
+
+
+        private static void AddDecorativeBrickwork(WallMatrix expandedData)
         {
             // Turn Electric areas into Brick leaving just an Electric outline.
 
