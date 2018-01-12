@@ -21,18 +21,18 @@ namespace GameClassLibrary
             //           12223
 
             var destMatrix = new WallMatrix(
-                Constants.ClustersHorizonally * ExpandSize,
+                Constants.ClustersHorizontally * ExpandSize,
                 Constants.ClustersVertically * ExpandSize);
 
             int destY = 0;
 
-            for (int sourceY = 0; sourceY < Constants.SourceFileCharsVertically; sourceY += Constants.ClusterSide)
+            for (int sourceY = 0; sourceY < Constants.SourceFileCharsVertically; sourceY += Constants.SourceClusterSide)
             {
                 int destX = 0;
 
                 for (int sourceX = 0;
                     sourceX < Constants.SourceFileRoomCharsHorizontally;
-                    sourceX += Constants.ClusterSide)
+                    sourceX += Constants.SourceClusterSide)
                 {
                     PaintExpandThreeByThreeToFiveByFive(sourceMatrix, destMatrix, sourceX, sourceY + 0, destX, destY + 0);
                     PaintExpandThreeByThreeToFiveByFive(sourceMatrix, destMatrix, sourceX, sourceY + 1, destX, destY + 1);

@@ -17,8 +17,8 @@ namespace GameClassLibrary
             {
                 foreach(var thisRoom in thisLevel.Rooms)
                 {
-                    var expandedData = ExpandWallsWithThinPassages.ExpandWalls(thisRoom.FileWallData);
-                    CarveDoorways(expandedData);
+                    var expandedData = ExpandWallsWithThickPassages.ExpandWalls(thisRoom.FileWallData);
+                    //CarveDoorways(expandedData);
                     SecondBrickIze(expandedData);
                     thisRoom.WallData = expandedData;
                 }

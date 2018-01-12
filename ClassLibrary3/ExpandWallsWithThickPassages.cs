@@ -8,10 +8,6 @@ namespace GameClassLibrary
 {
     public static class ExpandWallsWithThickPassages
     {
-        private const int ExpandSize = LevelExpander.ExpandSize;
-
-
-
         public static WallMatrix ExpandWalls(WallMatrix sourceMatrix)
         {
             // 789       78889
@@ -21,24 +17,15 @@ namespace GameClassLibrary
             //           12223
 
             var destMatrix = new WallMatrix(
-                Constants.ClustersHorizonally * ExpandSize,
-                Constants.ClustersVertically * ExpandSize);
+                Constants.ClustersHorizontally * Constants.DestClusterSide,
+                Constants.ClustersVertically * Constants.DestClusterSide);
 
-            int destY = 0;
-
-            for (int sourceY = 0; sourceY < Constants.SourceFileCharsVertically; sourceY += Constants.ClusterSide)
+            for (int y = 0; y < Constants.ClustersVertically; ++y)
             {
-                int destX = 0;
-
-                for (int sourceX = 0;
-                    sourceX < Constants.SourceFileRoomCharsHorizontally;
-                    sourceX += Constants.ClusterSide)
+                for (int x = 0; x < Constants.ClustersHorizontally; ++x)
                 {
-                    ExpandCluster(sourceMatrix, sourceX, sourceY, destMatrix, destX, destY);
-                    destX += ExpandSize;
+                    ExpandCluster(sourceMatrix, x, y, destMatrix);
                 }
-
-                destY += ExpandSize;
             }
 
             return destMatrix;
@@ -47,8 +34,28 @@ namespace GameClassLibrary
 
 
         private static void ExpandCluster(
-            WallMatrix sourceMatrix, int sourceX, int sourceY, 
-            WallMatrix destMatrix, int destX, int destY)
+            WallMatrix sourceMatrix, int x, int y, WallMatrix destMatrix)
+        {
+            // NB: Order is significant
+
+            SidePiece(sourceMatrix, destMatrix, x, y, 2,  0, -1, 8); // B -> 222  ABOVE  N Q
+            SidePiece(sourceMatrix, destMatrix, x, y, 8,  0, +1, 2); // H -> 888  BELOW  N K
+            SidePiece(sourceMatrix, destMatrix, x, y, 4, -1,  0, 6); // D -> 444  LEFT   N O
+            SidePiece(sourceMatrix, destMatrix, x, y, 6,  1,  0, 4); // F -> 666  RIGHT  N M
+
+            CentrePiece(sourceMatrix, destMatrix, x, y);
+
+
+
+            CornerPiece(destMatrix, x, y, 1, 2, 4); // 1 = 2 | 4
+            CornerPiece(destMatrix, x, y, 3, 2, 6); // 3 = 2 | 6
+            CornerPiece(destMatrix, x, y, 7, 4, 8); // 7 = 4 | 8
+            CornerPiece(destMatrix, x, y, 9, 6, 8); // 9 = 6 | 8
+        }
+
+
+
+        private static void SidePiece(WallMatrix sourceMatrix, WallMatrix destMatrix, int x, int y, int targetSide, int dx, int dy, int joinSide)
         {
             /*
              *  JKL
@@ -63,25 +70,57 @@ namespace GameClassLibrary
              *
              *  Filled(2)=
              *  - If B is unfilled, 2 will be unfilled.
-             *  - Otherwise B is filled ...
-             *    ... except if the 3x3 above exists AND has filled(N) & filled(Q)
+             *  - Otherwise 2 is filled ...
+             *    ... except if the 3x3 above exists AND has filled(N) & filled(Q) & !filled(E)
              *        then 2 can be unfilled.
              *       (respectively for the other sides, 4, 6, 8).
              */
 
-            SidePiece(sourceMatrix, destMatrix, 1, 0, 1, 0, 3, 1, 0, -1, 1, 2); // B -> 222  ABOVE  N Q
-            SidePiece(sourceMatrix, destMatrix, 1, 2, 1, 4, 3, 1, 0, +1, 1, 0); // H -> 888  BELOW  N K
-            SidePiece(sourceMatrix, destMatrix, 0, 1, 0, 1, 1, 3, -1, 0, 2, 1); // D -> 444  LEFT   N O
-            SidePiece(sourceMatrix, destMatrix, 2, 1, 4, 1, 1, 3, +1, 0, 0, 1); // F -> 666  RIGHT  N M
+            var srcClusterCanvas = new ClusterCanvas(sourceMatrix, x, y, Constants.SourceClusterSide);
+            var dstClusterCanvas = new ClusterCanvas(destMatrix, x, y, Constants.DestClusterSide);
 
-            /*
-             *   Evaluate the trivial cases AFTER the above
-             *   
-             *   Filled(5) = Filled(2) & Filled(4) & Filled(6) & Filled(8)
-             */
+            if (srcClusterCanvas.IsSpace(targetSide)) // If B is unfilled, 
+            {
+                dstClusterCanvas.Paint(targetSide, false); // 2 will be unfilled.
+            }
+            else
+            {
+                var otherX = x + dx;
+                var otherY = y + dy;
 
-            CentrePiece(sourceMatrix, destMatrix); // 2, 0, 0, 2, 4, 2, 2, 4);
+                if (otherX >= 0 && otherY >= 0 
+                    && otherX < Constants.ClustersHorizontally
+                    && otherY < Constants.ClustersVertically)   // except if the 3x3 above exists
+                {
+                    var srcOtherClusterCanvas = new ClusterCanvas(sourceMatrix, otherX, otherY, Constants.SourceClusterSide);
+                    dstClusterCanvas.Paint(targetSide,
+                        ! (srcOtherClusterCanvas.IsWall(joinSide)
+                        && srcOtherClusterCanvas.IsWall(5)
+                        && !srcClusterCanvas.IsWall(5)));  // AND has filled(N) & filled(Q) & !filled(E) then 2 can be unfilled.
+                }
+                else
+                {
+                    dstClusterCanvas.Paint(targetSide, true);  // Otherwise 2 is filled ...
+                }
+            }
+        }
 
+
+
+        private static void CentrePiece(WallMatrix sourceMatrix, WallMatrix destMatrix, int x, int y)
+        {
+            // The level designer specified whether the centres are filled.
+
+            var dstClusterCanvas = new ClusterCanvas(destMatrix, x, y, Constants.DestClusterSide);
+            var srcClusterCanvas = new ClusterCanvas(sourceMatrix, x, y, Constants.SourceClusterSide);
+
+            dstClusterCanvas.Paint(5, srcClusterCanvas.IsWall(5));
+        }
+
+
+
+        private static void CornerPiece(WallMatrix destMatrix, int x, int y, int targetCorner, int adjacentSide1, int adjacentSide2)
+        {
             /*
              *   12223
              *   45556 
@@ -93,46 +132,11 @@ namespace GameClassLibrary
              *   ...resp. for 3, 7, 9
              */
 
-            CornerPiece(sourceMatrix, destMatrix, 0, 0, 2, 0, 0, 2); // 1 = 2 | 4
-            CornerPiece(sourceMatrix, destMatrix, 4, 0, 2, 0, 4, 2); // 3 = 2 | 6
-            CornerPiece(sourceMatrix, destMatrix, 0, 4, 0, 2, 2, 4); // 7 = 4 | 8
-            CornerPiece(sourceMatrix, destMatrix, 4, 4, 4, 2, 2, 4); // 9 = 6 | 8
+            var dstClusterCanvas = new ClusterCanvas(destMatrix, x, y, Constants.DestClusterSide);
+
+            dstClusterCanvas.Paint(targetCorner,
+                dstClusterCanvas.IsWall(adjacentSide1)
+                || dstClusterCanvas.IsWall(adjacentSide2));
         }
-
-
-
-        private static void SidePiece(
-            WallMatrix sourceMatrix, WallMatrix destMatrix, 
-            int sourceSideX, int sourceSideY, 
-            int destSideX, int destSideY, int destSideWidth, int destSideHeight, 
-            int deltaToAdjacentClusterX, int deltaToAdjacentClusterY, 
-            int adjacentClusterX, int adjacentClusterY)
-        {
-            // B -> 222  ABOVE  N Q
-
-
-
-        }
-
-
-
-        private static void CentrePiece(WallMatrix sourceMatrix, WallMatrix destMatrix)
-        {
-
-        }
-
-
-
-        private static void CornerPiece(
-            WallMatrix sourceMatrix, WallMatrix destMatrix,
-            int cornerX, int cornerY,
-            int side1X, int side1Y,
-            int size2X, int size2Y)
-        {
-
-        }
-
-
-
     }
 }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GameClassLibrary
 {
@@ -53,7 +49,7 @@ namespace GameClassLibrary
 
 		
 		
-		private void paint(int x, int y, int w, int h)
+		private void Paint(int x, int y, int w, int h, WallMatrixChar paintChar)
 		{
 			// TODO:  Could assert area fits.  Not massively important since Write() does bounds checking.
 			

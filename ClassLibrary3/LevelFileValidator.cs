@@ -30,9 +30,9 @@ namespace GameClassLibrary
         {
             // Validations for each 3x3 group of tiles individually:
 
-            for(int y = 0; y < Constants.SourceFileCharsVertically - Constants.ClusterSide; y += Constants.ClusterSide)
+            for(int y = 0; y < Constants.SourceFileCharsVertically - Constants.SourceClusterSide; y += Constants.SourceClusterSide)
             {
-                for (int x = 0; x < Constants.SourceFileRoomCharsHorizontally - Constants.ClusterSide; x += Constants.ClusterSide)
+                for (int x = 0; x < Constants.SourceFileRoomCharsHorizontally - Constants.SourceClusterSide; x += Constants.SourceClusterSide)
                 {
                     ExpectValidThreeByThree(fileWallData, x, y);
                 }
@@ -40,9 +40,9 @@ namespace GameClassLibrary
 
             // Validations of the connections BETWEEN the 3x3 groups:
 
-            for (int y = 1; y <= Constants.SourceFileCharsVertically - 2; y += Constants.ClusterSide)
+            for (int y = 1; y <= Constants.SourceFileCharsVertically - 2; y += Constants.SourceClusterSide)
             {
-                for (int x = 2; x <= Constants.SourceFileRoomCharsHorizontally - 4; x += Constants.ClusterSide)
+                for (int x = 2; x <= Constants.SourceFileRoomCharsHorizontally - 4; x += Constants.SourceClusterSide)
                 {
                     ValidateTileConnection(fileWallData, x, y, 1, 0);  // Horizontal connections
                     ValidateTileConnection(fileWallData, y, x, 0, 1);  // Vertical connections
@@ -73,8 +73,8 @@ namespace GameClassLibrary
 
         public static void ExpectEdgeDoorwaysMatchOtherRooms(Room thisRoom, List<Room> rooms)
         {
-            CheckDoorwaysMirrored(thisRoom.RoomX, thisRoom.RoomY,  0, -1, rooms, 1,  0, Constants.ClusterSide, 0);  // Along the top / left
-            CheckDoorwaysMirrored(thisRoom.RoomX, thisRoom.RoomY,  0,  1, rooms, 1, 14, Constants.ClusterSide, 0);  // Along the bottom / right
+            CheckDoorwaysMirrored(thisRoom.RoomX, thisRoom.RoomY,  0, -1, rooms, 1,  0, Constants.SourceClusterSide, 0);  // Along the top / left
+            CheckDoorwaysMirrored(thisRoom.RoomX, thisRoom.RoomY,  0,  1, rooms, 1, 14, Constants.SourceClusterSide, 0);  // Along the bottom / right
         }
 
 
@@ -108,7 +108,7 @@ namespace GameClassLibrary
 
             var otherRoom = otherRoomIsOffMap ? null : FindRoom(rooms, otherRoomX, otherRoomY);
 
-            for (int i=0; i < Constants.ClustersHorizonally; i++) // TODO: collapse H/V constants to one.
+            for (int i=0; i < Constants.ClustersHorizontally; i++) // TODO: collapse H/V constants to one.
             {
                 var thisRoomSquare = thisRoom.FileWallData.Read(startX, startY);
 
