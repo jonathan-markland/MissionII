@@ -3,10 +3,6 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public class Swoop : AbstractIntelligenceProvider
     {
-        private bool _killedMan = false;
-
-
-
         public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, SpriteInstance spriteInstance)
         {
             for (int i = 0; i < Constants.GhostMovementCycles; i++)
@@ -30,10 +26,9 @@ namespace GameClassLibrary.ArtificialIntelligence
 
         private void KillMan(CybertronGameBoard theGameBoard)
         {
-            if (!_killedMan)
+            if (!theGameBoard.Man.IsDead)
             {
-                theGameBoard.Man.Die();
-                _killedMan = true; // only make the call once per room.
+                theGameBoard.Man.Die(); // only make the call once per room.
             }
         }
 

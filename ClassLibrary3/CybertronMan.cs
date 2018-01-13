@@ -190,6 +190,11 @@ namespace GameClassLibrary
             }
         }
 
+        public bool IsDead
+        {
+            get { return _isDead; }
+        }
+
         private void RoomUp(CybertronGameBoard theGameBoard)
         {
             MoveRooms(
