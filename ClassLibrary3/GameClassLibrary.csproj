@@ -83,6 +83,7 @@
     <Compile Include="LevelFileParser.cs" />
     <Compile Include="LevelFileValidator.cs" />
     <Compile Include="CybertronNumericSpriteFont.cs" />
+    <Compile Include="MovementDeltas.cs" />
     <Compile Include="Point.cs" />
     <Compile Include="PositionFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
