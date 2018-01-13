@@ -58,6 +58,7 @@ namespace GameClassLibrary
 
         public Room ManStartRoom { get { return _specialMarkers.StartRoom; } }
         public Point ManStartCluster { get { return _specialMarkers.ManStart; } }
+        public int ManStartFacingDirection { get { return _specialMarkers.InitialManFacingDirection; } }
         public int LevelNumber { get; private set; }
         public List<Room> Rooms { get; private set; }
     }

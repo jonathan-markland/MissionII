@@ -45,6 +45,21 @@ namespace GameClassLibrary
         }
 
 
+
+        public static int GetDirectionFacingAwayFromWalls(WallMatrix fileWallData, Point startCluster)
+        {
+            var clusterCanvas = new ClusterCanvas(
+                fileWallData, startCluster.X, startCluster.Y, Constants.SourceClusterSide);
+
+            if (clusterCanvas.IsSpace(2)) return 0;
+            if (clusterCanvas.IsSpace(4)) return 6;
+            if (clusterCanvas.IsSpace(6)) return 2;
+            if (clusterCanvas.IsSpace(8)) return 4;
+            throw new Exception("Cannot establish an exit direction, all sides of cluster have walls.");
+        }
+
+
+
         private static MovementDeltas[] g_MovementDeltas = new MovementDeltas[]
         {
             new MovementDeltas { dx =  0, dy = -1 }, // up

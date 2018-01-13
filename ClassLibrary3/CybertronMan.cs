@@ -13,7 +13,7 @@ namespace GameClassLibrary
         private bool _debugInvulnerable = false;
         private bool _isDead;
         private bool _isElectrocuting;
-        private int _facingDirection = 2;  // TODO: This is the man's initial facing direction.  Sort out properly.z
+        private int _facingDirection;
         private int _imageIndex = 0;
         private int _animationCountdown = WalkingAnimationReset;
         private const int WalkingAnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
@@ -170,6 +170,7 @@ namespace GameClassLibrary
         public void Alive(int theDirection, int roomX, int roomY) // TODO: refactor to use the Position property.
         {
             _isDead = false;
+            _facingDirection = theDirection;
             Standing(theDirection);
             SpriteInstance.RoomX = roomX;
             SpriteInstance.RoomY = roomY;

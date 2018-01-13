@@ -6,6 +6,7 @@ namespace GameClassLibrary
     {
         private Point? _manStart;
         private Room _manStartRoom;
+        private int _initialManFacingDirection;
 
         public void SetManStartCluster(Room startRoom, Point startCluster)
         {
@@ -23,6 +24,7 @@ namespace GameClassLibrary
             }
             _manStart = startCluster;
             _manStartRoom = startRoom;
+            _initialManFacingDirection = Business.GetDirectionFacingAwayFromWalls(startRoom.FileWallData, startCluster);
         }
 
         public Point ManStart
@@ -36,6 +38,11 @@ namespace GameClassLibrary
         public Room StartRoom
         {
             get { return _manStartRoom; }
+        }
+
+        public int InitialManFacingDirection
+        {
+            get { return _initialManFacingDirection; }
         }
     }
 }

@@ -271,7 +271,7 @@ namespace GameClassLibrary
             // Set man start position (according to 'x' in source level data for this level):
             var manX = manCX + theLevel.ManStartCluster.X * clusterSizeX;
             var manY = manCY + theLevel.ManStartCluster.Y * clusterSizeY;
-            theGameBoard.Man.Alive(0, manX, manY);
+            theGameBoard.Man.Alive(theLevel.ManStartFacingDirection, manX, manY);
 
             // Clear inventory at start of each level.
             theGameBoard.PlayerInventory = new List<CybertronObject>();
