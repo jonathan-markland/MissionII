@@ -1,20 +1,34 @@
 
-[ ] BUG: Carving removes too much eg room 106.
+Release 1
 
+[ ] Do the all the proposed refactorings (g.txt)
+[ ] The level start position is not defined.  Have a character in the source file to specify it.
+    And calculate the facing direction for the man on startup.
+[ ] Show the level number on the "entering" screen.
+[ ] Instruction screens
+[ ] Design a different map for level 1.
 [ ] Design some further level maps
+[ ] Different types of brick for walls, and different decoration formats.
+[ ] Proper parser state machine for loading levels so we can report line numbers very easily.
+[ ] Screen stretching like Jynx and keypresses for this.
+[ ] MUST DO - Replace all the copyright graphics.
+[ ] A third monster type is needed.
+
+Release 2
+
 [ ] Droids can shoot ghost - should not happen
 [ ] Hi-score table (although we need a proper font for this).
-[ ] Sweep up numeric literals into constant declarations.
 [ ] Open maximised
-[ ] Proper parser state machine for loading levels so we can report line numbers very easily.
-[ ] Different types of brick for walls, and different decoration formats.
-[ ] Screen stretching like Jynx.
 [ ] Droid firing -- more aggressive as levels progress.
 [ ] Ghost timing -- change as levels progress?
 [ ] Penalise shooting inaccuracy on later levels?
-[ ] Instruction screens
+[ ] Cycle counts for animation in a configuration file?
+[ ] Skin folder - but with one skin only for now.  The software must dynamically load the graphics, and not use the monogame Content system.
+[ ] Selection of skins.
 
 
+
+[X] BUG: Carving removes too much eg room 106.
 [X] PAUSE GAME key.
 [X] implement level switching.
 [X] Choose adversaries by level number. Red monsters on level 1 only.  Introduce blues on level 2 etc...
