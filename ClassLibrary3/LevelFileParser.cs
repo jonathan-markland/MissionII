@@ -43,8 +43,23 @@ namespace GameClassLibrary
 
     public class Level
     {
-        public int LevelNumber;
-        public List<Room> Rooms;
+        private SpecialMarkers _specialMarkers;
+
+        public Level(int levelNumber, List<Room> roomList, SpecialMarkers specialMarkers)
+        {
+            LevelNumber = levelNumber;
+            Rooms = roomList;
+            _specialMarkers = specialMarkers;
+            if (specialMarkers.StartRoom == null)
+            {
+                throw new Exception($"Man start position marker 'x' has not been set.");
+            }
+        }
+
+        public Room ManStartRoom { get { return _specialMarkers.StartRoom; } }
+        public Point ManStartPoint { get { return _specialMarkers.ManStart; } }
+        public int LevelNumber { get; private set; }
+        public List<Room> Rooms { get; private set; }
     }
 
 
@@ -65,7 +80,6 @@ namespace GameClassLibrary
     }
 
 
-
     public static class LevelFileParser
     {
         public static WorldWallData Parse(StreamReader streamReader)
@@ -75,15 +89,30 @@ namespace GameClassLibrary
 
             while (FindNextLevel(streamReader, nextLevelNumber))
             {
-                var roomsList = new List<Room>();
-
-                for (int roomY = 1; roomY <= Constants.RoomsVertically; ++roomY)
+                try
                 {
-                    // TODO:  no more:  ExpectRoomHeader(streamReader, roomX, roomY);
-                    roomsList.AddRange(ParseRowOfRooms(streamReader, roomY));
-                }
+                    var roomsList = new List<Room>();
+                    var specialMarkers = new SpecialMarkers();
 
-                levelsList.Add(new Level { LevelNumber = nextLevelNumber, Rooms = roomsList });
+                    for (int roomY = 1; roomY <= Constants.RoomsVertically; ++roomY)
+                    {
+                        try
+                        {
+                            // TODO:  no more:  ExpectRoomHeader(streamReader, roomX, roomY);
+                            roomsList.AddRange(ParseRowOfRooms(streamReader, roomY, specialMarkers));
+                        }
+                        catch(Exception e)
+                        {
+                            throw new Exception($"Error while reading room-row {roomY}:  " + e.Message);
+                        }
+                    }
+
+                    levelsList.Add(new Level(nextLevelNumber, roomsList, specialMarkers));
+                }
+                catch(Exception e)
+                {
+                    throw new Exception($"Error while reading level {nextLevelNumber}:  " + e.Message);
+                }
 
                 ++nextLevelNumber;
             }
@@ -158,7 +187,7 @@ namespace GameClassLibrary
 
 
 
-        public static List<Room> ParseRowOfRooms(StreamReader streamReader, int roomY)
+        public static List<Room> ParseRowOfRooms(StreamReader streamReader, int roomY, SpecialMarkers specialMarkers)
         {
             var rowOfRooms = new List<Room>(Constants.RoomsHorizontally);
             for (int roomX = 0; roomX < Constants.RoomsHorizontally; ++roomX)
@@ -198,7 +227,17 @@ namespace GameClassLibrary
 
                 for (int roomX = 1; roomX <= Constants.RoomsHorizontally; ++roomX)
                 {
-                    PaintLine(rowOfRooms[roomX-1].FileWallData, rowNumber, theSplittings[roomX-1]);
+                    try
+                    {
+                        var targetRoom = rowOfRooms[roomX - 1];
+                        var sourceString = theSplittings[roomX - 1];
+                        PaintLine(targetRoom.FileWallData, rowNumber, sourceString);
+                        ScanForSpecialMarkers(sourceString, rowNumber, targetRoom, specialMarkers);
+                    }
+                    catch (Exception e)
+                    {
+                        throw new Exception($"Error in room-column {roomX}:  " + e.Message);
+                    }
                 }
             }
 
@@ -209,7 +248,7 @@ namespace GameClassLibrary
 
         public static WallMatrixChar CharToWallMatrixChar(char ch)
         {
-            if (ch == ' ') return WallMatrixChar.Space;
+            if (ch == ' ' || ch == 'x') return WallMatrixChar.Space;  // 'x' marks man start spot
             if (ch == '#') return WallMatrixChar.Electric;
             if (ch == '@') return WallMatrixChar.Electric;
             // NB: There is no specification of any other WallMatrixChar kinds in the source text file.
@@ -224,6 +263,21 @@ namespace GameClassLibrary
             foreach(char ch in thisLine)
             {
                 targetMatrix.Write(x, rowNumber, CharToWallMatrixChar(ch));
+                x++;
+            }
+        }
+
+
+
+        public static void ScanForSpecialMarkers(string sourceString, int rowNumber, Room targetRoom, SpecialMarkers specialMarkers)
+        {
+            int x = 0;
+            foreach (char ch in sourceString)
+            {
+                if (ch == 'x')
+                {
+                    specialMarkers.SetManStart(targetRoom, new Point(x, rowNumber));
+                }
                 x++;
             }
         }
@@ -245,7 +299,7 @@ namespace GameClassLibrary
 
         public static bool IsValidWallDefinitionChar(char ch)
         {
-            return ch == ' ' || ch == '#' || ch == '@';
+            return ch == ' ' || ch == '#' || ch == '@' || ch == 'x';
         }
     }
 }
