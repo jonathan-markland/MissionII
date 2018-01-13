@@ -22,7 +22,7 @@ namespace GameClassLibrary.ArtificialIntelligence
             }
         }
 
-
+        
 
         private void KillMan(CybertronGameBoard theGameBoard)
         {

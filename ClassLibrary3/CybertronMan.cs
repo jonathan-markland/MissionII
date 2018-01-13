@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace GameClassLibrary
 {
     public struct CybertronManPosition
@@ -46,97 +48,111 @@ namespace GameClassLibrary
         {
             if (_isElectrocuting)
             {
-                AdvanceAnimation();
-                --_electrocutionCycles;
-                if (_electrocutionCycles == 0)
-                {
-                    _isElectrocuting = false;
-                    Die();
-                }
+                DoElectrocution();
             }
             else if (!_isDead)
             {
-                // Collision between man and walls?
+                FireButtonCheck(theGameBoard, keyStates);
 
                 int theDirection = Business.GetDirectionIndex(keyStates);
                 if (theDirection != -1)
                 {
-                    _facingDirection = theDirection;
-                    SpriteInstance.Traits = CybertronSpriteTraits.ManWalking[theDirection];
-                    AdvanceAnimation();
-                    var movementDeltas = Business.GetMovementDeltas(keyStates);
-
-                    var hitResult = CybertronGameStateUpdater.MoveManOnePixel(theGameBoard, movementDeltas);
-                    if (hitResult == CollisionDetection.WallHitTestResult.HitWall)
-                    {
-                        Electrocute();
-                        return;
-                    }
-                    else if (hitResult == CollisionDetection.WallHitTestResult.OutsideRoomAbove)
-                    {
-                        RoomUp(theGameBoard);
-                        return;
-                    }
-                    else if (hitResult == CollisionDetection.WallHitTestResult.OutsideRoomBelow)
-                    {
-                        RoomDown(theGameBoard);
-                        return;
-                    }
-                    else if (hitResult == CollisionDetection.WallHitTestResult.OutsideRoomToLeft)
-                    {
-                        RoomLeft(theGameBoard);
-                        return;
-                    }
-                    else if (hitResult == CollisionDetection.WallHitTestResult.OutsideRoomToRight)
-                    {
-                        RoomRight(theGameBoard);
-                        return;
-                    }
-
-                    // Collision between man and room objects?
-
-                    var manRectangle = GetBoundingRectangle();
-                    theGameBoard.ObjectsInRoom.ForEachDo(roomObject =>
-                    {
-                        if (!_isDead && manRectangle.Intersects(roomObject.GetBoundingRectangle()))
-                        {
-                            roomObject.ManWalkedIntoYou(theGameBoard);
-                        }
-                    });
+                    DoWalking(theGameBoard, keyStates, theDirection);
                 }
                 else
                 {
                     Standing(_facingDirection);
                 }
+            }
+            else
+            {
+                DeadHandling(theGameBoard);
+            }
+        }
 
-                if (!_isDead && !_isElectrocuting)
+        private void DoElectrocution()
+        {
+            AdvanceAnimation();
+            --_electrocutionCycles;
+            if (_electrocutionCycles == 0)
+            {
+                _isElectrocuting = false;
+                Die();
+            }
+        }
+
+        private void DoWalking(CybertronGameBoard theGameBoard, CybertronKeyStates keyStates, int theDirection)
+        {
+            _facingDirection = theDirection;
+            SpriteInstance.Traits = CybertronSpriteTraits.ManWalking[theDirection];
+            AdvanceAnimation();
+            var movementDeltas = Business.GetMovementDeltas(keyStates);
+            var hitResult = CybertronGameStateUpdater.MoveManOnePixel(theGameBoard, movementDeltas);
+
+            // Collision between man and walls?
+
+            if (hitResult == CollisionDetection.WallHitTestResult.HitWall)
+            {
+                Electrocute();
+            }
+            else if (hitResult == CollisionDetection.WallHitTestResult.OutsideRoomAbove)
+            {
+                RoomUp(theGameBoard);
+            }
+            else if (hitResult == CollisionDetection.WallHitTestResult.OutsideRoomBelow)
+            {
+                RoomDown(theGameBoard);
+            }
+            else if (hitResult == CollisionDetection.WallHitTestResult.OutsideRoomToLeft)
+            {
+                RoomLeft(theGameBoard);
+            }
+            else if (hitResult == CollisionDetection.WallHitTestResult.OutsideRoomToRight)
+            {
+                RoomRight(theGameBoard);
+            }
+            else
+            {
+                // Collision between man and room objects?
+
+                var manRectangle = GetBoundingRectangle();
+                theGameBoard.ObjectsInRoom.ForEachDo(roomObject =>
                 {
-                    if (keyStates.Fire)
+                    if (!_isDead && manRectangle.Intersects(roomObject.GetBoundingRectangle()))
                     {
-                        if (!_awaitingFireRelease)
-                        {
-                            CybertronGameStateUpdater.StartBullet(SpriteInstance, _facingDirection, theGameBoard, true);
-                            _awaitingFireRelease = true; // require press-release sequence for firing bullets.
-                        }
+                        roomObject.ManWalkedIntoYou(theGameBoard);
                     }
-                    else
-                    {
-                        // Fire button released, do:
-                        _awaitingFireRelease = false;
-                    }
+                });
+            }
+        }
+
+        private void FireButtonCheck(CybertronGameBoard theGameBoard, CybertronKeyStates keyStates)
+        {
+            if (keyStates.Fire)
+            {
+                if (!_awaitingFireRelease)
+                {
+                    CybertronGameStateUpdater.StartBullet(SpriteInstance, _facingDirection, theGameBoard, true);
+                    _awaitingFireRelease = true; // require press-release sequence for firing bullets.
                 }
             }
             else
             {
-                System.Diagnostics.Debug.Assert(_isDead);
-                if (_whileDeadCount > 0)
-                {
-                    --_whileDeadCount;
-                }
-                else
-                {
-                    CybertronGameStateUpdater.LoseLife(theGameBoard);
-                }
+                // Fire button released, do:
+                _awaitingFireRelease = false;
+            }
+        }
+
+        private void DeadHandling(CybertronGameBoard theGameBoard)
+        {
+            System.Diagnostics.Debug.Assert(_isDead);
+            if (_whileDeadCount > 0)
+            {
+                --_whileDeadCount;
+            }
+            else
+            {
+                CybertronGameStateUpdater.LoseLife(theGameBoard);
             }
         }
 
