@@ -259,9 +259,18 @@ namespace GameClassLibrary
             // Set the start room number:
             theGameBoard.RoomNumber = theLevel.ManStartRoom.RoomNumber;
 
+            // Calculate size of cluster in pixels:
+            var clusterSizeX = CybertronGameBoardConstants.TileWidth * Constants.DestClusterSide;
+            var clusterSizeY = CybertronGameBoardConstants.TileHeight * Constants.DestClusterSide;
+
+            // TODO: all man sprites must be checked for SAME dimensions.
+            // Calculate centering offsets for man within cluster:
+            var manCX = (clusterSizeX - CybertronSpriteTraits.ManStanding[0].BoardWidth) / 2;
+            var manCY = (clusterSizeY - CybertronSpriteTraits.ManStanding[0].BoardHeight) / 2;
+
             // Set man start position (according to 'x' in source level data for this level):
-            var manX = theLevel.ManStartCluster.X * CybertronGameBoardConstants.TileWidth * Constants.DestClusterSide;
-            var manY = theLevel.ManStartCluster.Y * CybertronGameBoardConstants.TileHeight * Constants.DestClusterSide;
+            var manX = manCX + theLevel.ManStartCluster.X * clusterSizeX;
+            var manY = manCY + theLevel.ManStartCluster.Y * clusterSizeY;
             theGameBoard.Man.Alive(0, manX, manY);
 
             // Clear inventory at start of each level.
