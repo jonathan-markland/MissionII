@@ -57,7 +57,7 @@ namespace GameClassLibrary
         }
 
         public Room ManStartRoom { get { return _specialMarkers.StartRoom; } }
-        public Point ManStartPoint { get { return _specialMarkers.ManStart; } }
+        public Point ManStartCluster { get { return _specialMarkers.ManStart; } }
         public int LevelNumber { get; private set; }
         public List<Room> Rooms { get; private set; }
     }
@@ -71,6 +71,11 @@ namespace GameClassLibrary
             RoomX = x;
             RoomY = y;
             FileWallData = fileWallData;
+        }
+
+        public int RoomNumber
+        {
+            get { return RoomX + Constants.RoomsHorizontally * (RoomY - 1); }
         }
 
         public int RoomX;
@@ -276,7 +281,9 @@ namespace GameClassLibrary
             {
                 if (ch == 'x')
                 {
-                    specialMarkers.SetManStart(targetRoom, new Point(x, rowNumber));
+                    specialMarkers.SetManStartCluster(
+                        targetRoom, 
+                        new Point(x / Constants.SourceClusterSide, rowNumber / Constants.SourceClusterSide));
                 }
                 x++;
             }

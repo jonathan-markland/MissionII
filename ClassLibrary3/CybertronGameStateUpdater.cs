@@ -252,7 +252,19 @@ namespace GameClassLibrary
         public static void PrepareForNewLevel(CybertronGameBoard theGameBoard)
         {
             // The LevelNumber is already set.
-            theGameBoard.RoomNumber = 1;
+
+            // Determine this level object:
+            var theLevel = theGameBoard.TheWorldWallData.Levels[theGameBoard.LevelNumber - 1];
+
+            // Set the start room number:
+            theGameBoard.RoomNumber = theLevel.ManStartRoom.RoomNumber;
+
+            // Set man start position (according to 'x' in source level data for this level):
+            var manX = theLevel.ManStartCluster.X * CybertronGameBoardConstants.TileWidth * Constants.DestClusterSide;
+            var manY = theLevel.ManStartCluster.Y * CybertronGameBoardConstants.TileHeight * Constants.DestClusterSide;
+            theGameBoard.Man.Alive(0, manX, manY);
+
+            // Clear inventory at start of each level.
             theGameBoard.PlayerInventory = new List<CybertronObject>();
 
             // TODO: This could be done better, as it's a bit weird requiring the objects already to
@@ -288,9 +300,6 @@ namespace GameClassLibrary
 
             theGameBoard.Safe = new GameClassLibrary.CybertronLevelSafe(roomNumberAllocator.Next());
             theGameBoard.Potion = new GameClassLibrary.CybertronPotion(roomNumberAllocator.Next());
-
-            // TODO: sort out initial man position on level.
-            theGameBoard.Man.Alive(0, 17, 92);
 
             PrepareForNewRoom(theGameBoard);
 
