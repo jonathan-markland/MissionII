@@ -78,6 +78,7 @@
     <Compile Include="GameMode.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="IDrawingTarget.cs" />
+    <Compile Include="IncrementingNumberAllocator.cs" />
     <Compile Include="LevelExpander.cs" />
     <Compile Include="LevelFileParser.cs" />
     <Compile Include="LevelFileValidator.cs" />

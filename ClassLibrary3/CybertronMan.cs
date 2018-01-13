@@ -158,7 +158,7 @@ namespace GameClassLibrary
 
         private void AdvanceAnimation()
         {
-            Business.Animate(ref _animationCountdown, ref _imageIndex, WalkingAnimationReset, SpriteInstance.Traits.HostImageObjects.Count);
+            Business.Animate(ref _animationCountdown, ref _imageIndex, WalkingAnimationReset, SpriteInstance.Traits.ImageCount);
         }
 
         private void Electrocute()

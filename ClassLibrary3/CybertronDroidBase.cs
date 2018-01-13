@@ -19,7 +19,7 @@ namespace GameClassLibrary
 
         public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, CybertronKeyStates theKeyStates)
         {
-            Business.Animate(ref _animationCountdown, ref _imageIndex, AnimationReset, SpriteInstance.Traits.HostImageObjects.Count);
+            Business.Animate(ref _animationCountdown, ref _imageIndex, AnimationReset, SpriteInstance.Traits.ImageCount);
             _intelligenceProvider.AdvanceOneCycle(theGameBoard, SpriteInstance);
         }
 

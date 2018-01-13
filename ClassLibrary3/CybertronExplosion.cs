@@ -20,7 +20,7 @@
         {
             if (_explosionCountDown != 0)
             {
-                Business.Animate(ref _animationCountdown, ref _imageIndex, AnimationReset, SpriteInstance.Traits.HostImageObjects.Count);
+                Business.Animate(ref _animationCountdown, ref _imageIndex, AnimationReset, SpriteInstance.Traits.ImageCount);
                 --_explosionCountDown;
                 if (_explosionCountDown == 0)
                 {

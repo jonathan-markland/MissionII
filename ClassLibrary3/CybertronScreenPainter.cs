@@ -73,7 +73,7 @@ namespace GameClassLibrary
             drawingTarget.DrawSprite(
                 cx - theSprite.BoardWidth / 2, 
                 cy - theSprite.BoardHeight / 2, 
-                theSprite.HostImageObjects[0]);
+                theSprite.GetHostImageObject(0));
         }
 
         public static void DrawFirstSpriteScreenCentred(SpriteTraits theSprite, IDrawingTarget drawingTarget)
@@ -83,7 +83,7 @@ namespace GameClassLibrary
 
         public static void DrawFirstSprite(int x, int y, SpriteTraits theSprite, IDrawingTarget drawingTarget)
         {
-            drawingTarget.DrawSprite(x, y, theSprite.HostImageObjects[0]);
+            drawingTarget.DrawSprite(x, y, theSprite.GetHostImageObject(0));
         }
 
         public static void DrawFirstSprite(SpriteInstance theSprite, IDrawingTarget drawingTarget)
@@ -91,7 +91,7 @@ namespace GameClassLibrary
             drawingTarget.DrawSprite(
                 CybertronGameBoardConstants.RoomOriginX + theSprite.RoomX,
                 CybertronGameBoardConstants.RoomOriginY + theSprite.RoomY, 
-                theSprite.Traits.HostImageObjects[0]);
+                theSprite.Traits.GetHostImageObject(0));
         }
 
         public static void DrawIndexedSprite(SpriteInstance theSprite, int spriteIndex, IDrawingTarget drawingTarget)
@@ -99,7 +99,7 @@ namespace GameClassLibrary
             drawingTarget.DrawSprite(
                 CybertronGameBoardConstants.RoomOriginX + theSprite.RoomX,
                 CybertronGameBoardConstants.RoomOriginY + theSprite.RoomY,
-                theSprite.Traits.HostImageObjects[spriteIndex]);
+                theSprite.Traits.GetHostImageObject(spriteIndex));
         }
 
 
@@ -138,7 +138,7 @@ namespace GameClassLibrary
             System.Diagnostics.Debug.Assert(theFontSprites.Count == 10);
             foreach(var spr in theFontSprites)
             {
-                System.Diagnostics.Debug.Assert(spr.HostImageObjects.Count == 1);
+                System.Diagnostics.Debug.Assert(spr.ImageCount == 1);
             }
 
             uint n = theValue;

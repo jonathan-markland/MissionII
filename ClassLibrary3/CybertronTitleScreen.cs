@@ -22,7 +22,7 @@ namespace GameClassLibrary
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, CybertronSpriteTraits.TitleScreen.HostImageObjects[0]);
+            drawingTarget.DrawSprite(0, 0, CybertronSpriteTraits.TitleScreen.GetHostImageObject(0));
         }
     }
 
@@ -49,7 +49,7 @@ namespace GameClassLibrary
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, CybertronSpriteTraits.InstructionsKeys.HostImageObjects[0]);
+            drawingTarget.DrawSprite(0, 0, CybertronSpriteTraits.InstructionsKeys.GetHostImageObject(0));
         }
     }
 
@@ -113,7 +113,7 @@ namespace GameClassLibrary
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, CybertronSpriteTraits.EnteringLevel.HostImageObjects[0]);
+            drawingTarget.DrawSprite(0, 0, CybertronSpriteTraits.EnteringLevel.GetHostImageObject(0));
 
             // Show the things you need to find on this level.
 
