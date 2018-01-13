@@ -66,16 +66,6 @@ namespace MonogameTest
 
         }
 
-        private GameClassLibrary.GameTimeSpan GetGameTimeElapsed(GameTime gameTime)
-        {
-            var elapsedTime =
-                new GameClassLibrary.GameTimeSpan
-                {
-                    Milliseconds = gameTime.TotalGameTime.Milliseconds
-                };
-            return elapsedTime;
-        }
-
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// game-specific content.
@@ -129,8 +119,6 @@ namespace MonogameTest
             GraphicsDevice.Clear(Color.Black);
 
             _spriteBatch.Begin();
-
-            var elapsedTime = GetGameTimeElapsed(gameTime);
 
             GameClassLibrary.CybertronGameModeSelector.ModeSelector.CurrentMode.Draw(_monoGameDrawingTarget);
 

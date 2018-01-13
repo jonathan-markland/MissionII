@@ -77,7 +77,6 @@
     <Compile Include="ExpandWallsWithThinPassages.cs" />
     <Compile Include="GameMode.cs" />
     <Compile Include="GameObject.cs" />
-    <Compile Include="GameTimeSpan.cs" />
     <Compile Include="IDrawingTarget.cs" />
     <Compile Include="LevelExpander.cs" />
     <Compile Include="LevelFileParser.cs" />
