@@ -33,7 +33,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                         if ((_countDown & 31) == 0) // TODO: firing time constant
                         {
                             if (!_movementDeltas.Stationary 
-                                && CybertronGameStateUpdater.RandomGenerator.Next(100) < 20)
+                                && Rng.Generator.Next(100) < 20)
                             {
                                 CybertronGameStateUpdater.StartBullet(spriteInstance, _facingDirection, theGameBoard, false);
                             }
@@ -47,7 +47,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                 }
                 else
                 {
-                    var theRng = CybertronGameStateUpdater.RandomGenerator;
+                    var theRng = Math.Rng.Generator;
                     _countDown = theRng.Next(50) + 50; // TODO: single-minded movement constants
                     _facingDirection = theRng.Next(8);
                     _movementDeltas = theRng.Next(8) < 1

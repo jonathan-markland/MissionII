@@ -10,7 +10,7 @@ namespace GameClassLibrary
         public UniqueNumberAllocator(int baseNumber, int countOfItems)
         {
             _theList = Enumerable.Range(baseNumber, countOfItems).ToList();
-            Business.Shuffle(_theList, CybertronGameStateUpdater.RandomGenerator);
+            Business.Shuffle(_theList, Math.Rng.Generator);
         }
 
         public int Next()

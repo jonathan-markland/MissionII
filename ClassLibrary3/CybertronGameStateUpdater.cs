@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GameClassLibrary.Math;
 
 namespace GameClassLibrary
 {
     public static class CybertronGameStateUpdater
     {
-        public static Random RandomGenerator = new Random();
-
-
-
         public static void Update(CybertronGameBoard gameBoard, CybertronKeyStates keyStates)
         {
             gameBoard.ObjectsInRoom.ForEachDo(o => { o.AdvanceOneCycle(gameBoard, keyStates); } );
@@ -401,7 +396,7 @@ namespace GameClassLibrary
                     return true;
                 });
 
-            Business.Shuffle(pointsList, RandomGenerator);
+            Business.Shuffle(pointsList, Math.Rng.Generator);
 
             // Apply positions:
             // If this is LESS THAN ObjectsInRoom.Count then we cull the ObjectsInRoom container.
