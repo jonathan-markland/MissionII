@@ -14,5 +14,7 @@ namespace GameClassLibrary
         public const int TileHeight = 8;
         public const int RoomClearingBonusScore = 250;
         public const int MonsterKillingScore = 20;
+        public const int ScreenWidth = 320;
+        public const int ScreenHeight = 256;
     }
 }

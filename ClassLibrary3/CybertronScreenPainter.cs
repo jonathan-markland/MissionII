@@ -97,8 +97,5 @@ namespace GameClassLibrary
                 topY += tileHeight;
             }
         }
-
-
-
     }
 }
