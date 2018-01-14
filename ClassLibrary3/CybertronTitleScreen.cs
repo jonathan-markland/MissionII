@@ -63,17 +63,13 @@ namespace GameClassLibrary
                 GameClassLibrary.LevelFileValidator.ExpectValidPathsInWorld(loadedWorld);
                 GameClassLibrary.LevelExpander.ExpandWallsInWorld(loadedWorld);
 
-                // TODO: PrepareForNewGame() function
-
-                var cybertronGameBoard = new GameClassLibrary.CybertronGameBoard() // TODO: HACK
+                var cybertronGameBoard = new GameClassLibrary.CybertronGameBoard()
                 {
                     TheWorldWallData = loadedWorld,
-                    BoardWidth = 320,
-                    BoardHeight = 256,
+                    BoardWidth = CybertronGameBoardConstants.ScreenWidth,
+                    BoardHeight = CybertronGameBoardConstants.ScreenHeight,
                     LevelNumber = 1,
-                    RoomNumber = 1,
-                    Score = 0,
-                    Lives = 3
+                    Lives = Constants.InitialLives
                 };
 
                 GameClassLibrary.CybertronGameStateUpdater.PrepareForNewLevel(cybertronGameBoard);
@@ -89,7 +85,7 @@ namespace GameClassLibrary
     public class CybertronEnteringLevelMode : CybertronGameMode
     {
         private CybertronGameBoard _cybertronGameBoard;
-        private int _countDown = 150;
+        private int _countDown = Constants.EnteringLevelScreenCycles;
 
         public CybertronEnteringLevelMode(CybertronGameBoard theGameBoard)
         {
@@ -117,7 +113,7 @@ namespace GameClassLibrary
 
             // Show the things you need to find on this level.
 
-            int x = 160; // TODO: Find centre
+            int x = CybertronGameBoardConstants.ScreenWidth / 2;
             int y = 150; // TODO: constant
             int dy = 24; // TODO: constant
 
@@ -154,7 +150,7 @@ namespace GameClassLibrary
     public class CybertronLeavingLevelMode : CybertronGameMode
     {
         private CybertronGameBoard _cybertronGameBoard;
-        private int _countDown = 100; // TODO: These literals in this file!!!
+        private int _countDown = Constants.LeavingLevelCycles;
 
         public CybertronLeavingLevelMode(CybertronGameBoard cybertronGameBoard)
         {
@@ -185,7 +181,7 @@ namespace GameClassLibrary
 
     public class CybertronGameOverMode : CybertronGameMode
     {
-        private int _countDown = 100;
+        private int _countDown = Constants.GameOverMessageCycles;
 
         public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
         {

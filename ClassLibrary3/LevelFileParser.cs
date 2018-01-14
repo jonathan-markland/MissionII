@@ -6,6 +6,10 @@ namespace GameClassLibrary
 {
     public static class Constants  // TODO: Location of some of these constants is suspect, in view of general name "Constants"
     {
+        public const int GameOverMessageCycles = 100;
+        public const int LeavingLevelCycles = 100;
+        public const int EnteringLevelScreenCycles = 150;
+        public const int InitialLives = 3;
         public const int BulletCycles = 4;
         public const int GhostStartCycles = 1500;
         public const int GhostStunnedCycles = 200;

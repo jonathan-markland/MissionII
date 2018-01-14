@@ -25,7 +25,8 @@ namespace GameClassLibrary
             // Level no, Room no:
 
             drawingTarget.DrawFirstSprite(210, 8, CybertronSpriteTraits.Room);
-            drawingTarget.DrawNumber(320, 8,
+            drawingTarget.DrawNumber(
+                CybertronGameBoardConstants.ScreenWidth, 8,
                 (uint)(cybertronGameBoard.LevelNumber * 100 +
                 cybertronGameBoard.RoomNumber), theNumbers);
 
@@ -52,12 +53,12 @@ namespace GameClassLibrary
 
             // Lives:
 
-            int y = 256 - 16;
+            int y = CybertronGameBoardConstants.ScreenHeight - 16;
             drawingTarget.DrawRepeats(0, y, 8, 0, Math.Min(cybertronGameBoard.Lives, Constants.MaxDisplayedLives), CybertronSpriteTraits.Life);
 
             // Player inventory:
 
-            int x = 320;
+            int x = CybertronGameBoardConstants.ScreenWidth - 8;
             foreach(var carriedObject in cybertronGameBoard.PlayerInventory)
             {
                 var spriteTraits = carriedObject.SpriteTraits;

@@ -49,7 +49,11 @@ namespace MonogameTest
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             _spriteBatch = new SpriteBatch(GraphicsDevice);
-            _backingScreen = new RenderTarget2D(GraphicsDevice, 320, 256);
+
+            _backingScreen = new RenderTarget2D(GraphicsDevice, 
+                GameClassLibrary.CybertronGameBoardConstants.ScreenWidth,
+                GameClassLibrary.CybertronGameBoardConstants.ScreenHeight);
+
             _monoGameDrawingTarget = new MonoGameDrawingTarget(_spriteBatch);
 
             // TODO: use this.Content to load your game content here
