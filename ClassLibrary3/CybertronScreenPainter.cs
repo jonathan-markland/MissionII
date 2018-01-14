@@ -19,15 +19,15 @@ namespace GameClassLibrary
             // Score:
 
             var theNumbers = CybertronSpriteTraits.TheNumbers;
-            DrawFirstSprite(0, 8, CybertronSpriteTraits.Score, drawingTarget);
-            DrawNumber(140, 8, cybertronGameBoard.Score, theNumbers, drawingTarget);
+            drawingTarget.DrawFirstSprite(0, 8, CybertronSpriteTraits.Score);
+            drawingTarget.DrawNumber(140, 8, cybertronGameBoard.Score, theNumbers);
 
             // Level no, Room no:
 
-            DrawFirstSprite(210, 8, CybertronSpriteTraits.Room, drawingTarget);
-            DrawNumber(320, 8,
+            drawingTarget.DrawFirstSprite(210, 8, CybertronSpriteTraits.Room);
+            drawingTarget.DrawNumber(320, 8,
                 (uint)(cybertronGameBoard.LevelNumber * 100 +
-                cybertronGameBoard.RoomNumber), theNumbers, drawingTarget);
+                cybertronGameBoard.RoomNumber), theNumbers);
 
             // The Room:
 
@@ -53,7 +53,7 @@ namespace GameClassLibrary
             // Lives:
 
             int y = 256 - 16;
-            DrawRepeats(0, y, 8, 0, Math.Min(cybertronGameBoard.Lives, Constants.MaxDisplayedLives), CybertronSpriteTraits.Life, drawingTarget);
+            drawingTarget.DrawRepeats(0, y, 8, 0, Math.Min(cybertronGameBoard.Lives, Constants.MaxDisplayedLives), CybertronSpriteTraits.Life);
 
             // Player inventory:
 
@@ -63,44 +63,11 @@ namespace GameClassLibrary
                 var spriteTraits = carriedObject.SpriteTraits;
                 var spriteWidth = spriteTraits.BoardWidth;
                 x -= spriteWidth;
-                DrawFirstSprite(x, y, spriteTraits, drawingTarget);
+                drawingTarget.DrawFirstSprite(x, y, spriteTraits);
                 x -= Constants.InventoryItemSpacing;
             }
         }
 
-        public static void DrawFirstSpriteCentred(int cx, int cy, SpriteTraits theSprite, IDrawingTarget drawingTarget)
-        {
-            drawingTarget.DrawSprite(
-                cx - theSprite.BoardWidth / 2, 
-                cy - theSprite.BoardHeight / 2, 
-                theSprite.GetHostImageObject(0));
-        }
-
-        public static void DrawFirstSpriteScreenCentred(SpriteTraits theSprite, IDrawingTarget drawingTarget)
-        {
-            DrawFirstSpriteCentred(160, 128, theSprite, drawingTarget);// TODO: constants 
-        }
-
-        public static void DrawFirstSprite(int x, int y, SpriteTraits theSprite, IDrawingTarget drawingTarget)
-        {
-            drawingTarget.DrawSprite(x, y, theSprite.GetHostImageObject(0));
-        }
-
-        public static void DrawFirstSprite(SpriteInstance theSprite, IDrawingTarget drawingTarget)
-        {
-            drawingTarget.DrawSprite(
-                CybertronGameBoardConstants.RoomOriginX + theSprite.RoomX,
-                CybertronGameBoardConstants.RoomOriginY + theSprite.RoomY, 
-                theSprite.Traits.GetHostImageObject(0));
-        }
-
-        public static void DrawIndexedSprite(SpriteInstance theSprite, int spriteIndex, IDrawingTarget drawingTarget)
-        {
-            drawingTarget.DrawSprite(
-                CybertronGameBoardConstants.RoomOriginX + theSprite.RoomX,
-                CybertronGameBoardConstants.RoomOriginY + theSprite.RoomY,
-                theSprite.Traits.GetHostImageObject(spriteIndex));
-        }
 
 
         public static void DrawWalls(
@@ -118,51 +85,16 @@ namespace GameClassLibrary
                     var ch = wallData.Read(x, y);
                     if (ch == WallMatrixChar.Electric)
                     {
-                        DrawFirstSprite(leftX, topY, outlineSpriteTraits, drawingTarget);
+                        drawingTarget.DrawFirstSprite(leftX, topY, outlineSpriteTraits);
                     }
                     else if (ch != WallMatrixChar.Space)
                     {
-                        DrawFirstSprite(leftX, topY, brickSpriteTraits, drawingTarget);
+                        drawingTarget.DrawFirstSprite(leftX, topY, brickSpriteTraits);
                     }
                     leftX += tileWidth;
                 }
                 leftX = a;
                 topY += tileHeight;
-            }
-        }
-
-
-
-        public static void DrawNumber(int rightSideX, int topSideY, uint theValue, List<SpriteTraits> theFontSprites, IDrawingTarget drawingTarget)
-        {
-            System.Diagnostics.Debug.Assert(theFontSprites.Count == 10);
-            foreach(var spr in theFontSprites)
-            {
-                System.Diagnostics.Debug.Assert(spr.ImageCount == 1);
-            }
-
-            uint n = theValue;
-            do
-            {
-                var thisDigit = n % 10;
-                var thisSprite = theFontSprites[(int)thisDigit];
-                rightSideX -= thisSprite.BoardWidth;
-                DrawFirstSprite(rightSideX, topSideY, thisSprite, drawingTarget);
-                n = n / 10;
-            }
-            while (n != 0);
-        }
-
-
-
-        public static void DrawRepeats(int leftX, int topY, int deltaX, int deltaY, uint repeatCount, SpriteTraits theSprite, IDrawingTarget drawingTarget)
-        {
-            while(repeatCount > 0)
-            {
-                DrawFirstSprite(leftX, topY, theSprite, drawingTarget);
-                leftX += deltaX;
-                topY += deltaY;
-                --repeatCount;
             }
         }
 

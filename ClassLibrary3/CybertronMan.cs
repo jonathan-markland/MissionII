@@ -180,7 +180,7 @@ namespace GameClassLibrary
 
         public override void Draw(CybertronGameBoard theGameBoard, IDrawingTarget drawingTarget)
         {
-            CybertronScreenPainter.DrawIndexedSprite(SpriteInstance, _imageIndex, drawingTarget);
+            drawingTarget.DrawIndexedSprite(SpriteInstance, _imageIndex);
         }
 
         public void Alive(int theDirection, int roomX, int roomY) // TODO: refactor to use the Position property.

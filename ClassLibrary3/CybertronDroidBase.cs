@@ -25,7 +25,7 @@ namespace GameClassLibrary
 
         public override void Draw(CybertronGameBoard theGameBoard, IDrawingTarget drawingTarget)
         {
-            CybertronScreenPainter.DrawIndexedSprite(SpriteInstance, _imageIndex, drawingTarget);
+            drawingTarget.DrawIndexedSprite(SpriteInstance, _imageIndex);
         }
 
         public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard)

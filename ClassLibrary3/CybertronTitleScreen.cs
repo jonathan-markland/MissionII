@@ -124,7 +124,7 @@ namespace GameClassLibrary
             _cybertronGameBoard.ForEachThingWeHaveToFindOnThisLevel(
                 o =>
                 {
-                    CybertronScreenPainter.DrawFirstSpriteCentred(x, y, o.SpriteTraits, drawingTarget);
+                    drawingTarget.DrawFirstSpriteCentred(x, y, o.SpriteTraits);
                     y += dy;
                 });
         }
@@ -202,7 +202,7 @@ namespace GameClassLibrary
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            CybertronScreenPainter.DrawFirstSpriteScreenCentred(CybertronSpriteTraits.GameOver, drawingTarget);
+            drawingTarget.DrawFirstSpriteScreenCentred(CybertronSpriteTraits.GameOver);
         }
     }
 
@@ -242,7 +242,7 @@ namespace GameClassLibrary
         public override void Draw(IDrawingTarget drawingTarget)
         {
             _originalMode.Draw(drawingTarget);
-            CybertronScreenPainter.DrawFirstSpriteScreenCentred(CybertronSpriteTraits.Paused, drawingTarget);
+            drawingTarget.DrawFirstSpriteScreenCentred(CybertronSpriteTraits.Paused);
         }
     }
 }

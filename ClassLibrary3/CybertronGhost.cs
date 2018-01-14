@@ -59,7 +59,7 @@ namespace GameClassLibrary
         {
             if (IsActive)
             {
-                CybertronScreenPainter.DrawFirstSprite(_spriteInstance, drawingTarget);
+                drawingTarget.DrawFirstSprite(_spriteInstance);
             }
         }
 

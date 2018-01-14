@@ -59,7 +59,7 @@ namespace GameClassLibrary
 
         public override void Draw(CybertronGameBoard theGameBoard, IDrawingTarget drawingTarget)
         {
-            CybertronScreenPainter.DrawIndexedSprite(Sprite, 0, drawingTarget);
+            drawingTarget.DrawIndexedSprite(Sprite, 0);
         }
 
         public override Rectangle GetBoundingRectangle()
