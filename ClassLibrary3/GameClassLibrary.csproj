@@ -70,7 +70,6 @@
     <Compile Include="CybertronPotion.cs" />
     <Compile Include="CybertronRedDroid.cs" />
     <Compile Include="CybertronRing.cs" />
-    <Compile Include="CybertronScreenPainter.cs" />
     <Compile Include="CybertronSpriteTraits.cs" />
     <Compile Include="CybertronTitleScreen.cs" />
     <Compile Include="ExpandWallsWithThickPassages.cs" />

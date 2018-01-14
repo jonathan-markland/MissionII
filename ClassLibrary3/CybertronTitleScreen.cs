@@ -143,7 +143,7 @@ namespace GameClassLibrary
 
         public override void Draw(IDrawingTarget drawingTarget)
         {
-            GameClassLibrary.CybertronScreenPainter.DrawBoardToTarget(_cybertronGameBoard, drawingTarget);
+            _cybertronGameBoard.DrawBoardToTarget(drawingTarget);
         }
     }
 
@@ -175,7 +175,7 @@ namespace GameClassLibrary
 
         public override void Draw(IDrawingTarget drawingTarget)
         {
-            GameClassLibrary.CybertronScreenPainter.DrawBoardToTarget(_cybertronGameBoard, drawingTarget);
+            _cybertronGameBoard.DrawBoardToTarget(drawingTarget);
         }
     }
 

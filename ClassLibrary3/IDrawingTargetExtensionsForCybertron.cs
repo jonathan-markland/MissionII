@@ -25,5 +25,33 @@
                 CybertronGameBoardConstants.RoomOriginY + theSprite.RoomY,
                 theSprite.Traits.GetHostImageObject(spriteIndex));
         }
+
+        public static void DrawWalls(
+            this IDrawingTarget drawingTarget,
+            int leftX, int topY, int tileWidth, int tileHeight,
+            WallMatrix wallData,
+            SpriteTraits outlineSpriteTraits,
+            SpriteTraits brickSpriteTraits)
+        {
+            for (int y = 0; y < wallData.CountV; y++)
+            {
+                int a = leftX;
+                for (int x = 0; x < wallData.CountH; x++)
+                {
+                    var ch = wallData.Read(x, y);
+                    if (ch == WallMatrixChar.Electric)
+                    {
+                        drawingTarget.DrawFirstSprite(leftX, topY, outlineSpriteTraits);
+                    }
+                    else if (ch != WallMatrixChar.Space)
+                    {
+                        drawingTarget.DrawFirstSprite(leftX, topY, brickSpriteTraits);
+                    }
+                    leftX += tileWidth;
+                }
+                leftX = a;
+                topY += tileHeight;
+            }
+        }
     }
 }

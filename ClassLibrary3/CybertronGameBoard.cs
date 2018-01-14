@@ -47,6 +47,8 @@ namespace GameClassLibrary
             }
         }
 
+
+
         public void ForEachThingWeHaveToFindOnThisLevel(Action<CybertronObject> theAction)
         {
             theAction(Key);
@@ -57,6 +59,67 @@ namespace GameClassLibrary
             if (LevelNumber > 2)
             {
                 theAction(Gold);
+            }
+        }
+
+
+
+        public void DrawBoardToTarget(
+            IDrawingTarget drawingTarget)
+        {
+            // TODO: assumptions about rendering target dimensions here
+
+            drawingTarget.ClearScreen();
+
+            // Score:
+
+            var theNumbers = CybertronSpriteTraits.TheNumbers;
+            drawingTarget.DrawFirstSprite(0, 8, CybertronSpriteTraits.Score);
+            drawingTarget.DrawNumber(140, 8, Score, theNumbers);
+
+            // Level no, Room no:
+
+            drawingTarget.DrawFirstSprite(210, 8, CybertronSpriteTraits.Room);
+            drawingTarget.DrawNumber(
+                CybertronGameBoardConstants.ScreenWidth, 8,
+                (uint)(LevelNumber * 100 +
+                RoomNumber), theNumbers);
+
+            // The Room:
+
+            var outlineWallSpriteTraits =
+                (Man.IsBeingElectrocuted)
+                ? CybertronSpriteTraits.WallElectric
+                : CybertronSpriteTraits.WallBlock1;
+
+            drawingTarget.DrawWalls(
+                CybertronGameBoardConstants.RoomOriginX,
+                CybertronGameBoardConstants.RoomOriginY,
+                CybertronGameBoardConstants.TileWidth,
+                CybertronGameBoardConstants.TileHeight,
+                CurrentRoomWallData,
+                outlineWallSpriteTraits,
+                CybertronSpriteTraits.WallBlock2);
+
+            // Draw objects in the room:
+
+            ObjectsInRoom.ForEachDo(o => { o.Draw(this, drawingTarget); });
+
+            // Lives:
+
+            int y = CybertronGameBoardConstants.ScreenHeight - 16;
+            drawingTarget.DrawRepeats(0, y, 8, 0, Math.Min(Lives, Constants.MaxDisplayedLives), CybertronSpriteTraits.Life);
+
+            // Player inventory:
+
+            int x = CybertronGameBoardConstants.ScreenWidth - 8;
+            foreach (var carriedObject in PlayerInventory)
+            {
+                var spriteTraits = carriedObject.SpriteTraits;
+                var spriteWidth = spriteTraits.BoardWidth;
+                x -= spriteWidth;
+                drawingTarget.DrawFirstSprite(x, y, spriteTraits);
+                x -= Constants.InventoryItemSpacing;
             }
         }
     }
