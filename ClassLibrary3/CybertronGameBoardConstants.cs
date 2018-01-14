@@ -16,5 +16,6 @@ namespace GameClassLibrary
         public const int MonsterKillingScore = 20;
         public const int ScreenWidth = 320;
         public const int ScreenHeight = 256;
+        public const int InventoryIndent = 8;
     }
 }
