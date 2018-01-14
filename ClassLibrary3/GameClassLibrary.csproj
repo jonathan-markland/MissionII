@@ -84,11 +84,11 @@
     <Compile Include="LevelFileParser.cs" />
     <Compile Include="LevelFileValidator.cs" />
     <Compile Include="CybertronNumericSpriteFont.cs" />
-    <Compile Include="MovementDeltas.cs" />
-    <Compile Include="Point.cs" />
+    <Compile Include="Math\MovementDeltas.cs" />
+    <Compile Include="Math\Point.cs" />
     <Compile Include="PositionFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Rectangle.cs" />
+    <Compile Include="Math\Rectangle.cs" />
     <Compile Include="SpecialMarkers.cs" />
     <Compile Include="SpriteInstance.cs" />
     <Compile Include="SpriteTraits.cs" />

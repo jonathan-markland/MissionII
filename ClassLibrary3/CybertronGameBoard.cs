@@ -108,7 +108,7 @@ namespace GameClassLibrary
             // Lives:
 
             int y = CybertronGameBoardConstants.ScreenHeight - 16;
-            drawingTarget.DrawRepeats(0, y, 8, 0, Math.Min(Lives, Constants.MaxDisplayedLives), CybertronSpriteTraits.Life);
+            drawingTarget.DrawRepeats(0, y, 8, 0, System.Math.Min(Lives, Constants.MaxDisplayedLives), CybertronSpriteTraits.Life);
 
             // Player inventory:
 

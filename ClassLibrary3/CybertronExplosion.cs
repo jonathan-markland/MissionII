@@ -1,4 +1,6 @@
-﻿namespace GameClassLibrary
+﻿using GameClassLibrary.Math;
+
+namespace GameClassLibrary
 {
     public class CybertronExplosion : CybertronGameObject
     {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using GameClassLibrary.Math;
 
 namespace GameClassLibrary
 {
@@ -377,8 +378,8 @@ namespace GameClassLibrary
             foreach(var obj in objectsList)
             {
                 var objRect = obj.GetBoundingRectangle();
-                posnWidth = Math.Max(objRect.Width, posnWidth);
-                posnHeight = Math.Max(objRect.Height, posnHeight);
+                posnWidth = System.Math.Max(objRect.Width, posnWidth);
+                posnHeight = System.Math.Max(objRect.Height, posnHeight);
             }
 
             // Now find a list of points on which we can position objects.

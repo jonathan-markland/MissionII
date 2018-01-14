@@ -1,5 +1,6 @@
 ﻿
 using System;
+using GameClassLibrary.Math;
 
 namespace GameClassLibrary
 {

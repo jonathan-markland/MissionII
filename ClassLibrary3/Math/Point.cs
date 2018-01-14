@@ -1,4 +1,4 @@
-﻿namespace GameClassLibrary
+﻿namespace GameClassLibrary.Math
 {
     public struct Point
     {

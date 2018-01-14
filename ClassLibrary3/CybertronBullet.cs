@@ -1,4 +1,5 @@
-﻿
+﻿using GameClassLibrary.Math;
+
 namespace GameClassLibrary
 {
     public class CybertronBullet : CybertronGameObject
