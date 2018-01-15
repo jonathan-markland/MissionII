@@ -132,9 +132,34 @@ namespace MonogameTest
 
             GraphicsDevice.SetRenderTarget(null);
             _spriteBatch.Begin();
-            _spriteBatch.Draw(_backingScreen, new Rectangle(0, 0,
+
+            // Scale with square pixels:
+            // _spriteBatch.GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
+            // 
+            // var targetRect = GameClassLibrary.Math.MakeRectangle.GetSquarePixelsProjectionArea(
+            //     Window.ClientBounds.Width,
+            //     Window.ClientBounds.Height,
+            //     _backingScreen.Width,
+            //     _backingScreen.Height);
+            // 
+            // _spriteBatch.Draw(_backingScreen, new Rectangle(
+            //     targetRect.Left, targetRect.Top, targetRect.Width, targetRect.Height), Color.White);
+
+            // Scale with aspect preserving fit:
+            var targetRect = GameClassLibrary.Math.MakeRectangle.GetBestFitProjectionArea(
                 Window.ClientBounds.Width,
-                Window.ClientBounds.Height), Color.White);
+                Window.ClientBounds.Height,
+                _backingScreen.Width,
+                _backingScreen.Height);
+            
+            _spriteBatch.Draw(_backingScreen, new Rectangle(
+                targetRect.Left, targetRect.Top, targetRect.Width, targetRect.Height), Color.White);
+
+            // Scale to fit window with aspect distortion:
+            // _spriteBatch.Draw(_backingScreen, new Rectangle(0, 0,
+            //     Window.ClientBounds.Width,
+            //     Window.ClientBounds.Height), Color.White);
+
             _spriteBatch.End();
         }
     }

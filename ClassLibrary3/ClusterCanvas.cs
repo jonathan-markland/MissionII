@@ -4,6 +4,10 @@ namespace GameClassLibrary
 {
     public struct ClusterCanvas
     {
+        //              123
+        // Area codes:  456
+        //              789
+
 		private WallMatrix _wallMatrix;
 		private int _originX;
 		private int _originY;
@@ -110,32 +114,3 @@ namespace GameClassLibrary
 		}
     }
 }
-
-
-/*
-   JKL
-   MNO
-   PQR
-         12223
-   ABC   45556
-   DEF   45556
-   GHI   45556
-         78889
-
-
-Filled(2):
-- If B is unfilled, 2 will be unfilled.
-- Otherwise B is filled ...
-  ... except if the 3x3 above exists AND has filled(N) & filled(Q)
-      then 2 can be unfilled.
-
-     (respectively for the other sides, 4, 6, 8).
-
-Evaluate the trivial cases AFTER the above
-
-Filled(5) = Filled(2) & Filled(4) & Filled(6) & Filled(8)
-
-Filled(1) = Filled(2) | Filled(4)
-... resp. for 3,7,9
-
-*/
