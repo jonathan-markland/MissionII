@@ -22,39 +22,53 @@ namespace GameClassLibrary.ArtificialIntelligence
                 if (_countDown > 0)
                 {
                     --_countDown;
-
-                    if (!_movementDeltas.Stationary)
-                    {
-                        var hitResult = CybertronGameStateUpdater.MoveAdversaryOnePixel(
-                            theGameBoard,
-                            spriteInstance,
-                            _movementDeltas);
-
-                        if ((_countDown & 31) == 0) // TODO: firing time constant
-                        {
-                            if (!_movementDeltas.Stationary 
-                                && Rng.Generator.Next(100) < 20)
-                            {
-                                CybertronGameStateUpdater.StartBullet(spriteInstance, _facingDirection, theGameBoard, false);
-                            }
-                        }
-
-                        if (hitResult == CollisionDetection.WallHitTestResult.HitWall)
-                        {
-                            _countDown = 0;
-                        }
-                    }
+                    DoMovement(theGameBoard, spriteInstance);
                 }
                 else
                 {
-                    var theRng = Math.Rng.Generator;
-                    _countDown = theRng.Next(50) + 50; // TODO: single-minded movement constants
-                    _facingDirection = theRng.Next(8);
-                    _movementDeltas = theRng.Next(8) < 1
-                        ? new MovementDeltas(0, 0)
-                        : Business.GetMovementDeltas(_facingDirection);
+                    ChooseNewMovement();
                 }
             }
         }
+
+
+
+        private void DoMovement(CybertronGameBoard theGameBoard, SpriteInstance spriteInstance)
+        {
+            if (!_movementDeltas.Stationary)
+            {
+                var hitResult = CybertronGameStateUpdater.MoveAdversaryOnePixel(
+                    theGameBoard,
+                    spriteInstance,
+                    _movementDeltas);
+
+                if ((_countDown & 31) == 0) // TODO: firing time constant
+                {
+                    if (!_movementDeltas.Stationary
+                        && Rng.Generator.Next(100) < 20)
+                    {
+                        CybertronGameStateUpdater.StartBullet(spriteInstance, _facingDirection, theGameBoard, false);
+                    }
+                }
+
+                if (hitResult == CollisionDetection.WallHitTestResult.HitWall)
+                {
+                    _countDown = 0;
+                }
+            }
+        }
+
+
+
+        private void ChooseNewMovement()
+        {
+            var theRng = Math.Rng.Generator;
+            _countDown = theRng.Next(50) + 50; // TODO: single-minded movement constants
+            _facingDirection = theRng.Next(8);
+            _movementDeltas = theRng.Next(8) < 1
+                ? new MovementDeltas(0, 0)
+                : Business.GetMovementDeltas(_facingDirection);
+        }
+
     }
 }

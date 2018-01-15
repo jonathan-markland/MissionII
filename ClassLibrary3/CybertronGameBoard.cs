@@ -8,7 +8,6 @@ namespace GameClassLibrary
 {
     public class CybertronGameBoard
     {
-        public bool IsPaused;
         public int BoardWidth;  // TODO: There are also constants that are used for this.
         public int BoardHeight; // TODO: There are also constants that are used for this.
         public int LevelNumber;
