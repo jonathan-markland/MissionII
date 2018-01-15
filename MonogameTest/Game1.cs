@@ -6,6 +6,13 @@ using System.Collections.Generic;
 
 namespace MonogameTest
 {
+    public enum ScalingModes
+    {
+        StretchPreservingAspect,
+        SquarePixelsStretch,
+        StretchToFillWindow
+    }
+
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
@@ -16,6 +23,8 @@ namespace MonogameTest
         RenderTarget2D _backingScreen;
         MonoGameDrawingTarget _monoGameDrawingTarget;
         GameClassLibrary.CybertronKeyStates _cybertronKeyStates;
+        ScalingModes _scalingModes;
+
 
 
         public Game1()
@@ -25,6 +34,7 @@ namespace MonogameTest
             _cybertronKeyStates = new GameClassLibrary.CybertronKeyStates();
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            _scalingModes = ScalingModes.StretchPreservingAspect;
         }
 
 
@@ -104,6 +114,20 @@ namespace MonogameTest
         private void ReadAndStorePlayerInputs()
         {
             var theKeyboard = Keyboard.GetState();
+
+            if (theKeyboard.IsKeyDown(Keys.F2))
+            {
+                _scalingModes = ScalingModes.StretchPreservingAspect;
+            }
+            if (theKeyboard.IsKeyDown(Keys.F3))
+            {
+                _scalingModes = ScalingModes.StretchToFillWindow;
+            }
+            if (theKeyboard.IsKeyDown(Keys.F4))
+            {
+                _scalingModes = ScalingModes.SquarePixelsStretch;
+            }
+
             _cybertronKeyStates.Down = theKeyboard.IsKeyDown(Keys.Down);
             _cybertronKeyStates.Up = theKeyboard.IsKeyDown(Keys.Up);
             _cybertronKeyStates.Left = theKeyboard.IsKeyDown(Keys.Left);
@@ -133,32 +157,45 @@ namespace MonogameTest
             GraphicsDevice.SetRenderTarget(null);
             _spriteBatch.Begin();
 
-            // Scale with square pixels:
-            // _spriteBatch.GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
-            // 
-            // var targetRect = GameClassLibrary.Math.MakeRectangle.GetSquarePixelsProjectionArea(
-            //     Window.ClientBounds.Width,
-            //     Window.ClientBounds.Height,
-            //     _backingScreen.Width,
-            //     _backingScreen.Height);
-            // 
-            // _spriteBatch.Draw(_backingScreen, new Rectangle(
-            //     targetRect.Left, targetRect.Top, targetRect.Width, targetRect.Height), Color.White);
+            switch(_scalingModes)
+            {
+                case ScalingModes.SquarePixelsStretch:
+                    {
+                        _spriteBatch.GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
 
-            // Scale with aspect preserving fit:
-            var targetRect = GameClassLibrary.Math.MakeRectangle.GetBestFitProjectionArea(
-                Window.ClientBounds.Width,
-                Window.ClientBounds.Height,
-                _backingScreen.Width,
-                _backingScreen.Height);
-            
-            _spriteBatch.Draw(_backingScreen, new Rectangle(
-                targetRect.Left, targetRect.Top, targetRect.Width, targetRect.Height), Color.White);
+                        var targetRect = GameClassLibrary.Math.MakeRectangle.GetSquarePixelsProjectionArea(
+                            Window.ClientBounds.Width,
+                            Window.ClientBounds.Height,
+                            _backingScreen.Width,
+                            _backingScreen.Height);
 
-            // Scale to fit window with aspect distortion:
-            // _spriteBatch.Draw(_backingScreen, new Rectangle(0, 0,
-            //     Window.ClientBounds.Width,
-            //     Window.ClientBounds.Height), Color.White);
+                        _spriteBatch.Draw(_backingScreen, new Rectangle(
+                            targetRect.Left, targetRect.Top, targetRect.Width, targetRect.Height), Color.White);
+                    }
+                    break;
+
+                case ScalingModes.StretchPreservingAspect:
+                    {
+                        var targetRect = GameClassLibrary.Math.MakeRectangle.GetBestFitProjectionArea(
+                          Window.ClientBounds.Width,
+                          Window.ClientBounds.Height,
+                          _backingScreen.Width,
+                          _backingScreen.Height);
+
+                        _spriteBatch.Draw(_backingScreen, new Rectangle(
+                            targetRect.Left, targetRect.Top, targetRect.Width, targetRect.Height), Color.White);
+                    }
+                    break;
+
+                case ScalingModes.StretchToFillWindow:
+                    {
+                        _spriteBatch.Draw(_backingScreen, new Rectangle(0, 0,
+                          Window.ClientBounds.Width,
+                          Window.ClientBounds.Height), Color.White);
+                    }
+                    break;
+
+            }
 
             _spriteBatch.End();
         }
