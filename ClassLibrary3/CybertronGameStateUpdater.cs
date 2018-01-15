@@ -65,7 +65,7 @@ namespace GameClassLibrary
             gameBoard.ObjectsInRoom.ForEachDo(theObject =>
             {
                 if (hitResult == CollisionDetection.WallHitTestResult.NothingHit
-                    && theObject.IsSolid)
+                    && theObject.CanBeOverlapped)
                 {
                     var objectRectangle = theObject.GetBoundingRectangle();
                     if (objectRectangle.Left != oldX || objectRectangle.Top != oldY) // TODO: crude way of avoiding self-intersection test

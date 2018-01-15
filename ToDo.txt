@@ -1,6 +1,6 @@
 
 Release 1
-
+---------
 [ ] Do the all the proposed refactorings (g.txt)
 [X] The level start position is not defined.  Have a character in the source file to specify it.
     And calculate the facing direction for the man on startup.
@@ -13,9 +13,12 @@ Release 1
 [ ] Screen stretching like Jynx and keypresses for this.
 [ ] MUST DO - Replace all the copyright graphics.
 [ ] A third monster type is needed.
+[ ] Fix the location of the key at start of level, not per room-start.
+
+
 
 Release 2
-
+---------
 [ ] Droids can shoot ghost - should not happen
 [ ] Hi-score table (although we need a proper font for this).
 [ ] Open maximised

@@ -58,6 +58,6 @@ namespace GameClassLibrary
             set { SpriteInstance.TopLeftPosition = value; }
         }
 
-        public override bool IsSolid { get { return true; } }
+        public override bool CanBeOverlapped { get { return true; } }
     }
 }

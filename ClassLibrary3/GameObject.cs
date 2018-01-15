@@ -15,6 +15,6 @@ namespace GameClassLibrary
         public abstract void ManWalkedIntoYou(T theGameBoard);
         public abstract bool YouHaveBeenShot(T theGameBoard);
         public abstract Point TopLeftPosition { get; set; }
-        public abstract bool IsSolid { get; }
+        public abstract bool CanBeOverlapped { get; }
     }
 }
