@@ -287,7 +287,7 @@ namespace GameClassLibrary
 
         public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard)
         {
-            Die();
+            Die(); // No electrocution animation desired here.
             return true;
         }
 
