@@ -16,6 +16,7 @@ namespace GameClassLibrary
         private bool _debugInvulnerable = false;
         private bool _isDead;
         private bool _isElectrocuting;
+        private bool _isElectrocutedByWalls;
         private int _facingDirection;
         private int _imageIndex = 0;
         private int _animationCountdown = WalkingAnimationReset;
@@ -47,7 +48,7 @@ namespace GameClassLibrary
 
         public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, CybertronKeyStates keyStates)
         {
-            if (_isElectrocuting)
+            if (_isElectrocuting || _isElectrocutedByWalls)
             {
                 DoElectrocution();
             }
@@ -77,7 +78,6 @@ namespace GameClassLibrary
             --_electrocutionCycles;
             if (_electrocutionCycles == 0)
             {
-                _isElectrocuting = false;
                 Die();
             }
         }
@@ -94,7 +94,7 @@ namespace GameClassLibrary
 
             if (hitResult == CollisionDetection.WallHitTestResult.HitWall)
             {
-                Electrocute();
+                Electrocute(true);
             }
             else if (hitResult == CollisionDetection.WallHitTestResult.OutsideRoomAbove)
             {
@@ -162,14 +162,18 @@ namespace GameClassLibrary
             Business.Animate(ref _animationCountdown, ref _imageIndex, WalkingAnimationReset, SpriteInstance.Traits.ImageCount);
         }
 
-        private void Electrocute()
+        public void Electrocute(bool byWalls)
         {
             if (_debugInvulnerable) return;
-            _isElectrocuting = true;
-            _electrocutionCycles = ElectrocutionAnimationReset * 5;
-            SpriteInstance.Traits = CybertronSpriteTraits.Electrocution;
-            _imageIndex = 0;
-            _animationCountdown = ElectrocutionAnimationReset;
+            if (!_isDead && !_isElectrocuting)
+            {
+                _isElectrocuting = true;
+                _isElectrocutedByWalls = byWalls;
+                _electrocutionCycles = ElectrocutionAnimationReset * 5;
+                SpriteInstance.Traits = CybertronSpriteTraits.Electrocution;
+                _imageIndex = 0;
+                _animationCountdown = ElectrocutionAnimationReset;
+            }
         }
 
         private void Standing(int theDirection)
@@ -193,11 +197,13 @@ namespace GameClassLibrary
             SpriteInstance.RoomY = roomY;
         }
 
-        public void Die()
+        private void Die()
         {
             if (_debugInvulnerable) return;
             if (!_isDead)
             {
+                _isElectrocuting = false;
+                _isElectrocutedByWalls = false;
                 _isDead = true;
                 _imageIndex = 0;
                 SpriteInstance.Traits = CybertronSpriteTraits.Dead;
@@ -295,7 +301,7 @@ namespace GameClassLibrary
 
         public bool IsBeingElectrocuted
         {
-            get { return _isElectrocuting; }
+            get { return _isElectrocutedByWalls; }
         }
     }
 }

@@ -49,7 +49,7 @@ namespace GameClassLibrary
 
         public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
         {
-            theGameBoard.Man.Die();
+            theGameBoard.Man.Electrocute(false);
         }
 
         public override Point TopLeftPosition

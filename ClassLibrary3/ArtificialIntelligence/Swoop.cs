@@ -26,10 +26,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
         private void KillMan(CybertronGameBoard theGameBoard)
         {
-            if (!theGameBoard.Man.IsDead)
-            {
-                theGameBoard.Man.Die(); // only make the call once per room.
-            }
+            theGameBoard.Man.Electrocute(false);
         }
 
     }
