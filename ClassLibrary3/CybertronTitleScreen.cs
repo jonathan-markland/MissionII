@@ -5,7 +5,7 @@ namespace GameClassLibrary
 {
     public class CybertronTitleScreenMode : CybertronGameMode
     {
-        private int _countDown = 400;
+        private int _countDown = Constants.TitleScreenRollCycles;
         private bool _releaseWaiting = true;
 
         public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
@@ -37,7 +37,7 @@ namespace GameClassLibrary
 
     public class CybertronInstructionsKeysMode : CybertronGameMode
     {
-        private int _countDown = 400;
+        private int _countDown = Constants.TitleScreenRollCycles;
         private int _screenIndex = 1;
 
         public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
@@ -65,7 +65,7 @@ namespace GameClassLibrary
                 {
                     _screenIndex = 1;
                 }
-                _countDown = 400;
+                _countDown = Constants.TitleScreenRollCycles;
             }
         }
 
