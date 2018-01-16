@@ -6,10 +6,19 @@ namespace GameClassLibrary
     public class CybertronTitleScreenMode : CybertronGameMode
     {
         private int _countDown = 400;
+        private bool _releaseWaiting = true;
 
         public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
         {
-            if (_countDown > 0 && !theKeyStates.Fire)
+            if (theKeyStates.Fire)
+            {
+                if (_releaseWaiting) return;
+                CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronStartNewGameMode();
+            }
+
+            _releaseWaiting = false;
+
+            if (_countDown > 0)
             {
                 --_countDown;
             }
@@ -29,12 +38,21 @@ namespace GameClassLibrary
     public class CybertronInstructionsKeysMode : CybertronGameMode
     {
         private int _countDown = 400;
+        private int _screenIndex = 1;
 
         public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
         {
+            if (CybertronSpriteTraits.TitleScreen.ImageCount < 2)
+            {
+                // Cannot rotate any instruction screens.
+                CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronTitleScreenMode();
+                return;
+            }
+
             if (theKeyStates.Fire)
             {
-                CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronStartNewGameMode();
+                _screenIndex = 1; // for next time
+                CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronTitleScreenMode();
             }
             else if (_countDown > 0)
             {
@@ -42,14 +60,19 @@ namespace GameClassLibrary
             }
             else
             {
-                CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronTitleScreenMode();
+                ++_screenIndex;
+                if (_screenIndex >= CybertronSpriteTraits.TitleScreen.ImageCount)
+                {
+                    _screenIndex = 1;
+                }
+                _countDown = 400;
             }
         }
 
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, CybertronSpriteTraits.InstructionsKeys.GetHostImageObject(0));
+            drawingTarget.DrawSprite(0, 0, CybertronSpriteTraits.TitleScreen.GetHostImageObject(_screenIndex));
         }
     }
 

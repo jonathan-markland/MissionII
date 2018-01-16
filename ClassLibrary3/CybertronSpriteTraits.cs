@@ -63,7 +63,6 @@ namespace GameClassLibrary
         public static SpriteTraits WallBlock2;
         public static SpriteTraits WallElectric;
         public static SpriteTraits TitleScreen;
-        public static SpriteTraits InstructionsKeys;
         public static SpriteTraits EnteringLevel;
         public static SpriteTraits GameOver;
         public static SpriteTraits Paused;
@@ -163,8 +162,7 @@ namespace GameClassLibrary
             WallBlock1 = loadImage("WallBlock1", 1);
             WallBlock2 = loadImage("WallBlock2", 1);
             WallElectric = loadImage("WallElectric", 1);
-            TitleScreen = loadImage("TitleScreen", 1);
-            InstructionsKeys = loadImage("InstructionsKeys", 1);
+            TitleScreen = loadImage("TitleScreen", 5);
             EnteringLevel = loadImage("EnteringLevel", 1);
             GameOver = loadImage("GameOver", 1);
             Paused = loadImage("Paused", 1);

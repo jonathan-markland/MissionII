@@ -14,6 +14,7 @@ Release 1
 [ ] MUST DO - Replace all the copyright graphics.
 [ ] A third monster type is needed.
 [ ] Fix the location of the key at start of level, not per room-start.
+[ ] Different scores per robot type.
 
 
 
