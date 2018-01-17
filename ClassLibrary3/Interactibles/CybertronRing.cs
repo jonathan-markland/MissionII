@@ -1,6 +1,6 @@
 ﻿using GameClassLibrary.Math;
 
-namespace GameClassLibrary
+namespace GameClassLibrary.Interactibles
 {
     public class CybertronRing : CybertronObject
     {

@@ -210,7 +210,7 @@ namespace GameClassLibrary
 
 
 
-        public static void AddObjectIfInCurrentRoom(CybertronGameBoard theGameBoard, CybertronObject theObject, List<CybertronGameObject> targetList)
+        public static void AddObjectIfInCurrentRoom(CybertronGameBoard theGameBoard, Interactibles.CybertronObject theObject, List<CybertronGameObject> targetList)
         {
             if (theObject.RoomNumber == theGameBoard.RoomNumber)
             {
@@ -259,14 +259,14 @@ namespace GameClassLibrary
             theGameBoard.Man.Alive(theLevel.ManStartFacingDirection, manX, manY);
 
             // Clear inventory at start of each level.
-            theGameBoard.PlayerInventory = new List<CybertronObject>();
+            theGameBoard.PlayerInventory = new List<Interactibles.CybertronObject>();
 
             // TODO: This could be done better, as it's a bit weird requiring the objects already to
             //       be created, and then only to replace them.  At least this way we have ONE
             //       place that decides what is to be found on the level (ForEachThingWeHaveToFindOnThisLevel)
-            theGameBoard.Key = new GameClassLibrary.CybertronKey(0);
-            theGameBoard.Ring = new GameClassLibrary.CybertronRing(0);
-            theGameBoard.Gold = new GameClassLibrary.CybertronGold(0);
+            theGameBoard.Key = new GameClassLibrary.Interactibles.CybertronKey(0);
+            theGameBoard.Ring = new GameClassLibrary.Interactibles.CybertronRing(0);
+            theGameBoard.Gold = new GameClassLibrary.Interactibles.CybertronGold(0);
 
             var roomNumberAllocator = new UniqueNumberAllocator(1, Constants.NumRooms);
             // var roomNumberAllocator = new IncrementingNumberAllocator(1, Constants.NumRooms); // For testing purposes.
@@ -274,17 +274,17 @@ namespace GameClassLibrary
             theGameBoard.ForEachThingWeHaveToFindOnThisLevel(o =>
             {
                 var roomNumber = roomNumberAllocator.Next();
-                if (o is CybertronKey)
+                if (o is Interactibles.CybertronKey)
                 {
-                    theGameBoard.Key = new GameClassLibrary.CybertronKey(roomNumber);
+                    theGameBoard.Key = new GameClassLibrary.Interactibles.CybertronKey(roomNumber);
                 }
-                else if (o is CybertronRing)
+                else if (o is Interactibles.CybertronRing)
                 {
-                    theGameBoard.Ring = new GameClassLibrary.CybertronRing(roomNumber);
+                    theGameBoard.Ring = new GameClassLibrary.Interactibles.CybertronRing(roomNumber);
                 }
-                else if (o is CybertronGold)
+                else if (o is Interactibles.CybertronGold)
                 {
-                    theGameBoard.Gold = new GameClassLibrary.CybertronGold(roomNumber);
+                    theGameBoard.Gold = new GameClassLibrary.Interactibles.CybertronGold(roomNumber);
                 }
                 else
                 {
@@ -292,8 +292,8 @@ namespace GameClassLibrary
                 }
             });
 
-            theGameBoard.Safe = new GameClassLibrary.CybertronLevelSafe(roomNumberAllocator.Next());
-            theGameBoard.Potion = new GameClassLibrary.CybertronPotion(roomNumberAllocator.Next());
+            theGameBoard.Safe = new GameClassLibrary.Interactibles.CybertronLevelSafe(roomNumberAllocator.Next());
+            theGameBoard.Potion = new GameClassLibrary.Interactibles.CybertronPotion(roomNumberAllocator.Next());
 
             PrepareForNewRoom(theGameBoard);
 
@@ -361,8 +361,8 @@ namespace GameClassLibrary
             {
                 objectsList.Add(
                     (j < redBlueThreshold)
-                        ? new Droids.CybertronRedDroid() as Droids.CybertronDroidBase
-                        : new Droids.CybertronBlueDroid() as Droids.CybertronDroidBase);
+                        ? new Droids.RedDroid() as Droids.BaseDroid
+                        : new Droids.BlueDroid() as Droids.BaseDroid);
             }
 
             // Now measure the max dimensions of the things that need measuring.

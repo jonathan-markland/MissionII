@@ -1,6 +1,6 @@
 ﻿using GameClassLibrary.Math;
 
-namespace GameClassLibrary
+namespace GameClassLibrary.Interactibles
 {
     public abstract class CybertronObject : CybertronGameObject
     {

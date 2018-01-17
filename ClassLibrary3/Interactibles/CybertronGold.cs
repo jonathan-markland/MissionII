@@ -1,5 +1,5 @@
 ﻿
-namespace GameClassLibrary
+namespace GameClassLibrary.Interactibles
 {
     public class CybertronGold : CybertronObject
     {
