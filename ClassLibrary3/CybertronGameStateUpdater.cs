@@ -125,14 +125,24 @@ namespace GameClassLibrary
 
 
         public static void StartBullet(
-            SpriteInstance sourceSprite, 
+            SpriteInstance sourceSprite,
             int facingDirection,
+            CybertronGameBoard cybertronGameBoard,
+            bool increasesScore)
+        {
+            StartBullet(sourceSprite, Business.GetMovementDeltas(facingDirection), cybertronGameBoard, increasesScore);
+        }
+
+
+
+        public static void StartBullet(
+            SpriteInstance sourceSprite, 
+            MovementDeltas bulletDirection,
             CybertronGameBoard cybertronGameBoard,
             bool increasesScore)
         {
             // TODO: Separate out a bit for unit testing?
 
-            var bulletDirection = Business.GetMovementDeltas(facingDirection);
             var theBulletTraits = CybertronSpriteTraits.Bullet;
             var bulletWidth = theBulletTraits.BoardWidth;
             var bulletHeight = theBulletTraits.BoardHeight;
@@ -239,7 +249,8 @@ namespace GameClassLibrary
             // The LevelNumber is already set.
 
             // Determine this level object:
-            var theLevel = theGameBoard.TheWorldWallData.Levels[theGameBoard.LevelNumber - 1];
+            var levelIndex = (theGameBoard.LevelNumber - 1) % theGameBoard.TheWorldWallData.Levels.Count;
+            var theLevel = theGameBoard.TheWorldWallData.Levels[levelIndex];
 
             // Set the start room number:
             theGameBoard.RoomNumber = theLevel.ManStartRoom.RoomNumber;
@@ -348,6 +359,8 @@ namespace GameClassLibrary
             AddObjectIfInCurrentRoom(theGameBoard, theGameBoard.Potion, objectsList);
 
             int redBlueThreshold = Constants.IdealDroidCountPerRoom;
+            int bluePinkThreshold = Constants.IdealDroidCountPerRoom;
+
             if (theGameBoard.LevelNumber == 2)
             {
                 redBlueThreshold = Constants.IdealDroidCountPerRoom - 2;
@@ -355,14 +368,23 @@ namespace GameClassLibrary
             else if (theGameBoard.LevelNumber > 2)
             {
                 redBlueThreshold = Constants.IdealDroidCountPerRoom - 4;
+                bluePinkThreshold = Constants.IdealDroidCountPerRoom - 2;
             }
 
             for (int j=0; j < Constants.IdealDroidCountPerRoom; j++)
             {
-                objectsList.Add(
-                    (j < redBlueThreshold)
-                        ? new Droids.RedDroid() as Droids.BaseDroid
-                        : new Droids.BlueDroid() as Droids.BaseDroid);
+                if (j < redBlueThreshold)
+                {
+                    objectsList.Add(new Droids.RedDroid());
+                }
+                else if (j < bluePinkThreshold)
+                {
+                    objectsList.Add(new Droids.BlueDroid());
+                }
+                else
+                {
+                    objectsList.Add(new Droids.PinkDroid());
+                }
             }
 
             // Now measure the max dimensions of the things that need measuring.

@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ArtificialIntelligence\AbstractIntelligenceProvider.cs" />
     <Compile Include="ArtificialIntelligence\Attractor.cs" />
+    <Compile Include="ArtificialIntelligence\FiringAttractor.cs" />
     <Compile Include="ArtificialIntelligence\SingleMinded.cs" />
     <Compile Include="ArtificialIntelligence\Swoop.cs" />
     <Compile Include="ClusterCanvas.cs" />
@@ -60,6 +61,7 @@
     <Compile Include="CybertronGameObject.cs" />
     <Compile Include="CybertronGameStateUpdater.cs" />
     <Compile Include="CybertronGhost.cs" />
+    <Compile Include="Droids\PinkDroid.cs" />
     <Compile Include="Interactibles\Gold.cs" />
     <Compile Include="Interactibles\Key.cs" />
     <Compile Include="Interactibles\LevelSafe.cs" />

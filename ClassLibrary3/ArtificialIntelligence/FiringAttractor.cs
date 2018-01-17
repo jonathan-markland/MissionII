@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using GameClassLibrary.Math;
+
+namespace GameClassLibrary.ArtificialIntelligence
+{
+    public class FiringAttractor : AbstractIntelligenceProvider
+    {
+        private uint _cycleCounter = 0;
+
+        public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, SpriteInstance spriteInstance)
+        {
+            ++_cycleCounter;
+
+            if (_cycleCounter % 3 == 0)
+            {
+                var moveDeltas = CybertronGameStateUpdater.GetMovementDeltasToHeadTowards(
+                    spriteInstance,
+                    theGameBoard.Man.SpriteInstance);
+
+                // We must separate horizontal and vertical movement in order to avoid
+                // things getting 'stuck' on walls because they can't move horizontally
+                // into the wall, but can moe vertically downward.  Trying to do both
+                // directions at once results in rejection of the move, and the
+                // sticking problem.
+
+                CybertronGameStateUpdater.MoveAdversaryOnePixel(
+                    theGameBoard,
+                    spriteInstance,
+                    new MovementDeltas(moveDeltas.dx, 0));
+
+                CybertronGameStateUpdater.MoveAdversaryOnePixel(
+                    theGameBoard,
+                    spriteInstance,
+                    new MovementDeltas(0, moveDeltas.dy));
+
+                if ((_cycleCounter & 7) == 0) // TODO: firing time constant
+                {
+                    if (!moveDeltas.Stationary
+                        && Rng.Generator.Next(100) < 40)
+                    {
+                        CybertronGameStateUpdater.StartBullet(spriteInstance, moveDeltas, theGameBoard, false);
+                    }
+                }
+            }
+        }
+    }
+}
