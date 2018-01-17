@@ -1,5 +1,5 @@
 ﻿
-namespace GameClassLibrary
+namespace GameClassLibrary.Droids
 {
     public class CybertronBlueDroid : CybertronDroidBase
     {

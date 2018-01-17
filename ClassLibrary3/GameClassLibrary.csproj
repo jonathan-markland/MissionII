@@ -46,11 +46,11 @@
     <Compile Include="ArtificialIntelligence\SingleMinded.cs" />
     <Compile Include="ArtificialIntelligence\Swoop.cs" />
     <Compile Include="ClusterCanvas.cs" />
-    <Compile Include="CybertronBlueDroid.cs" />
+    <Compile Include="Droids\CybertronBlueDroid.cs" />
     <Compile Include="CybertronBullet.cs" />
     <Compile Include="Business.cs" />
     <Compile Include="CollisionDetection.cs" />
-    <Compile Include="CybertronDroidBase.cs" />
+    <Compile Include="Droids\CybertronDroidBase.cs" />
     <Compile Include="CybertronExplosion.cs" />
     <Compile Include="CybertronGameBoard.cs" />
     <Compile Include="CybertronGameBoardConstants.cs" />
@@ -68,7 +68,7 @@
     <Compile Include="CybertronKeyStates.cs" />
     <Compile Include="CybertronMan.cs" />
     <Compile Include="CybertronPotion.cs" />
-    <Compile Include="CybertronRedDroid.cs" />
+    <Compile Include="Droids\CybertronRedDroid.cs" />
     <Compile Include="CybertronRing.cs" />
     <Compile Include="CybertronSpriteTraits.cs" />
     <Compile Include="CybertronTitleScreen.cs" />

@@ -1,6 +1,6 @@
 ﻿using GameClassLibrary.Math;
 
-namespace GameClassLibrary
+namespace GameClassLibrary.Droids
 {
     public class CybertronDroidBase : CybertronGameObject
     {

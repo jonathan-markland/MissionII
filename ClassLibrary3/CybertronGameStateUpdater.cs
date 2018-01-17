@@ -361,8 +361,8 @@ namespace GameClassLibrary
             {
                 objectsList.Add(
                     (j < redBlueThreshold)
-                        ? new CybertronRedDroid() as CybertronDroidBase
-                        : new CybertronBlueDroid() as CybertronDroidBase);
+                        ? new Droids.CybertronRedDroid() as Droids.CybertronDroidBase
+                        : new Droids.CybertronBlueDroid() as Droids.CybertronDroidBase);
             }
 
             // Now measure the max dimensions of the things that need measuring.

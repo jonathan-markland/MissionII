@@ -37,7 +37,7 @@ namespace GameClassLibrary
                 bool foundDroids = false;
                 ObjectsInRoom.ForEachDo(o => 
                 {
-                    if (o is CybertronDroidBase)
+                    if (o is Droids.CybertronDroidBase)
                     {
                         foundDroids = true;
                     }
