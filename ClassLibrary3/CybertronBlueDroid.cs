@@ -7,5 +7,10 @@ namespace GameClassLibrary
             : base(CybertronSpriteTraits.Monster2, new ArtificialIntelligence.SingleMinded())
         {
         }
+
+        public override int KillScore
+        {
+            get { return CybertronGameBoardConstants.BlueDroidKillScore; }
+        }
     }
 }

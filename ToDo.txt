@@ -5,7 +5,7 @@ Release 1
 [X] The level start position is not defined.  Have a character in the source file to specify it.
     And calculate the facing direction for the man on startup.
 [ ] Show the level number on the "entering" screen.
-[ ] Instruction screens -- do with a single SpriteTraits, and rotate the images.
+[X] Instruction screens -- do with a single SpriteTraits, and rotate the images.
 [ ] Design a different map for level 1.
 [ ] Design some further level maps
 [ ] Different types of brick for walls, and different decoration formats.

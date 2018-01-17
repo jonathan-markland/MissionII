@@ -198,7 +198,7 @@ namespace GameClassLibrary
                     {
                         if (theBullet.IncreasesScore) // TODO: Code not quite the same as before.  Score increment to move into target classes.
                         {
-                            IncrementScore(gameBoard, CybertronGameBoardConstants.MonsterKillingScore);
+                            IncrementScore(gameBoard, o.KillScore);
                         }
                         hitSomething = true;
                     }
