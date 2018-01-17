@@ -210,7 +210,7 @@ namespace GameClassLibrary
 
 
 
-        public static void AddObjectIfInCurrentRoom(CybertronGameBoard theGameBoard, Interactibles.CybertronObject theObject, List<CybertronGameObject> targetList)
+        public static void AddObjectIfInCurrentRoom(CybertronGameBoard theGameBoard, Interactibles.InteractibleObject theObject, List<CybertronGameObject> targetList)
         {
             if (theObject.RoomNumber == theGameBoard.RoomNumber)
             {
@@ -259,14 +259,14 @@ namespace GameClassLibrary
             theGameBoard.Man.Alive(theLevel.ManStartFacingDirection, manX, manY);
 
             // Clear inventory at start of each level.
-            theGameBoard.PlayerInventory = new List<Interactibles.CybertronObject>();
+            theGameBoard.PlayerInventory = new List<Interactibles.InteractibleObject>();
 
             // TODO: This could be done better, as it's a bit weird requiring the objects already to
             //       be created, and then only to replace them.  At least this way we have ONE
             //       place that decides what is to be found on the level (ForEachThingWeHaveToFindOnThisLevel)
-            theGameBoard.Key = new GameClassLibrary.Interactibles.CybertronKey(0);
-            theGameBoard.Ring = new GameClassLibrary.Interactibles.CybertronRing(0);
-            theGameBoard.Gold = new GameClassLibrary.Interactibles.CybertronGold(0);
+            theGameBoard.Key = new GameClassLibrary.Interactibles.Key(0);
+            theGameBoard.Ring = new GameClassLibrary.Interactibles.Ring(0);
+            theGameBoard.Gold = new GameClassLibrary.Interactibles.Gold(0);
 
             var roomNumberAllocator = new UniqueNumberAllocator(1, Constants.NumRooms);
             // var roomNumberAllocator = new IncrementingNumberAllocator(1, Constants.NumRooms); // For testing purposes.
@@ -274,17 +274,17 @@ namespace GameClassLibrary
             theGameBoard.ForEachThingWeHaveToFindOnThisLevel(o =>
             {
                 var roomNumber = roomNumberAllocator.Next();
-                if (o is Interactibles.CybertronKey)
+                if (o is Interactibles.Key)
                 {
-                    theGameBoard.Key = new GameClassLibrary.Interactibles.CybertronKey(roomNumber);
+                    theGameBoard.Key = new GameClassLibrary.Interactibles.Key(roomNumber);
                 }
-                else if (o is Interactibles.CybertronRing)
+                else if (o is Interactibles.Ring)
                 {
-                    theGameBoard.Ring = new GameClassLibrary.Interactibles.CybertronRing(roomNumber);
+                    theGameBoard.Ring = new GameClassLibrary.Interactibles.Ring(roomNumber);
                 }
-                else if (o is Interactibles.CybertronGold)
+                else if (o is Interactibles.Gold)
                 {
-                    theGameBoard.Gold = new GameClassLibrary.Interactibles.CybertronGold(roomNumber);
+                    theGameBoard.Gold = new GameClassLibrary.Interactibles.Gold(roomNumber);
                 }
                 else
                 {
@@ -292,8 +292,8 @@ namespace GameClassLibrary
                 }
             });
 
-            theGameBoard.Safe = new GameClassLibrary.Interactibles.CybertronLevelSafe(roomNumberAllocator.Next());
-            theGameBoard.Potion = new GameClassLibrary.Interactibles.CybertronPotion(roomNumberAllocator.Next());
+            theGameBoard.Safe = new GameClassLibrary.Interactibles.LevelSafe(roomNumberAllocator.Next());
+            theGameBoard.Potion = new GameClassLibrary.Interactibles.Potion(roomNumberAllocator.Next());
 
             PrepareForNewRoom(theGameBoard);
 

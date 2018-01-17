@@ -1,9 +1,9 @@
 ﻿
 namespace GameClassLibrary.Interactibles
 {
-    public class CybertronGold : CybertronObject
+    public class Gold : InteractibleObject
     {
-        public CybertronGold(int roomNumber) 
+        public Gold(int roomNumber) 
             : base(new SpriteInstance { Traits = CybertronSpriteTraits.Gold }, roomNumber)
         {
         }

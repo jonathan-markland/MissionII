@@ -1,9 +1,9 @@
 ﻿
 namespace GameClassLibrary.Interactibles
 {
-    public class CybertronKey : CybertronObject
+    public class Key : InteractibleObject
     {
-        public CybertronKey(int roomNumber) 
+        public Key(int roomNumber) 
             : base(new SpriteInstance { Traits = CybertronSpriteTraits.Key }, roomNumber)
         {
         }

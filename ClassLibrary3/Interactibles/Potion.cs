@@ -1,9 +1,9 @@
 ﻿
 namespace GameClassLibrary.Interactibles
 {
-    public class CybertronPotion : CybertronObject
+    public class Potion : InteractibleObject
     {
-        public CybertronPotion(int roomNumber)
+        public Potion(int roomNumber)
             : base(new SpriteInstance { Traits = CybertronSpriteTraits.Potion }, roomNumber)
         {
         }

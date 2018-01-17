@@ -2,9 +2,9 @@
 
 namespace GameClassLibrary.Interactibles
 {
-    public class CybertronRing : CybertronObject
+    public class Ring : InteractibleObject
     {
-        public CybertronRing(int roomNumber) 
+        public Ring(int roomNumber) 
             : base(new SpriteInstance { Traits = CybertronSpriteTraits.Ring }, roomNumber)
         {
         }

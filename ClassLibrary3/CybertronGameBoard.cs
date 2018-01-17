@@ -19,12 +19,12 @@ namespace GameClassLibrary
         public CybertronMan Man = new CybertronMan();
         public SuddenlyReplaceableList<CybertronGameObject> ObjectsInRoom = new SuddenlyReplaceableList<CybertronGameObject>();
         public List<CybertronGameObject> ObjectsToRemove = new List<CybertronGameObject>();
-        public List<Interactibles.CybertronObject> PlayerInventory = new List<Interactibles.CybertronObject>();
-        public Interactibles.CybertronKey Key;
-        public Interactibles.CybertronRing Ring;
-        public Interactibles.CybertronGold Gold;
-        public Interactibles.CybertronLevelSafe Safe;
-        public Interactibles.CybertronPotion Potion;
+        public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
+        public Interactibles.Key Key;
+        public Interactibles.Ring Ring;
+        public Interactibles.Gold Gold;
+        public Interactibles.LevelSafe Safe;
+        public Interactibles.Potion Potion;
         public CybertronManPosition ManPositionOnRoomEntry;
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace GameClassLibrary
 
 
 
-        public void ForEachThingWeHaveToFindOnThisLevel(Action<Interactibles.CybertronObject> theAction)
+        public void ForEachThingWeHaveToFindOnThisLevel(Action<Interactibles.InteractibleObject> theAction)
         {
             theAction(Key);
             if (LevelNumber > 1)

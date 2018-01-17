@@ -2,12 +2,12 @@
 
 namespace GameClassLibrary.Interactibles
 {
-    public abstract class CybertronObject : CybertronGameObject
+    public abstract class InteractibleObject : CybertronGameObject
     {
         private SpriteInstance Sprite;
         private int _roomNumber;
 
-        public CybertronObject(SpriteInstance spriteInstance, int roomNumber)
+        public InteractibleObject(SpriteInstance spriteInstance, int roomNumber)
         {
             Sprite = spriteInstance;
             _roomNumber = roomNumber;

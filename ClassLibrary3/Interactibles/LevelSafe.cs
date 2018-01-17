@@ -1,9 +1,9 @@
 ﻿
 namespace GameClassLibrary.Interactibles
 {
-    public class CybertronLevelSafe : CybertronObject
+    public class LevelSafe : InteractibleObject
     {
-        public CybertronLevelSafe(int roomNumber) 
+        public LevelSafe(int roomNumber) 
             : base(new SpriteInstance { Traits = CybertronSpriteTraits.Safe }, roomNumber)
         {
         }
