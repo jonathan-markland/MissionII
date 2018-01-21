@@ -23,7 +23,9 @@ namespace GameClassLibrary
         public static SoundTraits IntroSound; //
         public static SoundTraits ExplosionSound; //
         public static SoundTraits BonusSound; //
-        public static SoundTraits StunGhostSound; 
+        public static SoundTraits StunGhostSound;
+        public static SoundTraits Footstep1Sound;
+        public static SoundTraits Footstep2Sound;
 
         private static Action<SoundTraits> HostPlaySoundAction;
 
@@ -59,6 +61,8 @@ namespace GameClassLibrary
             ExplosionSound = loadSound("ExplosionSound");
             BonusSound = loadSound("BonusSound");
             StunGhostSound = loadSound("StunGhostSound");
+            Footstep1Sound = loadSound("Footstep1Sound");
+            Footstep2Sound = loadSound("Footstep2Sound");
         }
     }
 }

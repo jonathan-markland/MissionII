@@ -967,3 +967,15 @@
 /processorParam:Quality=Best
 /build:StunGhostSound.wav
 
+#begin Footstep1Sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Footstep1Sound.wav
+
+#begin Footstep2Sound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Footstep2Sound.wav
+

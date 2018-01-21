@@ -19,6 +19,7 @@ namespace GameClassLibrary
         private int _electrocutionCycles = 0;
         private bool _awaitingFireRelease = true;
         private int _whileDeadCount = 0;
+        public int _cyclesMoving = 0;
 
         public CybertronManPosition Position
         {
@@ -78,11 +79,17 @@ namespace GameClassLibrary
 
         private void DoWalking(CybertronGameBoard theGameBoard, CybertronKeyStates keyStates, int theDirection)
         {
+            ++_cyclesMoving;
             _facingDirection = theDirection;
             SpriteInstance.Traits = CybertronSpriteTraits.ManWalking[theDirection];
             AdvanceAnimation();
             var movementDeltas = Business.GetMovementDeltas(keyStates);
             var hitResult = theGameBoard.MoveManOnePixel(movementDeltas);
+
+            if (!movementDeltas.Stationary)
+            {
+                PlayWalkingEffects();
+            }
 
             // Collision between man and walls?
 
@@ -118,6 +125,20 @@ namespace GameClassLibrary
                         roomObject.ManWalkedIntoYou(theGameBoard);
                     }
                 });
+            }
+        }
+
+        private void PlayWalkingEffects()
+        {
+            var c = Constants.FootstepSoundCycles;
+            var n = _cyclesMoving % c;
+            if (n == 0)
+            {
+                CybertronSounds.Play(CybertronSounds.Footstep1Sound);
+            }
+            else if (n == (c / 2))
+            {
+                CybertronSounds.Play(CybertronSounds.Footstep2Sound);
             }
         }
 
@@ -176,6 +197,7 @@ namespace GameClassLibrary
             _animationCountdown = WalkingAnimationReset; // for next time
             SpriteInstance.Traits = CybertronSpriteTraits.ManStanding[theDirection];
             _imageIndex = 0;
+            _cyclesMoving = 0;
         }
 
         public override void Draw(CybertronGameBoard theGameBoard, IDrawingTarget drawingTarget)

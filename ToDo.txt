@@ -16,6 +16,7 @@ Release 1
 [ ] Fix the location of the key at start of level, not per room-start.
 [ ] Different scores per robot type.
 [ ] Prefix all sound file names with "Sound" to avoid name clashes.
+[ ] Need to increase score when collecting objects.
 
 
 
