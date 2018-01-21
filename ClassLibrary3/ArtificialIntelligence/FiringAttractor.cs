@@ -17,7 +17,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
             if (_cycleCounter % 3 == 0)
             {
-                var moveDeltas = CybertronGameStateUpdater.GetMovementDeltasToHeadTowards(
+                var moveDeltas = Business.GetMovementDeltasToHeadTowards(
                     spriteInstance,
                     theGameBoard.Man.SpriteInstance);
 

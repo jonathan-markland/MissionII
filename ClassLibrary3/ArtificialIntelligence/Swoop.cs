@@ -7,7 +7,7 @@ namespace GameClassLibrary.ArtificialIntelligence
         {
             for (int i = 0; i < Constants.GhostMovementCycles; i++)
             {
-                var moveDeltas = CybertronGameStateUpdater.GetMovementDeltasToHeadTowards(
+                var moveDeltas = Business.GetMovementDeltasToHeadTowards(
                     spriteInstance,
                     theGameBoard.Man.SpriteInstance);
 

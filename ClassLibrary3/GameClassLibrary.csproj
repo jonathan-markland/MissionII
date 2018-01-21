@@ -60,7 +60,7 @@
     <Compile Include="CybertronGameModes.cs" />
     <Compile Include="CybertronGameModeSelector.cs" />
     <Compile Include="CybertronGameObject.cs" />
-    <Compile Include="CybertronGameStateUpdater.cs" />
+    <Compile Include="CybertronSpriteInstanceExtensions.cs" />
     <Compile Include="CybertronGhost.cs" />
     <Compile Include="Droids\PinkDroid.cs" />
     <Compile Include="Interactibles\Gold.cs" />

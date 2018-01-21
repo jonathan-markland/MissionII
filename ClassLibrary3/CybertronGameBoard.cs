@@ -89,9 +89,8 @@ namespace GameClassLibrary
 
         public CollisionDetection.WallHitTestResult MoveManOnePixel(MovementDeltas movementDeltas)
         {
-            return CybertronGameStateUpdater.MoveSpriteInstanceOnePixel(
+            return Man.SpriteInstance.MoveSpriteInstanceOnePixelConsideringWallsOnly(
                 CurrentRoomWallData,
-                Man.SpriteInstance,
                 movementDeltas);
         }
 
@@ -427,9 +426,8 @@ namespace GameClassLibrary
                 return hitResult;
             }
 
-            return CybertronGameStateUpdater.MoveSpriteInstanceOnePixel(
+            return spriteInstance.MoveSpriteInstanceOnePixelConsideringWallsOnly(
                 CurrentRoomWallData,
-                spriteInstance,
                 movementDeltas);
         }
 

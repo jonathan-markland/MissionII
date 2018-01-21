@@ -16,7 +16,7 @@ namespace GameClassLibrary.ArtificialIntelligence
             _operationEnable = !_operationEnable;  // ie: operate only ever other cycle
             if (_operationEnable)
             {
-                var moveDeltas = CybertronGameStateUpdater.GetMovementDeltasToHeadTowards(
+                var moveDeltas = Business.GetMovementDeltasToHeadTowards(
                     spriteInstance, 
                     theGameBoard.Man.SpriteInstance);
 

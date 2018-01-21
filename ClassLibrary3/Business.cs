@@ -86,6 +86,23 @@ namespace GameClassLibrary
         }
 
 
+        public static MovementDeltas GetMovementDeltasToHeadTowards(SpriteInstance aggressorSprite, SpriteInstance targetSprite)
+        {
+            var targetCentre = targetSprite.Centre;
+            var aggressorCentre = aggressorSprite.Centre;
+
+            int dx = 0;
+            if (targetCentre.X < aggressorCentre.X) dx = -1;
+            if (targetCentre.X > aggressorCentre.X) dx = 1;
+
+            int dy = 0;
+            if (targetCentre.Y < aggressorCentre.Y) dy = -1;
+            if (targetCentre.Y > aggressorCentre.Y) dy = 1;
+
+            return new MovementDeltas(dx, dy);
+        }
+
+
         public static void Shuffle<T>(this IList<T> list, Random rnd)
         {
             for (var i = 0; i < list.Count; i++)
