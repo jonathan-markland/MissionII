@@ -943,3 +943,27 @@
 /processorParam:Quality=Best
 /build:SafeActivated.wav
 
+#begin BonusSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:BonusSound.wav
+
+#begin ExplosionSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ExplosionSound.wav
+
+#begin IntroSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:IntroSound.wav
+
+#begin StunGhostSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:StunGhostSound.wav
+

@@ -267,6 +267,7 @@ namespace GameClassLibrary
             if (! theGameBoard.DroidsExistInRoom)
             {
                 theGameBoard.IncrementScore(CybertronGameBoardConstants.RoomClearingBonusScore);
+                CybertronSounds.Play(CybertronSounds.BonusSound);
             }
             theGameBoard.PrepareForNewRoom();
         }

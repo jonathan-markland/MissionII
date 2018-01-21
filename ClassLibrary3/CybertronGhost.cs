@@ -71,6 +71,7 @@ namespace GameClassLibrary
             {
                 _stunCountDown = Constants.GhostStunnedCycles;
                 _spriteInstance.Traits = CybertronSpriteTraits.GhostStunned;
+                CybertronSounds.Play(CybertronSounds.StunGhostSound);
             }
             return true;
         }

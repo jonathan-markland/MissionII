@@ -20,6 +20,11 @@ namespace GameClassLibrary
 
         public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, CybertronKeyStates theKeyStates)
         {
+            if (_explosionCountDown == ExplosionCountDownReset)
+            {
+                CybertronSounds.Play(CybertronSounds.ExplosionSound);
+            }
+
             if (_explosionCountDown != 0)
             {
                 Business.Animate(ref _animationCountdown, ref _imageIndex, AnimationReset, SpriteInstance.Traits.ImageCount);

@@ -7,9 +7,16 @@ namespace GameClassLibrary
     {
         private int _countDown = Constants.TitleScreenRollCycles;
         private bool _releaseWaiting = true;
+        private bool _firstCycle = true;
 
         public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
         {
+            if (_firstCycle)
+            {
+                CybertronSounds.Play(CybertronSounds.IntroSound);
+                _firstCycle = false;
+            }
+
             if (theKeyStates.Fire)
             {
                 if (_releaseWaiting) return;

@@ -18,10 +18,12 @@ namespace GameClassLibrary
         public static SoundTraits ManFiring; //
         public static SoundTraits ManGrunt; //
         public static SoundTraits PauseMode; //
-        public static SoundTraits PickUpObject;
-        public static SoundTraits SafeActivated;
-        // explosion
-        // bonus for killing all in room
+        public static SoundTraits PickUpObject; // 
+        public static SoundTraits SafeActivated; //
+        public static SoundTraits IntroSound; //
+        public static SoundTraits ExplosionSound; //
+        public static SoundTraits BonusSound; //
+        public static SoundTraits StunGhostSound; 
 
         private static Action<SoundTraits> HostPlaySoundAction;
 
@@ -53,6 +55,10 @@ namespace GameClassLibrary
             PauseMode = loadSound("PauseMode");
             PickUpObject = loadSound("PickUpObject");
             SafeActivated = loadSound("SafeActivated");
+            IntroSound = loadSound("IntroSound");
+            ExplosionSound = loadSound("ExplosionSound");
+            BonusSound = loadSound("BonusSound");
+            StunGhostSound = loadSound("StunGhostSound");
         }
     }
 }
