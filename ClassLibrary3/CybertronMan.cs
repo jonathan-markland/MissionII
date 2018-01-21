@@ -88,7 +88,7 @@ namespace GameClassLibrary
 
             if (hitResult == CollisionDetection.WallHitTestResult.HitWall)
             {
-                Electrocute(true);
+                Electrocute(ElectrocutionMethod.ByWalls);
             }
             else if (hitResult == CollisionDetection.WallHitTestResult.OutsideRoomAbove)
             {
@@ -156,13 +156,13 @@ namespace GameClassLibrary
             Business.Animate(ref _animationCountdown, ref _imageIndex, WalkingAnimationReset, SpriteInstance.Traits.ImageCount);
         }
 
-        public void Electrocute(bool byWalls)
+        public void Electrocute(ElectrocutionMethod electrocutionMethod)
         {
             if (_debugInvulnerable) return;
             if (!_isDead && !_isElectrocuting)
             {
                 _isElectrocuting = true;
-                _isElectrocutedByWalls = byWalls;
+                _isElectrocutedByWalls = electrocutionMethod == ElectrocutionMethod.ByWalls;
                 _electrocutionCycles = ElectrocutionAnimationReset * 5;
                 SpriteInstance.Traits = CybertronSpriteTraits.Electrocution;
                 _imageIndex = 0;

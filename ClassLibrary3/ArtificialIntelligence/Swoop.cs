@@ -24,7 +24,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
         private void KillMan(CybertronGameBoard theGameBoard)
         {
-            theGameBoard.Man.Electrocute(false);
+            theGameBoard.Man.Electrocute(ElectrocutionMethod.ByDroid);
         }
 
     }

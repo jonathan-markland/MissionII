@@ -63,6 +63,7 @@
     <Compile Include="CybertronSpriteInstanceExtensions.cs" />
     <Compile Include="CybertronGhost.cs" />
     <Compile Include="Droids\PinkDroid.cs" />
+    <Compile Include="ElectrocutionMethod.cs" />
     <Compile Include="Interactibles\Gold.cs" />
     <Compile Include="Interactibles\Key.cs" />
     <Compile Include="Interactibles\LevelSafe.cs" />

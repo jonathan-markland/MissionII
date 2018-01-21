@@ -49,7 +49,7 @@ namespace GameClassLibrary.Droids
 
         public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
         {
-            theGameBoard.Man.Electrocute(false);
+            theGameBoard.Man.Electrocute(ElectrocutionMethod.ByDroid);
         }
 
         public override Point TopLeftPosition
