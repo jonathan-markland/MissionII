@@ -56,6 +56,7 @@ namespace GameClassLibrary
         {
             if (Lives < Constants.MaxLives)
             {
+                CybertronSounds.Play(CybertronSounds.ExtraLife);
                 ++Lives;
             }
         }
@@ -113,6 +114,15 @@ namespace GameClassLibrary
             bool increasesScore)
         {
             // TODO: Separate out a bit for unit testing?
+
+            if (increasesScore)
+            {
+                CybertronSounds.Play(CybertronSounds.ManFiring);
+            }
+            else
+            {
+                CybertronSounds.Play(CybertronSounds.DroidFiring);
+            }
 
             var theBulletTraits = CybertronSpriteTraits.Bullet;
             var bulletWidth = theBulletTraits.BoardWidth;

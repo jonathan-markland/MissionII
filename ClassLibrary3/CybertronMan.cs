@@ -167,6 +167,7 @@ namespace GameClassLibrary
                 SpriteInstance.Traits = CybertronSpriteTraits.Electrocution;
                 _imageIndex = 0;
                 _animationCountdown = ElectrocutionAnimationReset;
+                CybertronSounds.Play(CybertronSounds.Electrocution);
             }
         }
 
@@ -204,6 +205,7 @@ namespace GameClassLibrary
                 // TODO: Sound
                 // TODO: Reduce lives.
                 _whileDeadCount = Constants.ManDeadDelayCycles;
+                CybertronSounds.Play(CybertronSounds.ManGrunt);
             }
         }
 

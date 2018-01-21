@@ -11,6 +11,7 @@ namespace GameClassLibrary
             if (theKeyStates.Pause)
             {
                 CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronPauseMode(theCurrentModeObject);
+                CybertronSounds.Play(CybertronSounds.PauseMode);
                 return true;
             }
             return false;

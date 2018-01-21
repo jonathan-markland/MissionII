@@ -118,6 +118,10 @@ namespace GameClassLibrary
         public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
         {
             if (CybertronModes.HandlePause(theKeyStates, this)) return;
+            if (_countDown == Constants.EnteringLevelScreenCycles)
+            {
+                CybertronSounds.Play(CybertronSounds.EnteirngLevel);
+            }
             if (_countDown > 0)
             {
                 --_countDown;
@@ -208,6 +212,10 @@ namespace GameClassLibrary
 
         public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
         {
+            if (_countDown == Constants.GameOverMessageCycles)
+            {
+                CybertronSounds.Play(CybertronSounds.GameOverSound);
+            }
             if (_countDown > 0)
             {
                 --_countDown;

@@ -35,6 +35,7 @@ namespace GameClassLibrary
                     _spriteInstance.RoomX = 0;
                     _spriteInstance.RoomY = 0;
                     _spriteInstance.Traits = CybertronSpriteTraits.Ghost;
+                    CybertronSounds.Play(CybertronSounds.GhostAppearing);
                 }
             }
             else if (_stunCountDown > 0)

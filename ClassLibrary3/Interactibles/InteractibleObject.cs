@@ -47,6 +47,7 @@ namespace GameClassLibrary.Interactibles
         {
             theGameBoard.PlayerInventory.Add(this);
             RemoveThisObject(theGameBoard);
+            CybertronSounds.Play(CybertronSounds.PickUpObject);
         }
 
         protected void RemoveThisObject(CybertronGameBoard theGameBoard)

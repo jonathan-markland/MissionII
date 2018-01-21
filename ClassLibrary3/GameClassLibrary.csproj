@@ -48,6 +48,7 @@
     <Compile Include="ArtificialIntelligence\Swoop.cs" />
     <Compile Include="ClusterCanvas.cs" />
     <Compile Include="CybertronManPosition.cs" />
+    <Compile Include="CybertronSounds.cs" />
     <Compile Include="Droids\BlueDroid.cs" />
     <Compile Include="CybertronBullet.cs" />
     <Compile Include="Business.cs" />

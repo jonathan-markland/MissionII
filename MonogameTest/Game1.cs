@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Audio;
 using System.IO;
 using System.Collections.Generic;
 
@@ -67,6 +68,7 @@ namespace MonogameTest
             _monoGameDrawingTarget = new MonoGameDrawingTarget(_spriteBatch);
 
             // TODO: use this.Content to load your game content here
+
             GameClassLibrary.CybertronSpriteTraits.Load((spriteName) => 
             {
                 var texture2d = Content.Load<Texture2D>(spriteName);
@@ -76,6 +78,16 @@ namespace MonogameTest
                     BoardWidth = texture2d.Width,   // By design, the client doesn't know how to obtain this itself.
                     HostObject = texture2d
                 };
+            });
+
+            GameClassLibrary.CybertronSounds.Load((soundName) =>
+            {
+                return Content.Load<SoundEffect>(soundName);
+            });
+
+            GameClassLibrary.CybertronSounds.Init((soundTraits) =>
+            {
+                ((SoundEffect)soundTraits.HostObject).Play();
             });
 
         }

@@ -22,6 +22,7 @@ namespace GameClassLibrary.Interactibles
             if (carryingEverything)
             {
                 CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronLeavingLevelMode(theGameBoard);
+                CybertronSounds.Play(CybertronSounds.SafeActivated);
             }
         }
     }
