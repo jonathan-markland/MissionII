@@ -36,16 +36,16 @@ namespace GameClassLibrary
                     Sprite.RoomX = proposedX;
                     Sprite.RoomY = proposedY;
 
-                    if (CybertronGameStateUpdater.KillThingsIfShot(theGameBoard, this))
+                    if (theGameBoard.KillThingsIfShot(this))
                     {
                         theGameBoard.ObjectsToRemove.Add(this);
-                        return;
+                        break;
                     }
                 }
                 else // Bullet hit wall or went outside room.
                 {
                     theGameBoard.ObjectsToRemove.Add(this);
-                    return;
+                    break;
                 }
             }
         }

@@ -10,7 +10,7 @@ namespace GameClassLibrary.Interactibles
 
         public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
         {
-            CybertronGameStateUpdater.IncrementLives(theGameBoard);
+            theGameBoard.IncrementLives();
             RemoveThisObject(theGameBoard);
         }
     }

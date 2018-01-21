@@ -95,7 +95,7 @@ namespace GameClassLibrary
                     Lives = Constants.InitialLives
                 };
 
-                GameClassLibrary.CybertronGameStateUpdater.PrepareForNewLevel(cybertronGameBoard);
+                cybertronGameBoard.PrepareForNewLevel();
             }
         }
 
@@ -161,7 +161,7 @@ namespace GameClassLibrary
         public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
         {
             if (CybertronModes.HandlePause(theKeyStates, this)) return;
-            GameClassLibrary.CybertronGameStateUpdater.Update(_cybertronGameBoard, theKeyStates); // TODO: pull logic into this class
+            _cybertronGameBoard.Update(theKeyStates); // TODO: pull logic into this class
         }
 
         public override void Draw(IDrawingTarget drawingTarget)
@@ -192,7 +192,7 @@ namespace GameClassLibrary
                 var thisLevelNumber = _cybertronGameBoard.LevelNumber;
                 ++thisLevelNumber;
                 _cybertronGameBoard.LevelNumber = thisLevelNumber;
-                GameClassLibrary.CybertronGameStateUpdater.PrepareForNewLevel(_cybertronGameBoard);
+                _cybertronGameBoard.PrepareForNewLevel();
             }
         }
 

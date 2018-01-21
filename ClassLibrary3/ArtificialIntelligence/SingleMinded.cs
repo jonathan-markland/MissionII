@@ -37,8 +37,7 @@ namespace GameClassLibrary.ArtificialIntelligence
         {
             if (!_movementDeltas.Stationary)
             {
-                var hitResult = CybertronGameStateUpdater.MoveAdversaryOnePixel(
-                    theGameBoard,
+                var hitResult = theGameBoard.MoveAdversaryOnePixel(
                     spriteInstance,
                     _movementDeltas);
 
@@ -47,7 +46,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                     if (!_movementDeltas.Stationary
                         && Rng.Generator.Next(100) < 20)
                     {
-                        CybertronGameStateUpdater.StartBullet(spriteInstance, _facingDirection, theGameBoard, false);
+                        theGameBoard.StartBullet(spriteInstance, _facingDirection, false);
                     }
                 }
 

@@ -26,13 +26,11 @@ namespace GameClassLibrary.ArtificialIntelligence
                 // directions at once results in rejection of the move, and the
                 // sticking problem.
 
-                CybertronGameStateUpdater.MoveAdversaryOnePixel(
-                    theGameBoard,
+                theGameBoard.MoveAdversaryOnePixel(
                     spriteInstance,
                     new MovementDeltas(moveDeltas.dx, 0));
 
-                CybertronGameStateUpdater.MoveAdversaryOnePixel(
-                    theGameBoard,
+                theGameBoard.MoveAdversaryOnePixel(
                     spriteInstance,
                     new MovementDeltas(0, moveDeltas.dy));
             }

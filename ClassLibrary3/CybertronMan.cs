@@ -82,7 +82,7 @@ namespace GameClassLibrary
             SpriteInstance.Traits = CybertronSpriteTraits.ManWalking[theDirection];
             AdvanceAnimation();
             var movementDeltas = Business.GetMovementDeltas(keyStates);
-            var hitResult = CybertronGameStateUpdater.MoveManOnePixel(theGameBoard, movementDeltas);
+            var hitResult = theGameBoard.MoveManOnePixel(movementDeltas);
 
             // Collision between man and walls?
 
@@ -127,7 +127,7 @@ namespace GameClassLibrary
             {
                 if (!_awaitingFireRelease)
                 {
-                    CybertronGameStateUpdater.StartBullet(SpriteInstance, _facingDirection, theGameBoard, true);
+                    theGameBoard.StartBullet(SpriteInstance, _facingDirection, true);
                     _awaitingFireRelease = true; // require press-release sequence for firing bullets.
                 }
             }
@@ -147,7 +147,7 @@ namespace GameClassLibrary
             }
             else
             {
-                CybertronGameStateUpdater.LoseLife(theGameBoard);
+                theGameBoard.LoseLife();
             }
         }
 
@@ -264,9 +264,9 @@ namespace GameClassLibrary
             SpriteInstance.RoomY += deltaSpriteHeight;
             if (! theGameBoard.DroidsExistInRoom)
             {
-                CybertronGameStateUpdater.IncrementScore(theGameBoard, CybertronGameBoardConstants.RoomClearingBonusScore);
+                theGameBoard.IncrementScore(CybertronGameBoardConstants.RoomClearingBonusScore);
             }
-            CybertronGameStateUpdater.PrepareForNewRoom(theGameBoard);
+            theGameBoard.PrepareForNewRoom();
         }
 
         public override Rectangle GetBoundingRectangle()

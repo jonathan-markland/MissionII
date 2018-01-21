@@ -46,5 +46,11 @@ namespace GameClassLibrary
             get { return new Point(RoomX, RoomY); }
             set { RoomX = value.X; RoomY = value.Y; }
         }
+
+        public void MoveBy(MovementDeltas movementDeltas)
+        {
+            RoomX += movementDeltas.dx;
+            RoomY += movementDeltas.dy;
+        }
     }
 }

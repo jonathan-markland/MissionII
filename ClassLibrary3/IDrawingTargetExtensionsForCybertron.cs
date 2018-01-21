@@ -28,24 +28,29 @@
 
         public static void DrawWalls(
             this IDrawingTarget drawingTarget,
+            int levelNumber,
             int leftX, int topY, int tileWidth, int tileHeight,
             WallMatrix wallData,
             SpriteTraits outlineSpriteTraits,
             SpriteTraits brickSpriteTraits)
         {
+            --levelNumber; // because it's 1-based!
+            var outlineIndex = outlineSpriteTraits.GetHostImageObject(levelNumber % outlineSpriteTraits.ImageCount);
+            var brickIndex = brickSpriteTraits.GetHostImageObject(levelNumber % brickSpriteTraits.ImageCount);
+
             for (int y = 0; y < wallData.CountV; y++)
             {
                 int a = leftX;
                 for (int x = 0; x < wallData.CountH; x++)
                 {
                     var ch = wallData.Read(x, y);
-                    if (ch == WallMatrixChar.Electric)
+                    if (ch == WallMatrixChar.Electric) // <-- confusing that this really means draw the wall in either normal or electric state
                     {
-                        drawingTarget.DrawFirstSprite(leftX, topY, outlineSpriteTraits);
+                        drawingTarget.DrawSprite(leftX, topY, outlineIndex);
                     }
                     else if (ch != WallMatrixChar.Space)
                     {
-                        drawingTarget.DrawFirstSprite(leftX, topY, brickSpriteTraits);
+                        drawingTarget.DrawSprite(leftX, topY, brickIndex);
                     }
                     leftX += tileWidth;
                 }

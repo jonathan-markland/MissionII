@@ -11,9 +11,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                     spriteInstance,
                     theGameBoard.Man.SpriteInstance);
 
-                CybertronGameStateUpdater.MoveAdversaryOnePixelUnchecked(
-                    spriteInstance,
-                    moveDeltas);
+                spriteInstance.MoveBy(moveDeltas);
 
                 if (spriteInstance.Intersects(theGameBoard.Man.SpriteInstance))
                 {
