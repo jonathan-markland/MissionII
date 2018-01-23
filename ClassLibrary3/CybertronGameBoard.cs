@@ -185,11 +185,22 @@ namespace GameClassLibrary
             {
                 if (o.GetBoundingRectangle().Intersects(theBullet.GetBoundingRectangle()))
                 {
-                    if (o.YouHaveBeenShot(this))
+                    if (o.YouHaveBeenShot(this, theBullet.IncreasesScore))
                     {
                         if (theBullet.IncreasesScore) // TODO: Code not quite the same as before.  Score increment to move into target classes.
                         {
-                            IncrementScore(o.KillScore);
+                            // Basic scoring
+                            var thisDroidKillScore = o.KillScore;
+                            IncrementScore(thisDroidKillScore);
+
+                            // Bonus scoring for multiples.
+                            var n = CountExplosionsThatCanBeUsedForBonusesInRoom;
+                            if (n >= CybertronGameBoardConstants.MultiDroidKillCountForBonus)
+                            {
+                                IncrementScore(thisDroidKillScore * n);
+                                CybertronSounds.Play(CybertronSounds.BonusSound);
+                                MarkAllExplosionsAsUsedForBonusPurposes();
+                            }
                         }
                         hitSomething = true;
                     }
@@ -468,6 +479,38 @@ namespace GameClassLibrary
             }
         }
 
+
+
+        public int CountExplosionsThatCanBeUsedForBonusesInRoom
+        {
+            get
+            {
+                int n = 0;
+                ObjectsInRoom.ForEachDo(o =>
+                {
+                    var theExplosion = o as CybertronExplosion;
+                    if (theExplosion != null && theExplosion.CanBeConsideredForMultiKillBonus)
+                    {
+                        ++n;
+                    }
+                });
+                return n;
+            }
+        }
+
+
+
+        public void MarkAllExplosionsAsUsedForBonusPurposes()
+        {
+            ObjectsInRoom.ForEachDo(o =>
+            {
+                var theExplosion = o as CybertronExplosion;
+                if (theExplosion != null)
+                {
+                    theExplosion.MarkAsUsedForBonus();
+                }
+            });
+        }
 
 
         public void ForEachThingWeHaveToFindOnThisLevel(Action<Interactibles.InteractibleObject> theAction)

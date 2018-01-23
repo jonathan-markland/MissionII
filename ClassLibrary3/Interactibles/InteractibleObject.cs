@@ -69,7 +69,7 @@ namespace GameClassLibrary.Interactibles
             return Sprite.GetBoundingRectangle(); // Note: applies in every room!
         }
 
-        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard)
+        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard, bool shotByMan)
         {
             // This cannot be shot (ignore)
             return false;

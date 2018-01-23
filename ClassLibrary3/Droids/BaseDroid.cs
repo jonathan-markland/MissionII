@@ -29,14 +29,15 @@ namespace GameClassLibrary.Droids
             drawingTarget.DrawIndexedSprite(SpriteInstance, _imageIndex);
         }
 
-        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard)
+        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard, bool shotByMan)
         {
             // TODO: FUTURE: We assume the explosion dimensions match the droid.  We should centre it about the droid.
             theGameBoard.ObjectsInRoom.Add(
                 new CybertronExplosion(
                     SpriteInstance.RoomX,
                     SpriteInstance.RoomY,
-                    CybertronSpriteTraits.Explosion));
+                    CybertronSpriteTraits.Explosion,
+                    shotByMan));
 
             theGameBoard.ObjectsToRemove.Add(this);
             return true;

@@ -304,7 +304,7 @@ namespace GameClassLibrary
             // No action for self-intersection.
         }
 
-        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard)
+        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard, bool shotByMan)
         {
             Die(); // No electrocution animation desired here.
             return true;

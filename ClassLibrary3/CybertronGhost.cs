@@ -65,7 +65,7 @@ namespace GameClassLibrary
             }
         }
 
-        public override bool YouHaveBeenShot(CybertronGameBoard gameBoard)
+        public override bool YouHaveBeenShot(CybertronGameBoard gameBoard, bool shotByMan)
         {
             if (_stunCountDown == 0) // multiply-stunning has no effect
             {

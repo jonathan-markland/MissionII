@@ -19,5 +19,6 @@ namespace GameClassLibrary
         public const int ScreenWidth = 320;
         public const int ScreenHeight = 256;
         public const int InventoryIndent = 8;
+        public const int MultiDroidKillCountForBonus = 3;
     }
 }
