@@ -13,5 +13,7 @@ namespace GameClassLibrary.Interactibles
             theGameBoard.IncrementLives();
             RemoveThisObject(theGameBoard);
         }
+
+        public override int CollectionScore => 0;
     }
 }

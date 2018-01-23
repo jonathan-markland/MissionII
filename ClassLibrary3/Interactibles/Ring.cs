@@ -8,5 +8,7 @@ namespace GameClassLibrary.Interactibles
             : base(new SpriteInstance { Traits = CybertronSpriteTraits.Ring }, roomNumber)
         {
         }
+
+        public override int CollectionScore => CybertronGameBoardConstants.RingCollectionScore;
     }
 }

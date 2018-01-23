@@ -1,28 +1,22 @@
 
 Release 1
 ---------
-[ ] Do the all the proposed refactorings (g.txt)
-[X] The level start position is not defined.  Have a character in the source file to specify it.
-    And calculate the facing direction for the man on startup.
-[ ] Show the level number on the "entering" screen.
-[X] Instruction screens -- do with a single SpriteTraits, and rotate the images.
+[ ] MUST DO - Replace all the copyright graphics.
 [ ] Design a different map for level 1.
 [ ] Design some further level maps
-[ ] Different types of brick for walls, and different decoration formats.
+[ ] Do the all the proposed refactorings (g.txt)
+[ ] Show the level number on the "entering" screen.
 [ ] Proper parser state machine for loading levels so we can report line numbers very easily.
-[ ] Screen stretching like Jynx and keypresses for this.
-[ ] MUST DO - Replace all the copyright graphics.
-[ ] A third monster type is needed.
 [ ] Fix the location of the key at start of level, not per room-start.
-[ ] Different scores per robot type.
 [ ] Prefix all sound file names with "Sound" to avoid name clashes.
-[ ] Need to increase score when collecting objects.
+[ ] Improve AI for blue droids
+[ ] Render outlines around walls properly.
+[ ] Textures for walls and floors, re-coloured.
 
 
 
 Release 2
 ---------
-[ ] Droids can shoot ghost - should not happen
 [ ] Hi-score table (although we need a proper font for this).
 [ ] Open maximised
 [ ] Droid firing -- more aggressive as levels progress.
@@ -33,6 +27,16 @@ Release 2
 [ ] Selection of skins.
 
 
+
+[X] Different types of brick for walls.
+[X] A third monster type is needed.
+[X] Screen stretching like Jynx and keypresses for this.
+[X] Instruction screens -- do with a single SpriteTraits, and rotate the images.
+[X] Different scores per robot type.
+[X] Need to increase score when collecting objects.
+[X] The level start position is not defined.  Have a character in the source file to specify it.
+    And calculate the facing direction for the man on startup.
+[X] Droids can shoot ghost - should not happen
 
 [X] BUG: Carving removes too much eg room 106.
 [X] PAUSE GAME key.

@@ -8,6 +8,7 @@ namespace GameClassLibrary.Interactibles
         {
         }
 
+        public override int CollectionScore => 0;
 
         public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
         {

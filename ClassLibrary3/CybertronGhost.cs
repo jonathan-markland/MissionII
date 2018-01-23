@@ -67,7 +67,7 @@ namespace GameClassLibrary
 
         public override bool YouHaveBeenShot(CybertronGameBoard gameBoard, bool shotByMan)
         {
-            if (_stunCountDown == 0) // multiply-stunning has no effect
+            if (shotByMan)
             {
                 _stunCountDown = Constants.GhostStunnedCycles;
                 _spriteInstance.Traits = CybertronSpriteTraits.GhostStunned;

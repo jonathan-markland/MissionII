@@ -7,5 +7,7 @@ namespace GameClassLibrary.Interactibles
             : base(new SpriteInstance { Traits = CybertronSpriteTraits.Gold }, roomNumber)
         {
         }
+
+        public override int CollectionScore => CybertronGameBoardConstants.GoldCollectionScore;
     }
 }

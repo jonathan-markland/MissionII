@@ -20,5 +20,9 @@ namespace GameClassLibrary
         public const int ScreenHeight = 256;
         public const int InventoryIndent = 8;
         public const int MultiDroidKillCountForBonus = 3;
+        public const int KeyCollectionScore = 100;
+        public const int RingCollectionScore = 500;
+        public const int GoldCollectionScore = 1000;
+
     }
 }

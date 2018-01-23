@@ -47,6 +47,7 @@ namespace GameClassLibrary.Interactibles
         {
             theGameBoard.PlayerInventory.Add(this);
             RemoveThisObject(theGameBoard);
+            theGameBoard.IncrementScore(CollectionScore);
             CybertronSounds.Play(CybertronSounds.PickUpObject);
         }
 
@@ -82,5 +83,7 @@ namespace GameClassLibrary.Interactibles
         }
 
         public override bool CanBeOverlapped { get { return true; } }
+
+        public abstract int CollectionScore { get; }
     }
 }
