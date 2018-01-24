@@ -6,7 +6,6 @@ Release 1
 [ ] Design some further level maps
 [ ] Do the all the proposed refactorings (g.txt)
 [ ] Show the level number on the "entering" screen.
-[ ] Proper parser state machine for loading levels so we can report line numbers very easily.
 [ ] Fix the location of the key at start of level, not per room-start.
 [ ] Prefix all sound file names with "Sound" to avoid name clashes.
 [ ] Improve AI for blue droids
@@ -17,6 +16,8 @@ Release 1
 
 Release 2
 ---------
+[ ] Font
+[ ] Proper parser state machine for loading levels so we can report line numbers very easily.
 [ ] Hi-score table (although we need a proper font for this).
 [ ] Open maximised
 [ ] Droid firing -- more aggressive as levels progress.
