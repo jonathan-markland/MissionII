@@ -98,7 +98,7 @@ namespace GameClassLibrary
                     TheWorldWallData = loadedWorld,
                     BoardWidth = CybertronGameBoardConstants.ScreenWidth,
                     BoardHeight = CybertronGameBoardConstants.ScreenHeight,
-                    LevelNumber = 1,
+                    LevelNumber = 3,
                     Lives = Constants.InitialLives
                 };
 
