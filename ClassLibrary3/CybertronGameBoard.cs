@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GameClassLibrary.Math;
 
 namespace GameClassLibrary
@@ -17,16 +14,16 @@ namespace GameClassLibrary
         public uint Lives;
         public WorldWallData TheWorldWallData;
         public WallMatrix CurrentRoomWallData;
-        public CybertronMan Man = new CybertronMan();
-        public SuddenlyReplaceableList<CybertronGameObject> ObjectsInRoom = new SuddenlyReplaceableList<CybertronGameObject>();
-        public List<CybertronGameObject> ObjectsToRemove = new List<CybertronGameObject>();
+        public GameObjects.Man Man = new GameObjects.Man();
+        public SuddenlyReplaceableList<BaseGameObject> ObjectsInRoom = new SuddenlyReplaceableList<BaseGameObject>();
+        public List<BaseGameObject> ObjectsToRemove = new List<BaseGameObject>();
         public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
         public Interactibles.Key Key;
         public Interactibles.Ring Ring;
         public Interactibles.Gold Gold;
         public Interactibles.LevelSafe Safe;
         public Interactibles.Potion Potion;
-        public CybertronManPosition ManPositionOnRoomEntry;
+        public PositionAndDirection ManPositionOnRoomEntry;
 
 
 
@@ -78,7 +75,7 @@ namespace GameClassLibrary
 
 
 
-        public void AddObjectIfInCurrentRoom(Interactibles.InteractibleObject theObject, List<CybertronGameObject> targetList)
+        public void AddObjectIfInCurrentRoom(Interactibles.InteractibleObject theObject, List<BaseGameObject> targetList)
         {
             if (theObject.RoomNumber == RoomNumber)
             {
@@ -162,7 +159,7 @@ namespace GameClassLibrary
             }
 
             ObjectsInRoom.Add(
-                new CybertronBullet
+                new GameObjects.Bullet
                 (
                     new SpriteInstance
                     {
@@ -177,7 +174,7 @@ namespace GameClassLibrary
 
 
 
-        public bool KillThingsIfShot(CybertronBullet theBullet)
+        public bool KillThingsIfShot(GameObjects.Bullet theBullet)
         {
             bool hitSomething = false;
 
@@ -306,7 +303,7 @@ namespace GameClassLibrary
                     .Rooms[thisRoomNumber - 1]
                     .WallData;
 
-            var objectsList = new List<CybertronGameObject>();
+            var objectsList = new List<BaseGameObject>();
 
             ObjectsToRemove.Clear();
 
@@ -343,15 +340,15 @@ namespace GameClassLibrary
             {
                 if (j < redBlueThreshold)
                 {
-                    objectsList.Add(new Droids.RedDroid());
+                    objectsList.Add(new Droids.HomingDroid());
                 }
                 else if (j < bluePinkThreshold)
                 {
-                    objectsList.Add(new Droids.BlueDroid());
+                    objectsList.Add(new Droids.WanderingDroid());
                 }
                 else
                 {
-                    objectsList.Add(new Droids.PinkDroid());
+                    objectsList.Add(new Droids.DestroyerDroid());
                 }
             }
 
@@ -404,7 +401,7 @@ namespace GameClassLibrary
 
             // Add other objects to the list, that don't require the positioner:
 
-            objectsList.Add(new CybertronGhost());
+            objectsList.Add(new GameObjects.Ghost());
             objectsList.Add(Man);
 
             ObjectsInRoom.ReplaceWith(objectsList);
@@ -488,7 +485,7 @@ namespace GameClassLibrary
                 int n = 0;
                 ObjectsInRoom.ForEachDo(o =>
                 {
-                    var theExplosion = o as CybertronExplosion;
+                    var theExplosion = o as GameObjects.Explosion;
                     if (theExplosion != null && theExplosion.CanBeConsideredForMultiKillBonus)
                     {
                         ++n;
@@ -504,7 +501,7 @@ namespace GameClassLibrary
         {
             ObjectsInRoom.ForEachDo(o =>
             {
-                var theExplosion = o as CybertronExplosion;
+                var theExplosion = o as GameObjects.Explosion;
                 if (theExplosion != null)
                 {
                     theExplosion.MarkAsUsedForBonus();

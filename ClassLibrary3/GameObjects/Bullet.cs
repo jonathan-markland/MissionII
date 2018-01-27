@@ -1,14 +1,14 @@
 ﻿using GameClassLibrary.Math;
 
-namespace GameClassLibrary
+namespace GameClassLibrary.GameObjects
 {
-    public class CybertronBullet : CybertronGameObject
+    public class Bullet : BaseGameObject
     {
         public SpriteInstance Sprite;
         public MovementDeltas BulletDirection;
         public bool _increasesScore;
 
-        public CybertronBullet(SpriteInstance theSprite, MovementDeltas bulletDirection, bool increasesScore)
+        public Bullet(SpriteInstance theSprite, MovementDeltas bulletDirection, bool increasesScore)
         {
             Sprite = theSprite;
             BulletDirection = bulletDirection;

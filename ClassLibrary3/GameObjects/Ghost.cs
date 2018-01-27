@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using GameClassLibrary.Math;
 
-namespace GameClassLibrary
+namespace GameClassLibrary.GameObjects
 {
-    public class CybertronGhost : CybertronGameObject
+    public class Ghost : BaseGameObject
     {
         private int _stunCountDown = 0;
         private int _startCountDown = Constants.GhostStartCycles;
         private SpriteInstance _spriteInstance;
         private ArtificialIntelligence.AbstractIntelligenceProvider _intelligenceProvider;
 
-        public CybertronGhost()
+        public Ghost()
         {
             _intelligenceProvider = new ArtificialIntelligence.Swoop();
             _spriteInstance = new SpriteInstance();

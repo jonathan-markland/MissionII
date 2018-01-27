@@ -2,7 +2,7 @@
 
 namespace GameClassLibrary.Droids
 {
-    public class BaseDroid : CybertronGameObject
+    public class BaseDroid : BaseGameObject
     {
         public SpriteInstance SpriteInstance = new SpriteInstance(); // TODO: private?
         private int _imageIndex = 0;
@@ -33,7 +33,7 @@ namespace GameClassLibrary.Droids
         {
             // TODO: FUTURE: We assume the explosion dimensions match the droid.  We should centre it about the droid.
             theGameBoard.ObjectsInRoom.Add(
-                new CybertronExplosion(
+                new GameObjects.Explosion(
                     SpriteInstance.RoomX,
                     SpriteInstance.RoomY,
                     CybertronSpriteTraits.Explosion,

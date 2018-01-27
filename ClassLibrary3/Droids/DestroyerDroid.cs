@@ -1,9 +1,9 @@
 ﻿
 namespace GameClassLibrary.Droids
 {
-    public class PinkDroid : BaseDroid
+    public class DestroyerDroid : BaseDroid
     {
-        public PinkDroid()
+        public DestroyerDroid()
             : base(CybertronSpriteTraits.Monster3, new ArtificialIntelligence.FiringAttractor())
         {
         }

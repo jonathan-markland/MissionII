@@ -1,8 +1,8 @@
 ﻿using GameClassLibrary.Math;
 
-namespace GameClassLibrary
+namespace GameClassLibrary.GameObjects
 {
-    public class CybertronExplosion : CybertronGameObject
+    public class Explosion : BaseGameObject
     {
         public SpriteInstance SpriteInstance = new SpriteInstance();
         private int _imageIndex = 0;
@@ -12,7 +12,7 @@ namespace GameClassLibrary
         private int _explosionCountDown = ExplosionCountDownReset;
         private bool _canBeConsideredForMultiKillBonus;
 
-        public CybertronExplosion(int roomX, int roomY, SpriteTraits explosionKind, bool canBeConsideredForBonus)
+        public Explosion(int roomX, int roomY, SpriteTraits explosionKind, bool canBeConsideredForBonus)
         {
             SpriteInstance.RoomX = roomX;
             SpriteInstance.RoomY = roomY;

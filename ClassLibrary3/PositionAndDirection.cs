@@ -2,7 +2,7 @@
 
 namespace GameClassLibrary
 {
-    public struct CybertronManPosition
+    public struct PositionAndDirection
     {
         public Point Position;
         public int FacingDirection;

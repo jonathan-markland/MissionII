@@ -2,7 +2,7 @@
 
 namespace GameClassLibrary.Interactibles
 {
-    public abstract class InteractibleObject : CybertronGameObject
+    public abstract class InteractibleObject : BaseGameObject
     {
         private SpriteInstance Sprite;
         private int _roomNumber;

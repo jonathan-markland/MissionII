@@ -1,9 +1,9 @@
 ﻿
 namespace GameClassLibrary.Droids
 {
-    public class BlueDroid : BaseDroid
+    public class WanderingDroid : BaseDroid
     {
-        public BlueDroid()
+        public WanderingDroid()
             : base(CybertronSpriteTraits.Monster2, new ArtificialIntelligence.SingleMinded())
         {
         }

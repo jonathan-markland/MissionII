@@ -1,10 +1,9 @@
 ﻿
-using System;
 using GameClassLibrary.Math;
 
-namespace GameClassLibrary
+namespace GameClassLibrary.GameObjects
 {
-    public class CybertronMan : CybertronGameObject
+    public class Man : BaseGameObject
     {
         public SpriteInstance SpriteInstance = new SpriteInstance();
         private bool _debugInvulnerable = false;
@@ -21,11 +20,11 @@ namespace GameClassLibrary
         private int _whileDeadCount = 0;
         public int _cyclesMoving = 0;
 
-        public CybertronManPosition Position
+        public PositionAndDirection Position
         {
             get
             {
-                return new CybertronManPosition
+                return new PositionAndDirection
                 {
                     Position = new Point(SpriteInstance.RoomX, SpriteInstance.RoomY),
                     FacingDirection = _facingDirection

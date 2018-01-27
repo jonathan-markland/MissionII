@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace GameClassLibrary
 {
     public static class CybertronModes

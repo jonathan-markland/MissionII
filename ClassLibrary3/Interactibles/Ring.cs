@@ -1,5 +1,4 @@
-﻿using GameClassLibrary.Math;
-
+﻿
 namespace GameClassLibrary.Interactibles
 {
     public class Ring : InteractibleObject
