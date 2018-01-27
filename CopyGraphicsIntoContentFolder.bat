@@ -1,1 +1,1 @@
-copy /Y CybertronGraphics\*.* MonogameTest\Content\
+copy /Y CybertronGraphics\*.* MissionIIMonoGame\Content\
