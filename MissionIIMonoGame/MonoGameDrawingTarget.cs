@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace MonogameTest
+namespace MissionIIMonoGame
 {
     public class MonoGameDrawingTarget: MissionIIClassLibrary.IDrawingTarget
     {

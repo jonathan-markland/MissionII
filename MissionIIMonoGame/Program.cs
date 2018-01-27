@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MonogameTest
+namespace MissionIIMonoGame
 {
     /// <summary>
     /// The main class.
