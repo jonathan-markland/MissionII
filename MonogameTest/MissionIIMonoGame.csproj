@@ -42,7 +42,7 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Game1.cs" />
+    <Compile Include="GameMain.cs" />
     <Compile Include="MonoGameDrawingTarget.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -112,9 +112,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary3\GameClassLibrary.csproj">
+    <ProjectReference Include="..\ClassLibrary3\MissionIIClassLibrary.csproj">
       <Project>{5935b105-51e8-46d7-941c-2860502ae324}</Project>
-      <Name>GameClassLibrary</Name>
+      <Name>MissionIIClassLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

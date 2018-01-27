@@ -17,7 +17,7 @@ namespace MonogameTest
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class Game1 : Game
+    public class GameMain : Game
     {
         GraphicsDeviceManager _graphicsDeviceManager;
         SpriteBatch _spriteBatch;
@@ -28,7 +28,7 @@ namespace MonogameTest
 
 
 
-        public Game1()
+        public GameMain()
         {
             base.Window.AllowUserResizing = true;
 
