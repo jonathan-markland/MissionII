@@ -355,10 +355,10 @@ namespace GameClassLibrary
                 }
             }
 
-            // Now measure the max dimensions of the things that need measuring.
+            // Now measure the max dimensions of the things that need positioning.
 
-            int posnWidth = Constants.PositionerShapeSizeMinium;
-            int posnHeight = Constants.PositionerShapeSizeMinium;
+            int posnWidth = Constants.PositionerShapeSizeMinimum;
+            int posnHeight = Constants.PositionerShapeSizeMinimum;
 
             foreach (var obj in objectsList)
             {
@@ -564,7 +564,8 @@ namespace GameClassLibrary
                 CybertronGameBoardConstants.TileHeight,
                 CurrentRoomWallData,
                 outlineWallSpriteTraits,
-                CybertronSpriteTraits.WallBrick);
+                CybertronSpriteTraits.WallBrick,
+                CybertronSpriteTraits.FloorTile);
 
             // Draw objects in the room:
 

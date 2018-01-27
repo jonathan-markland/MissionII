@@ -32,11 +32,13 @@
             int leftX, int topY, int tileWidth, int tileHeight,
             WallMatrix wallData,
             SpriteTraits outlineSpriteTraits,
-            SpriteTraits brickSpriteTraits)
+            SpriteTraits brickSpriteTraits,
+            SpriteTraits floorSpriteTraits)
         {
             --levelNumber; // because it's 1-based!
-            var outlineIndex = outlineSpriteTraits.GetHostImageObject(levelNumber % outlineSpriteTraits.ImageCount);
-            var brickIndex = brickSpriteTraits.GetHostImageObject(levelNumber % brickSpriteTraits.ImageCount);
+            var outlineHostSprite = outlineSpriteTraits.GetHostImageObject(levelNumber % outlineSpriteTraits.ImageCount);
+            var brickHostSprite = brickSpriteTraits.GetHostImageObject(levelNumber % brickSpriteTraits.ImageCount);
+            var floorHostSprite = floorSpriteTraits.GetHostImageObject(levelNumber % floorSpriteTraits.ImageCount);
 
             for (int y = 0; y < wallData.CountV; y++)
             {
@@ -46,11 +48,15 @@
                     var ch = wallData.Read(x, y);
                     if (ch == WallMatrixChar.Electric) // <-- confusing that this really means draw the wall in either normal or electric state
                     {
-                        drawingTarget.DrawSprite(leftX, topY, outlineIndex);
+                        drawingTarget.DrawSprite(leftX, topY, outlineHostSprite);
                     }
                     else if (ch != WallMatrixChar.Space)
                     {
-                        drawingTarget.DrawSprite(leftX, topY, brickIndex);
+                        drawingTarget.DrawSprite(leftX, topY, brickHostSprite);
+                    }
+                    else
+                    {
+                        drawingTarget.DrawSprite(leftX, topY, floorHostSprite);
                     }
                     leftX += tileWidth;
                 }

@@ -59,6 +59,7 @@ namespace GameClassLibrary
         public static SpriteTraits Room;
         public static SpriteTraits Safe;
         public static SpriteTraits Score;
+        public static SpriteTraits FloorTile;
         public static SpriteTraits WallOutline;
         public static SpriteTraits WallBrick;
         public static SpriteTraits WallElectric;
@@ -159,6 +160,7 @@ namespace GameClassLibrary
             Room = loadImage("Room", 1);
             Safe = loadImage("Safe", 1);
             Score = loadImage("Score", 1);
+            FloorTile = loadImage("FloorTile", 3);
             WallOutline = loadImage("WallOutline", 3);
             WallBrick = loadImage("WallBrick", 3);
             WallElectric = loadImage("WallElectric", 1);
