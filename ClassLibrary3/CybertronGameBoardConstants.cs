@@ -8,7 +8,7 @@ namespace GameClassLibrary
 {
     public static class CybertronGameBoardConstants
     {
-        public const int StartLevelNumber = 4;
+        public const int StartLevelNumber = 1;
         public const int RoomOriginX = 10;
         public const int RoomOriginY = 28;
         public const int TileWidth = 12;
