@@ -1,7 +1,7 @@
 ﻿
 namespace MissionIIClassLibrary
 {
-    public class CybertronKeyStates
+    public class MissionIIKeyStates
     {
         public bool Up;
         public bool Down;

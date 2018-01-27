@@ -3,24 +3,24 @@ using System.IO;
 
 namespace MissionIIClassLibrary
 {
-    public class CybertronTitleScreenMode : CybertronGameMode
+    public class MissionIITitleScreenMode : MissionIIGameMode
     {
         private int _countDown = Constants.TitleScreenRollCycles;
         private bool _releaseWaiting = true;
         private bool _firstCycle = true;
 
-        public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
             if (_firstCycle)
             {
-                CybertronSounds.Play(CybertronSounds.IntroSound);
+                MissionIISounds.Play(MissionIISounds.IntroSound);
                 _firstCycle = false;
             }
 
             if (theKeyStates.Fire)
             {
                 if (_releaseWaiting) return;
-                CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronStartNewGameMode();
+                MissionIIGameModeSelector.ModeSelector.CurrentMode = new CybertronStartNewGameMode();
             }
 
             _releaseWaiting = false;
@@ -31,35 +31,35 @@ namespace MissionIIClassLibrary
             }
             else
             {
-                CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronInstructionsKeysMode();
+                MissionIIGameModeSelector.ModeSelector.CurrentMode = new CybertronInstructionsKeysMode();
             }
         }
 
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, CybertronSpriteTraits.TitleScreen.GetHostImageObject(0));
+            drawingTarget.DrawSprite(0, 0, MissionIISpriteTraits.TitleScreen.GetHostImageObject(0));
         }
     }
 
-    public class CybertronInstructionsKeysMode : CybertronGameMode
+    public class CybertronInstructionsKeysMode : MissionIIGameMode
     {
         private int _countDown = Constants.TitleScreenRollCycles;
         private int _screenIndex = 1;
 
-        public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
-            if (CybertronSpriteTraits.TitleScreen.ImageCount < 2)
+            if (MissionIISpriteTraits.TitleScreen.ImageCount < 2)
             {
                 // Cannot rotate any instruction screens.
-                CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronTitleScreenMode();
+                MissionIIGameModeSelector.ModeSelector.CurrentMode = new MissionIITitleScreenMode();
                 return;
             }
 
             if (theKeyStates.Fire)
             {
                 _screenIndex = 1; // for next time
-                CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronTitleScreenMode();
+                MissionIIGameModeSelector.ModeSelector.CurrentMode = new MissionIITitleScreenMode();
             }
             else if (_countDown > 0)
             {
@@ -68,7 +68,7 @@ namespace MissionIIClassLibrary
             else
             {
                 ++_screenIndex;
-                if (_screenIndex >= CybertronSpriteTraits.TitleScreen.ImageCount)
+                if (_screenIndex >= MissionIISpriteTraits.TitleScreen.ImageCount)
                 {
                     _screenIndex = 1;
                 }
@@ -79,13 +79,13 @@ namespace MissionIIClassLibrary
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, CybertronSpriteTraits.TitleScreen.GetHostImageObject(_screenIndex));
+            drawingTarget.DrawSprite(0, 0, MissionIISpriteTraits.TitleScreen.GetHostImageObject(_screenIndex));
         }
     }
 
-    public class CybertronStartNewGameMode : CybertronGameMode
+    public class CybertronStartNewGameMode : MissionIIGameMode
     {
-        public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
             using (var sr = new StreamReader("Resources\\Levels.txt"))
             {
@@ -93,12 +93,12 @@ namespace MissionIIClassLibrary
                 MissionIIClassLibrary.LevelFileValidator.ExpectValidPathsInWorld(loadedWorld);
                 MissionIIClassLibrary.LevelExpander.ExpandWallsInWorld(loadedWorld);
 
-                var cybertronGameBoard = new MissionIIClassLibrary.CybertronGameBoard()
+                var cybertronGameBoard = new MissionIIClassLibrary.MissionIIGameBoard()
                 {
                     TheWorldWallData = loadedWorld,
-                    BoardWidth = CybertronGameBoardConstants.ScreenWidth,
-                    BoardHeight = CybertronGameBoardConstants.ScreenHeight,
-                    LevelNumber = CybertronGameBoardConstants.StartLevelNumber,
+                    BoardWidth = MissionIIGameBoardConstants.ScreenWidth,
+                    BoardHeight = MissionIIGameBoardConstants.ScreenHeight,
+                    LevelNumber = MissionIIGameBoardConstants.StartLevelNumber,
                     Lives = Constants.InitialLives
                 };
 
@@ -112,22 +112,22 @@ namespace MissionIIClassLibrary
         }
     }
 
-    public class CybertronEnteringLevelMode : CybertronGameMode
+    public class CybertronEnteringLevelMode : MissionIIGameMode
     {
-        private CybertronGameBoard _cybertronGameBoard;
+        private MissionIIGameBoard _cybertronGameBoard;
         private int _countDown = Constants.EnteringLevelScreenCycles;
 
-        public CybertronEnteringLevelMode(CybertronGameBoard theGameBoard)
+        public CybertronEnteringLevelMode(MissionIIGameBoard theGameBoard)
         {
             _cybertronGameBoard = theGameBoard;
         }
 
-        public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
-            if (CybertronModes.HandlePause(theKeyStates, this)) return;
+            if (MissionIIModes.HandlePause(theKeyStates, this)) return;
             if (_countDown == Constants.EnteringLevelScreenCycles)
             {
-                CybertronSounds.Play(CybertronSounds.EnteirngLevel);
+                MissionIISounds.Play(MissionIISounds.EnteirngLevel);
             }
             if (_countDown > 0)
             {
@@ -135,7 +135,7 @@ namespace MissionIIClassLibrary
             }
             else
             {
-                CybertronGameModeSelector.ModeSelector.CurrentMode 
+                MissionIIGameModeSelector.ModeSelector.CurrentMode 
                     = new CybertronGamePlayMode(_cybertronGameBoard);
             }
         }
@@ -143,11 +143,11 @@ namespace MissionIIClassLibrary
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, CybertronSpriteTraits.EnteringLevel.GetHostImageObject(0));
+            drawingTarget.DrawSprite(0, 0, MissionIISpriteTraits.EnteringLevel.GetHostImageObject(0));
 
             // Show the things you need to find on this level.
 
-            int x = CybertronGameBoardConstants.ScreenWidth / 2;
+            int x = MissionIIGameBoardConstants.ScreenWidth / 2;
             int y = 150; // TODO: constant
             int dy = 24; // TODO: constant
 
@@ -160,18 +160,18 @@ namespace MissionIIClassLibrary
         }
     }
 
-    public class CybertronGamePlayMode : CybertronGameMode
+    public class CybertronGamePlayMode : MissionIIGameMode
     {
-        private CybertronGameBoard _cybertronGameBoard;
+        private MissionIIGameBoard _cybertronGameBoard;
 
-        public CybertronGamePlayMode(CybertronGameBoard cybertronGameBoard)
+        public CybertronGamePlayMode(MissionIIGameBoard cybertronGameBoard)
         {
             _cybertronGameBoard = cybertronGameBoard;
         }
 
-        public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
-            if (CybertronModes.HandlePause(theKeyStates, this)) return;
+            if (MissionIIModes.HandlePause(theKeyStates, this)) return;
             _cybertronGameBoard.Update(theKeyStates); // TODO: pull logic into this class
         }
 
@@ -181,19 +181,19 @@ namespace MissionIIClassLibrary
         }
     }
 
-    public class CybertronLeavingLevelMode : CybertronGameMode
+    public class CybertronLeavingLevelMode : MissionIIGameMode
     {
-        private CybertronGameBoard _cybertronGameBoard;
+        private MissionIIGameBoard _cybertronGameBoard;
         private int _countDown = Constants.LeavingLevelCycles;
 
-        public CybertronLeavingLevelMode(CybertronGameBoard cybertronGameBoard)
+        public CybertronLeavingLevelMode(MissionIIGameBoard cybertronGameBoard)
         {
             _cybertronGameBoard = cybertronGameBoard;
         }
 
-        public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
-            if (CybertronModes.HandlePause(theKeyStates, this)) return;
+            if (MissionIIModes.HandlePause(theKeyStates, this)) return;
             if (_countDown > 0)
             {
                 --_countDown;
@@ -213,15 +213,15 @@ namespace MissionIIClassLibrary
         }
     }
 
-    public class CybertronGameOverMode : CybertronGameMode
+    public class CybertronGameOverMode : MissionIIGameMode
     {
         private int _countDown = Constants.GameOverMessageCycles;
 
-        public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
             if (_countDown == Constants.GameOverMessageCycles)
             {
-                CybertronSounds.Play(CybertronSounds.GameOverSound);
+                MissionIISounds.Play(MissionIISounds.GameOverSound);
             }
             if (_countDown > 0)
             {
@@ -229,31 +229,31 @@ namespace MissionIIClassLibrary
             }
             else
             {
-                CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronTitleScreenMode();
+                MissionIIGameModeSelector.ModeSelector.CurrentMode = new MissionIITitleScreenMode();
             }
         }
 
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            drawingTarget.DrawFirstSpriteScreenCentred(CybertronSpriteTraits.GameOver);
+            drawingTarget.DrawFirstSpriteScreenCentred(MissionIISpriteTraits.GameOver);
         }
     }
 
-    public class CybertronPauseMode : CybertronGameMode
+    public class CybertronPauseMode : MissionIIGameMode
     {
-        private CybertronGameMode _originalMode;
+        private MissionIIGameMode _originalMode;
         private bool _keyReleaseSeen;
         private bool _restartGameOnNextRelease;
 
-        public CybertronPauseMode(CybertronGameMode originalMode)
+        public CybertronPauseMode(MissionIIGameMode originalMode)
         {
             _originalMode = originalMode;
             _keyReleaseSeen = false; // PAUSE key is held at the time this object is created.
             _restartGameOnNextRelease = false;
         }
 
-        public override void AdvanceOneCycle(CybertronKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
             if (!_keyReleaseSeen)
             {
@@ -262,7 +262,7 @@ namespace MissionIIClassLibrary
                     _keyReleaseSeen = true;
                     if (_restartGameOnNextRelease)
                     {
-                        CybertronGameModeSelector.ModeSelector.CurrentMode = _originalMode;
+                        MissionIIGameModeSelector.ModeSelector.CurrentMode = _originalMode;
                     }
                 }
             }
@@ -276,7 +276,7 @@ namespace MissionIIClassLibrary
         public override void Draw(IDrawingTarget drawingTarget)
         {
             _originalMode.Draw(drawingTarget);
-            drawingTarget.DrawFirstSpriteScreenCentred(CybertronSpriteTraits.Paused);
+            drawingTarget.DrawFirstSpriteScreenCentred(MissionIISpriteTraits.Paused);
         }
     }
 }

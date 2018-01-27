@@ -11,7 +11,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
     {
         private uint _cycleCounter = 0;
 
-        public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, SpriteInstance spriteInstance)
+        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, SpriteInstance spriteInstance)
         {
             ++_cycleCounter;
 

@@ -3,7 +3,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 {
     public class Swoop : AbstractIntelligenceProvider
     {
-        public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, SpriteInstance spriteInstance)
+        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, SpriteInstance spriteInstance)
         {
             for (int i = 0; i < Constants.GhostMovementCycles; i++)
             {
@@ -22,7 +22,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
         
 
-        private void KillMan(CybertronGameBoard theGameBoard)
+        private void KillMan(MissionIIGameBoard theGameBoard)
         {
             theGameBoard.Man.Electrocute(ElectrocutionMethod.ByDroid);
         }

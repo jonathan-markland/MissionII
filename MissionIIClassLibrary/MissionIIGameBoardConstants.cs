@@ -1,7 +1,7 @@
 ﻿
 namespace MissionIIClassLibrary
 {
-    public static class CybertronGameBoardConstants
+    public static class MissionIIGameBoardConstants
     {
         public const int StartLevelNumber = 4;
         public const int RoomOriginX = 10;

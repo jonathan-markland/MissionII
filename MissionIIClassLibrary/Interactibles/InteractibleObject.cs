@@ -38,20 +38,20 @@ namespace MissionIIClassLibrary.Interactibles
             }
         }
 
-        public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, CybertronKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, MissionIIKeyStates theKeyStates)
         {
             // No action required.
         }
 
-        public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
         {
             theGameBoard.PlayerInventory.Add(this);
             RemoveThisObject(theGameBoard);
             theGameBoard.IncrementScore(CollectionScore);
-            CybertronSounds.Play(CybertronSounds.PickUpObject);
+            MissionIISounds.Play(MissionIISounds.PickUpObject);
         }
 
-        protected void RemoveThisObject(CybertronGameBoard theGameBoard)
+        protected void RemoveThisObject(MissionIIGameBoard theGameBoard)
         {
             if (_roomNumber != -1)
             {
@@ -60,7 +60,7 @@ namespace MissionIIClassLibrary.Interactibles
             }
         }
 
-        public override void Draw(CybertronGameBoard theGameBoard, IDrawingTarget drawingTarget)
+        public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawIndexedSprite(Sprite, 0);
         }
@@ -70,7 +70,7 @@ namespace MissionIIClassLibrary.Interactibles
             return Sprite.GetBoundingRectangle(); // Note: applies in every room!
         }
 
-        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard, bool shotByMan)
+        public override bool YouHaveBeenShot(MissionIIGameBoard theGameBoard, bool shotByMan)
         {
             // This cannot be shot (ignore)
             return false;

@@ -2,12 +2,7 @@
 
 namespace MissionIIClassLibrary
 {
-    public class SoundTraits
-    {
-        public object HostObject;
-    }
-
-    public static class CybertronSounds
+    public static class MissionIISounds
     {
         public static SoundTraits DroidFiring; //
         public static SoundTraits Electrocution; //

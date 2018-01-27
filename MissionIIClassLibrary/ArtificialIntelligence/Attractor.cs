@@ -11,7 +11,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
     {
         private bool _operationEnable = false;
 
-        public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, SpriteInstance spriteInstance)
+        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, SpriteInstance spriteInstance)
         {
             _operationEnable = !_operationEnable;  // ie: operate only ever other cycle
             if (_operationEnable)

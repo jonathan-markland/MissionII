@@ -4,11 +4,11 @@ namespace MissionIIClassLibrary.Interactibles
     public class Potion : InteractibleObject
     {
         public Potion(int roomNumber)
-            : base(new SpriteInstance { Traits = CybertronSpriteTraits.Potion }, roomNumber)
+            : base(new SpriteInstance { Traits = MissionIISpriteTraits.Potion }, roomNumber)
         {
         }
 
-        public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
         {
             theGameBoard.IncrementLives();
             RemoveThisObject(theGameBoard);

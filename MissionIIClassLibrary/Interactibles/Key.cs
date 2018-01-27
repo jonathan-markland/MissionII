@@ -4,10 +4,10 @@ namespace MissionIIClassLibrary.Interactibles
     public class Key : InteractibleObject
     {
         public Key(int roomNumber)
-            : base(new SpriteInstance { Traits = CybertronSpriteTraits.Key }, roomNumber)
+            : base(new SpriteInstance { Traits = MissionIISpriteTraits.Key }, roomNumber)
         {
         }
 
-        public override int CollectionScore => CybertronGameBoardConstants.KeyCollectionScore;
+        public override int CollectionScore => MissionIIGameBoardConstants.KeyCollectionScore;
     }
 }

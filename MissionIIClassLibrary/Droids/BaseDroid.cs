@@ -18,25 +18,25 @@ namespace MissionIIClassLibrary.Droids
             _intelligenceProvider = intelligenceProvider;
         }
 
-        public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, CybertronKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, MissionIIKeyStates theKeyStates)
         {
             Business.Animate(ref _animationCountdown, ref _imageIndex, AnimationReset, SpriteInstance.Traits.ImageCount);
             _intelligenceProvider.AdvanceOneCycle(theGameBoard, SpriteInstance);
         }
 
-        public override void Draw(CybertronGameBoard theGameBoard, IDrawingTarget drawingTarget)
+        public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawIndexedSprite(SpriteInstance, _imageIndex);
         }
 
-        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard, bool shotByMan)
+        public override bool YouHaveBeenShot(MissionIIGameBoard theGameBoard, bool shotByMan)
         {
             // TODO: FUTURE: We assume the explosion dimensions match the droid.  We should centre it about the droid.
             theGameBoard.ObjectsInRoom.Add(
                 new GameObjects.Explosion(
                     SpriteInstance.RoomX,
                     SpriteInstance.RoomY,
-                    CybertronSpriteTraits.Explosion,
+                    MissionIISpriteTraits.Explosion,
                     shotByMan));
 
             theGameBoard.ObjectsToRemove.Add(this);
@@ -48,7 +48,7 @@ namespace MissionIIClassLibrary.Droids
             return SpriteInstance.GetBoundingRectangle();
         }
 
-        public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
         {
             theGameBoard.Man.Electrocute(ElectrocutionMethod.ByDroid);
         }

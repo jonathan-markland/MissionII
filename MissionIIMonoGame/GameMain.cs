@@ -23,7 +23,7 @@ namespace MonogameTest
         SpriteBatch _spriteBatch;
         RenderTarget2D _backingScreen;
         MonoGameDrawingTarget _monoGameDrawingTarget;
-        MissionIIClassLibrary.CybertronKeyStates _cybertronKeyStates;
+        MissionIIClassLibrary.MissionIIKeyStates _cybertronKeyStates;
         ScalingModes _scalingModes;
 
 
@@ -32,7 +32,7 @@ namespace MonogameTest
         {
             base.Window.AllowUserResizing = true;
 
-            _cybertronKeyStates = new MissionIIClassLibrary.CybertronKeyStates();
+            _cybertronKeyStates = new MissionIIClassLibrary.MissionIIKeyStates();
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             _scalingModes = ScalingModes.StretchPreservingAspect;
@@ -62,14 +62,14 @@ namespace MonogameTest
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _backingScreen = new RenderTarget2D(GraphicsDevice, 
-                MissionIIClassLibrary.CybertronGameBoardConstants.ScreenWidth,
-                MissionIIClassLibrary.CybertronGameBoardConstants.ScreenHeight);
+                MissionIIClassLibrary.MissionIIGameBoardConstants.ScreenWidth,
+                MissionIIClassLibrary.MissionIIGameBoardConstants.ScreenHeight);
 
             _monoGameDrawingTarget = new MonoGameDrawingTarget(_spriteBatch);
 
             // TODO: use this.Content to load your game content here
 
-            MissionIIClassLibrary.CybertronSpriteTraits.Load((spriteName) => 
+            MissionIIClassLibrary.MissionIISpriteTraits.Load((spriteName) => 
             {
                 var texture2d = Content.Load<Texture2D>(spriteName);
                 return new MissionIIClassLibrary.HostSuppliedSprite
@@ -80,12 +80,12 @@ namespace MonogameTest
                 };
             });
 
-            MissionIIClassLibrary.CybertronSounds.Load((soundName) =>
+            MissionIIClassLibrary.MissionIISounds.Load((soundName) =>
             {
                 return Content.Load<SoundEffect>(soundName);
             });
 
-            MissionIIClassLibrary.CybertronSounds.Init((soundTraits) =>
+            MissionIIClassLibrary.MissionIISounds.Init((soundTraits) =>
             {
                 ((SoundEffect)soundTraits.HostObject).Play();
             });
@@ -118,7 +118,7 @@ namespace MonogameTest
             ReadAndStorePlayerInputs();
             // TODO: remove function called:  var elapsedTime = GetGameTimeElapsed(gameTime);
 
-            MissionIIClassLibrary.CybertronGameModeSelector.ModeSelector.CurrentMode.AdvanceOneCycle(_cybertronKeyStates);
+            MissionIIClassLibrary.MissionIIGameModeSelector.ModeSelector.CurrentMode.AdvanceOneCycle(_cybertronKeyStates);
 
             base.Update(gameTime);
         }
@@ -160,7 +160,7 @@ namespace MonogameTest
 
             _spriteBatch.Begin();
 
-            MissionIIClassLibrary.CybertronGameModeSelector.ModeSelector.CurrentMode.Draw(_monoGameDrawingTarget);
+            MissionIIClassLibrary.MissionIIGameModeSelector.ModeSelector.CurrentMode.Draw(_monoGameDrawingTarget);
 
             _spriteBatch.End();
 

@@ -21,7 +21,7 @@ namespace MissionIIClassLibrary.GameObjects
             get { return _startCountDown == 0; }
         }
 
-        public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, CybertronKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, MissionIIKeyStates theKeyStates)
         {
             if (_startCountDown > 0)
             {
@@ -30,8 +30,8 @@ namespace MissionIIClassLibrary.GameObjects
                 {
                     _spriteInstance.RoomX = 0;
                     _spriteInstance.RoomY = 0;
-                    _spriteInstance.Traits = CybertronSpriteTraits.Ghost;
-                    CybertronSounds.Play(CybertronSounds.GhostAppearing);
+                    _spriteInstance.Traits = MissionIISpriteTraits.Ghost;
+                    MissionIISounds.Play(MissionIISounds.GhostAppearing);
                 }
             }
             else if (_stunCountDown > 0)
@@ -39,7 +39,7 @@ namespace MissionIIClassLibrary.GameObjects
                 --_stunCountDown;
                 if (_stunCountDown == 0)
                 {
-                    _spriteInstance.Traits = CybertronSpriteTraits.Ghost;
+                    _spriteInstance.Traits = MissionIISpriteTraits.Ghost;
                 }
             }
             else
@@ -48,12 +48,12 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
         {
             // The ghost kills the man via its AI.  No action needed here.
         }
 
-        public override void Draw(CybertronGameBoard theGameBoard, IDrawingTarget drawingTarget)
+        public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
         {
             if (IsActive)
             {
@@ -61,13 +61,13 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        public override bool YouHaveBeenShot(CybertronGameBoard gameBoard, bool shotByMan)
+        public override bool YouHaveBeenShot(MissionIIGameBoard gameBoard, bool shotByMan)
         {
             if (shotByMan)
             {
                 _stunCountDown = Constants.GhostStunnedCycles;
-                _spriteInstance.Traits = CybertronSpriteTraits.GhostStunned;
-                CybertronSounds.Play(CybertronSounds.StunGhostSound);
+                _spriteInstance.Traits = MissionIISpriteTraits.GhostStunned;
+                MissionIISounds.Play(MissionIISounds.StunGhostSound);
             }
             return true;
         }

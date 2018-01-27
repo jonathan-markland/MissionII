@@ -40,7 +40,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, CybertronKeyStates keyStates)
+        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, MissionIIKeyStates keyStates)
         {
             if (_isElectrocuting || _isElectrocutedByWalls)
             {
@@ -76,11 +76,11 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        private void DoWalking(CybertronGameBoard theGameBoard, CybertronKeyStates keyStates, int theDirection)
+        private void DoWalking(MissionIIGameBoard theGameBoard, MissionIIKeyStates keyStates, int theDirection)
         {
             ++_cyclesMoving;
             _facingDirection = theDirection;
-            SpriteInstance.Traits = CybertronSpriteTraits.ManWalking[theDirection];
+            SpriteInstance.Traits = MissionIISpriteTraits.ManWalking[theDirection];
             AdvanceAnimation();
             var movementDeltas = Business.GetMovementDeltas(keyStates);
             var hitResult = theGameBoard.MoveManOnePixel(movementDeltas);
@@ -133,15 +133,15 @@ namespace MissionIIClassLibrary.GameObjects
             var n = _cyclesMoving % c;
             if (n == 0)
             {
-                CybertronSounds.Play(CybertronSounds.Footstep1Sound);
+                MissionIISounds.Play(MissionIISounds.Footstep1Sound);
             }
             else if (n == (c / 2))
             {
-                CybertronSounds.Play(CybertronSounds.Footstep2Sound);
+                MissionIISounds.Play(MissionIISounds.Footstep2Sound);
             }
         }
 
-        private void FireButtonCheck(CybertronGameBoard theGameBoard, CybertronKeyStates keyStates)
+        private void FireButtonCheck(MissionIIGameBoard theGameBoard, MissionIIKeyStates keyStates)
         {
             if (keyStates.Fire)
             {
@@ -158,7 +158,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        private void DeadHandling(CybertronGameBoard theGameBoard)
+        private void DeadHandling(MissionIIGameBoard theGameBoard)
         {
             System.Diagnostics.Debug.Assert(_isDead);
             if (_whileDeadCount > 0)
@@ -184,22 +184,22 @@ namespace MissionIIClassLibrary.GameObjects
                 _isElectrocuting = true;
                 _isElectrocutedByWalls = electrocutionMethod == ElectrocutionMethod.ByWalls;
                 _electrocutionCycles = ElectrocutionAnimationReset * 5;
-                SpriteInstance.Traits = CybertronSpriteTraits.Electrocution;
+                SpriteInstance.Traits = MissionIISpriteTraits.Electrocution;
                 _imageIndex = 0;
                 _animationCountdown = ElectrocutionAnimationReset;
-                CybertronSounds.Play(CybertronSounds.Electrocution);
+                MissionIISounds.Play(MissionIISounds.Electrocution);
             }
         }
 
         private void Standing(int theDirection)
         {
             _animationCountdown = WalkingAnimationReset; // for next time
-            SpriteInstance.Traits = CybertronSpriteTraits.ManStanding[theDirection];
+            SpriteInstance.Traits = MissionIISpriteTraits.ManStanding[theDirection];
             _imageIndex = 0;
             _cyclesMoving = 0;
         }
 
-        public override void Draw(CybertronGameBoard theGameBoard, IDrawingTarget drawingTarget)
+        public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawIndexedSprite(SpriteInstance, _imageIndex);
         }
@@ -222,11 +222,11 @@ namespace MissionIIClassLibrary.GameObjects
                 _isElectrocutedByWalls = false;
                 _isDead = true;
                 _imageIndex = 0;
-                SpriteInstance.Traits = CybertronSpriteTraits.Dead;
+                SpriteInstance.Traits = MissionIISpriteTraits.Dead;
                 // TODO: Sound
                 // TODO: Reduce lives.
                 _whileDeadCount = Constants.ManDeadDelayCycles;
-                CybertronSounds.Play(CybertronSounds.ManGrunt);
+                MissionIISounds.Play(MissionIISounds.ManGrunt);
             }
         }
 
@@ -235,7 +235,7 @@ namespace MissionIIClassLibrary.GameObjects
             get { return _isDead; }
         }
 
-        private void RoomUp(CybertronGameBoard theGameBoard)
+        private void RoomUp(MissionIIGameBoard theGameBoard)
         {
             MoveRooms(
                 theGameBoard,
@@ -244,7 +244,7 @@ namespace MissionIIClassLibrary.GameObjects
                 +1, -SpriteInstance.Traits.BoardHeight);
         }
 
-        private void RoomDown(CybertronGameBoard theGameBoard)
+        private void RoomDown(MissionIIGameBoard theGameBoard)
         {
             MoveRooms(
                 theGameBoard,
@@ -253,7 +253,7 @@ namespace MissionIIClassLibrary.GameObjects
                 -1, +SpriteInstance.Traits.BoardHeight);
         }
 
-        private void RoomLeft(CybertronGameBoard theGameBoard)
+        private void RoomLeft(MissionIIGameBoard theGameBoard)
         {
             MoveRooms(
                 theGameBoard,
@@ -262,7 +262,7 @@ namespace MissionIIClassLibrary.GameObjects
                 0, 0);
         }
 
-        private void RoomRight(CybertronGameBoard theGameBoard)
+        private void RoomRight(MissionIIGameBoard theGameBoard)
         {
             MoveRooms(
                 theGameBoard,
@@ -272,23 +272,23 @@ namespace MissionIIClassLibrary.GameObjects
         }
 
         private void MoveRooms(
-            CybertronGameBoard theGameBoard, 
+            MissionIIGameBoard theGameBoard, 
             int roomNumberDelta, 
             int deltaRoomWidth, int deltaSpriteWidth, 
             int deltaRoomHeight, int deltaSpriteHeight)
         {
             theGameBoard.RoomNumber += roomNumberDelta;
             // Note: We sort of assume all the rooms are the same size!  (Which they are!)
-            var roomWidth = theGameBoard.CurrentRoomWallData.CountH * CybertronGameBoardConstants.TileWidth; // TODO: Not ideal having these possibly repeated calculations.
-            var roomHeight = theGameBoard.CurrentRoomWallData.CountV * CybertronGameBoardConstants.TileHeight; // TODO: Not ideal having these possibly repeated calculations.
+            var roomWidth = theGameBoard.CurrentRoomWallData.CountH * MissionIIGameBoardConstants.TileWidth; // TODO: Not ideal having these possibly repeated calculations.
+            var roomHeight = theGameBoard.CurrentRoomWallData.CountV * MissionIIGameBoardConstants.TileHeight; // TODO: Not ideal having these possibly repeated calculations.
             SpriteInstance.RoomX += roomWidth * deltaRoomWidth;
             SpriteInstance.RoomX += deltaSpriteWidth;
             SpriteInstance.RoomY += roomHeight * deltaRoomHeight;
             SpriteInstance.RoomY += deltaSpriteHeight;
             if (! theGameBoard.DroidsExistInRoom)
             {
-                theGameBoard.IncrementScore(CybertronGameBoardConstants.RoomClearingBonusScore);
-                CybertronSounds.Play(CybertronSounds.BonusSound);
+                theGameBoard.IncrementScore(MissionIIGameBoardConstants.RoomClearingBonusScore);
+                MissionIISounds.Play(MissionIISounds.BonusSound);
             }
             theGameBoard.PrepareForNewRoom();
         }
@@ -298,12 +298,12 @@ namespace MissionIIClassLibrary.GameObjects
             return SpriteInstance.GetBoundingRectangle();
         }
 
-        public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
         {
             // No action for self-intersection.
         }
 
-        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard, bool shotByMan)
+        public override bool YouHaveBeenShot(MissionIIGameBoard theGameBoard, bool shotByMan)
         {
             Die(); // No electrocution animation desired here.
             return true;

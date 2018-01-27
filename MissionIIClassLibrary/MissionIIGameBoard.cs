@@ -4,7 +4,7 @@ using MissionIIClassLibrary.Math;
 
 namespace MissionIIClassLibrary
 {
-    public class CybertronGameBoard
+    public class MissionIIGameBoard
     {
         public int BoardWidth;  // TODO: There are also constants that are used for this.
         public int BoardHeight; // TODO: There are also constants that are used for this.
@@ -27,7 +27,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public void Update(CybertronKeyStates keyStates)
+        public void Update(MissionIIKeyStates keyStates)
         {
             ObjectsInRoom.ForEachDo(o => { o.AdvanceOneCycle(this, keyStates); });
             ObjectsInRoom.RemoveThese(ObjectsToRemove);
@@ -53,7 +53,7 @@ namespace MissionIIClassLibrary
         {
             if (Lives < Constants.MaxLives)
             {
-                CybertronSounds.Play(CybertronSounds.ExtraLife);
+                MissionIISounds.Play(MissionIISounds.ExtraLife);
                 ++Lives;
             }
         }
@@ -69,7 +69,7 @@ namespace MissionIIClassLibrary
             }
             else
             {
-                CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronGameOverMode();
+                MissionIIGameModeSelector.ModeSelector.CurrentMode = new CybertronGameOverMode();
             }
         }
 
@@ -114,14 +114,14 @@ namespace MissionIIClassLibrary
 
             if (increasesScore)
             {
-                CybertronSounds.Play(CybertronSounds.ManFiring);
+                MissionIISounds.Play(MissionIISounds.ManFiring);
             }
             else
             {
-                CybertronSounds.Play(CybertronSounds.DroidFiring);
+                MissionIISounds.Play(MissionIISounds.DroidFiring);
             }
 
-            var theBulletTraits = CybertronSpriteTraits.Bullet;
+            var theBulletTraits = MissionIISpriteTraits.Bullet;
             var bulletWidth = theBulletTraits.BoardWidth;
             var bulletHeight = theBulletTraits.BoardHeight;
 
@@ -192,10 +192,10 @@ namespace MissionIIClassLibrary
 
                             // Bonus scoring for multiples.
                             var n = CountExplosionsThatCanBeUsedForBonusesInRoom;
-                            if (n >= CybertronGameBoardConstants.MultiDroidKillCountForBonus)
+                            if (n >= MissionIIGameBoardConstants.MultiDroidKillCountForBonus)
                             {
                                 IncrementScore(thisDroidKillScore * n);
-                                CybertronSounds.Play(CybertronSounds.BonusSound);
+                                MissionIISounds.Play(MissionIISounds.BonusSound);
                                 MarkAllExplosionsAsUsedForBonusPurposes();
                             }
                         }
@@ -221,13 +221,13 @@ namespace MissionIIClassLibrary
             RoomNumber = theLevel.ManStartRoom.RoomNumber;
 
             // Calculate size of cluster in pixels:
-            var clusterSizeX = CybertronGameBoardConstants.TileWidth * Constants.DestClusterSide;
-            var clusterSizeY = CybertronGameBoardConstants.TileHeight * Constants.DestClusterSide;
+            var clusterSizeX = MissionIIGameBoardConstants.TileWidth * Constants.DestClusterSide;
+            var clusterSizeY = MissionIIGameBoardConstants.TileHeight * Constants.DestClusterSide;
 
             // TODO: all man sprites must be checked for SAME dimensions.
             // Calculate centering offsets for man within cluster:
-            var manCX = (clusterSizeX - CybertronSpriteTraits.ManStanding[0].BoardWidth) / 2;
-            var manCY = (clusterSizeY - CybertronSpriteTraits.ManStanding[0].BoardHeight) / 2;
+            var manCX = (clusterSizeX - MissionIISpriteTraits.ManStanding[0].BoardWidth) / 2;
+            var manCY = (clusterSizeY - MissionIISpriteTraits.ManStanding[0].BoardHeight) / 2;
 
             // Set man start position (according to 'x' in source level data for this level):
             var manX = manCX + theLevel.ManStartCluster.X * clusterSizeX;
@@ -273,7 +273,7 @@ namespace MissionIIClassLibrary
 
             PrepareForNewRoom();
 
-            CybertronGameModeSelector.ModeSelector.CurrentMode = new CybertronEnteringLevelMode(this);
+            MissionIIGameModeSelector.ModeSelector.CurrentMode = new CybertronEnteringLevelMode(this);
         }
 
 
@@ -370,8 +370,8 @@ namespace MissionIIClassLibrary
 
             PositionFinder.ForEachEmptyCell(
                 CurrentRoomWallData,
-                CybertronGameBoardConstants.TileWidth,
-                CybertronGameBoardConstants.TileHeight,
+                MissionIIGameBoardConstants.TileWidth,
+                MissionIIGameBoardConstants.TileHeight,
                 posnWidth,
                 posnHeight,
                 (x, y) =>
@@ -534,15 +534,15 @@ namespace MissionIIClassLibrary
 
             // Score:
 
-            var theNumbers = CybertronSpriteTraits.TheNumbers;
-            drawingTarget.DrawFirstSprite(0, 8, CybertronSpriteTraits.Score);
+            var theNumbers = MissionIISpriteTraits.TheNumbers;
+            drawingTarget.DrawFirstSprite(0, 8, MissionIISpriteTraits.Score);
             drawingTarget.DrawNumber(140, 8, Score, theNumbers);
 
             // Level no, Room no:
 
-            drawingTarget.DrawFirstSprite(210, 8, CybertronSpriteTraits.Room);
+            drawingTarget.DrawFirstSprite(210, 8, MissionIISpriteTraits.Room);
             drawingTarget.DrawNumber(
-                CybertronGameBoardConstants.ScreenWidth, 8,
+                MissionIIGameBoardConstants.ScreenWidth, 8,
                 (uint)(LevelNumber * 100 +
                 RoomNumber), theNumbers);
 
@@ -550,19 +550,19 @@ namespace MissionIIClassLibrary
 
             var outlineWallSpriteTraits =
                 (Man.IsBeingElectrocuted)
-                ? CybertronSpriteTraits.WallElectric
-                : CybertronSpriteTraits.WallOutline;
+                ? MissionIISpriteTraits.WallElectric
+                : MissionIISpriteTraits.WallOutline;
 
             drawingTarget.DrawWalls(
                 LevelNumber,
-                CybertronGameBoardConstants.RoomOriginX,
-                CybertronGameBoardConstants.RoomOriginY,
-                CybertronGameBoardConstants.TileWidth,
-                CybertronGameBoardConstants.TileHeight,
+                MissionIIGameBoardConstants.RoomOriginX,
+                MissionIIGameBoardConstants.RoomOriginY,
+                MissionIIGameBoardConstants.TileWidth,
+                MissionIIGameBoardConstants.TileHeight,
                 CurrentRoomWallData,
                 outlineWallSpriteTraits,
-                CybertronSpriteTraits.WallBrick,
-                CybertronSpriteTraits.FloorTile);
+                MissionIISpriteTraits.WallBrick,
+                MissionIISpriteTraits.FloorTile);
 
             // Draw objects in the room:
 
@@ -570,12 +570,12 @@ namespace MissionIIClassLibrary
 
             // Lives:
 
-            int y = CybertronGameBoardConstants.ScreenHeight - 16;
-            drawingTarget.DrawRepeats(CybertronGameBoardConstants.InventoryIndent, y, 8, 0, System.Math.Min(Lives, Constants.MaxDisplayedLives), CybertronSpriteTraits.Life);
+            int y = MissionIIGameBoardConstants.ScreenHeight - 16;
+            drawingTarget.DrawRepeats(MissionIIGameBoardConstants.InventoryIndent, y, 8, 0, System.Math.Min(Lives, Constants.MaxDisplayedLives), MissionIISpriteTraits.Life);
 
             // Player inventory:
 
-            int x = CybertronGameBoardConstants.ScreenWidth - CybertronGameBoardConstants.InventoryIndent;
+            int x = MissionIIGameBoardConstants.ScreenWidth - MissionIIGameBoardConstants.InventoryIndent;
             foreach (var carriedObject in PlayerInventory)
             {
                 var spriteTraits = carriedObject.SpriteTraits;

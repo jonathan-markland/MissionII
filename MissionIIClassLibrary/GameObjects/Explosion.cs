@@ -20,11 +20,11 @@ namespace MissionIIClassLibrary.GameObjects
             _canBeConsideredForMultiKillBonus = canBeConsideredForBonus;
         }
 
-        public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, CybertronKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, MissionIIKeyStates theKeyStates)
         {
             if (_explosionCountDown == ExplosionCountDownReset)
             {
-                CybertronSounds.Play(CybertronSounds.ExplosionSound);
+                MissionIISounds.Play(MissionIISounds.ExplosionSound);
             }
 
             if (_explosionCountDown != 0)
@@ -38,7 +38,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        public override void Draw(CybertronGameBoard theGameBoard, IDrawingTarget drawingTarget)
+        public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawIndexedSprite(SpriteInstance, _imageIndex);
         }
@@ -48,12 +48,12 @@ namespace MissionIIClassLibrary.GameObjects
             return SpriteInstance.GetBoundingRectangle();
         }
 
-        public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
         {
             // No action required.
         }
 
-        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard, bool shotByMan)
+        public override bool YouHaveBeenShot(MissionIIGameBoard theGameBoard, bool shotByMan)
         {
             // no action required
             return false; // ignore this.

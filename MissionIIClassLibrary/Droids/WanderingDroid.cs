@@ -4,13 +4,13 @@ namespace MissionIIClassLibrary.Droids
     public class WanderingDroid : BaseDroid
     {
         public WanderingDroid()
-            : base(CybertronSpriteTraits.Monster2, new ArtificialIntelligence.SingleMinded())
+            : base(MissionIISpriteTraits.Monster2, new ArtificialIntelligence.SingleMinded())
         {
         }
 
         public override int KillScore
         {
-            get { return CybertronGameBoardConstants.BlueDroidKillScore; }
+            get { return MissionIIGameBoardConstants.BlueDroidKillScore; }
         }
     }
 }

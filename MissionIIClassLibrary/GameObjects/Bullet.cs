@@ -15,7 +15,7 @@ namespace MissionIIClassLibrary.GameObjects
             _increasesScore = increasesScore;
         }
 
-        public override void AdvanceOneCycle(CybertronGameBoard theGameBoard, CybertronKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, MissionIIKeyStates theKeyStates)
         {
             for (int i = 0; i < Constants.BulletCycles; i++)
             {
@@ -24,8 +24,8 @@ namespace MissionIIClassLibrary.GameObjects
 
                 var hitResult = CollisionDetection.HitsWalls(
                     theGameBoard.CurrentRoomWallData,
-                    CybertronGameBoardConstants.TileWidth,
-                    CybertronGameBoardConstants.TileHeight,
+                    MissionIIGameBoardConstants.TileWidth,
+                    MissionIIGameBoardConstants.TileHeight,
                     proposedX,
                     proposedY,
                     Sprite.Traits.BoardWidth,
@@ -50,12 +50,12 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        public override void ManWalkedIntoYou(CybertronGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
         {
             // Not handled here.  Bullets killing man happens in AdvanceOneCycle().
         }
 
-        public override void Draw(CybertronGameBoard theGameBoard, IDrawingTarget drawingTarget)
+        public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawIndexedSprite(Sprite, 0);
         }
@@ -65,7 +65,7 @@ namespace MissionIIClassLibrary.GameObjects
             return Sprite.GetBoundingRectangle();
         }
 
-        public override bool YouHaveBeenShot(CybertronGameBoard theGameBoard, bool shotByMan)
+        public override bool YouHaveBeenShot(MissionIIGameBoard theGameBoard, bool shotByMan)
         {
             // No action -- bullets cannot be shot.
             return false;

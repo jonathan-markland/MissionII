@@ -21,7 +21,7 @@ namespace MissionIIClassLibrary
         }
 
 
-        public static int GetDirectionIndex(CybertronKeyStates keyStates)
+        public static int GetDirectionIndex(MissionIIKeyStates keyStates)
         {
             // Clockwise numbering
             // TODO:  Implementation biases certain directions when more than 2 keys held.
@@ -77,7 +77,7 @@ namespace MissionIIClassLibrary
         }
 
 
-        public static MovementDeltas GetMovementDeltas(CybertronKeyStates keyStates)
+        public static MovementDeltas GetMovementDeltas(MissionIIKeyStates keyStates)
         {
             return new MovementDeltas(
                 (keyStates.Left ? -1 : 0) + (keyStates.Right ? 1 : 0),

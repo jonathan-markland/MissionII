@@ -3,7 +3,7 @@ using MissionIIClassLibrary.Math;
 
 namespace MissionIIClassLibrary
 {
-    public static class CybertronSpriteInstanceExtensions
+    public static class MissionIISpriteInstanceExtensions
     {
         public static CollisionDetection.WallHitTestResult MoveSpriteInstanceOnePixelConsideringWallsOnly(
             this SpriteInstance spriteInstance, WallMatrix wallMatrix, MovementDeltas movementDeltas)
@@ -13,8 +13,8 @@ namespace MissionIIClassLibrary
 
             var hitResult = CollisionDetection.HitsWalls(
                     wallMatrix,
-                    CybertronGameBoardConstants.TileWidth,
-                    CybertronGameBoardConstants.TileHeight,
+                    MissionIIGameBoardConstants.TileWidth,
+                    MissionIIGameBoardConstants.TileHeight,
                     proposedX,
                     proposedY,
                     spriteInstance.Traits.BoardWidth,

@@ -3,14 +3,7 @@ using System.Collections.Generic;
 
 namespace MissionIIClassLibrary
 {
-    public class HostSuppliedSprite
-    {
-        public int BoardWidth;
-        public int BoardHeight;
-        public object HostObject;
-    }
-
-    public static class CybertronSpriteTraits
+    public static class MissionIISpriteTraits
     {
         // TODO: really should be internal
         public static SpriteTraits Bullet;
