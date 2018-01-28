@@ -9,9 +9,9 @@ namespace MissionIIClassLibrary
         public const int TileWidth = 12;
         public const int TileHeight = 8;
         public const int RoomClearingBonusScore = 250;
-        public const int BlueDroidKillScore = 60;
-        public const int RedDroidKillScore = 20;
-        public const int PinkDroidKillScore = 100;
+        public const int WanderingDroidKillScore = 60;
+        public const int HomingDroidKillScore = 20;
+        public const int DestroyerDroidKillScore = 100;
         public const int ScreenWidth = 320;
         public const int ScreenHeight = 256;
         public const int InventoryIndent = 8;
