@@ -26,10 +26,24 @@ namespace MissionIIMonoGame
 
 
 
+        private static Color[] TempColourBuffer; // TODO: not threadsafe
+
+
         public GameMain()
         {
             base.Window.AllowUserResizing = true;
 
+            TempColourBuffer = new Color[1];
+
+            MissionIIClassLibrary.Business.ReadPixel = 
+                (obj, x, y) =>
+                {
+                    // TODO: efficiency concern.  Re-design:  Get all pixels up-front.
+                    var hostImage = (Texture2D)obj;
+                    hostImage.GetData<Color>(0, new Rectangle(x, y, 1,1), TempColourBuffer, 0, 1);
+                    return (int) TempColourBuffer[0].PackedValue;
+                };
+            
             _cybertronKeyStates = new MissionIIClassLibrary.MissionIIKeyStates();
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";

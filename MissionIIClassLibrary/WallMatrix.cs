@@ -6,12 +6,15 @@ namespace MissionIIClassLibrary
     public class WallMatrix
     {
         private WallMatrixChar[] _wallData;
+        private byte[] _styleDeltas;
         private int _blockCountH;
         private int _blockCountV;
 
         public WallMatrix(int blockCountH, int blockCountV)
         {
-            _wallData = new WallMatrixChar[blockCountH*blockCountV];
+            var n = blockCountH * blockCountV;
+            _wallData = new WallMatrixChar[n];
+            _styleDeltas = new byte[n];
             _blockCountH = blockCountH;
             _blockCountV = blockCountV;
         }
@@ -66,6 +69,31 @@ namespace MissionIIClassLibrary
                 }
             }
             throw new Exception("WallMatrix class write outside bounds.");
+        }
+
+        public void SetStyleDelta(int x, int y, byte styleDelta)
+        {
+            if (x >= 0 && x < _blockCountH)
+            {
+                if (y >= 0 && y < _blockCountV)
+                {
+                    _styleDeltas[y * _blockCountH + x] = styleDelta;
+                    return;
+                }
+            }
+            throw new Exception("WallMatrix class write outside bounds.");
+        }
+
+        public byte GetStyleDelta(int x, int y)
+        {
+            if (x >= 0 && x < _blockCountH)
+            {
+                if (y >= 0 && y < _blockCountV)
+                {
+                    return _styleDeltas[y * _blockCountH + x];
+                }
+            }
+            throw new Exception("WallMatrix class read outside bounds.");
         }
 
         public WallMatrix Clone()

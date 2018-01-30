@@ -6,6 +6,13 @@ namespace MissionIIClassLibrary
 {
     public static class Business
     {
+        public static byte ToGreyscale(int rgbValue)
+        {
+            return (byte)((rgbValue >> 8) & 255); // TODO: fix
+        }
+
+
+
         public static void Animate(ref int animationCountdown, ref int imageIndex, int animationCountdownReset, int maxImageCount)
         {
             if (animationCountdown <= 0)
@@ -116,5 +123,10 @@ namespace MissionIIClassLibrary
             list[j] = temp;
         }
 
+        /// <summary>
+        /// Must be externally initialised to point to a routine that will
+        /// read a pixel on the host bitmap supplied.
+        /// </summary>
+        public static Func<object, int, int, int> ReadPixel; // TODO: sort out better?
     }
 }

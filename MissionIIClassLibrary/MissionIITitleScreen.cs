@@ -91,8 +91,8 @@ namespace MissionIIClassLibrary
             {
                 var loadedWorld = MissionIIClassLibrary.LevelFileParser.Parse(sr);
                 MissionIIClassLibrary.LevelFileValidator.ExpectValidPathsInWorld(loadedWorld);
-                MissionIIClassLibrary.LevelExpander.ExpandWallsInWorld(loadedWorld);
-
+                MissionIIClassLibrary.LevelExpander.ExpandWallsInWorld(loadedWorld, MissionIISpriteTraits.PatternResamplingSprite);
+                
                 var cybertronGameBoard = new MissionIIClassLibrary.MissionIIGameBoard()
                 {
                     TheWorldWallData = loadedWorld,

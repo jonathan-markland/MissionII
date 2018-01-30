@@ -36,9 +36,28 @@
             SpriteTraits floorSpriteTraits)
         {
             --levelNumber; // because it's 1-based!
-            var outlineHostSprite = outlineSpriteTraits.GetHostImageObject(levelNumber % outlineSpriteTraits.ImageCount);
-            var brickHostSprite = brickSpriteTraits.GetHostImageObject(levelNumber % brickSpriteTraits.ImageCount);
-            var floorHostSprite = floorSpriteTraits.GetHostImageObject(levelNumber % floorSpriteTraits.ImageCount);
+
+            // TODO: the following are hacks.  We want to do the re-colouring idea.
+            // TODO: We also want to have the bricks as 'views' onto a seamlessly
+            //       tiled recoloured background.
+
+            var outlineHostSprite = new object[]
+            {
+                outlineSpriteTraits.GetHostImageObject(levelNumber % outlineSpriteTraits.ImageCount),
+                outlineSpriteTraits.GetHostImageObject((levelNumber + 1) % outlineSpriteTraits.ImageCount)
+            };
+
+            var brickHostSprite = new object[]
+            {
+                brickSpriteTraits.GetHostImageObject(levelNumber % brickSpriteTraits.ImageCount),
+                brickSpriteTraits.GetHostImageObject((levelNumber + 1) % brickSpriteTraits.ImageCount)
+            };
+
+            var floorHostSprite = new object[]
+            {
+                floorSpriteTraits.GetHostImageObject(levelNumber % floorSpriteTraits.ImageCount),
+                floorSpriteTraits.GetHostImageObject((levelNumber + 1) % floorSpriteTraits.ImageCount)
+            };
 
             for (int y = 0; y < wallData.CountV; y++)
             {
@@ -46,17 +65,18 @@
                 for (int x = 0; x < wallData.CountH; x++)
                 {
                     var ch = wallData.Read(x, y);
+                    var styleDelta = wallData.GetStyleDelta(x, y);
                     if (ch == WallMatrixChar.Electric) // <-- confusing that this really means draw the wall in either normal or electric state
                     {
-                        drawingTarget.DrawSprite(leftX, topY, outlineHostSprite);
+                        drawingTarget.DrawSprite(leftX, topY, outlineHostSprite[styleDelta]);
                     }
                     else if (ch != WallMatrixChar.Space)
                     {
-                        drawingTarget.DrawSprite(leftX, topY, brickHostSprite);
+                        drawingTarget.DrawSprite(leftX, topY, brickHostSprite[styleDelta]);
                     }
                     else
                     {
-                        drawingTarget.DrawSprite(leftX, topY, floorHostSprite);
+                        drawingTarget.DrawSprite(leftX, topY, floorHostSprite[styleDelta]);
                     }
                     leftX += tileWidth;
                 }

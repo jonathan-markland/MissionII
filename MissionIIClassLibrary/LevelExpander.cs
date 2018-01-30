@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 using MissionIIClassLibrary.Math;
 
@@ -9,10 +10,15 @@ namespace MissionIIClassLibrary
         public const int ExpandSize = 5;
 
 
-        public static void ExpandWallsInWorld(WorldWallData theWorld)
+        public static void ExpandWallsInWorld(
+            WorldWallData theWorld, 
+            SpriteTraits wallPatternResamplingSprite)
         {
+            var levelIndex = 0;
+
             foreach(var thisLevel in theWorld.Levels)
             {
+                var resamplingImageIndex = levelIndex % wallPatternResamplingSprite.ImageCount;
                 var roomsList = thisLevel.Rooms;
 
                 // Expand all the rooms from the size they are in the source
@@ -28,12 +34,23 @@ namespace MissionIIClassLibrary
 
                 AlignDoorways(roomsList);
 
-                // Now add decorative brickwork via a filter.
+                // Now add decorative brickwork via a filter, and decorative
+                // "style deltas" which are zero based values that can be used
+                // to choose alternate sprites on a per-brick basis.
 
                 foreach (var thisRoom in roomsList)
                 {
                     AddDecorativeBrickwork(thisRoom.WallData);
+
+                    SetWallStyleDeltas(thisRoom.WallData, 
+                        wallPatternResamplingSprite, 
+                        resamplingImageIndex,
+                        thisRoom.RoomNumber * 8,
+                        thisRoom.RoomNumber * 4,
+                        128);
                 }
+
+                ++levelIndex;
             }
         }
 
@@ -149,5 +166,35 @@ namespace MissionIIClassLibrary
                 && wallMatrix.Read(x - 1, y + 1) != WallMatrixChar.Space
                 && wallMatrix.Read(x + 1, y + 1) != WallMatrixChar.Space;
         }
+
+
+
+        private static void SetWallStyleDeltas(
+            WallMatrix wallData,
+            SpriteTraits samplingSource,
+            int imageIndex,
+            int logicalOffsetX,
+            int logicalOffsetY,
+            int sampleThreshold)
+        {
+            System.Diagnostics.Debug.Assert(samplingSource.BoardWidth == 64);
+            System.Diagnostics.Debug.Assert(samplingSource.BoardHeight == 64);
+
+            var hostImageObject = samplingSource.GetHostImageObject(imageIndex);
+
+            for (int y=0; y < wallData.CountV; y++)
+            {
+                int cy = (y + logicalOffsetY) & 63;
+                for (int x = 0; x < wallData.CountH; x++)
+                {
+                    int cx = (x + logicalOffsetX) & 63;
+                    var greyLevel = Business.ToGreyscale(
+                        Business.ReadPixel(hostImageObject, cx, cy));
+                    wallData.SetStyleDelta(x, y, (byte)((greyLevel < sampleThreshold) ? 0 : 1));
+                }
+            }
+        }
+
+
     }
 }
