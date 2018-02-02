@@ -6,7 +6,7 @@ namespace MissionIIClassLibrary
 {
     public static class Business
     {
-        public static byte ToGreyscale(int rgbValue)
+        public static byte ToGreyscale(uint rgbValue)
         {
             return (byte)((rgbValue >> 8) & 255); // TODO: fix
         }
@@ -123,10 +123,6 @@ namespace MissionIIClassLibrary
             list[j] = temp;
         }
 
-        /// <summary>
-        /// Must be externally initialised to point to a routine that will
-        /// read a pixel on the host bitmap supplied.
-        /// </summary>
-        public static Func<object, int, int, int> ReadPixel; // TODO: sort out better?
+        public static Func<object, uint[]> GetSpriteDataAsUintArray;
     }
 }

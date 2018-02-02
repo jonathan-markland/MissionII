@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
+using System.Linq;
 
 namespace MissionIIMonoGame
 {
@@ -33,15 +34,15 @@ namespace MissionIIMonoGame
         {
             base.Window.AllowUserResizing = true;
 
-            TempColourBuffer = new Color[1];
-
-            MissionIIClassLibrary.Business.ReadPixel = 
-                (obj, x, y) =>
+            MissionIIClassLibrary.Business.GetSpriteDataAsUintArray = 
+                (obj) =>
                 {
                     // TODO: efficiency concern.  Re-design:  Get all pixels up-front.
                     var hostImage = (Texture2D)obj;
-                    hostImage.GetData<Color>(0, new Rectangle(x, y, 1,1), TempColourBuffer, 0, 1);
-                    return (int) TempColourBuffer[0].PackedValue;
+                    var n = hostImage.Width * hostImage.Height;
+                    var resultColorData = new Color[n];
+                    hostImage.GetData(resultColorData);
+                    return resultColorData.Select(x => x.PackedValue).ToArray();
                 };
             
             _cybertronKeyStates = new MissionIIClassLibrary.MissionIIKeyStates();

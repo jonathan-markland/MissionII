@@ -38,13 +38,16 @@ namespace MissionIIClassLibrary
                 // "style deltas" which are zero based values that can be used
                 // to choose alternate sprites on a per-brick basis.
 
+                var resamplingColourData = Business.GetSpriteDataAsUintArray(
+                    wallPatternResamplingSprite.GetHostImageObject(resamplingImageIndex));
+
                 foreach (var thisRoom in roomsList)
                 {
                     AddDecorativeBrickwork(thisRoom.WallData);
 
-                    SetWallStyleDeltas(thisRoom.WallData, 
-                        wallPatternResamplingSprite, 
-                        resamplingImageIndex,
+                    SetWallStyleDeltas(
+                        thisRoom.WallData,
+                        resamplingColourData, 
                         thisRoom.RoomNumber * 8,
                         thisRoom.RoomNumber * 4,
                         128);
@@ -171,16 +174,12 @@ namespace MissionIIClassLibrary
 
         private static void SetWallStyleDeltas(
             WallMatrix wallData,
-            SpriteTraits samplingSource,
-            int imageIndex,
+            uint[] resamplingImageArray,
             int logicalOffsetX,
             int logicalOffsetY,
             int sampleThreshold)
         {
-            System.Diagnostics.Debug.Assert(samplingSource.BoardWidth == 64);
-            System.Diagnostics.Debug.Assert(samplingSource.BoardHeight == 64);
-
-            var hostImageObject = samplingSource.GetHostImageObject(imageIndex);
+            System.Diagnostics.Debug.Assert(resamplingImageArray.Length == 64*64);
 
             for (int y=0; y < wallData.CountV; y++)
             {
@@ -188,8 +187,7 @@ namespace MissionIIClassLibrary
                 for (int x = 0; x < wallData.CountH; x++)
                 {
                     int cx = (x + logicalOffsetX) & 63;
-                    var greyLevel = Business.ToGreyscale(
-                        Business.ReadPixel(hostImageObject, cx, cy));
+                    var greyLevel = Business.ToGreyscale(resamplingImageArray[cy * 64 + cx]);
                     wallData.SetStyleDelta(x, y, (byte)((greyLevel < sampleThreshold) ? 0 : 1));
                 }
             }
