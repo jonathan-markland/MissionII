@@ -27,9 +27,6 @@ namespace MissionIIMonoGame
 
 
 
-        private static Color[] TempColourBuffer; // TODO: not threadsafe
-
-
         public GameMain()
         {
             base.Window.AllowUserResizing = true;
