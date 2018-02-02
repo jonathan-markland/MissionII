@@ -37,10 +37,6 @@
         {
             --levelNumber; // because it's 1-based!
 
-            // TODO: the following are hacks.  We want to do the re-colouring idea.
-            // TODO: We also want to have the bricks as 'views' onto a seamlessly
-            //       tiled recoloured background.
-
             var outlineHostSprite = new object[]
             {
                 outlineSpriteTraits.GetHostImageObject(levelNumber % outlineSpriteTraits.ImageCount),
