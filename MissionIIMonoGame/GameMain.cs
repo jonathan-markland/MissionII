@@ -37,7 +37,8 @@ namespace MissionIIMonoGame
             MissionIIClassLibrary.Business.GetSpriteDataAsUintArray = 
                 (obj) =>
                 {
-                    // TODO: efficiency concern.  Re-design:  Get all pixels up-front.
+                    // The game engine will call out to this.  This separates
+                    // the engine from MonoGame.
                     var hostImage = (Texture2D)obj;
                     var n = hostImage.Width * hostImage.Height;
                     var resultColorData = new Color[n];
