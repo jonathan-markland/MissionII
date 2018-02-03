@@ -1,4 +1,4 @@
-﻿namespace MissionIIClassLibrary.Math
+﻿namespace GameClassLibrary.Math
 {
     public struct MovementDeltas
     {

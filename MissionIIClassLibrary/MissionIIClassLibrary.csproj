@@ -91,12 +91,8 @@
     <Compile Include="LevelFileParser.cs" />
     <Compile Include="LevelFileValidator.cs" />
     <Compile Include="MissionIINumericSpriteFont.cs" />
-    <Compile Include="Math\MovementDeltas.cs" />
-    <Compile Include="Math\Point.cs" />
     <Compile Include="PositionFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Math\Rectangle.cs" />
-    <Compile Include="Math\Rng.cs" />
     <Compile Include="SoundTraits.cs" />
     <Compile Include="SpecialMarkers.cs" />
     <Compile Include="SpriteInstance.cs" />
@@ -104,6 +100,12 @@
     <Compile Include="SuddenlyReplaceableList.cs" />
     <Compile Include="UniqueNumberAllocator.cs" />
     <Compile Include="WallMatrix.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GameClassLibrary\GameClassLibrary.csproj">
+      <Project>{4442080b-4741-4f31-a8d1-1c610eb58cdb}</Project>
+      <Name>GameClassLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
