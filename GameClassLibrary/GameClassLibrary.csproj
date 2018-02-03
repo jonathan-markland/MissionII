@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Containers\SuddenlyReplaceableList.cs" />
     <Compile Include="Math\MakeRectangle.cs" />
     <Compile Include="Math\MovementDeltas.cs" />
     <Compile Include="Math\Point.cs" />

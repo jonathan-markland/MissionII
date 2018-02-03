@@ -97,7 +97,6 @@
     <Compile Include="SpecialMarkers.cs" />
     <Compile Include="SpriteInstance.cs" />
     <Compile Include="SpriteTraits.cs" />
-    <Compile Include="SuddenlyReplaceableList.cs" />
     <Compile Include="UniqueNumberAllocator.cs" />
     <Compile Include="WallMatrix.cs" />
   </ItemGroup>

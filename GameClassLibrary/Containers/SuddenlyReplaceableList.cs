@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace MissionIIClassLibrary
+namespace GameClassLibrary.Containers
 {
     public class SuddenlyReplaceableList<T>
     {
