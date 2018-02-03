@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using GameClassLibrary.Math;
 using GameClassLibrary.Containers;
+using GameClassLibrary.Algorithms;
 
 namespace MissionIIClassLibrary
 {
@@ -384,7 +385,7 @@ namespace MissionIIClassLibrary
                     return true;
                 });
 
-            Business.Shuffle(pointsList, Rng.Generator);
+            pointsList.Shuffle(Rng.Generator);
 
             // Apply positions:
             // If this is LESS THAN ObjectsInRoom.Count then we cull the ObjectsInRoom container.
