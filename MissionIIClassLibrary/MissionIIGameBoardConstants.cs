@@ -4,7 +4,7 @@ namespace MissionIIClassLibrary
     public static class MissionIIGameBoardConstants
     {
         public const int InvincibilityAmuletScore = 750;
-        public const int StartLevelNumber = 1;
+        public const int StartLevelNumber = 3;
         public const int RoomOriginX = 10;
         public const int RoomOriginY = 28;
         public const int TileWidth = 12;
@@ -20,6 +20,5 @@ namespace MissionIIClassLibrary
         public const int KeyCollectionScore = 100;
         public const int RingCollectionScore = 500;
         public const int GoldCollectionScore = 1000;
-
     }
 }

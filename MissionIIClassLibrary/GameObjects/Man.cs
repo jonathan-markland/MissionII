@@ -332,7 +332,10 @@ namespace MissionIIClassLibrary.GameObjects
 
         public override bool YouHaveBeenShot(MissionIIGameBoard theGameBoard, bool shotByMan)
         {
-            Die(); // No electrocution animation desired here.
+            if (!IsInvincible)
+            {
+                Die(); // No electrocution animation desired here.
+            }
             return true;
         }
 
