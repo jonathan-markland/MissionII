@@ -49,6 +49,7 @@
     <Compile Include="ClusterCanvas.cs" />
     <Compile Include="Font.cs" />
     <Compile Include="HostSuppliedSprite.cs" />
+    <Compile Include="Interactibles\InvincibilityAmulet.cs" />
     <Compile Include="PositionAndDirection.cs" />
     <Compile Include="MissionIISounds.cs" />
     <Compile Include="Droids\WanderingDroid.cs" />

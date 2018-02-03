@@ -7,6 +7,8 @@ namespace MissionIIClassLibrary
 {
     public static class Constants  // TODO: Location of some of these constants is suspect, in view of general name "Constants"
     {
+        public const int ManInvincibilityCycles = 1500;
+        public const int ManInvincibilityAlmostOutCycles = 300;
         public const int FootstepSoundCycles = 24;
         public const int TitleScreenRollCycles = 400;
         public const int GameOverMessageCycles = 100;

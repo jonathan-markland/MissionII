@@ -1,4 +1,5 @@
 ﻿
+using System;
 using GameClassLibrary.Math;
 
 namespace MissionIIClassLibrary.GameObjects
@@ -18,6 +19,7 @@ namespace MissionIIClassLibrary.GameObjects
         private int _electrocutionCycles = 0;
         private bool _awaitingFireRelease = true;
         private int _whileDeadCount = 0;
+        private int _invincibleCountDown = 0;
         public int _cyclesMoving = 0;
 
         public PositionAndDirection Position
@@ -59,10 +61,25 @@ namespace MissionIIClassLibrary.GameObjects
                 {
                     Standing(_facingDirection);
                 }
+
+                HandleInvincibility();
             }
             else
             {
                 DeadHandling(theGameBoard);
+            }
+        }
+
+        public void GainInvincibility()
+        {
+            _invincibleCountDown = Constants.ManInvincibilityCycles;
+        }
+
+        private void HandleInvincibility()
+        {
+            if (_invincibleCountDown > 0)
+            {
+                --_invincibleCountDown;
             }
         }
 
@@ -179,7 +196,7 @@ namespace MissionIIClassLibrary.GameObjects
         public void Electrocute(ElectrocutionMethod electrocutionMethod)
         {
             if (_debugInvulnerable) return;
-            if (!_isDead && !_isElectrocuting)
+            if (!IsInvincible && !_isDead && !_isElectrocuting)
             {
                 _isElectrocuting = true;
                 _isElectrocutedByWalls = electrocutionMethod == ElectrocutionMethod.ByWalls;
@@ -201,7 +218,16 @@ namespace MissionIIClassLibrary.GameObjects
 
         public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
         {
-            drawingTarget.DrawIndexedSprite(SpriteInstance, _imageIndex);
+            if (_invincibleCountDown == 0 || DrawManDuringInvincibility())
+            {
+                drawingTarget.DrawIndexedSprite(SpriteInstance, _imageIndex);
+            }
+        }
+
+        private bool DrawManDuringInvincibility()
+        {
+            var n = (_invincibleCountDown < Constants.ManInvincibilityAlmostOutCycles) ? (16 + 8) : (4 + 2);
+            return (_invincibleCountDown & n) > (n / 4);
         }
 
         public void Alive(int theDirection, int roomX, int roomY) // TODO: refactor to use the Position property.
@@ -222,6 +248,7 @@ namespace MissionIIClassLibrary.GameObjects
                 _isElectrocutedByWalls = false;
                 _isDead = true;
                 _imageIndex = 0;
+                _invincibleCountDown = 0;
                 SpriteInstance.Traits = MissionIISpriteTraits.Dead;
                 // TODO: Sound
                 // TODO: Reduce lives.
@@ -320,6 +347,14 @@ namespace MissionIIClassLibrary.GameObjects
         public bool IsBeingElectrocuted
         {
             get { return _isElectrocutedByWalls; }
+        }
+
+        public bool IsInvincible
+        {
+            get
+            {
+                return _invincibleCountDown > 0;
+            }
         }
     }
 }

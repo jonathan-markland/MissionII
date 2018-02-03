@@ -25,6 +25,7 @@ namespace MissionIIClassLibrary
         public Interactibles.Gold Gold;
         public Interactibles.LevelSafe Safe;
         public Interactibles.Potion Potion;
+        public Interactibles.InvincibilityAmulet InvincibilityAmulet;
         public PositionAndDirection ManPositionOnRoomEntry;
 
 
@@ -272,6 +273,7 @@ namespace MissionIIClassLibrary
 
             Safe = new MissionIIClassLibrary.Interactibles.LevelSafe(roomNumberAllocator.Next());
             Potion = new MissionIIClassLibrary.Interactibles.Potion(roomNumberAllocator.Next());
+            InvincibilityAmulet = new MissionIIClassLibrary.Interactibles.InvincibilityAmulet(roomNumberAllocator.Next());
 
             PrepareForNewRoom();
 
@@ -317,13 +319,14 @@ namespace MissionIIClassLibrary
                 Man.GetBoundingRectangle()
                 .Inflate(Constants.ExclusionZoneAroundMan);
 
-            // Make a list of those things that need positioning.
+            // Make a list of those things that need positioning.  TODO: REfactor.  Not obvious when new item kind created!
 
             AddObjectIfInCurrentRoom(Key, objectsList);
             AddObjectIfInCurrentRoom(Ring, objectsList);
             AddObjectIfInCurrentRoom(Gold, objectsList);
             AddObjectIfInCurrentRoom(Safe, objectsList);
             AddObjectIfInCurrentRoom(Potion, objectsList);
+            AddObjectIfInCurrentRoom(InvincibilityAmulet, objectsList);
 
             int redBlueThreshold = Constants.IdealDroidCountPerRoom;
             int bluePinkThreshold = Constants.IdealDroidCountPerRoom;

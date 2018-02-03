@@ -50,7 +50,14 @@ namespace MissionIIClassLibrary.Droids
 
         public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
         {
-            theGameBoard.Man.Electrocute(ElectrocutionMethod.ByDroid);
+            if (!theGameBoard.Man.IsInvincible)
+            {
+                theGameBoard.Man.Electrocute(ElectrocutionMethod.ByDroid);
+            }
+            else
+            {
+                YouHaveBeenShot(theGameBoard, true);
+            }
         }
 
         public override Point TopLeftPosition

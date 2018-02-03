@@ -21,6 +21,7 @@ namespace MissionIIClassLibrary
         public static SoundTraits StunGhost;
         public static SoundTraits FootStep1;
         public static SoundTraits FootStep2;
+        public static SoundTraits InvincibilityAmuletSound;
 
         private static Action<SoundTraits> HostPlaySoundAction;
 
@@ -58,6 +59,7 @@ namespace MissionIIClassLibrary
             StunGhost = loadSound("StunGhostSound");
             FootStep1 = loadSound("Footstep1Sound");
             FootStep2 = loadSound("Footstep2Sound");
+            InvincibilityAmuletSound = loadSound("InvincibilityAmuletSound");
         }
     }
 }

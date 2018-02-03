@@ -59,6 +59,7 @@ namespace MissionIIClassLibrary
         public static SpriteTraits Paused;
         public static SpriteTraits PatternResamplingSprite;
         public static SpriteTraits Font;
+        public static SpriteTraits InvincibilityAmulet;
 
         // And references to the above, for convenience:
         public static List<SpriteTraits> TheNumbers;
@@ -162,6 +163,7 @@ namespace MissionIIClassLibrary
             Paused = loadImage("Paused", 1);
             PatternResamplingSprite = loadImage("PatternResamplingSprite", 1);
             Font = loadImage("Font", 1);
+            InvincibilityAmulet = loadImage("InvincibilityAmulet", 1);
 
 
             // Now build a list of the numbers for convenience of the drawing routines:

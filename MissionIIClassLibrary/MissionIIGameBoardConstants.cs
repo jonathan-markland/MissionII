@@ -3,6 +3,7 @@ namespace MissionIIClassLibrary
 {
     public static class MissionIIGameBoardConstants
     {
+        public const int InvincibilityAmuletScore = 750;
         public const int StartLevelNumber = 1;
         public const int RoomOriginX = 10;
         public const int RoomOriginY = 28;
