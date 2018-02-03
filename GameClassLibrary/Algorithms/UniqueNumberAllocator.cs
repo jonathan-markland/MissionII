@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using GameClassLibrary.Math;
-using GameClassLibrary.Algorithms;
 
-namespace MissionIIClassLibrary
+namespace GameClassLibrary.Algorithms
 {
     public class UniqueNumberAllocator
     {

@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Algorithms\IListExtensions.cs" />
+    <Compile Include="Algorithms\UniqueNumberAllocator.cs" />
     <Compile Include="Containers\SuddenlyReplaceableList.cs" />
     <Compile Include="Math\MakeRectangle.cs" />
     <Compile Include="Math\MovementDeltas.cs" />
