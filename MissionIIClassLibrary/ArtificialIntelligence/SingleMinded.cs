@@ -14,6 +14,8 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
         private MovementDeltas _movementDeltas = new MovementDeltas(0, 0);
         private bool _operationEnable = false;
 
+
+
         public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, SpriteInstance spriteInstance)
         {
             _operationEnable = !_operationEnable;  // ie: operate only ever other cycle
@@ -26,7 +28,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                 }
                 else
                 {
-                    ChooseNewMovement();
+                    ChooseNewMovement(theGameBoard, spriteInstance.GetBoundingRectangle());
                 }
             }
         }
@@ -59,14 +61,24 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
 
 
-        private void ChooseNewMovement()
+        private void ChooseNewMovement(MissionIIGameBoard theGameBoard, Rectangle currentExtents)
         {
+            // TODO: single-minded movement constants
             var theRng = Rng.Generator;
-            _countDown = theRng.Next(50) + 50; // TODO: single-minded movement constants
-            _facingDirection = theRng.Next(8);
-            _movementDeltas = theRng.Next(8) < 1
-                ? new MovementDeltas(0, 0)
-                : Business.GetMovementDeltas(_facingDirection);
+            var freeDirections = theGameBoard.GetFreeDirections(currentExtents);
+            if (freeDirections.Count == 0)
+            {
+                _countDown = 10; // Can't move.  Time to next decision.
+                _movementDeltas = new MovementDeltas(0, 0);
+            }
+            else
+            {
+                _countDown = theRng.Next(50) + 50;
+                _facingDirection = freeDirections.Choose(theRng.Next(freeDirections.Count));
+                _movementDeltas = Business.GetMovementDeltas(_facingDirection);
+
+            }
+
         }
 
     }

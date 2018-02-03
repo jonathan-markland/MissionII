@@ -47,7 +47,9 @@
     <Compile Include="ArtificialIntelligence\SingleMinded.cs" />
     <Compile Include="ArtificialIntelligence\Swoop.cs" />
     <Compile Include="ClusterCanvas.cs" />
+    <Compile Include="DirectionFinder.cs" />
     <Compile Include="Font.cs" />
+    <Compile Include="FoundDirections.cs" />
     <Compile Include="HostSuppliedSprite.cs" />
     <Compile Include="Interactibles\InvincibilityAmulet.cs" />
     <Compile Include="PositionAndDirection.cs" />

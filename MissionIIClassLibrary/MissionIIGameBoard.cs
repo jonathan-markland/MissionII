@@ -97,6 +97,16 @@ namespace MissionIIClassLibrary
 
 
 
+        public FoundDirections GetFreeDirections(Rectangle currentExtents)
+        {
+            return DirectionFinder.GetFreeDirections(
+                currentExtents, CurrentRoomWallData,
+                MissionIIGameBoardConstants.TileWidth,
+                MissionIIGameBoardConstants.TileHeight);
+        }
+
+
+
         public void StartBullet(
             SpriteInstance sourceSprite,
             int facingDirection,
