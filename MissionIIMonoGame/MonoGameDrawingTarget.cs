@@ -23,5 +23,15 @@ namespace MissionIIMonoGame
             var monoGameSprite = (Texture2D)hostImageObject;
             _spriteBatch.Draw(monoGameSprite, new Vector2(x, y), Color.White);
         }
+
+        void IDrawingTarget.DrawSpritePieceStretched(int sx, int sy, int sw, int sh, int dx, int dy, int dw, int dh, object hostImageObject)
+        {
+            var monoGameSprite = (Texture2D)hostImageObject;
+            _spriteBatch.Draw(
+                monoGameSprite,
+                new Rectangle(dx, dy, dw, dh),
+                new Rectangle(sx, sy, sw, sh),
+                Color.White);
+        }
     }
 }

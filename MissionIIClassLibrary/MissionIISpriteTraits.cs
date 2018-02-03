@@ -58,6 +58,7 @@ namespace MissionIIClassLibrary
         public static SpriteTraits GameOver;
         public static SpriteTraits Paused;
         public static SpriteTraits PatternResamplingSprite;
+        public static SpriteTraits Font;
 
         // And references to the above, for convenience:
         public static List<SpriteTraits> TheNumbers;
@@ -160,6 +161,7 @@ namespace MissionIIClassLibrary
             GameOver = loadImage("GameOver", 1);
             Paused = loadImage("Paused", 1);
             PatternResamplingSprite = loadImage("PatternResamplingSprite", 1);
+            Font = loadImage("Font", 1);
 
 
             // Now build a list of the numbers for convenience of the drawing routines:

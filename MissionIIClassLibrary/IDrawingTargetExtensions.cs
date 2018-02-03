@@ -38,6 +38,28 @@ namespace MissionIIClassLibrary
             while (n != 0);
         }
 
+        public static void DrawText(this IDrawingTarget drawingTarget, int leftSideX, int topSideY, string theText, Font theFont)
+        {
+            var destDeltaX = theFont.CharWidth * theFont.ScaleFactor;
+            var srcHeight = theFont.FontSprite.BoardHeight;
+            var srcCharWidth = theFont.CharWidth;
+            var destHeight = srcHeight * theFont.ScaleFactor;
+            var hostImageObject = theFont.FontSprite.GetHostImageObject(0);
+
+            foreach (var ch in theText)
+            {
+                var charIndex = theFont.CharToIndex(ch);
+                if (charIndex > 0)
+                {
+                    drawingTarget.DrawSpritePieceStretched(
+                        charIndex * srcCharWidth, 0, srcCharWidth, srcHeight, 
+                        leftSideX, topSideY, destDeltaX, destHeight,
+                        hostImageObject);
+                }
+                leftSideX += destDeltaX;
+            }
+        }
+
         public static void DrawRepeats(this IDrawingTarget drawingTarget, int leftX, int topY, int deltaX, int deltaY, uint repeatCount, SpriteTraits theSprite)
         {
             while (repeatCount > 0)

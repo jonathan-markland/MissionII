@@ -538,6 +538,9 @@ namespace MissionIIClassLibrary
             drawingTarget.DrawFirstSprite(0, 8, MissionIISpriteTraits.Score);
             drawingTarget.DrawNumber(140, 8, Score, theNumbers);
 
+            // TEST  var theFont = new Font { FontSprite = MissionIISpriteTraits.Font, CharWidth = 6, ScaleFactor = 2 };
+            // TEST  drawingTarget.DrawText(0, 0, "JONATHAN MARKLAND 21 ALVINGTON", theFont); // TODO: test
+
             // Level no, Room no:
 
             drawingTarget.DrawFirstSprite(210, 8, MissionIISpriteTraits.Room);

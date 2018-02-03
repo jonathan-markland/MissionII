@@ -47,6 +47,7 @@
     <Compile Include="ArtificialIntelligence\SingleMinded.cs" />
     <Compile Include="ArtificialIntelligence\Swoop.cs" />
     <Compile Include="ClusterCanvas.cs" />
+    <Compile Include="Font.cs" />
     <Compile Include="HostSuppliedSprite.cs" />
     <Compile Include="PositionAndDirection.cs" />
     <Compile Include="MissionIISounds.cs" />
