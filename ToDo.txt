@@ -1,12 +1,9 @@
 
 Release 1
 ---------
-[ ] MUST DO - Replace all the copyright graphics.
-[ ] Design a different map for level 1.
-[ ] Design some further level maps
 [ ] Do the all the proposed refactorings (g.txt)
 [ ] Show the level number on the "entering" screen.
-[ ] Fix the location of the key at start of level, not per room-start.
+[ ] Fix the location of the key (etc) at start of level, not per room-start.
 [ ] Prefix all sound file names with "Sound" to avoid name clashes.
 [ ] Render outlines around walls properly.
 
@@ -35,6 +32,12 @@ Release 2
 
 
 
+
+
+
+[X] Design a different map for level 1.
+[X] Design some further level maps
+[X] MUST DO - Replace all the copyright graphics.
 [X] Different types of brick for walls.
 [X] A third monster type is needed.
 [X] Screen stretching like Jynx and keypresses for this.

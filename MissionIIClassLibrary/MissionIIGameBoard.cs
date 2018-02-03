@@ -195,7 +195,7 @@ namespace MissionIIClassLibrary
                             if (n >= MissionIIGameBoardConstants.MultiDroidKillCountForBonus)
                             {
                                 IncrementScore(thisDroidKillScore * n);
-                                MissionIISounds.Play(MissionIISounds.BonusSound);
+                                MissionIISounds.Play(MissionIISounds.Bonus);
                                 MarkAllExplosionsAsUsedForBonusPurposes();
                             }
                         }

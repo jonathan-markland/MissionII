@@ -913,29 +913,29 @@
 /processorParam:TextureFormat=Color
 /build:Paused.bmp
 
-#begin DroidFiring.wav
+#begin DroidFiringSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:DroidFiring.wav
+/build:DroidFiringSound.wav
 
-#begin Electrocution.wav
+#begin ElectrocutionSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Electrocution.wav
+/build:ElectrocutionSound.wav
 
-#begin EnteirngLevel.wav
+#begin EnteringLevelSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:EnteirngLevel.wav
+/build:EnteringLevelSound.wav
 
-#begin ExtraLife.wav
+#begin ExtraLifeSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:ExtraLife.wav
+/build:ExtraLifeSound.wav
 
 #begin GameOverSound.wav
 /importer:WavImporter
@@ -943,41 +943,41 @@
 /processorParam:Quality=Best
 /build:GameOverSound.wav
 
-#begin GhostAppearing.wav
+#begin GhostAppearingSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:GhostAppearing.wav
+/build:GhostAppearingSound.wav
 
-#begin ManFiring.wav
+#begin ManFiringSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:ManFiring.wav
+/build:ManFiringSound.wav
 
-#begin ManGrunt.wav
+#begin ManGruntSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:ManGrunt.wav
+/build:ManGruntSound.wav
 
-#begin PauseMode.wav
+#begin PauseModeSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:PauseMode.wav
+/build:PauseModeSound.wav
 
-#begin PickUpObject.wav
+#begin PickUpObjectSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:PickUpObject.wav
+/build:PickUpObjectSound.wav
 
-#begin SafeActivated.wav
+#begin SafeActivatedSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:SafeActivated.wav
+/build:SafeActivatedSound.wav
 
 #begin BonusSound.wav
 /importer:WavImporter

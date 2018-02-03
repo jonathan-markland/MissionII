@@ -24,7 +24,7 @@ namespace MissionIIClassLibrary.GameObjects
         {
             if (_explosionCountDown == ExplosionCountDownReset)
             {
-                MissionIISounds.Play(MissionIISounds.ExplosionSound);
+                MissionIISounds.Play(MissionIISounds.Explosion);
             }
 
             if (_explosionCountDown != 0)

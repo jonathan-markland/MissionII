@@ -133,11 +133,11 @@ namespace MissionIIClassLibrary.GameObjects
             var n = _cyclesMoving % c;
             if (n == 0)
             {
-                MissionIISounds.Play(MissionIISounds.Footstep1Sound);
+                MissionIISounds.Play(MissionIISounds.FootStep1);
             }
             else if (n == (c / 2))
             {
-                MissionIISounds.Play(MissionIISounds.Footstep2Sound);
+                MissionIISounds.Play(MissionIISounds.FootStep2);
             }
         }
 
@@ -288,7 +288,7 @@ namespace MissionIIClassLibrary.GameObjects
             if (! theGameBoard.DroidsExistInRoom)
             {
                 theGameBoard.IncrementScore(MissionIIGameBoardConstants.RoomClearingBonusScore);
-                MissionIISounds.Play(MissionIISounds.BonusSound);
+                MissionIISounds.Play(MissionIISounds.Bonus);
             }
             theGameBoard.PrepareForNewRoom();
         }

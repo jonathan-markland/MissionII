@@ -13,7 +13,7 @@ namespace MissionIIClassLibrary
         {
             if (_firstCycle)
             {
-                MissionIISounds.Play(MissionIISounds.IntroSound);
+                MissionIISounds.Play(MissionIISounds.Intro);
                 _firstCycle = false;
             }
 
@@ -127,7 +127,7 @@ namespace MissionIIClassLibrary
             if (MissionIIModes.HandlePause(theKeyStates, this)) return;
             if (_countDown == Constants.EnteringLevelScreenCycles)
             {
-                MissionIISounds.Play(MissionIISounds.EnteirngLevel);
+                MissionIISounds.Play(MissionIISounds.EnteringLevel);
             }
             if (_countDown > 0)
             {
@@ -221,7 +221,7 @@ namespace MissionIIClassLibrary
         {
             if (_countDown == Constants.GameOverMessageCycles)
             {
-                MissionIISounds.Play(MissionIISounds.GameOverSound);
+                MissionIISounds.Play(MissionIISounds.GameOver);
             }
             if (_countDown > 0)
             {

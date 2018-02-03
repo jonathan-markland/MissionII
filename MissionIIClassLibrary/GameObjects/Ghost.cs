@@ -67,7 +67,7 @@ namespace MissionIIClassLibrary.GameObjects
             {
                 _stunCountDown = Constants.GhostStunnedCycles;
                 _spriteInstance.Traits = MissionIISpriteTraits.GhostStunned;
-                MissionIISounds.Play(MissionIISounds.StunGhostSound);
+                MissionIISounds.Play(MissionIISounds.StunGhost);
             }
             return true;
         }

@@ -4,23 +4,23 @@ namespace MissionIIClassLibrary
 {
     public static class MissionIISounds
     {
-        public static SoundTraits DroidFiring; //
-        public static SoundTraits Electrocution; //
-        public static SoundTraits EnteirngLevel; //
-        public static SoundTraits ExtraLife; //
-        public static SoundTraits GameOverSound; //
-        public static SoundTraits GhostAppearing; //
-        public static SoundTraits ManFiring; //
-        public static SoundTraits ManGrunt; //
-        public static SoundTraits PauseMode; //
-        public static SoundTraits PickUpObject; // 
-        public static SoundTraits SafeActivated; //
-        public static SoundTraits IntroSound; //
-        public static SoundTraits ExplosionSound; //
-        public static SoundTraits BonusSound; //
-        public static SoundTraits StunGhostSound;
-        public static SoundTraits Footstep1Sound;
-        public static SoundTraits Footstep2Sound;
+        public static SoundTraits DroidFiring; 
+        public static SoundTraits Electrocution; 
+        public static SoundTraits EnteringLevel; 
+        public static SoundTraits ExtraLife; 
+        public static SoundTraits GameOver; 
+        public static SoundTraits GhostAppearing; 
+        public static SoundTraits ManFiring; 
+        public static SoundTraits ManGrunt; 
+        public static SoundTraits PauseMode; 
+        public static SoundTraits PickUpObject;
+        public static SoundTraits SafeActivated; 
+        public static SoundTraits Intro; 
+        public static SoundTraits Explosion; 
+        public static SoundTraits Bonus; 
+        public static SoundTraits StunGhost;
+        public static SoundTraits FootStep1;
+        public static SoundTraits FootStep2;
 
         private static Action<SoundTraits> HostPlaySoundAction;
 
@@ -41,23 +41,23 @@ namespace MissionIIClassLibrary
                 return new SoundTraits { HostObject = hostSoundSupplier(soundName) };
             };
 
-            DroidFiring = loadSound("DroidFiring");
-            Electrocution = loadSound("Electrocution");
-            EnteirngLevel = loadSound("EnteirngLevel");
-            ExtraLife = loadSound("ExtraLife");
-            GameOverSound = loadSound("GameOverSound");
-            GhostAppearing = loadSound("GhostAppearing");
-            ManFiring = loadSound("ManFiring");
-            ManGrunt = loadSound("ManGrunt");
-            PauseMode = loadSound("PauseMode");
-            PickUpObject = loadSound("PickUpObject");
-            SafeActivated = loadSound("SafeActivated");
-            IntroSound = loadSound("IntroSound");
-            ExplosionSound = loadSound("ExplosionSound");
-            BonusSound = loadSound("BonusSound");
-            StunGhostSound = loadSound("StunGhostSound");
-            Footstep1Sound = loadSound("Footstep1Sound");
-            Footstep2Sound = loadSound("Footstep2Sound");
+            DroidFiring = loadSound("DroidFiringSound");
+            Electrocution = loadSound("ElectrocutionSound");
+            EnteringLevel = loadSound("EnteringLevelSound");
+            ExtraLife = loadSound("ExtraLifeSound");
+            GameOver = loadSound("GameOverSound");
+            GhostAppearing = loadSound("GhostAppearingSound");
+            ManFiring = loadSound("ManFiringSound");
+            ManGrunt = loadSound("ManGruntSound");
+            PauseMode = loadSound("PauseModeSound");
+            PickUpObject = loadSound("PickUpObjectSound");
+            SafeActivated = loadSound("SafeActivatedSound");
+            Intro = loadSound("IntroSound");
+            Explosion = loadSound("ExplosionSound");
+            Bonus = loadSound("BonusSound");
+            StunGhost = loadSound("StunGhostSound");
+            FootStep1 = loadSound("Footstep1Sound");
+            FootStep2 = loadSound("Footstep2Sound");
         }
     }
 }
