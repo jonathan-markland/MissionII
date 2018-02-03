@@ -1,5 +1,5 @@
 ﻿using System;
-using MissionIIClassLibrary.Math;
+using GameClassLibrary.Math;
 
 namespace MissionIIClassLibrary
 {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using MissionIIClassLibrary.Math;
 using GameClassLibrary.Math;
 
 namespace MissionIIClassLibrary

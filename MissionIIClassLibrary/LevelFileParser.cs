@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Collections.Generic;
-using MissionIIClassLibrary.Math;
+using GameClassLibrary.Math;
 
 namespace MissionIIClassLibrary
 {

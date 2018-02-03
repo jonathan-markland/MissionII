@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MissionIIClassLibrary.Math;
 using GameClassLibrary.Math;
 
 namespace MissionIIClassLibrary.ArtificialIntelligence
@@ -62,7 +61,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
         private void ChooseNewMovement()
         {
-            var theRng = Math.Rng.Generator;
+            var theRng = Rng.Generator;
             _countDown = theRng.Next(50) + 50; // TODO: single-minded movement constants
             _facingDirection = theRng.Next(8);
             _movementDeltas = theRng.Next(8) < 1

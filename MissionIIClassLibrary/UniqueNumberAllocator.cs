@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using GameClassLibrary.Math;
 
 namespace MissionIIClassLibrary
 {
@@ -10,7 +11,7 @@ namespace MissionIIClassLibrary
         public UniqueNumberAllocator(int baseNumber, int countOfItems)
         {
             _theList = Enumerable.Range(baseNumber, countOfItems).ToList();
-            Business.Shuffle(_theList, Math.Rng.Generator);
+            Business.Shuffle(_theList, Rng.Generator);
         }
 
         public int Next()

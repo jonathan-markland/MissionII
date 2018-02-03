@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using System.Linq;
+using GameClassLibrary;
 
 namespace MissionIIMonoGame
 {
@@ -186,7 +187,7 @@ namespace MissionIIMonoGame
                     {
                         _spriteBatch.GraphicsDevice.SamplerStates[0] = SamplerState.PointClamp;
 
-                        var targetRect = MissionIIClassLibrary.Math.MakeRectangle.GetSquarePixelsProjectionArea(
+                        var targetRect = GameClassLibrary.Math.MakeRectangle.GetSquarePixelsProjectionArea(
                             Window.ClientBounds.Width,
                             Window.ClientBounds.Height,
                             _backingScreen.Width,
@@ -199,7 +200,7 @@ namespace MissionIIMonoGame
 
                 case ScalingModes.StretchPreservingAspect:
                     {
-                        var targetRect = MissionIIClassLibrary.Math.MakeRectangle.GetBestFitProjectionArea(
+                        var targetRect = GameClassLibrary.Math.MakeRectangle.GetBestFitProjectionArea(
                           Window.ClientBounds.Width,
                           Window.ClientBounds.Height,
                           _backingScreen.Width,

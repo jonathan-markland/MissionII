@@ -1,4 +1,4 @@
-﻿using MissionIIClassLibrary.Math;
+﻿using GameClassLibrary.Math;
 
 namespace MissionIIClassLibrary.Interactibles
 {

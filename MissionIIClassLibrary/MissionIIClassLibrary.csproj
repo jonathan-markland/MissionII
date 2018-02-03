@@ -7,8 +7,8 @@
     <ProjectGuid>{5935B105-51E8-46D7-941C-2860502AE324}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GameClassLibrary</RootNamespace>
-    <AssemblyName>GameClassLibrary</AssemblyName>
+    <RootNamespace>MissionIIClassLibrary</RootNamespace>
+    <AssemblyName>MissionIIClassLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
