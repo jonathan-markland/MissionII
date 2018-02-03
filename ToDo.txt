@@ -4,26 +4,24 @@ Release 1
 [ ] Do the all the proposed refactorings (g.txt)
 [ ] Show the level number on the "entering" screen.
 [ ] Fix the location of the key (etc) at start of level, not per room-start.
-[ ] Prefix all sound file names with "Sound" to avoid name clashes.
-[ ] Render outlines around walls properly.
-
-[ ] Have a selection of flooring sprites (darkish).
 
 [ ] Blue droid logic:  Stuck to walls.  Choose from the set of
     directions from which the droid can advance.
 
 [ ] Have a selection of explosion sounds and randomly select.
 
+[ ] Use of the font to display messages
+	[ ] Fix fuzzy font drawing.
 
+	
+	
 
 Release 2
 ---------
 [ ] Textures for walls and floors, re-coloured.
-[ ] Font
 [ ] Proper parser state machine for loading levels so we can report line numbers very easily.
 [ ] Hi-score table (although we need a proper font for this).
 [ ] Open maximised
-[ ] Droid firing -- more aggressive as levels progress.
 [ ] Ghost timing -- change as levels progress?
 [ ] Penalise shooting inaccuracy on later levels?
 [ ] Cycle counts for animation in a configuration file?
@@ -35,6 +33,14 @@ Release 2
 
 
 
+
+
+
+[X] Font
+[ ] NOT DOING:  Droid firing -- more aggressive as levels progress. - NO: Just have different types of droids.
+[X] Have a selection of flooring sprites (darkish).
+[ ] NOT DOING: Render outlines around walls properly - I may just stick with the bricks.
+[X] Prefix all sound file names with "Sound" to avoid name clashes.
 [X] Design a different map for level 1.
 [X] Design some further level maps
 [X] MUST DO - Replace all the copyright graphics.
