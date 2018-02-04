@@ -1,9 +1,33 @@
 ﻿
 namespace GameClassLibrary.Walls.Clusters
 {
-    public static class ExpandWallsWithThickPassages
+    public struct WallExpander
     {
-        public static WallMatrix ExpandWalls(WallMatrix sourceMatrix)
+        private int _clustersHorizontally;
+        private int _clustersVertically;
+        private int _sourceClusterSide;
+        private int _destClusterSide;
+        private WallMatrix _sourceMatrix;
+        private WallMatrix _destMatrix;
+
+
+
+        public WallExpander(
+            WallMatrix sourceMatrix,
+            int clustersHorizontally, int clustersVertically,
+            int sourceClusterSide, int destClusterSide)
+        {
+            _sourceMatrix = sourceMatrix;
+            _destMatrix = null;
+            _clustersHorizontally = clustersHorizontally;
+            _clustersVertically = clustersVertically;
+            _sourceClusterSide = sourceClusterSide;
+            _destClusterSide = destClusterSide;
+        }
+
+
+
+        public WallMatrix GetExpandedWalls()
         {
             // 789       78889
             // 456 ----> 45556
@@ -12,14 +36,16 @@ namespace GameClassLibrary.Walls.Clusters
             //           12223
 
             var destMatrix = new WallMatrix(
-                Constants.ClustersHorizontally * Constants.DestClusterSide,
-                Constants.ClustersVertically * Constants.DestClusterSide);
+                _clustersHorizontally * _destClusterSide,
+                _clustersVertically * _destClusterSide);
 
-            for (int y = 0; y < Constants.ClustersVertically; ++y)
+            _destMatrix = destMatrix;
+
+            for (int y = 0; y < _clustersVertically; ++y)
             {
-                for (int x = 0; x < Constants.ClustersHorizontally; ++x)
+                for (int x = 0; x < _clustersHorizontally; ++x)
                 {
-                    ExpandCluster(sourceMatrix, x, y, destMatrix);
+                    ExpandCluster(x, y, destMatrix);
                 }
             }
 
@@ -28,17 +54,16 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private static void ExpandCluster(
-            WallMatrix sourceMatrix, int x, int y, WallMatrix destMatrix)
+        private void ExpandCluster(int x, int y, WallMatrix destMatrix)
         {
             // NB: Order is significant
 
-            SidePiece(sourceMatrix, destMatrix, x, y, 2,  0, -1, 8); // B -> 222  ABOVE  N Q
-            SidePiece(sourceMatrix, destMatrix, x, y, 8,  0, +1, 2); // H -> 888  BELOW  N K
-            SidePiece(sourceMatrix, destMatrix, x, y, 4, -1,  0, 6); // D -> 444  LEFT   N O
-            SidePiece(sourceMatrix, destMatrix, x, y, 6,  1,  0, 4); // F -> 666  RIGHT  N M
+            SidePiece(destMatrix, x, y, 2,  0, -1, 8); // B -> 222  ABOVE  N Q
+            SidePiece(destMatrix, x, y, 8,  0, +1, 2); // H -> 888  BELOW  N K
+            SidePiece(destMatrix, x, y, 4, -1,  0, 6); // D -> 444  LEFT   N O
+            SidePiece(destMatrix, x, y, 6,  1,  0, 4); // F -> 666  RIGHT  N M
 
-            CentrePiece(sourceMatrix, destMatrix, x, y);
+            CentrePiece(destMatrix, x, y);
 
             CornerPiece(destMatrix, x, y, 1, 2, 4); // 1 = 2 | 4
             CornerPiece(destMatrix, x, y, 3, 2, 6); // 3 = 2 | 6
@@ -48,7 +73,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private static void SidePiece(WallMatrix sourceMatrix, WallMatrix destMatrix, int x, int y, int targetSide, int dx, int dy, int joinSide)
+        private void SidePiece(WallMatrix destMatrix, int x, int y, int targetSide, int dx, int dy, int joinSide)
         {
             /*
              *  JKL
@@ -69,8 +94,8 @@ namespace GameClassLibrary.Walls.Clusters
              *       (respectively for the other sides, 4, 6, 8).
              */
 
-            var srcClusterCanvas = new ClusterCanvas(sourceMatrix, x, y, Constants.SourceClusterSide);
-            var dstClusterCanvas = new ClusterCanvas(destMatrix, x, y, Constants.DestClusterSide);
+            var srcClusterCanvas = new ClusterCanvas(_sourceMatrix, x, y, _sourceClusterSide);
+            var dstClusterCanvas = new ClusterCanvas(destMatrix, x, y, _destClusterSide);
 
             if (srcClusterCanvas.IsSpace(targetSide)) // If B is unfilled, 
             {
@@ -82,10 +107,10 @@ namespace GameClassLibrary.Walls.Clusters
                 var otherY = y + dy;
 
                 if (otherX >= 0 && otherY >= 0 
-                    && otherX < Constants.ClustersHorizontally
-                    && otherY < Constants.ClustersVertically)   // except if the 3x3 above exists
+                    && otherX < _clustersHorizontally
+                    && otherY < _clustersVertically)   // except if the 3x3 above exists
                 {
-                    var srcOtherClusterCanvas = new ClusterCanvas(sourceMatrix, otherX, otherY, Constants.SourceClusterSide);
+                    var srcOtherClusterCanvas = new ClusterCanvas(_sourceMatrix, otherX, otherY, _sourceClusterSide);
                     dstClusterCanvas.Paint(targetSide,
                         ! (srcOtherClusterCanvas.IsWall(joinSide)
                         && srcOtherClusterCanvas.IsWall(5)
@@ -100,19 +125,21 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private static void CentrePiece(WallMatrix sourceMatrix, WallMatrix destMatrix, int x, int y)
+        private void CentrePiece(WallMatrix destMatrix, int x, int y)
         {
             // The level designer specified whether the centres are filled.
 
-            var dstClusterCanvas = new ClusterCanvas(destMatrix, x, y, Constants.DestClusterSide);
-            var srcClusterCanvas = new ClusterCanvas(sourceMatrix, x, y, Constants.SourceClusterSide);
+            var dstClusterCanvas = new ClusterCanvas(destMatrix, x, y, _destClusterSide);
+            var srcClusterCanvas = new ClusterCanvas(_sourceMatrix, x, y, _sourceClusterSide);
 
             dstClusterCanvas.Paint(5, srcClusterCanvas.IsWall(5));
         }
 
 
 
-        private static void CornerPiece(WallMatrix destMatrix, int x, int y, int targetCorner, int adjacentSide1, int adjacentSide2)
+        private void CornerPiece(
+            WallMatrix destMatrix, int x, int y, int targetCorner, 
+            int adjacentSide1, int adjacentSide2)
         {
             /*
              *   12223
@@ -125,7 +152,7 @@ namespace GameClassLibrary.Walls.Clusters
              *   ...resp. for 3, 7, 9
              */
 
-            var dstClusterCanvas = new ClusterCanvas(destMatrix, x, y, Constants.DestClusterSide);
+            var dstClusterCanvas = new ClusterCanvas(destMatrix, x, y, _destClusterSide);
 
             dstClusterCanvas.Paint(targetCorner,
                 dstClusterCanvas.IsWall(adjacentSide1)

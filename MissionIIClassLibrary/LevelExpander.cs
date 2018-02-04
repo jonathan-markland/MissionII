@@ -28,8 +28,12 @@ namespace MissionIIClassLibrary
 
                 foreach (var thisRoom in roomsList)
                 {
-                    thisRoom.WallData = ExpandWallsWithThickPassages.ExpandWalls(
-                        thisRoom.FileWallData);
+                    thisRoom.WallData = new WallExpander(
+                        thisRoom.FileWallData, 
+                        Constants.ClustersHorizontally,
+                        Constants.ClustersVertically,
+                        Constants.SourceClusterSide,
+                        Constants.DestClusterSide).GetExpandedWalls();
                 }
 
                 // Now we know all the rooms, ensure the doorways line up.
