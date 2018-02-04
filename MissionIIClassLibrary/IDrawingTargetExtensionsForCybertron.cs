@@ -7,24 +7,24 @@ namespace MissionIIClassLibrary
         public static void DrawFirstSpriteScreenCentred(this IDrawingTarget drawingTarget, SpriteTraits theSprite)
         {
             drawingTarget.DrawFirstSpriteCentred(
-                MissionIIGameBoardConstants.ScreenWidth / 2,
-                MissionIIGameBoardConstants.ScreenHeight / 2,
+                Constants.ScreenWidth / 2,
+                Constants.ScreenHeight / 2,
                 theSprite);
         }
 
         public static void DrawFirstSprite(this IDrawingTarget drawingTarget, SpriteInstance theSprite)
         {
             drawingTarget.DrawSprite(
-                MissionIIGameBoardConstants.RoomOriginX + theSprite.RoomX,
-                MissionIIGameBoardConstants.RoomOriginY + theSprite.RoomY,
+                Constants.RoomOriginX + theSprite.RoomX,
+                Constants.RoomOriginY + theSprite.RoomY,
                 theSprite.Traits.GetHostImageObject(0));
         }
 
         public static void DrawIndexedSprite(this IDrawingTarget drawingTarget, SpriteInstance theSprite, int spriteIndex)
         {
             drawingTarget.DrawSprite(
-                MissionIIGameBoardConstants.RoomOriginX + theSprite.RoomX,
-                MissionIIGameBoardConstants.RoomOriginY + theSprite.RoomY,
+                Constants.RoomOriginX + theSprite.RoomX,
+                Constants.RoomOriginY + theSprite.RoomY,
                 theSprite.Traits.GetHostImageObject(spriteIndex));
         }
 

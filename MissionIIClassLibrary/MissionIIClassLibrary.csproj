@@ -57,7 +57,6 @@
     <Compile Include="Droids\BaseDroid.cs" />
     <Compile Include="GameObjects\Explosion.cs" />
     <Compile Include="MissionIIGameBoard.cs" />
-    <Compile Include="MissionIIGameBoardConstants.cs" />
     <Compile Include="MissionIIGameMode.cs" />
     <Compile Include="MissionIIGameModes.cs" />
     <Compile Include="MissionIIGameModeSelector.cs" />

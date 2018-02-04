@@ -74,8 +74,8 @@ namespace MissionIIMonoGame
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             _backingScreen = new RenderTarget2D(GraphicsDevice, 
-                MissionIIClassLibrary.MissionIIGameBoardConstants.ScreenWidth,
-                MissionIIClassLibrary.MissionIIGameBoardConstants.ScreenHeight);
+                MissionIIClassLibrary.Constants.ScreenWidth,
+                MissionIIClassLibrary.Constants.ScreenHeight);
 
             _monoGameDrawingTarget = new MonoGameDrawingTarget(_spriteBatch);
 

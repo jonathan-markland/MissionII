@@ -307,15 +307,15 @@ namespace MissionIIClassLibrary.GameObjects
         {
             theGameBoard.RoomNumber += roomNumberDelta;
             // Note: We sort of assume all the rooms are the same size!  (Which they are!)
-            var roomWidth = theGameBoard.CurrentRoomWallData.CountH * MissionIIGameBoardConstants.TileWidth; // TODO: Not ideal having these possibly repeated calculations.
-            var roomHeight = theGameBoard.CurrentRoomWallData.CountV * MissionIIGameBoardConstants.TileHeight; // TODO: Not ideal having these possibly repeated calculations.
+            var roomWidth = theGameBoard.CurrentRoomWallData.CountH * Constants.TileWidth; // TODO: Not ideal having these possibly repeated calculations.
+            var roomHeight = theGameBoard.CurrentRoomWallData.CountV * Constants.TileHeight; // TODO: Not ideal having these possibly repeated calculations.
             SpriteInstance.RoomX += roomWidth * deltaRoomWidth;
             SpriteInstance.RoomX += deltaSpriteWidth;
             SpriteInstance.RoomY += roomHeight * deltaRoomHeight;
             SpriteInstance.RoomY += deltaSpriteHeight;
             if (! theGameBoard.DroidsExistInRoom)
             {
-                theGameBoard.IncrementScore(MissionIIGameBoardConstants.RoomClearingBonusScore);
+                theGameBoard.IncrementScore(Constants.RoomClearingBonusScore);
                 MissionIISounds.Play(MissionIISounds.Bonus);
             }
             theGameBoard.PrepareForNewRoom();

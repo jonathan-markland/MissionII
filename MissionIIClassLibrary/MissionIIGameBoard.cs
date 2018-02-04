@@ -102,8 +102,8 @@ namespace MissionIIClassLibrary
         {
             return DirectionFinder.GetFreeDirections(
                 currentExtents, CurrentRoomWallData,
-                MissionIIGameBoardConstants.TileWidth,
-                MissionIIGameBoardConstants.TileHeight);
+                Constants.TileWidth,
+                Constants.TileHeight);
         }
 
 
@@ -206,7 +206,7 @@ namespace MissionIIClassLibrary
 
                             // Bonus scoring for multiples.
                             var n = CountExplosionsThatCanBeUsedForBonusesInRoom;
-                            if (n >= MissionIIGameBoardConstants.MultiDroidKillCountForBonus)
+                            if (n >= Constants.MultiDroidKillCountForBonus)
                             {
                                 IncrementScore(thisDroidKillScore * n);
                                 MissionIISounds.Play(MissionIISounds.Bonus);
@@ -235,8 +235,8 @@ namespace MissionIIClassLibrary
             RoomNumber = theLevel.ManStartRoom.RoomNumber;
 
             // Calculate size of cluster in pixels:
-            var clusterSizeX = MissionIIGameBoardConstants.TileWidth * Constants.DestClusterSide;
-            var clusterSizeY = MissionIIGameBoardConstants.TileHeight * Constants.DestClusterSide;
+            var clusterSizeX = Constants.TileWidth * Constants.DestClusterSide;
+            var clusterSizeY = Constants.TileHeight * Constants.DestClusterSide;
 
             // TODO: all man sprites must be checked for SAME dimensions.
             // Calculate centering offsets for man within cluster:
@@ -386,8 +386,8 @@ namespace MissionIIClassLibrary
 
             PositionFinder.ForEachEmptyCell(
                 CurrentRoomWallData,
-                MissionIIGameBoardConstants.TileWidth,
-                MissionIIGameBoardConstants.TileHeight,
+                Constants.TileWidth,
+                Constants.TileHeight,
                 posnWidth,
                 posnHeight,
                 (x, y) =>
@@ -561,7 +561,7 @@ namespace MissionIIClassLibrary
 
             drawingTarget.DrawFirstSprite(210, 8, MissionIISpriteTraits.Room);
             drawingTarget.DrawNumber(
-                MissionIIGameBoardConstants.ScreenWidth, 8,
+                Constants.ScreenWidth, 8,
                 (uint)(LevelNumber * 100 +
                 RoomNumber), theNumbers);
 
@@ -574,10 +574,10 @@ namespace MissionIIClassLibrary
 
             drawingTarget.DrawWalls(
                 LevelNumber,
-                MissionIIGameBoardConstants.RoomOriginX,
-                MissionIIGameBoardConstants.RoomOriginY,
-                MissionIIGameBoardConstants.TileWidth,
-                MissionIIGameBoardConstants.TileHeight,
+                Constants.RoomOriginX,
+                Constants.RoomOriginY,
+                Constants.TileWidth,
+                Constants.TileHeight,
                 CurrentRoomWallData,
                 outlineWallSpriteTraits,
                 MissionIISpriteTraits.WallBrick,
@@ -589,12 +589,12 @@ namespace MissionIIClassLibrary
 
             // Lives:
 
-            int y = MissionIIGameBoardConstants.ScreenHeight - 16;
-            drawingTarget.DrawRepeats(MissionIIGameBoardConstants.InventoryIndent, y, 8, 0, System.Math.Min(Lives, Constants.MaxDisplayedLives), MissionIISpriteTraits.Life);
+            int y = Constants.ScreenHeight - 16;
+            drawingTarget.DrawRepeats(Constants.InventoryIndent, y, 8, 0, System.Math.Min(Lives, Constants.MaxDisplayedLives), MissionIISpriteTraits.Life);
 
             // Player inventory:
 
-            int x = MissionIIGameBoardConstants.ScreenWidth - MissionIIGameBoardConstants.InventoryIndent;
+            int x = Constants.ScreenWidth - Constants.InventoryIndent;
             foreach (var carriedObject in PlayerInventory)
             {
                 var spriteTraits = carriedObject.SpriteTraits;

@@ -8,6 +8,6 @@ namespace MissionIIClassLibrary.Interactibles
         {
         }
 
-        public override int CollectionScore => MissionIIGameBoardConstants.GoldCollectionScore;
+        public override int CollectionScore => Constants.GoldCollectionScore;
     }
 }

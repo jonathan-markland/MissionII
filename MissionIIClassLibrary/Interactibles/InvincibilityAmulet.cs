@@ -20,6 +20,6 @@ namespace MissionIIClassLibrary.Interactibles
             MissionIISounds.Play(MissionIISounds.InvincibilityAmuletSound);
         }
 
-        public override int CollectionScore => MissionIIGameBoardConstants.InvincibilityAmuletScore;
+        public override int CollectionScore => Constants.InvincibilityAmuletScore;
     }
 }

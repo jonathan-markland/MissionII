@@ -10,7 +10,7 @@ namespace MissionIIClassLibrary.Droids
 
         public override int KillScore
         {
-            get { return MissionIIGameBoardConstants.WanderingDroidKillScore; }
+            get { return Constants.WanderingDroidKillScore; }
         }
     }
 }

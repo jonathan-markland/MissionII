@@ -96,9 +96,9 @@ namespace MissionIIClassLibrary
                 var cybertronGameBoard = new MissionIIClassLibrary.MissionIIGameBoard()
                 {
                     TheWorldWallData = loadedWorld,
-                    BoardWidth = MissionIIGameBoardConstants.ScreenWidth,
-                    BoardHeight = MissionIIGameBoardConstants.ScreenHeight,
-                    LevelNumber = MissionIIGameBoardConstants.StartLevelNumber,
+                    BoardWidth = Constants.ScreenWidth,
+                    BoardHeight = Constants.ScreenHeight,
+                    LevelNumber = Constants.StartLevelNumber,
                     Lives = Constants.InitialLives
                 };
 
@@ -147,7 +147,7 @@ namespace MissionIIClassLibrary
 
             // Show the things you need to find on this level.
 
-            int x = MissionIIGameBoardConstants.ScreenWidth / 2;
+            int x = Constants.ScreenWidth / 2;
             int y = 150; // TODO: constant
             int dy = 24; // TODO: constant
 

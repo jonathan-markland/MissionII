@@ -25,8 +25,8 @@ namespace MissionIIClassLibrary.GameObjects
 
                 var hitResult = CollisionDetection.HitsWalls(
                     theGameBoard.CurrentRoomWallData,
-                    MissionIIGameBoardConstants.TileWidth,
-                    MissionIIGameBoardConstants.TileHeight,
+                    Constants.TileWidth,
+                    Constants.TileHeight,
                     proposedX,
                     proposedY,
                     Sprite.Traits.BoardWidth,
