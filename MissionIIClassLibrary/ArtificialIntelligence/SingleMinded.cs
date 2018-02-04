@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameClassLibrary.Math;
+using GameClassLibrary.Walls;
 
 namespace MissionIIClassLibrary.ArtificialIntelligence
 {
@@ -75,7 +76,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
             {
                 _countDown = theRng.Next(50) + 50;
                 _facingDirection = freeDirections.Choose(theRng.Next(freeDirections.Count));
-                _movementDeltas = Business.GetMovementDeltas(_facingDirection);
+                _movementDeltas = MovementDeltas.ConvertFromFacingDirection(_facingDirection);
 
             }
         }

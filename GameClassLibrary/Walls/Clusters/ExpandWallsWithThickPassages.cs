@@ -1,5 +1,5 @@
 ﻿
-namespace GameClassLibrary.Walls
+namespace GameClassLibrary.Walls.Clusters
 {
     public static class ExpandWallsWithThickPassages
     {

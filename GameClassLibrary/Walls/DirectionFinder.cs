@@ -1,5 +1,6 @@
 ﻿using System;
 using GameClassLibrary.Math;
+using GameClassLibrary.Walls.Clusters;
 
 namespace GameClassLibrary.Walls
 {

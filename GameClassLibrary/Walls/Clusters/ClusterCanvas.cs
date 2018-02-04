@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GameClassLibrary.Walls
+namespace GameClassLibrary.Walls.Clusters
 {
     public struct ClusterCanvas
     {

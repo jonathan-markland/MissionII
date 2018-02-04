@@ -46,6 +46,7 @@
     <Compile Include="ArtificialIntelligence\FiringAttractor.cs" />
     <Compile Include="ArtificialIntelligence\SingleMinded.cs" />
     <Compile Include="ArtificialIntelligence\Swoop.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Font.cs" />
     <Compile Include="HostSuppliedSprite.cs" />
     <Compile Include="Interactibles\InvincibilityAmulet.cs" />

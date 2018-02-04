@@ -55,6 +55,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\GameClassLibrary\GameClassLibrary.csproj">
+      <Project>{4442080b-4741-4f31-a8d1-1c610eb58cdb}</Project>
+      <Name>GameClassLibrary</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MissionIIClassLibrary\MissionIIClassLibrary.csproj">
       <Project>{5935b105-51e8-46d7-941c-2860502ae324}</Project>
       <Name>MissionIIClassLibrary</Name>

@@ -1,6 +1,6 @@
 ﻿
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MissionIIClassLibrary;
+using GameClassLibrary.Math; // TODO: move out to GameClssLinbary tests asembly
 
 namespace UnitTestMissionIIClassLibrary
 {

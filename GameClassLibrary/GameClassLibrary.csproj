@@ -53,11 +53,11 @@
     <Compile Include="Math\Rectangle.cs" />
     <Compile Include="Math\Rng.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Walls\ClusterCanvas.cs" />
+    <Compile Include="Walls\Clusters\ClusterCanvas.cs" />
+    <Compile Include="Walls\Clusters\Constants.cs" />
     <Compile Include="Walls\CollisionDetection.cs" />
     <Compile Include="Walls\DirectionFinder.cs" />
-    <Compile Include="Walls\ExpandWallsWithThickPassages.cs" />
-    <Compile Include="Walls\ExpandWallsWithThinPassages.cs" />
+    <Compile Include="Walls\Clusters\ExpandWallsWithThickPassages.cs" />
     <Compile Include="Walls\PositionFinder.cs" />
     <Compile Include="Walls\WallMatrix.cs" />
   </ItemGroup>

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
+using GameClassLibrary.Walls.Clusters;
 
 namespace MissionIIClassLibrary
 {
@@ -28,7 +29,8 @@ namespace MissionIIClassLibrary
 
                 foreach (var thisRoom in roomsList)
                 {
-                    thisRoom.WallData = ExpandWallsWithThickPassages.ExpandWalls(thisRoom.FileWallData);
+                    thisRoom.WallData = ExpandWallsWithThickPassages.ExpandWalls(
+                        thisRoom.FileWallData);
                 }
 
                 // Now we know all the rooms, ensure the doorways line up.
