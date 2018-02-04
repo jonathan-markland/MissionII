@@ -13,7 +13,12 @@ Release 1
 [ ] Use of the font to display messages
 	[ ] Fix fuzzy font drawing.
 
-	
+[ ] Different laser sounds for the pink droids.
+[ ] Score-sapper droids
+[ ] Kamikaze Droids that kill you if they touch you.
+
+
+
 	
 
 Release 2

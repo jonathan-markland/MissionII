@@ -1,4 +1,5 @@
-﻿
+﻿using GameClassLibrary.Graphics;
+
 namespace MissionIIClassLibrary.ArtificialIntelligence
 {
     public class Swoop : AbstractIntelligenceProvider

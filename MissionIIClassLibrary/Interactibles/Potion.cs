@@ -1,4 +1,5 @@
-﻿
+﻿using GameClassLibrary.Graphics;
+
 namespace MissionIIClassLibrary.Interactibles
 {
     public class Potion : InteractibleObject

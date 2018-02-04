@@ -88,10 +88,7 @@
     <Compile Include="LevelFileValidator.cs" />
     <Compile Include="MissionIINumericSpriteFont.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SoundTraits.cs" />
     <Compile Include="SpecialMarkers.cs" />
-    <Compile Include="SpriteInstance.cs" />
-    <Compile Include="SpriteTraits.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameClassLibrary\GameClassLibrary.csproj">

@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 
-namespace MissionIIClassLibrary
+namespace GameClassLibrary.Graphics
 {
     public class SpriteTraits
     {

@@ -1,4 +1,5 @@
-﻿namespace MissionIIClassLibrary
+﻿
+namespace GameClassLibrary.Sound
 {
     public class SoundTraits
     {

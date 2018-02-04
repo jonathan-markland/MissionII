@@ -1,5 +1,6 @@
 ﻿using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
+using GameClassLibrary.Graphics;
 
 namespace MissionIIClassLibrary.GameObjects
 {

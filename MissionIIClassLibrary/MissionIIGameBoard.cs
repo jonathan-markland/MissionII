@@ -4,6 +4,7 @@ using GameClassLibrary.Math;
 using GameClassLibrary.Containers;
 using GameClassLibrary.Algorithms;
 using GameClassLibrary.Walls;
+using GameClassLibrary.Graphics;
 
 namespace MissionIIClassLibrary
 {

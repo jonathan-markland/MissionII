@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
 using GameClassLibrary.Walls.Clusters;
+using GameClassLibrary.Graphics;
 
 namespace MissionIIClassLibrary
 {
@@ -13,7 +14,7 @@ namespace MissionIIClassLibrary
 
         public static void ExpandWallsInWorld(
             WorldWallData theWorld, 
-            SpriteTraits wallPatternResamplingSprite)
+            SpriteTraits wallPatternResamplingSprite) // TODO: Should we avoid dependency on Graphics?  Pass in the resample array instead?
         {
             var levelIndex = 0;
 

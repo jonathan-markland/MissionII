@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GameClassLibrary.Math;
+using GameClassLibrary.Graphics;
 
 namespace MissionIIClassLibrary.ArtificialIntelligence
 {

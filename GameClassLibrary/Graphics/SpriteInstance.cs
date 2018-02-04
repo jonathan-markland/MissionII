@@ -1,7 +1,7 @@
 ﻿
 using GameClassLibrary.Math;
 
-namespace MissionIIClassLibrary
+namespace GameClassLibrary.Graphics
 {
     public class SpriteInstance
     {
