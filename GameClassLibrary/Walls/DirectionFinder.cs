@@ -1,4 +1,5 @@
-﻿using GameClassLibrary.Math;
+﻿using System;
+using GameClassLibrary.Math;
 
 namespace GameClassLibrary.Walls
 {
@@ -13,7 +14,7 @@ namespace GameClassLibrary.Walls
             int resultMask = 0;
             for (int directionIndex = 0; directionIndex < 8; directionIndex++)
             {
-                var movementDelta = Business.GetMovementDeltas(directionIndex);
+                var movementDelta = MovementDeltas.ConvertFromFacingDirection(directionIndex);
                 var hitResult = CollisionDetection.HitsWalls(currentRoomWallData, tileWidth, tileHeight, currentExtents.Left, currentExtents.Top, currentExtents.Width, currentExtents.Height);
                 if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
                 {
@@ -23,5 +24,23 @@ namespace GameClassLibrary.Walls
             }
             return new FoundDirections { Count = countFound, DirectionsMask = resultMask };
         }
+
+
+
+        public static int GetDirectionFacingAwayFromWalls(WallMatrix fileWallData, Point startCluster, int sourceClusterSide)
+        {
+            var clusterCanvas = new ClusterCanvas(
+                fileWallData, startCluster.X, startCluster.Y, sourceClusterSide);
+
+            // Note this is a priority order:
+            if (clusterCanvas.IsSpace(8)) return 4; // FACING DOWN
+            if (clusterCanvas.IsSpace(6)) return 2; // FACING RIGHT
+            if (clusterCanvas.IsSpace(4)) return 6; // FACING LEFT
+            if (clusterCanvas.IsSpace(2)) return 0; // FACING UP
+            throw new Exception("Cannot establish an exit direction, all sides of cluster have walls.");
+        }
+
+
+
     }
 }

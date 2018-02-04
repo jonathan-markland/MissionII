@@ -1,5 +1,6 @@
 ﻿using System;
 using GameClassLibrary.Math;
+using GameClassLibrary.Walls;
 
 namespace MissionIIClassLibrary
 {
@@ -25,7 +26,7 @@ namespace MissionIIClassLibrary
             }
             _manStart = startCluster;
             _manStartRoom = startRoom;
-            _initialManFacingDirection = Business.GetDirectionFacingAwayFromWalls(startRoom.FileWallData, startCluster);
+            _initialManFacingDirection = DirectionFinder.GetDirectionFacingAwayFromWalls(startRoom.FileWallData, startCluster, Constants.SourceClusterSide);
         }
 
         public Point ManStart

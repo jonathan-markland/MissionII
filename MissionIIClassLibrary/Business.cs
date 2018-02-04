@@ -52,40 +52,6 @@ namespace MissionIIClassLibrary
 
 
 
-        public static int GetDirectionFacingAwayFromWalls(WallMatrix fileWallData, Point startCluster)
-        {
-            var clusterCanvas = new ClusterCanvas(
-                fileWallData, startCluster.X, startCluster.Y, Constants.SourceClusterSide);
-
-            // Note this is a priority order:
-            if (clusterCanvas.IsSpace(8)) return 4; // FACING DOWN
-            if (clusterCanvas.IsSpace(6)) return 2; // FACING RIGHT
-            if (clusterCanvas.IsSpace(4)) return 6; // FACING LEFT
-            if (clusterCanvas.IsSpace(2)) return 0; // FACING UP
-            throw new Exception("Cannot establish an exit direction, all sides of cluster have walls.");
-        }
-
-
-
-        private static MovementDeltas[] g_MovementDeltas = new MovementDeltas[]
-        {
-            new MovementDeltas { dx =  0, dy = -1 }, // up
-            new MovementDeltas { dx =  1, dy = -1 }, // up right
-            new MovementDeltas { dx =  1, dy =  0 }, // right
-            new MovementDeltas { dx =  1, dy =  1 }, // down right
-            new MovementDeltas { dx =  0, dy =  1 }, // down
-            new MovementDeltas { dx = -1, dy =  1 }, // down left
-            new MovementDeltas { dx = -1, dy =  0 }, // left 
-            new MovementDeltas { dx = -1, dy = -1 }, // left up
-        };
-
-
-        public static MovementDeltas GetMovementDeltas(int facingDirection)
-        {
-            return g_MovementDeltas[facingDirection];
-        }
-
-
         public static MovementDeltas GetMovementDeltas(MissionIIKeyStates keyStates)
         {
             return new MovementDeltas(

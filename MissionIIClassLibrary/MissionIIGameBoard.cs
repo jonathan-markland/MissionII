@@ -114,7 +114,7 @@ namespace MissionIIClassLibrary
             bool increasesScore)
         {
             StartBullet(
-                sourceSprite, Business.GetMovementDeltas(facingDirection), increasesScore);
+                sourceSprite, MovementDeltas.ConvertFromFacingDirection(facingDirection), increasesScore);
         }
 
 
