@@ -78,8 +78,9 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                 _movementDeltas = Business.GetMovementDeltas(_facingDirection);
 
             }
-
         }
+
+
 
     }
 }
