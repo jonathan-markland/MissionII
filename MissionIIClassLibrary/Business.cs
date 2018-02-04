@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameClassLibrary.Math;
+using GameClassLibrary.Walls;
 
 namespace MissionIIClassLibrary
 {
@@ -56,10 +57,11 @@ namespace MissionIIClassLibrary
             var clusterCanvas = new ClusterCanvas(
                 fileWallData, startCluster.X, startCluster.Y, Constants.SourceClusterSide);
 
-            if (clusterCanvas.IsSpace(2)) return 0;
-            if (clusterCanvas.IsSpace(4)) return 6;
-            if (clusterCanvas.IsSpace(6)) return 2;
-            if (clusterCanvas.IsSpace(8)) return 4;
+            // Note this is a priority order:
+            if (clusterCanvas.IsSpace(8)) return 4; // FACING DOWN
+            if (clusterCanvas.IsSpace(6)) return 2; // FACING RIGHT
+            if (clusterCanvas.IsSpace(4)) return 6; // FACING LEFT
+            if (clusterCanvas.IsSpace(2)) return 0; // FACING UP
             throw new Exception("Cannot establish an exit direction, all sides of cluster have walls.");
         }
 
