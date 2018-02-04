@@ -1,4 +1,6 @@
-﻿namespace MissionIIClassLibrary
+﻿using GameClassLibrary.Graphics;
+
+namespace MissionIIClassLibrary
 {
     public class GameMode<K>
     {

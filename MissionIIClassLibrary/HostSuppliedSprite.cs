@@ -1,6 +1,6 @@
 ﻿namespace MissionIIClassLibrary
 {
-    public class HostSuppliedSprite
+    public struct HostSuppliedSprite
     {
         public int BoardWidth;
         public int BoardHeight;

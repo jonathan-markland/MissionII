@@ -1,10 +1,11 @@
 ﻿using MissionIIClassLibrary;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using GameClassLibrary.Graphics;
 
 namespace MissionIIMonoGame
 {
-    public class MonoGameDrawingTarget: MissionIIClassLibrary.IDrawingTarget
+    public class MonoGameDrawingTarget: IDrawingTarget
     {
         private SpriteBatch _spriteBatch;
 

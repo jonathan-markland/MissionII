@@ -47,7 +47,6 @@
     <Compile Include="ArtificialIntelligence\SingleMinded.cs" />
     <Compile Include="ArtificialIntelligence\Swoop.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="Font.cs" />
     <Compile Include="HostSuppliedSprite.cs" />
     <Compile Include="Interactibles\InvincibilityAmulet.cs" />
     <Compile Include="MissionIISounds.cs" />
@@ -79,8 +78,6 @@
     <Compile Include="MissionIITitleScreen.cs" />
     <Compile Include="GameMode.cs" />
     <Compile Include="GameObject.cs" />
-    <Compile Include="IDrawingTarget.cs" />
-    <Compile Include="IDrawingTargetExtensions.cs" />
     <Compile Include="IDrawingTargetExtensionsForCybertron.cs" />
     <Compile Include="IncrementingNumberAllocator.cs" />
     <Compile Include="LevelExpander.cs" />

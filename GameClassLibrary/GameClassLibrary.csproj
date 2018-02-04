@@ -44,6 +44,9 @@
     <Compile Include="Algorithms\IListExtensions.cs" />
     <Compile Include="Algorithms\UniqueNumberAllocator.cs" />
     <Compile Include="Containers\SuddenlyReplaceableList.cs" />
+    <Compile Include="Graphics\Font.cs" />
+    <Compile Include="Graphics\IDrawingTarget.cs" />
+    <Compile Include="Graphics\IDrawingTargetExtensions.cs" />
     <Compile Include="Graphics\SpriteInstance.cs" />
     <Compile Include="Graphics\SpriteTraits.cs" />
     <Compile Include="Math\FoundDirections.cs" />

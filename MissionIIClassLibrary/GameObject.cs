@@ -1,5 +1,6 @@
 ﻿
 using GameClassLibrary.Math;
+using GameClassLibrary.Graphics;
 
 namespace MissionIIClassLibrary
 {

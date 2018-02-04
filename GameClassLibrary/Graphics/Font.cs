@@ -1,7 +1,6 @@
 ﻿using System;
-using GameClassLibrary.Graphics;
 
-namespace MissionIIClassLibrary
+namespace GameClassLibrary.Graphics
 {
     public class Font
     {

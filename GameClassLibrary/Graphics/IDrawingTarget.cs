@@ -1,4 +1,4 @@
-﻿namespace MissionIIClassLibrary
+﻿namespace GameClassLibrary.Graphics
 {
     public interface IDrawingTarget
     {

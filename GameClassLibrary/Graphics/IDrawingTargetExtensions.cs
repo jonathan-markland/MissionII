@@ -1,8 +1,7 @@
 ﻿
 using System.Collections.Generic;
-using GameClassLibrary.Graphics;
 
-namespace MissionIIClassLibrary
+namespace GameClassLibrary.Graphics
 {
     public static class IDrawingTargetExtensions
     {
