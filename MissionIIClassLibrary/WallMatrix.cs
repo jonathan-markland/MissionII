@@ -95,17 +95,6 @@ namespace MissionIIClassLibrary
             }
             throw new Exception("WallMatrix class read outside bounds.");
         }
-
-        public WallMatrix Clone()
-        {
-            var newMatrix = new WallMatrix(_blockCountH, _blockCountV);
-            var i = 0;
-            foreach(var ch in _wallData)
-            {
-                newMatrix._wallData[i] = ch;
-            }
-            return newMatrix;
-        }
     }
 
     public enum WallMatrixChar : byte
