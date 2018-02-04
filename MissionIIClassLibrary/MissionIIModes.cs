@@ -9,7 +9,7 @@ namespace MissionIIClassLibrary
         {
             if (theKeyStates.Pause)
             {
-                MissionIIGameModeSelector.ModeSelector.CurrentMode = new CybertronPauseMode(theCurrentModeObject);
+                MissionIIGameModeSelector.ModeSelector.CurrentMode = new MissionIIPauseMode(theCurrentModeObject);
                 MissionIISounds.Play(MissionIISounds.PauseMode);
                 return true;
             }

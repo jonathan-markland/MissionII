@@ -23,7 +23,7 @@ namespace MissionIIClassLibrary.Interactibles
             });
             if (carryingEverything)
             {
-                MissionIIGameModeSelector.ModeSelector.CurrentMode = new CybertronLeavingLevelMode(theGameBoard);
+                MissionIIGameModeSelector.ModeSelector.CurrentMode = new MissionIILeavingLevelMode(theGameBoard);
                 MissionIISounds.Play(MissionIISounds.SafeActivated);
             }
         }

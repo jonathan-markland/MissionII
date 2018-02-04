@@ -21,7 +21,7 @@ namespace MissionIIClassLibrary
             if (theKeyStates.Fire)
             {
                 if (_releaseWaiting) return;
-                MissionIIGameModeSelector.ModeSelector.CurrentMode = new CybertronStartNewGameMode();
+                MissionIIGameModeSelector.ModeSelector.CurrentMode = new MissionIIStartNewGameMode();
             }
 
             _releaseWaiting = false;
@@ -32,7 +32,7 @@ namespace MissionIIClassLibrary
             }
             else
             {
-                MissionIIGameModeSelector.ModeSelector.CurrentMode = new CybertronInstructionsKeysMode();
+                MissionIIGameModeSelector.ModeSelector.CurrentMode = new MissionIIInstructionsKeysMode();
             }
         }
 
@@ -43,7 +43,7 @@ namespace MissionIIClassLibrary
         }
     }
 
-    public class CybertronInstructionsKeysMode : MissionIIGameMode
+    public class MissionIIInstructionsKeysMode : MissionIIGameMode
     {
         private int _countDown = Constants.TitleScreenRollCycles;
         private int _screenIndex = 1;
@@ -84,7 +84,7 @@ namespace MissionIIClassLibrary
         }
     }
 
-    public class CybertronStartNewGameMode : MissionIIGameMode
+    public class MissionIIStartNewGameMode : MissionIIGameMode
     {
         public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
@@ -113,12 +113,12 @@ namespace MissionIIClassLibrary
         }
     }
 
-    public class CybertronEnteringLevelMode : MissionIIGameMode
+    public class MissionIIEnteringLevelMode : MissionIIGameMode
     {
         private MissionIIGameBoard _cybertronGameBoard;
         private int _countDown = Constants.EnteringLevelScreenCycles;
 
-        public CybertronEnteringLevelMode(MissionIIGameBoard theGameBoard)
+        public MissionIIEnteringLevelMode(MissionIIGameBoard theGameBoard)
         {
             _cybertronGameBoard = theGameBoard;
         }
@@ -137,7 +137,7 @@ namespace MissionIIClassLibrary
             else
             {
                 MissionIIGameModeSelector.ModeSelector.CurrentMode 
-                    = new CybertronGamePlayMode(_cybertronGameBoard);
+                    = new MissionIIGamePlayMode(_cybertronGameBoard);
             }
         }
 
@@ -161,11 +161,11 @@ namespace MissionIIClassLibrary
         }
     }
 
-    public class CybertronGamePlayMode : MissionIIGameMode
+    public class MissionIIGamePlayMode : MissionIIGameMode
     {
         private MissionIIGameBoard _cybertronGameBoard;
 
-        public CybertronGamePlayMode(MissionIIGameBoard cybertronGameBoard)
+        public MissionIIGamePlayMode(MissionIIGameBoard cybertronGameBoard)
         {
             _cybertronGameBoard = cybertronGameBoard;
         }
@@ -182,12 +182,12 @@ namespace MissionIIClassLibrary
         }
     }
 
-    public class CybertronLeavingLevelMode : MissionIIGameMode
+    public class MissionIILeavingLevelMode : MissionIIGameMode
     {
         private MissionIIGameBoard _cybertronGameBoard;
         private int _countDown = Constants.LeavingLevelCycles;
 
-        public CybertronLeavingLevelMode(MissionIIGameBoard cybertronGameBoard)
+        public MissionIILeavingLevelMode(MissionIIGameBoard cybertronGameBoard)
         {
             _cybertronGameBoard = cybertronGameBoard;
         }
@@ -214,7 +214,7 @@ namespace MissionIIClassLibrary
         }
     }
 
-    public class CybertronGameOverMode : MissionIIGameMode
+    public class MissionIIGameOverMode : MissionIIGameMode
     {
         private int _countDown = Constants.GameOverMessageCycles;
 
@@ -241,13 +241,13 @@ namespace MissionIIClassLibrary
         }
     }
 
-    public class CybertronPauseMode : MissionIIGameMode
+    public class MissionIIPauseMode : MissionIIGameMode
     {
         private MissionIIGameMode _originalMode;
         private bool _keyReleaseSeen;
         private bool _restartGameOnNextRelease;
 
-        public CybertronPauseMode(MissionIIGameMode originalMode)
+        public MissionIIPauseMode(MissionIIGameMode originalMode)
         {
             _originalMode = originalMode;
             _keyReleaseSeen = false; // PAUSE key is held at the time this object is created.

@@ -74,7 +74,7 @@ namespace MissionIIClassLibrary
             }
             else
             {
-                MissionIIGameModeSelector.ModeSelector.CurrentMode = new CybertronGameOverMode();
+                MissionIIGameModeSelector.ModeSelector.CurrentMode = new MissionIIGameOverMode();
             }
         }
 
@@ -289,7 +289,7 @@ namespace MissionIIClassLibrary
 
             PrepareForNewRoom();
 
-            MissionIIGameModeSelector.ModeSelector.CurrentMode = new CybertronEnteringLevelMode(this);
+            MissionIIGameModeSelector.ModeSelector.CurrentMode = new MissionIIEnteringLevelMode(this);
         }
 
 
