@@ -4,7 +4,10 @@ namespace MissionIIClassLibrary
 {
     public static class DirectionFinder
     {
-        public static FoundDirections GetFreeDirections(Rectangle currentExtents, WallMatrix currentRoomWallData, int tileWidth, int tileHeight)
+        public static FoundDirections GetFreeDirections(
+            Rectangle currentExtents, 
+            WallMatrix currentRoomWallData, 
+            int tileWidth, int tileHeight)
         {
             int countFound = 0;
             int resultMask = 0;
