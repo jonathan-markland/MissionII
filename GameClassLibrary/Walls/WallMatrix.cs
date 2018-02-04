@@ -1,7 +1,7 @@
 ﻿using System;
 using GameClassLibrary.Math;
 
-namespace MissionIIClassLibrary
+namespace GameClassLibrary.Walls
 {
     public class WallMatrix
     {

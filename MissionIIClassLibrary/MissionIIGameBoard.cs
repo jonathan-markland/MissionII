@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GameClassLibrary.Math;
 using GameClassLibrary.Containers;
 using GameClassLibrary.Algorithms;
+using GameClassLibrary.Walls;
 
 namespace MissionIIClassLibrary
 {

@@ -1,4 +1,5 @@
-﻿namespace MissionIIClassLibrary
+﻿
+namespace GameClassLibrary.Math
 {
     public struct FoundDirections
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace MissionIIClassLibrary
+namespace GameClassLibrary.Walls
 {
     public static class ExpandWallsWithThinPassages
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MissionIIClassLibrary
+namespace GameClassLibrary.Walls
 {
     public static class PositionFinder
     {

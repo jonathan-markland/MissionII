@@ -2,6 +2,7 @@
 using System.IO;
 using System.Collections.Generic;
 using GameClassLibrary.Math;
+using GameClassLibrary.Walls;
 
 namespace MissionIIClassLibrary
 {

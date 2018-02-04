@@ -1,6 +1,6 @@
 ﻿using GameClassLibrary.Math;
 
-namespace MissionIIClassLibrary
+namespace GameClassLibrary.Walls
 {
     public static class DirectionFinder
     {

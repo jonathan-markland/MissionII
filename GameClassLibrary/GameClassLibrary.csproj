@@ -44,12 +44,22 @@
     <Compile Include="Algorithms\IListExtensions.cs" />
     <Compile Include="Algorithms\UniqueNumberAllocator.cs" />
     <Compile Include="Containers\SuddenlyReplaceableList.cs" />
+    <Compile Include="Math\FoundDirections.cs" />
+    <Compile Include="Math\FoundDirectionsException.cs" />
     <Compile Include="Math\MakeRectangle.cs" />
     <Compile Include="Math\MovementDeltas.cs" />
     <Compile Include="Math\Point.cs" />
+    <Compile Include="Math\PositionAndDirection.cs" />
     <Compile Include="Math\Rectangle.cs" />
     <Compile Include="Math\Rng.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Walls\ClusterCanvas.cs" />
+    <Compile Include="Walls\CollisionDetection.cs" />
+    <Compile Include="Walls\DirectionFinder.cs" />
+    <Compile Include="Walls\ExpandWallsWithThickPassages.cs" />
+    <Compile Include="Walls\ExpandWallsWithThinPassages.cs" />
+    <Compile Include="Walls\PositionFinder.cs" />
+    <Compile Include="Walls\WallMatrix.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

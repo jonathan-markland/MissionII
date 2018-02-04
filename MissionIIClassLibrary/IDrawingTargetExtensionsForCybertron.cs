@@ -1,4 +1,6 @@
-﻿namespace MissionIIClassLibrary
+﻿using GameClassLibrary.Walls;
+
+namespace MissionIIClassLibrary
 {
     public static class IDrawingTargetExtensionsForCybertron
     {

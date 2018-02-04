@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MissionIIClassLibrary
+namespace GameClassLibrary.Math
 {
     public class FoundDirectionsException : Exception
     {

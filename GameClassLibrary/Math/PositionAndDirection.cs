@@ -1,6 +1,5 @@
-﻿using GameClassLibrary.Math;
-
-namespace MissionIIClassLibrary
+﻿
+namespace GameClassLibrary.Math
 {
     public struct PositionAndDirection
     {
