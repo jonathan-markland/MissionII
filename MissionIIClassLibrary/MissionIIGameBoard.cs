@@ -43,9 +43,9 @@ namespace MissionIIClassLibrary
 
         public void IncrementScore(int scoreDelta)
         {
-            var thresholdBefore = Score / Constants.NewLifeBoundary;
+            var thresholdBefore = Score / Constants.ExtraLifeScoreMultiple;
             Score = (uint)(Score + scoreDelta);
-            var thresholdAfter = Score / Constants.NewLifeBoundary;
+            var thresholdAfter = Score / Constants.ExtraLifeScoreMultiple;
             if (thresholdBefore < thresholdAfter)
             {
                 IncrementLives();
@@ -207,7 +207,7 @@ namespace MissionIIClassLibrary
 
                             // Bonus scoring for multiples.
                             var n = CountExplosionsThatCanBeUsedForBonusesInRoom;
-                            if (n >= Constants.MultiDroidKillCountForBonus)
+                            if (n >= Constants.DroidCountFoMultiKillBonus)
                             {
                                 IncrementScore(thisDroidKillScore * n);
                                 MissionIISounds.Play(MissionIISounds.Bonus);
