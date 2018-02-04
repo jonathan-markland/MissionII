@@ -60,7 +60,6 @@
     <Compile Include="MissionIIGameModes.cs" />
     <Compile Include="MissionIIGameModeSelector.cs" />
     <Compile Include="BaseGameObject.cs" />
-    <Compile Include="MissionIISpriteInstanceExtensions.cs" />
     <Compile Include="GameObjects\Ghost.cs" />
     <Compile Include="Droids\DestroyerDroid.cs" />
     <Compile Include="ElectrocutionMethod.cs" />

@@ -92,8 +92,8 @@ namespace MissionIIClassLibrary
 
         public CollisionDetection.WallHitTestResult MoveManOnePixel(MovementDeltas movementDeltas)
         {
-            return Man.SpriteInstance.MoveSpriteInstanceOnePixelConsideringWallsOnly(
-                CurrentRoomWallData,
+            return Man.SpriteInstance.MoveConsideringWallsOnly(
+                CurrentRoomWallData, Constants.TileWidth, Constants.TileHeight,
                 movementDeltas);
         }
 
@@ -461,8 +461,8 @@ namespace MissionIIClassLibrary
                 return hitResult;
             }
 
-            return spriteInstance.MoveSpriteInstanceOnePixelConsideringWallsOnly(
-                CurrentRoomWallData,
+            return spriteInstance.MoveConsideringWallsOnly(
+                CurrentRoomWallData, Constants.TileWidth, Constants.TileHeight,
                 movementDeltas);
         }
 
