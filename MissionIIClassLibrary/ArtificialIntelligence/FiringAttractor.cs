@@ -16,7 +16,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
         {
             ++_cycleCounter;
 
-            if (_cycleCounter % 3 == 0)
+            if (_cycleCounter % Constants.FiringAttractorSpeedDivisor == 0)
             {
                 var moveDeltas = Business.GetMovementDeltasToHeadTowards(
                     spriteInstance,
@@ -36,10 +36,10 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                     spriteInstance,
                     new MovementDeltas(0, moveDeltas.dy));
 
-                if ((_cycleCounter & 7) == 0) // TODO: firing time constant
+                if ((_cycleCounter & Constants.FiringAttractorFiringAndMask) == 0)
                 {
                     if (!moveDeltas.Stationary
-                        && Rng.Generator.Next(100) < 40)
+                        && Rng.Generator.Next(100) < Constants.AttractorFiringProbabilityPercent)
                     {
                         theGameBoard.StartBullet(spriteInstance, moveDeltas, false);
                     }

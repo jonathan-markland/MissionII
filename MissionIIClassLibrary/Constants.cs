@@ -25,11 +25,18 @@
         public const int GhostMovementCycles = 2;
         public const int GhostStunnedCycles = 200;
         public const int ManDeadDelayCycles = 100;
+        public const int SingleMindedMoveDuration = 50;
+        public const int SingleMindedFiringAndMask = 31;
+        public const int FiringAttractorFiringAndMask = 7;
         #endregion
 
         #region Droids
         public const int DroidCountFoMultiKillBonus = 3;
         public const int IdealDroidCountPerRoom = 10;
+        public const int SingleMindedFiringProbabilityPercent = 20;
+        public const int AttractorFiringProbabilityPercent = 40;
+        public const int SingleMindedSpeedDivisor = 2;
+        public const int FiringAttractorSpeedDivisor = 3;
         #endregion
 
         #region Rooms

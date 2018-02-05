@@ -21,7 +21,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
         public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, SpriteInstance spriteInstance)
         {
             ++_cycleCounter;
-            if ((_cycleCounter & 1) == 0)
+            if ((_cycleCounter % Constants.SingleMindedSpeedDivisor) == 0)
             {
                 if (_countDown > 0)
                 {
@@ -44,10 +44,10 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                 var hitResult = theGameBoard.MoveAdversaryOnePixel( 
                     spriteInstance, _movementDeltas);
 
-                if ((_cycleCounter & 31) == 0) // TODO: firing time constant
+                if ((_cycleCounter & Constants.SingleMindedFiringAndMask) == 0) // TODO: firing time constant
                 {
                     if (!_movementDeltas.Stationary
-                        && Rng.Generator.Next(100) < 20)
+                        && Rng.Generator.Next(100) < Constants.SingleMindedFiringProbabilityPercent)
                     {
                         theGameBoard.StartBullet(spriteInstance, _facingDirection, false);
                     }
@@ -69,12 +69,13 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
             var freeDirections = theGameBoard.GetFreeDirections(currentExtents);
             if (freeDirections.Count == 0)
             {
-                _countDown = 10; // Can't move.  Time to next decision.
+                // Can't move.
+                _countDown = 0;
                 _movementDeltas = new MovementDeltas(0, 0);
             }
             else
             {
-                _countDown = theRng.Next(50) + 50;
+                _countDown = theRng.Next(Constants.SingleMindedMoveDuration) + Constants.SingleMindedMoveDuration;
                 _facingDirection = freeDirections.Choose(theRng.Next(freeDirections.Count));
                 _movementDeltas = MovementDeltas.ConvertFromFacingDirection(_facingDirection);
             }
