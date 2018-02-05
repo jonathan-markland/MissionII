@@ -16,7 +16,12 @@ namespace GameClassLibrary.Walls
             for (int directionIndex = 0; directionIndex < 8; directionIndex++)
             {
                 var movementDelta = MovementDeltas.ConvertFromFacingDirection(directionIndex);
-                var hitResult = CollisionDetection.HitsWalls(currentRoomWallData, tileWidth, tileHeight, currentExtents.Left, currentExtents.Top, currentExtents.Width, currentExtents.Height);
+
+                var hitResult = CollisionDetection.HitsWalls(
+                    currentRoomWallData, tileWidth, tileHeight, 
+                    currentExtents.Left, currentExtents.Top, 
+                    currentExtents.Width, currentExtents.Height);
+
                 if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
                 {
                     resultMask |= 1 << directionIndex;

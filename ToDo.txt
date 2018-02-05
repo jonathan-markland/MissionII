@@ -5,8 +5,7 @@ Release 1
 [ ] Show the level number on the "entering" screen.
 [ ] Fix the location of the key (etc) at start of level, not per room-start.
 
-[ ] Blue droid logic:  Stuck to walls.  Choose from the set of
-    directions from which the droid can advance.
+[ ] Blue droid logic:  Stuck to doorways since new logic?  Bouncing off walls is better though.
 
 [ ] Have a selection of explosion sounds and randomly select.
 
