@@ -1,4 +1,4 @@
-﻿namespace MissionIIClassLibrary
+﻿namespace GameClassLibrary.Algorithms
 {
     public class IncrementingNumberAllocator // For debugging purposes.
     {
