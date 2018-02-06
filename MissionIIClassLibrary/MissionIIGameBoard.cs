@@ -80,7 +80,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public void AddObjectIfInCurrentRoom(Interactibles.InteractibleObject theObject, List<BaseGameObject> targetList)
+        public void IncludeIfInCurrentRoom(Interactibles.InteractibleObject theObject, List<BaseGameObject> targetList)
         {
             if (theObject.RoomNumber == RoomNumber)
             {
@@ -313,11 +313,11 @@ namespace MissionIIClassLibrary
 
             var maxLevelNumber = TheWorldWallData.Levels.Count;
 
-            CurrentRoomWallData =
-                TheWorldWallData
+            var thisRoom = TheWorldWallData
                     .Levels[(LevelNumber - 1) % maxLevelNumber]
-                    .Rooms[thisRoomNumber - 1]
-                    .WallData;
+                    .Rooms[thisRoomNumber - 1];
+
+            CurrentRoomWallData = thisRoom.WallData;
 
             var objectsList = new List<BaseGameObject>();
 
@@ -327,18 +327,20 @@ namespace MissionIIClassLibrary
             // Establish an exclusion zone around the man so that nothing
             // is positioned too close to him.
 
-            var exclusionRectangle =
+            var manExclusionRectangle =
                 Man.GetBoundingRectangle()
                 .Inflate(Constants.ExclusionZoneAroundMan);
 
-            // Make a list of those things that need positioning.  TODO: REfactor.  Not obvious when new item kind created!
+            // Make a list of those things that need positioning.  TODO: Refactor.  Not obvious when new item kind created!
 
-            AddObjectIfInCurrentRoom(Key, objectsList);
-            AddObjectIfInCurrentRoom(Ring, objectsList);
-            AddObjectIfInCurrentRoom(Gold, objectsList);
-            AddObjectIfInCurrentRoom(Safe, objectsList);
-            AddObjectIfInCurrentRoom(Potion, objectsList);
-            AddObjectIfInCurrentRoom(InvincibilityAmulet, objectsList);
+            IncludeIfInCurrentRoom(Key, objectsList);
+            IncludeIfInCurrentRoom(Ring, objectsList);
+            IncludeIfInCurrentRoom(Gold, objectsList);
+            IncludeIfInCurrentRoom(Safe, objectsList);
+            IncludeIfInCurrentRoom(Potion, objectsList);
+            IncludeIfInCurrentRoom(InvincibilityAmulet, objectsList);
+
+            // TODO: The following needs refactoring into a framework.
 
             int redBlueThreshold = Constants.IdealDroidCountPerRoom;
             int bluePinkThreshold = Constants.IdealDroidCountPerRoom;
@@ -369,6 +371,8 @@ namespace MissionIIClassLibrary
                 }
             }
 
+            // ^^^ TODO: end of bit that needs refactor.
+
             // Now measure the max dimensions of the things that need positioning.
 
             int posnWidth = Constants.PositionerShapeSizeMinimum;
@@ -393,7 +397,7 @@ namespace MissionIIClassLibrary
                 posnHeight,
                 (x, y) =>
                 {
-                    if (!exclusionRectangle.Intersects(new Rectangle(x, y, posnWidth, posnHeight)))
+                    if (!manExclusionRectangle.Intersects(new Rectangle(x, y, posnWidth, posnHeight)))
                     {
                         pointsList.Add(new Point(x, y));
                     }

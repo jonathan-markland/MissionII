@@ -30,15 +30,6 @@ namespace MissionIIClassLibrary.Interactibles
             get { return _roomNumber; }
         }
 
-        public Point Position
-        {
-            set
-            {
-                Sprite.RoomX = value.X;
-                Sprite.RoomY = value.Y;
-            }
-        }
-
         public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, MissionIIKeyStates theKeyStates)
         {
             // No action required.

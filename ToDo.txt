@@ -1,23 +1,24 @@
 
 Release 1
 ---------
-[ ] Do the all the proposed refactorings (g.txt)
-[ ] Show the level number on the "entering" screen.
 [ ] Fix the location of the key (etc) at start of level, not per room-start.
-
-[ ] Blue droid logic:  Stuck to doorways since new logic?  Bouncing off walls is better though.
-
+[ ] Show the level number on the "entering" screen.
 [ ] Have a selection of explosion sounds and randomly select.
+
+[ ] Do the all the proposed refactorings (g.txt)
 
 [ ] Use of the font to display messages
 	[ ] Fix fuzzy font drawing.
 
-[ ] Different laser sounds for the pink droids.
 [ ] Score-sapper droids
 [ ] Kamikaze Droids that kill you if they touch you.
+[ ] A second droid type for level 1:  Up/Down or Left/Right travellers.
+[ ] Red versions of the yellow droids:  They fire perpendicular to travel?
+[ ] Firing  Up/Down or Left/Right travellers.
+[ ] Boss robots that are larger and take more hits to kill.
 
-
-
+[ ] Base class routine to fire, calls derived to get the sound effect.
+[ ] Different bullet sounds by monster type.
 	
 
 Release 2
@@ -40,6 +41,7 @@ Release 2
 
 
 
+[X] Blue droid logic:  Stuck to doorways since new logic?  Bouncing off walls is better though.
 [X] Font
 [ ] NOT DOING:  Droid firing -- more aggressive as levels progress. - NO: Just have different types of droids.
 [X] Have a selection of flooring sprites (darkish).
