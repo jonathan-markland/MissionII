@@ -76,6 +76,7 @@
         #region Scoring
         public const int RoomClearingBonusScore = 250;
         public const int WanderingDroidKillScore = 60;
+        public const int GuardianDroidKillScore = 60;
         public const int HomingDroidKillScore = 20;
         public const int DestroyerDroidKillScore = 100;
         public const int KeyCollectionScore = 100;

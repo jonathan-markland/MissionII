@@ -145,6 +145,7 @@ namespace MissionIIClassLibrary
         {
             drawingTarget.ClearScreen();
             drawingTarget.DrawSprite(0, 0, MissionIISpriteTraits.EnteringLevel.GetHostImageObject(0));
+            drawingTarget.DrawNumber(160, 50, (uint) _cybertronGameBoard.LevelNumber, MissionIISpriteTraits.TheNumbers);
 
             // Show the things you need to find on this level.
 

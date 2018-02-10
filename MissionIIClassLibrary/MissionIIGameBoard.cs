@@ -367,7 +367,7 @@ namespace MissionIIClassLibrary
                 }
                 else
                 {
-                    objectsList.Add(new Droids.DestroyerDroid());
+                    objectsList.Add(new Droids.GuardianDroid());
                 }
             }
 

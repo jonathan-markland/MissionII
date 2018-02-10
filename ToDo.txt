@@ -1,8 +1,8 @@
 
 Release 1
 ---------
+[ ] struct FacingDirection
 [ ] Fix the location of the key (etc) at start of level, not per room-start.
-[ ] Show the level number on the "entering" screen.
 [ ] Have a selection of explosion sounds and randomly select.
 
 [ ] Do the all the proposed refactorings (g.txt)
@@ -10,12 +10,12 @@ Release 1
 [ ] Use of the font to display messages
 	[ ] Fix fuzzy font drawing.
 
-[ ] Score-sapper droids
-[ ] Kamikaze Droids that kill you if they touch you.
 [ ] A second droid type for level 1:  Up/Down or Left/Right travellers.
+[ ] Score-sapper droids
 [ ] Red versions of the yellow droids:  They fire perpendicular to travel?
-[ ] Firing  Up/Down or Left/Right travellers.
 [ ] Boss robots that are larger and take more hits to kill.
+[ ] Kamikaze Droids that kill you if they touch you (homing).
+[ ] Up/Down or Left/Right travellers which kill you on touch.
 
 [ ] Base class routine to fire, calls derived to get the sound effect.
 [ ] Different bullet sounds by monster type.
@@ -41,6 +41,8 @@ Release 2
 
 
 
+[X] NO:  Firing  Up/Down or Left/Right travellers. -- They easily destroy too much.
+[X] Show the level number on the "entering" screen.
 [X] Blue droid logic:  Stuck to doorways since new logic?  Bouncing off walls is better though.
 [X] Font
 [ ] NOT DOING:  Droid firing -- more aggressive as levels progress. - NO: Just have different types of droids.

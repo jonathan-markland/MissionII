@@ -45,6 +45,7 @@ namespace MissionIIClassLibrary
         public static SpriteTraits Monster1;
         public static SpriteTraits Monster2;
         public static SpriteTraits Monster3;
+        public static SpriteTraits Monster4;
         public static SpriteTraits Potion;
         public static SpriteTraits Ring;
         public static SpriteTraits Room;
@@ -149,6 +150,7 @@ namespace MissionIIClassLibrary
             Monster1 = loadImage("Monster1", 2);
             Monster2 = loadImage("Monster2", 2);
             Monster3 = loadImage("Monster3", 1);
+            Monster4 = loadImage("Monster4", 2);
             Potion = loadImage("Potion", 2);
             Ring = loadImage("Ring", 1);
             Room = loadImage("Room", 1);

@@ -44,9 +44,11 @@
     <Compile Include="ArtificialIntelligence\AbstractIntelligenceProvider.cs" />
     <Compile Include="ArtificialIntelligence\Attractor.cs" />
     <Compile Include="ArtificialIntelligence\FiringAttractor.cs" />
+    <Compile Include="ArtificialIntelligence\Guardian.cs" />
     <Compile Include="ArtificialIntelligence\SingleMinded.cs" />
     <Compile Include="ArtificialIntelligence\Swoop.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Droids\GuardianDroid.cs" />
     <Compile Include="HostSuppliedSprite.cs" />
     <Compile Include="Interactibles\InvincibilityAmulet.cs" />
     <Compile Include="MissionIISounds.cs" />
