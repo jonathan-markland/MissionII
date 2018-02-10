@@ -58,8 +58,8 @@
     <Compile Include="Droids\BaseDroid.cs" />
     <Compile Include="GameObjects\Explosion.cs" />
     <Compile Include="MissionIIGameBoard.cs" />
-    <Compile Include="MissionIIGameMode.cs" />
-    <Compile Include="MissionIIGameModes.cs" />
+    <Compile Include="Modes\MissionIIGameMode.cs" />
+    <Compile Include="Modes\MissionIIGameModes.cs" />
     <Compile Include="MissionIIGameModeSelector.cs" />
     <Compile Include="BaseGameObject.cs" />
     <Compile Include="GameObjects\Ghost.cs" />
@@ -76,7 +76,7 @@
     <Compile Include="Droids\HomingDroid.cs" />
     <Compile Include="Interactibles\Ring.cs" />
     <Compile Include="MissionIISpriteTraits.cs" />
-    <Compile Include="MissionIITitleScreen.cs" />
+    <Compile Include="Modes\MissionIITitleScreen.cs" />
     <Compile Include="GameMode.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="IDrawingTargetExtensionsForCybertron.cs" />
@@ -93,5 +93,6 @@
       <Name>GameClassLibrary</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

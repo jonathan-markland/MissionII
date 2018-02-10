@@ -2,7 +2,7 @@
 using System.IO;
 using GameClassLibrary.Graphics;
 
-namespace MissionIIClassLibrary
+namespace MissionIIClassLibrary.Modes
 {
     public class MissionIITitleScreenMode : MissionIIGameMode
     {

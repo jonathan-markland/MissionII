@@ -2,14 +2,14 @@
 {
     public class MissionIIGameModes
     {
-        private MissionIIGameMode _currentMode;
+        private Modes.MissionIIGameMode _currentMode;
 
         public MissionIIGameModes()
         {
-            CurrentMode = new MissionIITitleScreenMode();
+            CurrentMode = new Modes.MissionIITitleScreenMode();
         }
 
-        public MissionIIGameMode CurrentMode
+        public Modes.MissionIIGameMode CurrentMode
         {
             get { return _currentMode; }
             set
