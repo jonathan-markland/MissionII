@@ -1,5 +1,5 @@
 erase MissionIIMonoGame\Content\*.bmp
 erase MissionIIMonoGame\Content\*.wav
-copy /Y CybertronGraphics\*.* MissionIIMonoGame\Content\
-copy /Y CybertronSounds\*.* MissionIIMonoGame\Content\
+copy /Y Graphics\*.* MissionIIMonoGame\Content\
+copy /Y Sounds\*.* MissionIIMonoGame\Content\
 pause
