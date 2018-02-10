@@ -94,7 +94,7 @@ namespace MissionIIClassLibrary
                 MissionIIClassLibrary.LevelFileValidator.ExpectValidPathsInWorld(loadedWorld);
                 MissionIIClassLibrary.LevelExpander.ExpandWallsInWorld(loadedWorld, MissionIISpriteTraits.PatternResamplingSprite);
                 
-                var cybertronGameBoard = new MissionIIClassLibrary.MissionIIGameBoard()
+                var gameBoard = new MissionIIClassLibrary.MissionIIGameBoard()
                 {
                     TheWorldWallData = loadedWorld,
                     BoardWidth = Constants.ScreenWidth,
@@ -103,7 +103,7 @@ namespace MissionIIClassLibrary
                     Lives = Constants.InitialLives
                 };
 
-                cybertronGameBoard.PrepareForNewLevel();
+                gameBoard.PrepareForNewLevel();
             }
         }
 
@@ -115,12 +115,12 @@ namespace MissionIIClassLibrary
 
     public class MissionIIEnteringLevelMode : MissionIIGameMode
     {
-        private MissionIIGameBoard _cybertronGameBoard;
+        private MissionIIGameBoard _gameBoard;
         private int _countDown = Constants.EnteringLevelScreenCycles;
 
         public MissionIIEnteringLevelMode(MissionIIGameBoard theGameBoard)
         {
-            _cybertronGameBoard = theGameBoard;
+            _gameBoard = theGameBoard;
         }
 
         public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
@@ -137,7 +137,7 @@ namespace MissionIIClassLibrary
             else
             {
                 MissionIIGameModeSelector.ModeSelector.CurrentMode 
-                    = new MissionIIGamePlayMode(_cybertronGameBoard);
+                    = new MissionIIGamePlayMode(_gameBoard);
             }
         }
 
@@ -145,7 +145,7 @@ namespace MissionIIClassLibrary
         {
             drawingTarget.ClearScreen();
             drawingTarget.DrawSprite(0, 0, MissionIISpriteTraits.EnteringLevel.GetHostImageObject(0));
-            drawingTarget.DrawNumber(160, 50, (uint) _cybertronGameBoard.LevelNumber, MissionIISpriteTraits.TheNumbers);
+            drawingTarget.DrawNumber(160, 50, (uint) _gameBoard.LevelNumber, MissionIISpriteTraits.TheNumbers);
 
             // Show the things you need to find on this level.
 
@@ -153,7 +153,7 @@ namespace MissionIIClassLibrary
             int y = 150; // TODO: constant
             int dy = 24; // TODO: constant
 
-            _cybertronGameBoard.ForEachThingWeHaveToFindOnThisLevel(
+            _gameBoard.ForEachThingWeHaveToFindOnThisLevel(
                 o =>
                 {
                     drawingTarget.DrawFirstSpriteCentred(x, y, o.SpriteTraits);
@@ -164,33 +164,33 @@ namespace MissionIIClassLibrary
 
     public class MissionIIGamePlayMode : MissionIIGameMode
     {
-        private MissionIIGameBoard _cybertronGameBoard;
+        private MissionIIGameBoard _gameBoard;
 
-        public MissionIIGamePlayMode(MissionIIGameBoard cybertronGameBoard)
+        public MissionIIGamePlayMode(MissionIIGameBoard gameBoard)
         {
-            _cybertronGameBoard = cybertronGameBoard;
+            _gameBoard = gameBoard;
         }
 
         public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
             if (MissionIIModes.HandlePause(theKeyStates, this)) return;
-            _cybertronGameBoard.Update(theKeyStates); // TODO: pull logic into this class
+            _gameBoard.Update(theKeyStates); // TODO: pull logic into this class
         }
 
         public override void Draw(IDrawingTarget drawingTarget)
         {
-            _cybertronGameBoard.DrawBoardToTarget(drawingTarget);
+            _gameBoard.DrawBoardToTarget(drawingTarget);
         }
     }
 
     public class MissionIILeavingLevelMode : MissionIIGameMode
     {
-        private MissionIIGameBoard _cybertronGameBoard;
+        private MissionIIGameBoard _gameBoard;
         private int _countDown = Constants.LeavingLevelCycles;
 
-        public MissionIILeavingLevelMode(MissionIIGameBoard cybertronGameBoard)
+        public MissionIILeavingLevelMode(MissionIIGameBoard gameBoard)
         {
-            _cybertronGameBoard = cybertronGameBoard;
+            _gameBoard = gameBoard;
         }
 
         public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
@@ -202,16 +202,16 @@ namespace MissionIIClassLibrary
             }
             else
             {
-                var thisLevelNumber = _cybertronGameBoard.LevelNumber;
+                var thisLevelNumber = _gameBoard.LevelNumber;
                 ++thisLevelNumber;
-                _cybertronGameBoard.LevelNumber = thisLevelNumber;
-                _cybertronGameBoard.PrepareForNewLevel();
+                _gameBoard.LevelNumber = thisLevelNumber;
+                _gameBoard.PrepareForNewLevel();
             }
         }
 
         public override void Draw(IDrawingTarget drawingTarget)
         {
-            _cybertronGameBoard.DrawBoardToTarget(drawingTarget);
+            _gameBoard.DrawBoardToTarget(drawingTarget);
         }
     }
 

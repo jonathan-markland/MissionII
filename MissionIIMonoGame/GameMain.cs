@@ -23,7 +23,7 @@ namespace MissionIIMonoGame
         SpriteBatch _spriteBatch;
         RenderTarget2D _backingScreen;
         MonoGameDrawingTarget _monoGameDrawingTarget;
-        MissionIIClassLibrary.MissionIIKeyStates _cybertronKeyStates;
+        MissionIIClassLibrary.MissionIIKeyStates _keyStates;
         ScalingModes _scalingModes;
 
 
@@ -44,7 +44,7 @@ namespace MissionIIMonoGame
                     return resultColorData.Select(x => x.PackedValue).ToArray();
                 };
             
-            _cybertronKeyStates = new MissionIIClassLibrary.MissionIIKeyStates();
+            _keyStates = new MissionIIClassLibrary.MissionIIKeyStates();
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             _scalingModes = ScalingModes.StretchPreservingAspect;
@@ -130,7 +130,7 @@ namespace MissionIIMonoGame
             ReadAndStorePlayerInputs();
             // TODO: remove function called:  var elapsedTime = GetGameTimeElapsed(gameTime);
 
-            MissionIIClassLibrary.MissionIIGameModeSelector.ModeSelector.CurrentMode.AdvanceOneCycle(_cybertronKeyStates);
+            MissionIIClassLibrary.MissionIIGameModeSelector.ModeSelector.CurrentMode.AdvanceOneCycle(_keyStates);
 
             base.Update(gameTime);
         }
@@ -152,13 +152,13 @@ namespace MissionIIMonoGame
                 _scalingModes = ScalingModes.SquarePixelsStretch;
             }
 
-            _cybertronKeyStates.Down = theKeyboard.IsKeyDown(Keys.Down);
-            _cybertronKeyStates.Up = theKeyboard.IsKeyDown(Keys.Up);
-            _cybertronKeyStates.Left = theKeyboard.IsKeyDown(Keys.Left);
-            _cybertronKeyStates.Right = theKeyboard.IsKeyDown(Keys.Right);
-            _cybertronKeyStates.Fire = theKeyboard.IsKeyDown(Keys.Z);
-            _cybertronKeyStates.Quit = theKeyboard.IsKeyDown(Keys.Escape);
-            _cybertronKeyStates.Pause = theKeyboard.IsKeyDown(Keys.P);
+            _keyStates.Down = theKeyboard.IsKeyDown(Keys.Down);
+            _keyStates.Up = theKeyboard.IsKeyDown(Keys.Up);
+            _keyStates.Left = theKeyboard.IsKeyDown(Keys.Left);
+            _keyStates.Right = theKeyboard.IsKeyDown(Keys.Right);
+            _keyStates.Fire = theKeyboard.IsKeyDown(Keys.Z);
+            _keyStates.Quit = theKeyboard.IsKeyDown(Keys.Escape);
+            _keyStates.Pause = theKeyboard.IsKeyDown(Keys.P);
         }
 
         /// <summary>

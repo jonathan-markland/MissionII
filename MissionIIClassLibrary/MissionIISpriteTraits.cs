@@ -69,7 +69,7 @@ namespace MissionIIClassLibrary
         public static List<SpriteTraits> ManWalking;
 
         /// <summary>
-        /// Loads all the images for Cybertron by calling back into the host
+        /// Loads all the images for MissionII by calling back into the host
         /// and passing each individual image name in turn, and expecting the
         /// host to return a HostSuppliedSprite object, describing each.
         /// </summary>

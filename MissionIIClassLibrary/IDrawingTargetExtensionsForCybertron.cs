@@ -3,7 +3,7 @@ using GameClassLibrary.Graphics;
 
 namespace MissionIIClassLibrary
 {
-    public static class IDrawingTargetExtensionsForCybertron
+    public static class IDrawingTargetExtensionsForMissionII
     {
         public static void DrawFirstSpriteScreenCentred(this IDrawingTarget drawingTarget, SpriteTraits theSprite)
         {
