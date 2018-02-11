@@ -58,7 +58,8 @@
     <Compile Include="Droids\BaseDroid.cs" />
     <Compile Include="GameObjects\Explosion.cs" />
     <Compile Include="MissionIIGameBoard.cs" />
-    <Compile Include="Modes\MissionIIGameMode.cs" />
+    <Compile Include="Modes\EnteringLevel.cs" />
+    <Compile Include="Modes\BaseGameMode.cs" />
     <Compile Include="Modes\MissionIIGameModes.cs" />
     <Compile Include="MissionIIGameModeSelector.cs" />
     <Compile Include="BaseGameObject.cs" />
@@ -76,7 +77,12 @@
     <Compile Include="Droids\HomingDroid.cs" />
     <Compile Include="Interactibles\Ring.cs" />
     <Compile Include="MissionIISpriteTraits.cs" />
-    <Compile Include="Modes\MissionIITitleScreen.cs" />
+    <Compile Include="Modes\GameOver.cs" />
+    <Compile Include="Modes\GamePlay.cs" />
+    <Compile Include="Modes\InstructionsKeys.cs" />
+    <Compile Include="Modes\LeavingLevel.cs" />
+    <Compile Include="Modes\Pause.cs" />
+    <Compile Include="Modes\StartNewGame.cs" />
     <Compile Include="GameMode.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="IDrawingTargetExtensionsForCybertron.cs" />
@@ -84,6 +90,7 @@
     <Compile Include="LevelFileParser.cs" />
     <Compile Include="LevelFileValidator.cs" />
     <Compile Include="MissionIINumericSpriteFont.cs" />
+    <Compile Include="Modes\TitleScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecialMarkers.cs" />
   </ItemGroup>

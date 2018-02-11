@@ -1,15 +1,15 @@
-﻿namespace MissionIIClassLibrary
+﻿namespace MissionIIClassLibrary.Modes
 {
     public class MissionIIGameModes
     {
-        private Modes.MissionIIGameMode _currentMode;
+        private Modes.BaseGameMode _currentMode;
 
         public MissionIIGameModes()
         {
-            CurrentMode = new Modes.MissionIITitleScreenMode();
+            CurrentMode = new Modes.TitleScreen();
         }
 
-        public Modes.MissionIIGameMode CurrentMode
+        public Modes.BaseGameMode CurrentMode
         {
             get { return _currentMode; }
             set

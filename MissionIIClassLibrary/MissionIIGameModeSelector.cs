@@ -2,6 +2,6 @@
 {
     public static class MissionIIGameModeSelector
     {
-        public static MissionIIGameModes ModeSelector = new MissionIIGameModes();
+        public static Modes.MissionIIGameModes ModeSelector = new Modes.MissionIIGameModes();
     }
 }

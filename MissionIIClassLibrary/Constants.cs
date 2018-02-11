@@ -25,9 +25,9 @@
         public const int GhostMovementCycles = 2;
         public const int GhostStunnedCycles = 200;
         public const int ManDeadDelayCycles = 100;
-        public const int SingleMindedMoveDuration = 50;
-        public const int SingleMindedFiringAndMask = 31;
-        public const int FiringAttractorFiringAndMask = 7;
+        public const int SingleMindedMoveDurationCycles = 50;
+        public const int SingleMindedFiringCyclesAndMask = 31;
+        public const int FiringAttractorFiringCyclesAndMask = 7;
         #endregion
 
         #region Droids

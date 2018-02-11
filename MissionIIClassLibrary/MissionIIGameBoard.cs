@@ -74,7 +74,7 @@ namespace MissionIIClassLibrary
             }
             else
             {
-                MissionIIGameModeSelector.ModeSelector.CurrentMode = new Modes.MissionIIGameOverMode();
+                MissionIIGameModeSelector.ModeSelector.CurrentMode = new Modes.GameOver();
             }
         }
 
@@ -289,7 +289,7 @@ namespace MissionIIClassLibrary
 
             PrepareForNewRoom();
 
-            MissionIIGameModeSelector.ModeSelector.CurrentMode = new Modes.MissionIIEnteringLevelMode(this);
+            MissionIIGameModeSelector.ModeSelector.CurrentMode = new Modes.EnteringLevel(this);
         }
 
 

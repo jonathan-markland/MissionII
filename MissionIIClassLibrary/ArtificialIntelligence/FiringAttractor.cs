@@ -32,7 +32,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                     spriteInstance,
                     new MovementDeltas(0, moveDeltas.dy));
 
-                if ((_cycleCounter & Constants.FiringAttractorFiringAndMask) == 0)
+                if ((_cycleCounter & Constants.FiringAttractorFiringCyclesAndMask) == 0)
                 {
                     if (!moveDeltas.Stationary
                         && Rng.Generator.Next(100) < Constants.AttractorFiringProbabilityPercent)

@@ -40,7 +40,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                 var hitResult = theGameBoard.MoveAdversaryOnePixel( 
                     spriteInstance, _movementDeltas);
 
-                if ((_cycleCounter & Constants.SingleMindedFiringAndMask) == 0) // TODO: firing time constant
+                if ((_cycleCounter & Constants.SingleMindedFiringCyclesAndMask) == 0) // TODO: firing time constant
                 {
                     if (!_movementDeltas.Stationary
                         && Rng.Generator.Next(100) < Constants.SingleMindedFiringProbabilityPercent)
@@ -71,7 +71,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
             }
             else
             {
-                _countDown = theRng.Next(Constants.SingleMindedMoveDuration) + Constants.SingleMindedMoveDuration;
+                _countDown = theRng.Next(Constants.SingleMindedMoveDurationCycles) + Constants.SingleMindedMoveDurationCycles;
                 _facingDirection = freeDirections.Choose(theRng.Next(freeDirections.Count));
                 _movementDeltas = MovementDeltas.ConvertFromFacingDirection(_facingDirection);
             }
