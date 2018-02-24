@@ -47,6 +47,7 @@
     <Compile Include="ArtificialIntelligence\Guardian.cs" />
     <Compile Include="ArtificialIntelligence\SingleMinded.cs" />
     <Compile Include="ArtificialIntelligence\Swoop.cs" />
+    <Compile Include="ArtificialIntelligence\WanderingMine.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Droids\GuardianDroid.cs" />
     <Compile Include="HostSuppliedSprite.cs" />

@@ -3,7 +3,7 @@
     public static class Constants  // TODO: Location of some of these constants is suspect, in view of general name "Constants"
     {
         #region General
-        public const int StartLevelNumber = 9;
+        public const int StartLevelNumber = 1;
         #endregion
 
         #region Lives
@@ -28,6 +28,7 @@
         public const int SingleMindedMoveDurationCycles = 50;
         public const int SingleMindedFiringCyclesAndMask = 31;
         public const int FiringAttractorFiringCyclesAndMask = 7;
+        public const int WanderingMineMoveDurationCycles = 20;
         #endregion
 
         #region Droids
@@ -37,6 +38,7 @@
         public const int AttractorFiringProbabilityPercent = 40;
         public const int SingleMindedSpeedDivisor = 2;
         public const int FiringAttractorSpeedDivisor = 3;
+        public const int WanderingMineSpeedDivisor = 4;
         #endregion
 
         #region Rooms
