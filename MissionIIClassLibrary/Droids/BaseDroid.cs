@@ -15,6 +15,7 @@ namespace MissionIIClassLibrary.Droids
             SpriteTraits spriteTraits, 
             ArtificialIntelligence.AbstractIntelligenceProvider intelligenceProvider)
         {
+            System.Diagnostics.Debug.Assert(spriteTraits != null);
             SpriteInstance.Traits = spriteTraits;
             _intelligenceProvider = intelligenceProvider;
         }

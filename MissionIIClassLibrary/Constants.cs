@@ -3,7 +3,7 @@
     public static class Constants  // TODO: Location of some of these constants is suspect, in view of general name "Constants"
     {
         #region General
-        public const int StartLevelNumber = 1;
+        public const int StartLevelNumber = 6;
         #endregion
 
         #region Lives
@@ -17,7 +17,7 @@
         public const int ManInvincibilityAlmostOutCycles = 300;
         public const int FootstepSoundCycles = 24;
         public const int TitleScreenRollCycles = 400;
-        public const int GameOverMessageCycles = 100;
+        public const int GameOverMessageCycles = 400;
         public const int LeavingLevelCycles = 100;
         public const int EnteringLevelScreenCycles = 150;
         public const int BulletCycles = 4;
@@ -78,6 +78,7 @@
         #region Scoring
         public const int RoomClearingBonusScore = 250;
         public const int WanderingDroidKillScore = 60;
+        public const int WanderingMineDroidKillScore = 60;
         public const int GuardianDroidKillScore = 60;
         public const int HomingDroidKillScore = 20;
         public const int DestroyerDroidKillScore = 100;

@@ -46,6 +46,7 @@ namespace MissionIIClassLibrary
         public static SpriteTraits Monster2;
         public static SpriteTraits Monster3;
         public static SpriteTraits Monster4;
+        public static SpriteTraits Monster5;
         public static SpriteTraits Potion;
         public static SpriteTraits Ring;
         public static SpriteTraits Room;
@@ -151,6 +152,7 @@ namespace MissionIIClassLibrary
             Monster2 = loadImage("Monster2", 2);
             Monster3 = loadImage("Monster3", 1);
             Monster4 = loadImage("Monster4", 2);
+            Monster5 = loadImage("Monster5", 2);
             Potion = loadImage("Potion", 2);
             Ring = loadImage("Ring", 1);
             Room = loadImage("Room", 1);
@@ -160,7 +162,7 @@ namespace MissionIIClassLibrary
             WallOutline = loadImage("WallOutline", 3);
             WallBrick = loadImage("WallBrick", 3);
             WallElectric = loadImage("WallElectric", 1);
-            TitleScreen = loadImage("TitleScreen", 5);
+            TitleScreen = loadImage("TitleScreen", 4);
             EnteringLevel = loadImage("EnteringLevel", 1);
             GameOver = loadImage("GameOver", 1);
             Paused = loadImage("Paused", 1);

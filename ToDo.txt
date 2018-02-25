@@ -1,6 +1,9 @@
 
 Release 1
 ---------
+
+[ ] The facing direction of the man on level 1 is not good for turning against the monsters (unfair on new players)
+
 [ ] struct FacingDirection
 [ ] Fix the location of the key (etc) at start of level, not per room-start.
 [ ] Have a selection of explosion sounds and randomly select.
@@ -10,12 +13,7 @@ Release 1
 [ ] Use of the font to display messages
 	[ ] Fix fuzzy font drawing.
 
-[ ] A second droid type for level 1:  Up/Down or Left/Right travellers.
-[ ] Score-sapper droids
-[ ] Red versions of the yellow droids:  They fire perpendicular to travel?
-[ ] Boss robots that are larger and take more hits to kill.
-[ ] Kamikaze Droids that kill you if they touch you (homing).
-[ ] Up/Down or Left/Right travellers which kill you on touch.
+[ ] A second droid type for level 1:  WanderingMine
 
 [ ] Base class routine to fire, calls derived to get the sound effect.
 [ ] Different bullet sounds by monster type.
@@ -35,6 +33,11 @@ Release 2
 
 
 
+[ ] Score-sapper droids
+[ ] Red versions of the yellow droids:  They fire perpendicular to travel?
+[ ] Boss robots that are larger and take more hits to kill.
+[ ] Kamikaze Droids that kill you if they touch you (homing).
+[ ] Up/Down or Left/Right travellers which kill you on touch.
 
 
 

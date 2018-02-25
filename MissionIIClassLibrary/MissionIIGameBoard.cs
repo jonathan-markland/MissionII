@@ -342,32 +342,62 @@ namespace MissionIIClassLibrary
 
             // TODO: The following needs refactoring into a framework.
 
-            int redBlueThreshold = Constants.IdealDroidCountPerRoom;
-            int bluePinkThreshold = Constants.IdealDroidCountPerRoom;
+            if (LevelNumber == 1)
+            {
+                var theThreshold = Constants.IdealDroidCountPerRoom / 2;
 
-            if (LevelNumber == 2)
-            {
-                redBlueThreshold = Constants.IdealDroidCountPerRoom - 2;
+                for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
+                {
+                    if (j < theThreshold)
+                    {
+                        objectsList.Add(new Droids.HomingDroid());
+                    }
+                    else 
+                    {
+                        objectsList.Add(new Droids.WanderingMineDroid());
+                    }
+                }
             }
-            else if (LevelNumber > 2)
+            else if (LevelNumber == 2)
             {
-                redBlueThreshold = Constants.IdealDroidCountPerRoom - 4;
-                bluePinkThreshold = Constants.IdealDroidCountPerRoom - 2;
-            }
+                var theThreshold1 = Constants.IdealDroidCountPerRoom / 3;
+                var theThreshold2 = Constants.IdealDroidCountPerRoom / 2;
 
-            for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
+                for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
+                {
+                    if (j < theThreshold1)
+                    {
+                        objectsList.Add(new Droids.WanderingDroid());
+                    }
+                    else if (j < theThreshold2)
+                    {
+                        objectsList.Add(new Droids.WanderingMineDroid());
+                    }
+                    else
+                    {
+                        objectsList.Add(new Droids.HomingDroid());
+                    }
+                }
+            }
+            else
             {
-                if (j < redBlueThreshold)
+                var theThreshold1 = Constants.IdealDroidCountPerRoom / 3;
+                var theThreshold2 = Constants.IdealDroidCountPerRoom / 2;
+
+                for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
                 {
-                    objectsList.Add(new Droids.HomingDroid());
-                }
-                else if (j < bluePinkThreshold)
-                {
-                    objectsList.Add(new Droids.WanderingDroid());
-                }
-                else
-                {
-                    objectsList.Add(new Droids.DestroyerDroid());
+                    if (j < theThreshold1)
+                    {
+                        objectsList.Add(new Droids.DestroyerDroid());
+                    }
+                    else if (j < theThreshold2)
+                    {
+                        objectsList.Add(new Droids.WanderingDroid());
+                    }
+                    else
+                    {
+                        objectsList.Add(new Droids.HomingDroid());
+                    }
                 }
             }
 
