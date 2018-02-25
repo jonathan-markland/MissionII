@@ -9,10 +9,10 @@ namespace GameClassLibrary.Containers
 
         public SuddenlyReplaceableList()
         {
-            Clear();
+            StartNewList();
         }
 
-        public void Clear()
+        public void StartNewList()
         {
             _theList = new List<T>();
         }
@@ -33,12 +33,19 @@ namespace GameClassLibrary.Containers
             {
                 newList.Remove(o);
             }
-            ReplaceWith(newList);
+            _theList = newList;
         }
 
         public void ReplaceWith(List<T> newItems)
         {
-            _theList = newItems;
+            // We cannot just assign the caller's list object, because the
+            // caller cannot be trusted not to mess with that list instance
+            // after assignment.  So we make a private (fresh) copy of the list
+            // and assign to _theList:
+            
+            var newList = new List<T>();
+            newList.AddRange(newItems);
+            _theList = newList;
         }
 
         public void ForEachDo(Action<T> theAction)
