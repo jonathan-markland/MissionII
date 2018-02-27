@@ -30,6 +30,10 @@ namespace MissionIIClassLibrary
         public Interactibles.InvincibilityAmulet InvincibilityAmulet;
         public PositionAndDirection ManPositionOnRoomEntry;
 
+        private WallAndFloorHostSprites _electrocutionBackgroundSprites;  // changes by level
+        private WallAndFloorHostSprites _normalBackgroundSprites;         // changes by level
+
+
 
 
         public void Update(MissionIIKeyStates keyStates)
@@ -231,6 +235,19 @@ namespace MissionIIClassLibrary
             // Determine this level object:
             var levelIndex = (LevelNumber - 1) % TheWorldWallData.Levels.Count;
             var theLevel = TheWorldWallData.Levels[levelIndex];
+
+            // Prepare the background walls / floors / electrocution brick tile sprites:
+            _normalBackgroundSprites = new WallAndFloorHostSprites(
+                LevelNumber,
+                MissionIISpriteTraits.WallOutline,
+                MissionIISpriteTraits.WallBrick,
+                MissionIISpriteTraits.FloorTile);
+
+            _electrocutionBackgroundSprites = new WallAndFloorHostSprites(
+                LevelNumber,
+                MissionIISpriteTraits.WallElectric,
+                MissionIISpriteTraits.WallBrick,
+                MissionIISpriteTraits.FloorTile);
 
             // Set the start room number:
             RoomNumber = theLevel.ManStartRoom.RoomNumber;
@@ -602,21 +619,13 @@ namespace MissionIIClassLibrary
 
             // The Room:
 
-            var outlineWallSpriteTraits =
-                (Man.IsBeingElectrocuted)
-                ? MissionIISpriteTraits.WallElectric
-                : MissionIISpriteTraits.WallOutline;
-
             drawingTarget.DrawWalls(
-                LevelNumber,
                 Constants.RoomOriginX,
                 Constants.RoomOriginY,
                 Constants.TileWidth,
                 Constants.TileHeight,
                 CurrentRoomWallData,
-                outlineWallSpriteTraits,
-                MissionIISpriteTraits.WallBrick,
-                MissionIISpriteTraits.FloorTile);
+                (Man.IsBeingElectrocuted) ? _electrocutionBackgroundSprites : _normalBackgroundSprites);
 
             // Draw objects in the room:
 

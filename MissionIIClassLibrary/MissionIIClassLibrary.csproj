@@ -95,6 +95,7 @@
     <Compile Include="Modes\TitleScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecialMarkers.cs" />
+    <Compile Include="WallAndFloorHostSprites.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameClassLibrary\GameClassLibrary.csproj">

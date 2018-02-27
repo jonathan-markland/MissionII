@@ -3,7 +3,7 @@
     public static class Constants  // TODO: Location of some of these constants is suspect, in view of general name "Constants"
     {
         #region General
-        public const int StartLevelNumber = 6;
+        public const int StartLevelNumber = 5;
         #endregion
 
         #region Lives

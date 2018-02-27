@@ -31,33 +31,10 @@ namespace MissionIIClassLibrary
 
         public static void DrawWalls(
             this IDrawingTarget drawingTarget,
-            int levelNumber,
             int leftX, int topY, int tileWidth, int tileHeight,
             WallMatrix wallData,
-            SpriteTraits outlineSpriteTraits,
-            SpriteTraits brickSpriteTraits,
-            SpriteTraits floorSpriteTraits)
+            WallAndFloorHostSprites hostSprites)
         {
-            --levelNumber; // because it's 1-based!
-
-            var outlineHostSprite = new object[]
-            {
-                outlineSpriteTraits.GetHostImageObject(levelNumber % outlineSpriteTraits.ImageCount),
-                outlineSpriteTraits.GetHostImageObject((levelNumber + 1) % outlineSpriteTraits.ImageCount)
-            };
-
-            var brickHostSprite = new object[]
-            {
-                brickSpriteTraits.GetHostImageObject(levelNumber % brickSpriteTraits.ImageCount),
-                brickSpriteTraits.GetHostImageObject((levelNumber + 1) % brickSpriteTraits.ImageCount)
-            };
-
-            var floorHostSprite = new object[]
-            {
-                floorSpriteTraits.GetHostImageObject(levelNumber % floorSpriteTraits.ImageCount),
-                floorSpriteTraits.GetHostImageObject((levelNumber + 1) % floorSpriteTraits.ImageCount)
-            };
-
             for (int y = 0; y < wallData.CountV; y++)
             {
                 int a = leftX;
@@ -67,15 +44,15 @@ namespace MissionIIClassLibrary
                     var styleDelta = wallData.GetStyleDelta(x, y);
                     if (ch == WallMatrixChar.Electric) // <-- confusing that this really means draw the wall in either normal or electric state
                     {
-                        drawingTarget.DrawSprite(leftX, topY, outlineHostSprite[styleDelta]);
+                        drawingTarget.DrawSprite(leftX, topY, hostSprites.OutlineBricks[styleDelta]);
                     }
                     else if (ch != WallMatrixChar.Space)
                     {
-                        drawingTarget.DrawSprite(leftX, topY, brickHostSprite[styleDelta]);
+                        drawingTarget.DrawSprite(leftX, topY, hostSprites.FillerBricks[styleDelta]);
                     }
                     else
                     {
-                        drawingTarget.DrawSprite(leftX, topY, floorHostSprite[styleDelta]);
+                        drawingTarget.DrawSprite(leftX, topY, hostSprites.FloorBricks[styleDelta]);
                     }
                     leftX += tileWidth;
                 }
