@@ -32,7 +32,7 @@ namespace MissionIIMonoGame
         {
             base.Window.AllowUserResizing = true;
 
-            MissionIIClassLibrary.Business.GetSpriteDataAsUintArray = 
+            MissionIIClassLibrary.Business.SpriteToUintArray = 
                 (obj) =>
                 {
                     // The game engine will call out to this.  This separates
@@ -43,7 +43,27 @@ namespace MissionIIMonoGame
                     hostImage.GetData(resultColorData);
                     return resultColorData.Select(x => x.PackedValue).ToArray();
                 };
-            
+
+            MissionIIClassLibrary.Business.UintArrayToSprite =
+                (theArray, theWidth, theHeight) =>
+                {
+                    // The game engine will call out to this.  This separates
+                    // the engine from MonoGame.
+
+                    if(    theWidth  >= 0 
+                        && theHeight >= 0 
+                        && theWidth  <= 10000 
+                        && theHeight <= 10000
+                        && (theWidth * theHeight) == theArray.Length)
+                    {
+                        var colorData = theArray.Select(x => new Color(x));
+                        var hostImage = new Texture2D(GraphicsDevice, theWidth, theHeight);
+                        hostImage.SetData(theArray);
+                        return hostImage;
+                    }
+                    throw new System.Exception("Cannot create sprite from array and stated dimensions.");
+                };
+
             _keyStates = new MissionIIClassLibrary.MissionIIKeyStates();
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";

@@ -371,7 +371,7 @@ namespace MissionIIClassLibrary
                     }
                     else 
                     {
-                        objectsList.Add(new Droids.WanderingMineDroid());
+                        objectsList.Add(new Droids.HomingDroid()); // Not decided yet:  WanderingMineDroid());
                     }
                 }
             }
@@ -388,7 +388,7 @@ namespace MissionIIClassLibrary
                     }
                     else if (j < theThreshold2)
                     {
-                        objectsList.Add(new Droids.WanderingMineDroid());
+                        objectsList.Add(new Droids.HomingDroid()); // Not decided yet:  WanderingMineDroid());
                     }
                     else
                     {

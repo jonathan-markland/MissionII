@@ -80,7 +80,14 @@ namespace MissionIIClassLibrary
 
 
 
+        /// <summary>
+        /// The host environment must provide this, and set this object.
+        /// </summary>
+        public static Func<object, uint[]> SpriteToUintArray;
 
-        public static Func<object, uint[]> GetSpriteDataAsUintArray;
+        /// <summary>
+        /// The host environment must provide this, and set this object.
+        /// </summary>
+        public static Func<uint[], int, int, object> UintArrayToSprite;
     }
 }
