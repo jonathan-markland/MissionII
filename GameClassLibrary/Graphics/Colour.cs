@@ -65,5 +65,10 @@ namespace GameClassLibrary.Graphics
                 Console.WriteLine($"{i} : {GetColourWheelBlueValue(i)}");
             }
         }
+
+        public static uint ToGreyscale(byte v)
+        {
+            return (uint) (((uint) 0xFF000000) | (v << 16) | v << 8 | v);
+        }
     }
 }

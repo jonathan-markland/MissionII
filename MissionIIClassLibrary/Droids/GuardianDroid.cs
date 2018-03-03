@@ -1,7 +1,7 @@
 ﻿
 namespace MissionIIClassLibrary.Droids
 {
-    public class GuardianDroid : BaseDroid
+    public class GuardianDroid : BaseDroid  // Didn't make it into final release
     {
         public GuardianDroid()
             : base(MissionIISpriteTraits.Monster4, new ArtificialIntelligence.Guardian())
