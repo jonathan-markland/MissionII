@@ -10,7 +10,15 @@ namespace MissionIIClassLibrary
     {
         public static byte ToGreyscale(uint rgbValue)
         {
-            return (byte)((rgbValue >> 8) & 255); // TODO: fix
+            var r = (rgbValue >> 16) & 0xFF;
+            var g = (rgbValue >> 8) & 0xFF;
+            var b = (rgbValue) & 0xFF;
+
+            var rn = r * 87;
+            var gn = g * 141;
+            var bn = b * 28;
+
+            return (byte) ((rn + gn + bn) >> 8);
         }
 
 

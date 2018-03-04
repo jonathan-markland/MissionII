@@ -52,12 +52,25 @@ namespace MissionIIClassLibrary
                 {
                     AddDecorativeBrickwork(thisRoom.WallData);
 
+                    // Set style pattern on the wall squares:
+
                     SetWallStyleDeltas(
                         thisRoom.WallData,
                         resamplingColourData, 
                         thisRoom.RoomNumber * 8,
                         thisRoom.RoomNumber * 4,
-                        128);
+                        128, 
+                        true);
+
+                    // Set style pattern on the floor squares:
+
+                    SetWallStyleDeltas(
+                        thisRoom.WallData,
+                        resamplingColourData,
+                        thisRoom.RoomNumber * 4,
+                        thisRoom.RoomNumber * 8,
+                        128,
+                        false);
                 }
 
                 ++levelIndex;
@@ -184,7 +197,8 @@ namespace MissionIIClassLibrary
             uint[] resamplingImageArray,
             int logicalOffsetX,
             int logicalOffsetY,
-            int sampleThreshold)
+            int sampleThreshold,
+            bool doWalls)
         {
             System.Diagnostics.Debug.Assert(resamplingImageArray.Length == 64*64);
 
@@ -193,9 +207,12 @@ namespace MissionIIClassLibrary
                 int cy = (y + logicalOffsetY) & 63;
                 for (int x = 0; x < wallData.CountH; x++)
                 {
-                    int cx = (x + logicalOffsetX) & 63;
-                    var greyLevel = Business.ToGreyscale(resamplingImageArray[cy * 64 + cx]);
-                    wallData.SetStyleDelta(x, y, (byte)((greyLevel < sampleThreshold) ? 0 : 1));
+                    if ((wallData.Read(x, y) == WallMatrixChar.Space) ^ doWalls)
+                    {
+                        int cx = (x + logicalOffsetX) & 63;
+                        var greyLevel = Business.ToGreyscale(resamplingImageArray[cy * 64 + cx]);
+                        wallData.SetStyleDelta(x, y, (byte)((greyLevel < sampleThreshold) ? 0 : 1));
+                    }
                 }
             }
         }

@@ -40,7 +40,9 @@ namespace MissionIIClassLibrary
         {
             Func<string, SoundTraits> loadSound = (soundName) =>
             {
-                return new SoundTraits { HostObject = hostSoundSupplier(soundName) };
+                var resultObject = new SoundTraits { HostObject = hostSoundSupplier(soundName) };
+                System.Diagnostics.Debug.Assert(resultObject != null);
+                return resultObject;
             };
 
             DroidFiring = loadSound("DroidFiringSound");

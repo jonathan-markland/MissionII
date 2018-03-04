@@ -166,7 +166,7 @@ namespace MissionIIClassLibrary
             EnteringLevel = loadImage("EnteringLevel", 1);
             GameOver = loadImage("GameOver", 1);
             Paused = loadImage("Paused", 1);
-            PatternResamplingSprite = loadImage("PatternResamplingSprite", 1);
+            PatternResamplingSprite = loadImage("PatternResamplingSprite", 4);
             Font = loadImage("Font", 1);
             InvincibilityAmulet = loadImage("InvincibilityAmulet", 1);
 
