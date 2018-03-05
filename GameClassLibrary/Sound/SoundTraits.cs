@@ -9,6 +9,8 @@ namespace GameClassLibrary.Sound
         private static Func<string, HostSuppliedSound> _hostSoundSupplier;
         private static Action<HostSuppliedSound> _hostPlaySoundAction;
         private static Random _rndGen;
+        // private static Action<HostSuppliedSound> _hostCreateAndPlaySharedSoundAction;
+        // private static Action<HostSuppliedSound> _hostStopSharedSoundPlayingAction;
         private List<HostSuppliedSound> _hostSoundObjects;
 
         public static void InitSoundSupplier(
@@ -38,6 +40,9 @@ namespace GameClassLibrary.Sound
             _hostSoundObjects = hostSoundObjects;
         }
 
+        /// <summary>
+        /// Play a new instance of the sound.
+        /// </summary>
         public void Play()
         {
             if (_hostSoundObjects.Count == 1)
@@ -48,6 +53,26 @@ namespace GameClassLibrary.Sound
             {
                 _hostPlaySoundAction(_hostSoundObjects[_rndGen.Next(_hostSoundObjects.Count)]);
             }
+        }
+
+        /// <summary>
+        /// Creates a shared instance of the sound, and plays it.
+        /// Unless the shared instance already exists, in which case we don't create again.
+        /// If the shared instances is already playing, this call has no effect.
+        /// </summary>
+        public void EnsurePlaying()
+        {
+            
+        }
+
+        /// <summary>
+        /// If a shared instance of this sound exists, then stop it playing.
+        /// If no shared instance exists, or the shared instance isn't playing,
+        /// then this takes no effect.
+        /// </summary>
+        public void EnsureStopped()
+        {
+
         }
     }
 }
