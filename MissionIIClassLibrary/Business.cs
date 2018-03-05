@@ -85,12 +85,5 @@ namespace MissionIIClassLibrary
 
             return new MovementDeltas(dx, dy);
         }
-
-
-
-        /// <summary>
-        /// The host environment must provide this, and set this object.
-        /// </summary>
-        public static Func<uint[], int, int, HostSuppliedSprite> UintArrayToSprite;
     }
 }

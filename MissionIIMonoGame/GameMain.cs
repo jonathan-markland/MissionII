@@ -44,7 +44,7 @@ namespace MissionIIMonoGame
                     return resultColorData.Select(x => x.PackedValue).ToArray();
                 };
 
-            MissionIIClassLibrary.Business.UintArrayToSprite =
+            GameClassLibrary.Graphics.HostSuppliedSprite.UintArrayToSprite = // TODO: sort out like the above somehow!
                 (theArray, theWidth, theHeight) =>
                 {
                     // The game engine will call out to this.  This separates

@@ -17,6 +17,11 @@ namespace GameClassLibrary.Graphics
         /// <summary>
         /// The host environment must provide this, and set this object.
         /// </summary>
+        public static Func<uint[], int, int, HostSuppliedSprite> UintArrayToSprite;
+
+        /// <summary>
+        /// The host environment must provide this, and set this object.
+        /// </summary>
         public static Func<HostSuppliedSprite, uint[]> ToUintArrayHandler;
     }
 }

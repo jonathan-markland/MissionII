@@ -87,7 +87,7 @@ namespace MissionIIClassLibrary
                 var secondColour = Colour.GetWheelColourAsPackedValue(seedValue + TwoColourBrickColourSeparation);
                 var imageDataArray = hostSprite.ToArray();
                 Colour.ReplaceWithThreshold(imageDataArray, firstColour, secondColour);
-                var newHostImage = Business.UintArrayToSprite(imageDataArray, hostSprite.BoardWidth, hostSprite.BoardHeight);
+                var newHostImage = GameClassLibrary.Graphics.HostSuppliedSprite.UintArrayToSprite(imageDataArray, hostSprite.BoardWidth, hostSprite.BoardHeight);
                 theList.Add(newHostImage);
                 seedValue += ColourSeparationBetweenColouredBricks;
             }
@@ -110,7 +110,7 @@ namespace MissionIIClassLibrary
         {
             var imageDataArray = hostSprite.ToArray();
             Colour.ReplaceWithThreshold(imageDataArray, highColour, lowColour);
-            return Business.UintArrayToSprite(imageDataArray, hostSprite.BoardWidth, hostSprite.BoardHeight);
+            return HostSuppliedSprite.UintArrayToSprite(imageDataArray, hostSprite.BoardWidth, hostSprite.BoardHeight);
         }
     }
 }
