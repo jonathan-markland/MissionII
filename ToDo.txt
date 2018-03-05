@@ -2,10 +2,11 @@
 Release 1
 ---------
 
+[ ] Some bypass keys to later levels.
 [ ] The level 2 pattern is too coarse to use.  Replace with something else.
 [ ] Seed the resampling thresholds from the level number, independently of the floor/walls.
 [ ] Score table.
-[ ] Cut the main screen sound.
+[ ] Cut the main screen sound off after Z pressed.  Don't allow two instances of main screen sound to play at once.
 [ ] Use all of the numbered sound files.
 [ ] Different bullet sounds by monster type.
 [ ] Change the droid firing sound to something more sophisticated?

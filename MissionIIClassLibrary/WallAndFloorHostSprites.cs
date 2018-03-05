@@ -85,7 +85,7 @@ namespace MissionIIClassLibrary
             {
                 var firstColour = Colour.GetWheelColourAsPackedValue(seedValue);
                 var secondColour = Colour.GetWheelColourAsPackedValue(seedValue + TwoColourBrickColourSeparation);
-                var imageDataArray = Business.SpriteToUintArray(hostSprite);
+                var imageDataArray = hostSprite.ToArray();
                 Colour.ReplaceWithThreshold(imageDataArray, firstColour, secondColour);
                 var newHostImage = Business.UintArrayToSprite(imageDataArray, hostSprite.BoardWidth, hostSprite.BoardHeight);
                 theList.Add(newHostImage);
@@ -108,7 +108,7 @@ namespace MissionIIClassLibrary
 
         private HostSuppliedSprite RecolourByThresholdAndSpecificColours(HostSuppliedSprite hostSprite, uint highColour, uint lowColour)
         {
-            var imageDataArray = Business.SpriteToUintArray(hostSprite);
+            var imageDataArray = hostSprite.ToArray();
             Colour.ReplaceWithThreshold(imageDataArray, highColour, lowColour);
             return Business.UintArrayToSprite(imageDataArray, hostSprite.BoardWidth, hostSprite.BoardHeight);
         }

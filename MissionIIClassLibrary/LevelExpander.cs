@@ -45,8 +45,8 @@ namespace MissionIIClassLibrary
                 // "style deltas" which are zero based values that can be used
                 // to choose alternate sprites on a per-brick basis.
 
-                var resamplingColourData = Business.SpriteToUintArray(
-                    wallPatternResamplingSprite.GetHostImageObject(resamplingImageIndex));
+                var resamplingColourData = 
+                    wallPatternResamplingSprite.GetHostImageObject(resamplingImageIndex).ToArray();
 
                 foreach (var thisRoom in roomsList)
                 {

@@ -32,7 +32,7 @@ namespace MissionIIMonoGame
         {
             base.Window.AllowUserResizing = true;
 
-            MissionIIClassLibrary.Business.SpriteToUintArray = 
+            GameClassLibrary.Graphics.HostSuppliedSprite.ToUintArrayHandler = 
                 (obj) =>
                 {
                     // The game engine will call out to this.  This separates
