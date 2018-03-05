@@ -973,11 +973,29 @@
 /processorParam:Quality=Best
 /build:ExtraLifeSound.wav
 
-#begin GameOverSound.wav
+#begin GameOverSound_1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:GameOverSound.wav
+/build:GameOverSound_1.wav
+
+#begin GameOverSound_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GameOverSound_2.wav
+
+#begin GameOverSound_3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GameOverSound_3.wav
+
+#begin GameOverSound_4.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:GameOverSound_4.wav
 
 #begin GhostAppearingSound.wav
 /importer:WavImporter
@@ -991,11 +1009,17 @@
 /processorParam:Quality=Best
 /build:ManFiringSound.wav
 
-#begin ManGruntSound.wav
+#begin ManGruntSound_1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:ManGruntSound.wav
+/build:ManGruntSound_1.wav
+
+#begin ManGruntSound_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ManGruntSound_2.wav
 
 #begin PauseModeSound.wav
 /importer:WavImporter
@@ -1021,11 +1045,23 @@
 /processorParam:Quality=Best
 /build:BonusSound.wav
 
-#begin ExplosionSound.wav
+#begin ExplosionSound_1.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:ExplosionSound.wav
+/build:ExplosionSound_1.wav
+
+#begin ExplosionSound_2.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ExplosionSound_2.wav
+
+#begin ExplosionSound_3.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ExplosionSound_3.wav
 
 #begin IntroSound.wav
 /importer:WavImporter

@@ -12,7 +12,7 @@ namespace MissionIIClassLibrary.Modes
         {
             if (_firstCycle)
             {
-                MissionIISounds.Play(MissionIISounds.Intro);
+                MissionIISounds.Intro.Play();
                 _firstCycle = false;
             }
 
@@ -37,7 +37,7 @@ namespace MissionIIClassLibrary.Modes
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, MissionIISpriteTraits.TitleScreen.GetHostImageObject(0));
+            drawingTarget.DrawSprite(0, 0, MissionIISprites.TitleScreen.GetHostImageObject(0));
         }
     }
 }

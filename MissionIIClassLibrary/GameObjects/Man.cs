@@ -99,7 +99,7 @@ namespace MissionIIClassLibrary.GameObjects
         {
             ++_cyclesMoving;
             _facingDirection = theDirection;
-            SpriteInstance.Traits = MissionIISpriteTraits.ManWalking[theDirection];
+            SpriteInstance.Traits = MissionIISprites.ManWalking[theDirection];
             AdvanceAnimation();
             var movementDeltas = Business.GetMovementDeltas(keyStates);
             var hitResult = theGameBoard.MoveManOnePixel(movementDeltas);
@@ -152,11 +152,11 @@ namespace MissionIIClassLibrary.GameObjects
             var n = _cyclesMoving % c;
             if (n == 0)
             {
-                MissionIISounds.Play(MissionIISounds.FootStep1);
+                MissionIISounds.FootStep1.Play();
             }
             else if (n == (c / 2))
             {
-                MissionIISounds.Play(MissionIISounds.FootStep2);
+                MissionIISounds.FootStep2.Play();
             }
         }
 
@@ -203,17 +203,17 @@ namespace MissionIIClassLibrary.GameObjects
                 _isElectrocuting = true;
                 _isElectrocutedByWalls = electrocutionMethod == ElectrocutionMethod.ByWalls;
                 _electrocutionCycles = ElectrocutionAnimationReset * 5;
-                SpriteInstance.Traits = MissionIISpriteTraits.Electrocution;
+                SpriteInstance.Traits = MissionIISprites.Electrocution;
                 _imageIndex = 0;
                 _animationCountdown = ElectrocutionAnimationReset;
-                MissionIISounds.Play(MissionIISounds.Electrocution);
+                MissionIISounds.Electrocution.Play();
             }
         }
 
         private void Standing(int theDirection)
         {
             _animationCountdown = WalkingAnimationReset; // for next time
-            SpriteInstance.Traits = MissionIISpriteTraits.ManStanding[theDirection];
+            SpriteInstance.Traits = MissionIISprites.ManStanding[theDirection];
             _imageIndex = 0;
             _cyclesMoving = 0;
         }
@@ -251,11 +251,11 @@ namespace MissionIIClassLibrary.GameObjects
                 _isDead = true;
                 _imageIndex = 0;
                 _invincibleCountDown = 0;
-                SpriteInstance.Traits = MissionIISpriteTraits.Dead;
+                SpriteInstance.Traits = MissionIISprites.Dead;
                 // TODO: Sound
                 // TODO: Reduce lives.
                 _whileDeadCount = Constants.ManDeadDelayCycles;
-                MissionIISounds.Play(MissionIISounds.ManGrunt);
+                MissionIISounds.ManGrunt.Play();
             }
         }
 
@@ -317,7 +317,7 @@ namespace MissionIIClassLibrary.GameObjects
             if (! theGameBoard.DroidsExistInRoom)
             {
                 theGameBoard.IncrementScore(Constants.RoomClearingBonusScore);
-                MissionIISounds.Play(MissionIISounds.Bonus);
+                MissionIISounds.Bonus.Play();
             }
             theGameBoard.PrepareForNewRoom();
         }

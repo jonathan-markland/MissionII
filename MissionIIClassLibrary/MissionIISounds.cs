@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using GameClassLibrary.Sound;
 
 namespace MissionIIClassLibrary
@@ -24,45 +24,26 @@ namespace MissionIIClassLibrary
         public static SoundTraits FootStep2;
         public static SoundTraits InvincibilityAmuletSound;
 
-        private static Action<SoundTraits> HostPlaySoundAction;
-
-        public static void Init(Action<SoundTraits> hostPlaySoundAction)
+        public static void Load()
         {
-            HostPlaySoundAction = hostPlaySoundAction;
-        }
-
-        public static void Play(SoundTraits theSound)
-        {
-            HostPlaySoundAction(theSound);
-        }
-
-        public static void Load(Func<string, object> hostSoundSupplier)
-        {
-            Func<string, SoundTraits> loadSound = (soundName) =>
-            {
-                var resultObject = new SoundTraits { HostObject = hostSoundSupplier(soundName) };
-                System.Diagnostics.Debug.Assert(resultObject != null);
-                return resultObject;
-            };
-
-            DroidFiring = loadSound("DroidFiringSound");
-            Electrocution = loadSound("ElectrocutionSound");
-            EnteringLevel = loadSound("EnteringLevelSound");
-            ExtraLife = loadSound("ExtraLifeSound");
-            GameOver = loadSound("GameOverSound");
-            GhostAppearing = loadSound("GhostAppearingSound");
-            ManFiring = loadSound("ManFiringSound");
-            ManGrunt = loadSound("ManGruntSound");
-            PauseMode = loadSound("PauseModeSound");
-            PickUpObject = loadSound("PickUpObjectSound");
-            SafeActivated = loadSound("SafeActivatedSound");
-            Intro = loadSound("IntroSound");
-            Explosion = loadSound("ExplosionSound");
-            Bonus = loadSound("BonusSound");
-            StunGhost = loadSound("StunGhostSound");
-            FootStep1 = loadSound("Footstep1Sound");
-            FootStep2 = loadSound("Footstep2Sound");
-            InvincibilityAmuletSound = loadSound("InvincibilityAmuletSound");
+            DroidFiring = new SoundTraits("DroidFiringSound", 1);
+            Electrocution = new SoundTraits("ElectrocutionSound", 1);
+            EnteringLevel = new SoundTraits("EnteringLevelSound", 1);
+            ExtraLife = new SoundTraits("ExtraLifeSound", 1);
+            GameOver = new SoundTraits("GameOverSound", 4);
+            GhostAppearing = new SoundTraits("GhostAppearingSound", 1);
+            ManFiring = new SoundTraits("ManFiringSound", 1);
+            ManGrunt = new SoundTraits("ManGruntSound", 2);
+            PauseMode = new SoundTraits("PauseModeSound", 1);
+            PickUpObject = new SoundTraits("PickUpObjectSound", 1);
+            SafeActivated = new SoundTraits("SafeActivatedSound", 1);
+            Intro = new SoundTraits("IntroSound", 1);
+            Explosion = new SoundTraits("ExplosionSound", 3);
+            Bonus = new SoundTraits("BonusSound", 1);
+            StunGhost = new SoundTraits("StunGhostSound", 1);
+            FootStep1 = new SoundTraits("Footstep1Sound", 1);
+            FootStep2 = new SoundTraits("Footstep2Sound", 1);
+            InvincibilityAmuletSound = new SoundTraits("InvincibilityAmuletSound", 1);
         }
     }
 }

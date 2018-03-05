@@ -38,7 +38,7 @@ namespace MissionIIClassLibrary.Droids
                 new GameObjects.Explosion(
                     SpriteInstance.RoomX,
                     SpriteInstance.RoomY,
-                    MissionIISpriteTraits.Explosion,
+                    MissionIISprites.Explosion,
                     shotByMan));
 
             theGameBoard.ObjectsToRemove.Add(this);

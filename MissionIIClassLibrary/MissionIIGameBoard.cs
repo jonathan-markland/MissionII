@@ -62,7 +62,7 @@ namespace MissionIIClassLibrary
         {
             if (Lives < Constants.MaxLives)
             {
-                MissionIISounds.Play(MissionIISounds.ExtraLife);
+                MissionIISounds.ExtraLife.Play();
                 ++Lives;
             }
         }
@@ -133,14 +133,14 @@ namespace MissionIIClassLibrary
 
             if (increasesScore)
             {
-                MissionIISounds.Play(MissionIISounds.ManFiring);
+                MissionIISounds.ManFiring.Play();
             }
             else
             {
-                MissionIISounds.Play(MissionIISounds.DroidFiring);
+                MissionIISounds.DroidFiring.Play();
             }
 
-            var theBulletTraits = MissionIISpriteTraits.Bullet;
+            var theBulletTraits = MissionIISprites.Bullet;
             var bulletWidth = theBulletTraits.BoardWidth;
             var bulletHeight = theBulletTraits.BoardHeight;
 
@@ -214,7 +214,7 @@ namespace MissionIIClassLibrary
                             if (n >= Constants.DroidCountFoMultiKillBonus)
                             {
                                 IncrementScore(thisDroidKillScore * n);
-                                MissionIISounds.Play(MissionIISounds.Bonus);
+                                MissionIISounds.Bonus.Play();
                                 MarkAllExplosionsAsUsedForBonusPurposes();
                             }
                         }
@@ -239,15 +239,15 @@ namespace MissionIIClassLibrary
             // Prepare the background walls / floors / electrocution brick tile sprites:
             _normalBackgroundSprites = new WallAndFloorHostSprites(
                 LevelNumber,
-                MissionIISpriteTraits.WallOutline,
-                MissionIISpriteTraits.WallBrick,
-                MissionIISpriteTraits.FloorTile);
+                MissionIISprites.WallOutline,
+                MissionIISprites.WallBrick,
+                MissionIISprites.FloorTile);
 
             _electrocutionBackgroundSprites = new WallAndFloorHostSprites(
                 LevelNumber,
-                MissionIISpriteTraits.WallElectric,
-                MissionIISpriteTraits.WallBrick,
-                MissionIISpriteTraits.FloorTile);
+                MissionIISprites.WallElectric,
+                MissionIISprites.WallBrick,
+                MissionIISprites.FloorTile);
 
             // Set the start room number:
             RoomNumber = theLevel.ManStartRoom.RoomNumber;
@@ -258,8 +258,8 @@ namespace MissionIIClassLibrary
 
             // TODO: all man sprites must be checked for SAME dimensions.
             // Calculate centering offsets for man within cluster:
-            var manCX = (clusterSizeX - MissionIISpriteTraits.ManStanding[0].BoardWidth) / 2;
-            var manCY = (clusterSizeY - MissionIISpriteTraits.ManStanding[0].BoardHeight) / 2;
+            var manCX = (clusterSizeX - MissionIISprites.ManStanding[0].BoardWidth) / 2;
+            var manCY = (clusterSizeY - MissionIISprites.ManStanding[0].BoardHeight) / 2;
 
             // Set man start position (according to 'x' in source level data for this level):
             var manX = manCX + theLevel.ManStartCluster.X * clusterSizeX;
@@ -602,8 +602,8 @@ namespace MissionIIClassLibrary
 
             // Score:
 
-            var theNumbers = MissionIISpriteTraits.TheNumbers;
-            drawingTarget.DrawFirstSprite(0, 8, MissionIISpriteTraits.Score);
+            var theNumbers = MissionIISprites.TheNumbers;
+            drawingTarget.DrawFirstSprite(0, 8, MissionIISprites.Score);
             drawingTarget.DrawNumber(140, 8, Score, theNumbers);
 
             // TEST  var theFont = new Font { FontSprite = MissionIISpriteTraits.Font, CharWidth = 6, ScaleFactor = 2 };
@@ -611,7 +611,7 @@ namespace MissionIIClassLibrary
 
             // Level no, Room no:
 
-            drawingTarget.DrawFirstSprite(210, 8, MissionIISpriteTraits.Room);
+            drawingTarget.DrawFirstSprite(210, 8, MissionIISprites.Room);
             drawingTarget.DrawNumber(
                 Constants.ScreenWidth, 8,
                 (uint)(LevelNumber * 100 +
@@ -634,7 +634,7 @@ namespace MissionIIClassLibrary
             // Lives:
 
             int y = Constants.ScreenHeight - 16;
-            drawingTarget.DrawRepeats(Constants.InventoryIndent, y, 8, 0, System.Math.Min(Lives, Constants.MaxDisplayedLives), MissionIISpriteTraits.Life);
+            drawingTarget.DrawRepeats(Constants.InventoryIndent, y, 8, 0, System.Math.Min(Lives, Constants.MaxDisplayedLives), MissionIISprites.Life);
 
             // Player inventory:
 

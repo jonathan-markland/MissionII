@@ -78,7 +78,7 @@
     <Compile Include="Interactibles\Potion.cs" />
     <Compile Include="Droids\HomingDroid.cs" />
     <Compile Include="Interactibles\Ring.cs" />
-    <Compile Include="MissionIISpriteTraits.cs" />
+    <Compile Include="MissionIISprites.cs" />
     <Compile Include="Modes\GameOver.cs" />
     <Compile Include="Modes\GamePlay.cs" />
     <Compile Include="Modes\InstructionsKeys.cs" />

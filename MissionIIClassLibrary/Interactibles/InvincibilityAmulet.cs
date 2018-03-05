@@ -10,7 +10,7 @@ namespace MissionIIClassLibrary.Interactibles
     public class InvincibilityAmulet : InteractibleObject
     {
         public InvincibilityAmulet(int roomNumber)
-            : base(new SpriteInstance { Traits = MissionIISpriteTraits.InvincibilityAmulet }, roomNumber)
+            : base(new SpriteInstance { Traits = MissionIISprites.InvincibilityAmulet }, roomNumber)
         {
         }
 
@@ -18,7 +18,7 @@ namespace MissionIIClassLibrary.Interactibles
         {
             theGameBoard.Man.GainInvincibility();
             RemoveThisObject(theGameBoard);
-            MissionIISounds.Play(MissionIISounds.InvincibilityAmuletSound);
+            MissionIISounds.InvincibilityAmuletSound.Play();
         }
 
         public override int CollectionScore => Constants.InvincibilityAmuletScore;

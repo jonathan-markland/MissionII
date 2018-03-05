@@ -38,7 +38,7 @@ namespace MissionIIClassLibrary.Modes
         public override void Draw(IDrawingTarget drawingTarget)
         {
             _originalMode.Draw(drawingTarget);
-            drawingTarget.DrawFirstSpriteScreenCentred(MissionIISpriteTraits.Paused);
+            drawingTarget.DrawFirstSpriteScreenCentred(MissionIISprites.Paused);
         }
     }
 }

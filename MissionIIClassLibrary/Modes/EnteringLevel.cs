@@ -17,7 +17,7 @@ namespace MissionIIClassLibrary.Modes
             if (MissionIIModes.HandlePause(theKeyStates, this)) return;
             if (_countDown == Constants.EnteringLevelScreenCycles)
             {
-                MissionIISounds.Play(MissionIISounds.EnteringLevel);
+                MissionIISounds.EnteringLevel.Play();
             }
             if (_countDown > 0)
             {
@@ -33,8 +33,8 @@ namespace MissionIIClassLibrary.Modes
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, MissionIISpriteTraits.EnteringLevel.GetHostImageObject(0));
-            drawingTarget.DrawNumber(160, 50, (uint) _gameBoard.LevelNumber, MissionIISpriteTraits.TheNumbers);
+            drawingTarget.DrawSprite(0, 0, MissionIISprites.EnteringLevel.GetHostImageObject(0));
+            drawingTarget.DrawNumber(160, 50, (uint) _gameBoard.LevelNumber, MissionIISprites.TheNumbers);
 
             // Show the things you need to find on this level.
 

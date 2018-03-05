@@ -101,7 +101,7 @@ namespace MissionIIMonoGame
 
             // TODO: use this.Content to load your game content here
 
-            MissionIIClassLibrary.MissionIISpriteTraits.Load((spriteName) => 
+            MissionIIClassLibrary.MissionIISprites.Load((spriteName) => 
             {
                 var texture2d = Content.Load<Texture2D>(spriteName);
                 return new MissionIIClassLibrary.HostSuppliedSprite
@@ -112,16 +112,23 @@ namespace MissionIIMonoGame
                 };
             });
 
-            MissionIIClassLibrary.MissionIISounds.Load((soundName) =>
+            // Connect the library to the host routines that load and play sound.
+            // Then load the sounds for this game:
+            
+            GameClassLibrary.Sound.SoundTraits.InitSoundSupplier((soundName) =>
             {
-                return Content.Load<SoundEffect>(soundName);
+                return new GameClassLibrary.Sound.HostSuppliedSound
+                {
+                    HostSoundObject = Content.Load<SoundEffect>(soundName)
+                };
             });
 
-            MissionIIClassLibrary.MissionIISounds.Init((soundTraits) =>
+            GameClassLibrary.Sound.SoundTraits.InitSoundPlay((soundTraits) =>
             {
-                ((SoundEffect)soundTraits.HostObject).Play();
+                ((SoundEffect)soundTraits.HostSoundObject).Play();
             });
 
+            MissionIIClassLibrary.MissionIISounds.Load();
         }
 
         /// <summary>

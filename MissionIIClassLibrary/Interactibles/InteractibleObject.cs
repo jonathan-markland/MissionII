@@ -40,7 +40,7 @@ namespace MissionIIClassLibrary.Interactibles
             theGameBoard.PlayerInventory.Add(this);
             RemoveThisObject(theGameBoard);
             theGameBoard.IncrementScore(CollectionScore);
-            MissionIISounds.Play(MissionIISounds.PickUpObject);
+            MissionIISounds.PickUpObject.Play();
         }
 
         protected void RemoveThisObject(MissionIIGameBoard theGameBoard)

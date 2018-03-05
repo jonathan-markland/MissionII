@@ -31,8 +31,8 @@ namespace MissionIIClassLibrary.GameObjects
                 {
                     _spriteInstance.RoomX = 0;
                     _spriteInstance.RoomY = 0;
-                    _spriteInstance.Traits = MissionIISpriteTraits.Ghost;
-                    MissionIISounds.Play(MissionIISounds.GhostAppearing);
+                    _spriteInstance.Traits = MissionIISprites.Ghost;
+                    MissionIISounds.GhostAppearing.Play();
                 }
             }
             else if (_stunCountDown > 0)
@@ -40,7 +40,7 @@ namespace MissionIIClassLibrary.GameObjects
                 --_stunCountDown;
                 if (_stunCountDown == 0)
                 {
-                    _spriteInstance.Traits = MissionIISpriteTraits.Ghost;
+                    _spriteInstance.Traits = MissionIISprites.Ghost;
                 }
             }
             else
@@ -67,8 +67,8 @@ namespace MissionIIClassLibrary.GameObjects
             if (shotByMan)
             {
                 _stunCountDown = Constants.GhostStunnedCycles;
-                _spriteInstance.Traits = MissionIISpriteTraits.GhostStunned;
-                MissionIISounds.Play(MissionIISounds.StunGhost);
+                _spriteInstance.Traits = MissionIISprites.GhostStunned;
+                MissionIISounds.StunGhost.Play();
             }
             return true;
         }

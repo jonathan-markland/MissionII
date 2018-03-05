@@ -5,7 +5,7 @@ namespace MissionIIClassLibrary.Interactibles
     public class Key : InteractibleObject
     {
         public Key(int roomNumber)
-            : base(new SpriteInstance { Traits = MissionIISpriteTraits.Key }, roomNumber)
+            : base(new SpriteInstance { Traits = MissionIISprites.Key }, roomNumber)
         {
         }
 

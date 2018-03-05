@@ -9,7 +9,7 @@ namespace MissionIIClassLibrary.Modes
 
         public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
-            if (MissionIISpriteTraits.TitleScreen.ImageCount < 2)
+            if (MissionIISprites.TitleScreen.ImageCount < 2)
             {
                 // Cannot rotate any instruction screens.
                 MissionIIGameModeSelector.ModeSelector.CurrentMode = new TitleScreen();
@@ -28,7 +28,7 @@ namespace MissionIIClassLibrary.Modes
             else
             {
                 ++_screenIndex;
-                if (_screenIndex >= MissionIISpriteTraits.TitleScreen.ImageCount)
+                if (_screenIndex >= MissionIISprites.TitleScreen.ImageCount)
                 {
                     _screenIndex = 1;
                 }
@@ -39,7 +39,7 @@ namespace MissionIIClassLibrary.Modes
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, MissionIISpriteTraits.TitleScreen.GetHostImageObject(_screenIndex));
+            drawingTarget.DrawSprite(0, 0, MissionIISprites.TitleScreen.GetHostImageObject(_screenIndex));
         }
     }
 }

@@ -10,7 +10,7 @@ namespace MissionIIClassLibrary.Modes
         {
             if (_countDown == Constants.GameOverMessageCycles)
             {
-                MissionIISounds.Play(MissionIISounds.GameOver);
+                MissionIISounds.GameOver.Play();
             }
             if (_countDown > 0)
             {
@@ -25,7 +25,7 @@ namespace MissionIIClassLibrary.Modes
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            drawingTarget.DrawFirstSpriteScreenCentred(MissionIISpriteTraits.GameOver);
+            drawingTarget.DrawFirstSpriteScreenCentred(MissionIISprites.GameOver);
         }
     }
 }

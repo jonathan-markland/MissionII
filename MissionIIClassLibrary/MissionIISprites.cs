@@ -4,7 +4,7 @@ using GameClassLibrary.Graphics;
 
 namespace MissionIIClassLibrary
 {
-    public static class MissionIISpriteTraits
+    public static class MissionIISprites
     {
         // TODO: really should be internal
         public static SpriteTraits Bullet;
@@ -65,7 +65,7 @@ namespace MissionIIClassLibrary
         public static SpriteTraits InvincibilityAmulet;
 
         // And references to the above, for convenience:
-        public static List<SpriteTraits> TheNumbers;
+        public static List<SpriteTraits> TheNumbers; // TODO: I wanted the font instead
         public static List<SpriteTraits> ManStanding;
         public static List<SpriteTraits> ManWalking;
 
@@ -76,6 +76,7 @@ namespace MissionIIClassLibrary
         /// </summary>
         public static void Load(Func<string, HostSuppliedSprite> hostSpriteSupplier)
         {
+            // TODO: This lambda:  Could it be in the library?
             Func<string, int, SpriteTraits> loadImage = (spriteName, imageCount) =>
             {
                 // When there are multiple images:
