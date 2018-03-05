@@ -52,7 +52,7 @@ namespace GameClassLibrary.Graphics
                 if (charIndex > 0)
                 {
                     drawingTarget.DrawSpritePieceStretched(
-                        charIndex * srcCharWidth, 0, srcCharWidth, srcHeight, 
+                        charIndex * srcCharWidth, 0, 
                         leftSideX, topSideY, destDeltaX, destHeight,
                         hostImageObject);
                 }

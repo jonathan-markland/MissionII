@@ -1,4 +1,5 @@
-﻿namespace MissionIIClassLibrary
+﻿
+namespace GameClassLibrary.Graphics
 {
     public struct HostSuppliedSprite
     {

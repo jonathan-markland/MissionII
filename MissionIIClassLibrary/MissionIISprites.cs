@@ -74,102 +74,80 @@ namespace MissionIIClassLibrary
         /// and passing each individual image name in turn, and expecting the
         /// host to return a HostSuppliedSprite object, describing each.
         /// </summary>
-        public static void Load(Func<string, HostSuppliedSprite> hostSpriteSupplier)
+        public static void Load()
         {
-            // TODO: This lambda:  Could it be in the library?
-            Func<string, int, SpriteTraits> loadImage = (spriteName, imageCount) =>
-            {
-                // When there are multiple images:
-                // - We append "_1", "_2" .. etc to the spriteName
-                //   and request those names from the host.
-                // - We must also make sure all images in the set are the same size!
-                // When it's just a single image, we just load that only by the name given.
-
-                int boardWidth = 0;
-                int boardHeight = 0;
-                var hostImageObjects = new List<object>();
-
-                for( int i = 1; i <= imageCount; i++ )
-                {
-                    var thisHostImageInfo = hostSpriteSupplier((imageCount == 1) ? spriteName : spriteName + "_" + i);
-                    if (i == 1)
-                    {
-                        boardWidth = thisHostImageInfo.BoardWidth;
-                        boardHeight = thisHostImageInfo.BoardHeight;
-                    }
-                    else
-                    {
-                        if (boardWidth != thisHostImageInfo.BoardWidth)
-                        {
-                            throw new Exception("Sprite widths don't match in the file set for '" + spriteName + "'.");
-                        }
-                        if (boardHeight != thisHostImageInfo.BoardHeight)
-                        {
-                            throw new Exception("Sprite heights don't match in the file set for '" + spriteName + "'.");
-                        }
-                    }
-                    hostImageObjects.Add(thisHostImageInfo.HostObject);
-                }
-
-                return new SpriteTraits(boardWidth, boardHeight, hostImageObjects);
-            };
-
-            Bullet = loadImage("Bullet", 1);
-            Dead = loadImage("Dead", 1);
-            Electrocution = loadImage("Electrocution", 2);
-            Explosion = loadImage("Explosion", 3);
-            FacingDown = loadImage("FacingDown", 1);
-            FacingLeft = loadImage("FacingLeft", 1);
-            FacingLeftDown = loadImage("FacingLeftDown", 1);
-            FacingLeftUp = loadImage("FacingLeftUp", 1);
-            FacingRight = loadImage("FacingRight", 1);
-            FacingRightDown = loadImage("FacingRightDown", 1);
-            FacingRightUp = loadImage("FacingRightUp", 1);
-            FacingUp = loadImage("FacingUp", 1);
-            WalkingDown = loadImage("WalkingDown", 2);
-            WalkingLeft = loadImage("WalkingLeft", 2);
-            WalkingLeftDown = loadImage("WalkingLeftDown", 2);
-            WalkingLeftUp = loadImage("WalkingLeftUp", 2);
-            WalkingRight = loadImage("WalkingRight", 2);
-            WalkingRightDown = loadImage("WalkingRightDown", 2);
-            WalkingRightUp = loadImage("WalkingRightUp", 2);
-            WalkingUp = loadImage("WalkingUp", 2);
-            Font0 = loadImage("Font0", 1);
-            Font1 = loadImage("Font1", 1);
-            Font2 = loadImage("Font2", 1);
-            Font3 = loadImage("Font3", 1);
-            Font4 = loadImage("Font4", 1);
-            Font5 = loadImage("Font5", 1);
-            Font6 = loadImage("Font6", 1);
-            Font7 = loadImage("Font7", 1);
-            Font8 = loadImage("Font8", 1);
-            Font9 = loadImage("Font9", 1);
-            Ghost = loadImage("Ghost", 1);
-            GhostStunned = loadImage("GhostStunned", 1);
-            Gold = loadImage("Gold", 1);
-            Key = loadImage("Key", 1);
-            Life = loadImage("Life", 1);
-            Monster1 = loadImage("Monster1", 2);
-            Monster2 = loadImage("Monster2", 2);
-            Monster3 = loadImage("Monster3", 1);
-            Monster4 = loadImage("Monster4", 2);
-            Monster5 = loadImage("Monster5", 2);
-            Potion = loadImage("Potion", 2);
-            Ring = loadImage("Ring", 1);
-            Room = loadImage("Room", 1);
-            Safe = loadImage("Safe", 1);
-            Score = loadImage("Score", 1);
-            FloorTile = loadImage("FloorTile", 3);
-            WallOutline = loadImage("WallOutline", 3);
-            WallBrick = loadImage("WallBrick", 3);
-            WallElectric = loadImage("WallElectric", 1);
-            TitleScreen = loadImage("TitleScreen", 4);
-            EnteringLevel = loadImage("EnteringLevel", 1);
-            GameOver = loadImage("GameOver", 1);
-            Paused = loadImage("Paused", 1);
-            PatternResamplingSprite = loadImage("PatternResamplingSprite", 4);
-            Font = loadImage("Font", 1);
-            InvincibilityAmulet = loadImage("InvincibilityAmulet", 1);
+            Bullet = new SpriteTraits("Bullet", 1);
+            Dead = new SpriteTraits("Dead", 1);
+            Electrocution = new SpriteTraits("Electrocution", 2);
+            Explosion = new SpriteTraits("Explosion", 3);
+            FacingDown = new SpriteTraits("FacingDown", 1);
+            FacingLeft = new SpriteTraits("FacingLeft", 1);
+            FacingLeftDown = new SpriteTraits("FacingLeftDown", 1);
+            FacingLeftUp = new SpriteTraits("FacingLeftUp", 1);
+            FacingRight = new SpriteTraits("FacingRight", 1);
+            FacingRightDown = new SpriteTraits("FacingRightDown", 1);
+            FacingRightUp = new SpriteTraits("FacingRightUp", 1);
+            FacingUp = new SpriteTraits("FacingUp", 1);
+            WalkingDown = new SpriteTraits("WalkingDown", 2);
+            WalkingLeft = new SpriteTraits("WalkingLeft", 2);
+            WalkingLeftDown = new SpriteTraits("WalkingLeftDown", 2);
+            WalkingLeftUp = new SpriteTraits("WalkingLeftUp", 2);
+            WalkingRight = new SpriteTraits("WalkingRight", 2);
+            WalkingRightDown = new SpriteTraits("WalkingRightDown", 2);
+            WalkingRightUp = new SpriteTraits("WalkingRightUp", 2);
+            WalkingUp = new SpriteTraits("WalkingUp", 2);
+            Font0 = new SpriteTraits("Font0", 1);
+            Font1 = new SpriteTraits("Font1", 1);
+            Font2 = new SpriteTraits("Font2", 1);
+            Font3 = new SpriteTraits("Font3", 1);
+            Font4 = new SpriteTraits("Font4", 1);
+            Font5 = new SpriteTraits("Font5", 1);
+            Font6 = new SpriteTraits("Font6", 1);
+            Font7 = new SpriteTraits("Font7", 1);
+            Font8 = new SpriteTraits("Font8", 1);
+            Font9 = new SpriteTraits("Font9", 1);
+            Ghost = new SpriteTraits("Ghost", 1);
+            GhostStunned = new SpriteTraits("GhostStunned", 1);
+            Gold = new SpriteTraits("Gold", 1);
+            Key = new SpriteTraits("Key", 1);
+            Life = new SpriteTraits("Life", 1);
+            Monster1 = new SpriteTraits("Monster1", 2);
+            Monster2 = new SpriteTraits("Monster2", 2);
+            Monster3 = new SpriteTraits("Monster3", 1);
+            Monster4 = new SpriteTraits("Monster4", 2);
+            Monster5 = new SpriteTraits("Monster5", 2);
+            Potion = new SpriteTraits("Potion", 2);
+            Ring = new SpriteTraits("Ring", 1);
+            Room = new SpriteTraits("Room", 1);
+            Safe = new SpriteTraits("Safe", 1);
+            Score = new SpriteTraits("Score", 1);
+            FloorTile = new SpriteTraits("FloorTile", 3);
+            WallOutline = new SpriteTraits("WallOutline", 3);
+            WallBrick = new SpriteTraits("WallBrick", 3);
+            WallElectric = new SpriteTraits("WallElectric", 1);
+            TitleScreen = new SpriteTraits("TitleScreen", 4);
+            EnteringLevel = new SpriteTraits("EnteringLevel", 1);
+            GameOver = new SpriteTraits("GameOver", 1);
+            Paused = new SpriteTraits("Paused", 1);
+            PatternResamplingSprite = new SpriteTraits("PatternResamplingSprite", 4);
+            Font = new SpriteTraits("Font", 1);
+            InvincibilityAmulet = new SpriteTraits("InvincibilityAmulet", 1);
+            FacingDown = new SpriteTraits("FacingDown", 1);
+            FacingLeft = new SpriteTraits("FacingLeft", 1);
+            FacingLeftDown = new SpriteTraits("FacingLeftDown", 1);
+            FacingLeftUp = new SpriteTraits("FacingLeftUp", 1);
+            FacingRight = new SpriteTraits("FacingRight", 1);
+            FacingRightDown = new SpriteTraits("FacingRightDown", 1);
+            FacingRightUp = new SpriteTraits("FacingRightUp", 1);
+            FacingUp = new SpriteTraits("FacingUp", 1);
+            WalkingDown = new SpriteTraits("WalkingDown", 2);
+            WalkingLeft = new SpriteTraits("WalkingLeft", 2);
+            WalkingLeftDown = new SpriteTraits("WalkingLeftDown", 2);
+            WalkingLeftUp = new SpriteTraits("WalkingLeftUp", 2);
+            WalkingRight = new SpriteTraits("WalkingRight", 2);
+            WalkingRightDown = new SpriteTraits("WalkingRightDown", 2);
+            WalkingRightUp = new SpriteTraits("WalkingRightUp", 2);
+            WalkingUp = new SpriteTraits("WalkingUp", 2);
 
 
             // Now build a list of the numbers for convenience of the drawing routines:
@@ -210,24 +188,6 @@ namespace MissionIIClassLibrary
                 WalkingLeft,
                 WalkingLeftUp
             };
-
-            FacingDown = loadImage("FacingDown", 1);
-            FacingLeft = loadImage("FacingLeft", 1);
-            FacingLeftDown = loadImage("FacingLeftDown", 1);
-            FacingLeftUp = loadImage("FacingLeftUp", 1);
-            FacingRight = loadImage("FacingRight", 1);
-            FacingRightDown = loadImage("FacingRightDown", 1);
-            FacingRightUp = loadImage("FacingRightUp", 1);
-            FacingUp = loadImage("FacingUp", 1);
-            WalkingDown = loadImage("WalkingDown", 2);
-            WalkingLeft = loadImage("WalkingLeft", 2);
-            WalkingLeftDown = loadImage("WalkingLeftDown", 2);
-            WalkingLeftUp = loadImage("WalkingLeftUp", 2);
-            WalkingRight = loadImage("WalkingRight", 2);
-            WalkingRightDown = loadImage("WalkingRightDown", 2);
-            WalkingRightUp = loadImage("WalkingRightUp", 2);
-            WalkingUp = loadImage("WalkingUp", 2);
-
         }
     }
 }

@@ -51,7 +51,6 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Droids\GuardianDroid.cs" />
     <Compile Include="Droids\WanderingMineDroid.cs" />
-    <Compile Include="HostSuppliedSprite.cs" />
     <Compile Include="Interactibles\InvincibilityAmulet.cs" />
     <Compile Include="MissionIISounds.cs" />
     <Compile Include="Droids\WanderingDroid.cs" />

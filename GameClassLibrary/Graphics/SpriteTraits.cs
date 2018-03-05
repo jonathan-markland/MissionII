@@ -1,14 +1,53 @@
 ﻿
+using System;
 using System.Collections.Generic;
 
 namespace GameClassLibrary.Graphics
 {
     public class SpriteTraits
     {
-        private List<object> _hostImageObjects;
+        private List<HostSuppliedSprite> _hostImageObjects;
+        private static Func<string, HostSuppliedSprite> _hostSpriteSupplier;
 
-        public SpriteTraits(int boardWidth, int boardHeight, List<object> hostImageObjects)
+        public static void InitSpriteSupplier(Func<string, HostSuppliedSprite> hostSpriteSupplier)
         {
+            _hostSpriteSupplier = hostSpriteSupplier;
+        }
+
+        public SpriteTraits(string spriteName, int imageCount)
+        {
+            // When there are multiple images:
+            // - We append "_1", "_2" .. etc to the spriteName
+            //   and request those names from the host.
+            // - We must also make sure all images in the set are the same size!
+            // When it's just a single image, we just load that only by the name given.
+
+            int boardWidth = 0;
+            int boardHeight = 0;
+            var hostImageObjects = new List<HostSuppliedSprite>();
+
+            for (int i = 1; i <= imageCount; i++)
+            {
+                var thisHostImageInfo = _hostSpriteSupplier((imageCount == 1) ? spriteName : spriteName + "_" + i);
+                if (i == 1)
+                {
+                    boardWidth = thisHostImageInfo.BoardWidth;
+                    boardHeight = thisHostImageInfo.BoardHeight;
+                }
+                else
+                {
+                    if (boardWidth != thisHostImageInfo.BoardWidth)
+                    {
+                        throw new Exception("Sprite widths don't match in the file set for '" + spriteName + "'.");
+                    }
+                    if (boardHeight != thisHostImageInfo.BoardHeight)
+                    {
+                        throw new Exception("Sprite heights don't match in the file set for '" + spriteName + "'.");
+                    }
+                }
+                hostImageObjects.Add(thisHostImageInfo);
+            }
+
             BoardWidth = boardWidth;
             BoardHeight = boardHeight;
             _hostImageObjects = hostImageObjects;
@@ -28,7 +67,7 @@ namespace GameClassLibrary.Graphics
         /// Retrieves the image object at the given index.  Only the host
         /// knows the actual format.
         /// </summary>
-        public object GetHostImageObject(int n)
+        public HostSuppliedSprite GetHostImageObject(int n)
         {
             return _hostImageObjects[n];
         }

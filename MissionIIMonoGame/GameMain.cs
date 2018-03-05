@@ -37,7 +37,7 @@ namespace MissionIIMonoGame
                 {
                     // The game engine will call out to this.  This separates
                     // the engine from MonoGame.
-                    var hostImage = (Texture2D)obj;
+                    var hostImage = (Texture2D)obj.HostObject;
                     var n = hostImage.Width * hostImage.Height;
                     var resultColorData = new Color[n];
                     hostImage.GetData(resultColorData);
@@ -59,7 +59,7 @@ namespace MissionIIMonoGame
                         var colorData = theArray.Select(x => new Color(x));
                         var hostImage = new Texture2D(GraphicsDevice, theWidth, theHeight);
                         hostImage.SetData(theArray);
-                        return hostImage;
+                        return new GameClassLibrary.Graphics.HostSuppliedSprite { HostObject = hostImage, BoardWidth = theWidth, BoardHeight = theHeight };
                     }
                     throw new System.Exception("Cannot create sprite from array and stated dimensions.");
                 };
@@ -99,18 +99,21 @@ namespace MissionIIMonoGame
 
             _monoGameDrawingTarget = new MonoGameDrawingTarget(_spriteBatch);
 
-            // TODO: use this.Content to load your game content here
+            // Connect the library to the host routines to load sprites.
+            // The load the sprites for this game:
 
-            MissionIIClassLibrary.MissionIISprites.Load((spriteName) => 
+            GameClassLibrary.Graphics.SpriteTraits.InitSpriteSupplier((spriteName) => 
             {
                 var texture2d = Content.Load<Texture2D>(spriteName);
-                return new MissionIIClassLibrary.HostSuppliedSprite
+                return new GameClassLibrary.Graphics.HostSuppliedSprite
                 {
                     BoardHeight = texture2d.Height, // By design, the client doesn't know how to obtain this itself.
                     BoardWidth = texture2d.Width,   // By design, the client doesn't know how to obtain this itself.
                     HostObject = texture2d
                 };
             });
+
+            MissionIIClassLibrary.MissionIISprites.Load();
 
             // Connect the library to the host routines that load and play sound.
             // Then load the sounds for this game:

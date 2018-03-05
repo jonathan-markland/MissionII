@@ -47,6 +47,7 @@
     <Compile Include="Containers\SuddenlyReplaceableList.cs" />
     <Compile Include="Graphics\Colour.cs" />
     <Compile Include="Graphics\Font.cs" />
+    <Compile Include="Graphics\HostSuppliedSprite.cs" />
     <Compile Include="Graphics\IDrawingTarget.cs" />
     <Compile Include="Graphics\IDrawingTargetExtensions.cs" />
     <Compile Include="Graphics\SpriteInstanceExtensions.cs" />
