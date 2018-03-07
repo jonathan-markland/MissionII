@@ -57,7 +57,8 @@ Downloaded on March 4th, 2018
      S: Retro Bonus Pickup SFX by suntemple -- https://freesound.org/s/253172/ -- License: Creative Commons 0
      S: electrocute.wav by aust_paul -- https://freesound.org/s/30933/ -- License: Creative Commons 0
      S: level up.wav by Cabeeno Rossley -- https://freesound.org/s/126422/ -- License: Attribution
-	
+	 S: Explosion 3 by killkhan -- https://freesound.org/people/killkhan/sounds/150210/ | License: Attribution Noncommercial
+	 
 
 Release 2
 ---------
