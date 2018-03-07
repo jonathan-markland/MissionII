@@ -61,8 +61,9 @@ namespace MissionIIClassLibrary
         public static SpriteTraits GameOver;
         public static SpriteTraits Paused;
         public static SpriteTraits PatternResamplingSprite;
-        public static SpriteTraits Font;
+        public static SpriteTraits FontSprite;
         public static SpriteTraits InvincibilityAmulet;
+        public static Font Font;
 
         // And references to the above, for convenience:
         public static List<SpriteTraits> TheNumbers; // TODO: I wanted the font instead
@@ -125,12 +126,12 @@ namespace MissionIIClassLibrary
             WallOutline = new SpriteTraits("WallOutline", 3);
             WallBrick = new SpriteTraits("WallBrick", 3);
             WallElectric = new SpriteTraits("WallElectric", 1);
-            TitleScreen = new SpriteTraits("TitleScreen", 4);
+            TitleScreen = new SpriteTraits("TitleScreen", 5);
             EnteringLevel = new SpriteTraits("EnteringLevel", 1);
             GameOver = new SpriteTraits("GameOver", 1);
             Paused = new SpriteTraits("Paused", 1);
             PatternResamplingSprite = new SpriteTraits("PatternResamplingSprite", 4);
-            Font = new SpriteTraits("Font", 1);
+            FontSprite = new SpriteTraits("Font", 1);
             InvincibilityAmulet = new SpriteTraits("InvincibilityAmulet", 1);
             FacingDown = new SpriteTraits("FacingDown", 1);
             FacingLeft = new SpriteTraits("FacingLeft", 1);
@@ -148,6 +149,8 @@ namespace MissionIIClassLibrary
             WalkingRightDown = new SpriteTraits("WalkingRightDown", 2);
             WalkingRightUp = new SpriteTraits("WalkingRightUp", 2);
             WalkingUp = new SpriteTraits("WalkingUp", 2);
+
+            Font = new Font { FontSprite = FontSprite, CharWidth = 6, ScaleFactor = 1 };
 
 
             // Now build a list of the numbers for convenience of the drawing routines:

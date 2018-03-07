@@ -10,6 +10,7 @@ namespace MissionIIClassLibrary
 {
     public class MissionIIGameBoard
     {
+        public static GameClassLibrary.Hiscore.HiScoreScreen HiScoreTable;
         public int BoardWidth;  // TODO: There are also constants that are used for this.
         public int BoardHeight; // TODO: There are also constants that are used for this.
         public int LevelNumber;
@@ -605,9 +606,6 @@ namespace MissionIIClassLibrary
             var theNumbers = MissionIISprites.TheNumbers;
             drawingTarget.DrawFirstSprite(0, 8, MissionIISprites.Score);
             drawingTarget.DrawNumber(140, 8, Score, theNumbers);
-
-            // TEST  var theFont = new Font { FontSprite = MissionIISpriteTraits.Font, CharWidth = 6, ScaleFactor = 2 };
-            // TEST  drawingTarget.DrawText(0, 0, "JONATHAN MARKLAND 21 ALVINGTON", theFont); // TODO: test
 
             // Level no, Room no:
 

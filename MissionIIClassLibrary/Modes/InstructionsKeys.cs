@@ -40,6 +40,10 @@ namespace MissionIIClassLibrary.Modes
         {
             drawingTarget.ClearScreen();
             drawingTarget.DrawSprite(0, 0, MissionIISprites.TitleScreen.GetHostImageObject(_screenIndex));
+            if (_screenIndex == 1)
+            {
+                MissionIIGameBoard.HiScoreTable.DrawScreen(drawingTarget);
+            }
         }
     }
 }

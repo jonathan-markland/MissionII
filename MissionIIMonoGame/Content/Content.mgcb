@@ -913,6 +913,18 @@
 /processorParam:TextureFormat=Color
 /build:TitleScreen_4.bmp
 
+#begin TitleScreen_5.bmp
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TitleScreen_5.bmp
+
 #begin EnteringLevel.bmp
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1045,23 +1057,11 @@
 /processorParam:Quality=Best
 /build:BonusSound.wav
 
-#begin ExplosionSound_1.wav
+#begin ExplosionSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:ExplosionSound_1.wav
-
-#begin ExplosionSound_2.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ExplosionSound_2.wav
-
-#begin ExplosionSound_3.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:ExplosionSound_3.wav
+/build:ExplosionSound.wav
 
 #begin IntroSound.wav
 /importer:WavImporter

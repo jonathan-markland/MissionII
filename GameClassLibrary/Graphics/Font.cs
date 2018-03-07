@@ -8,7 +8,9 @@ namespace GameClassLibrary.Graphics
         public int CharWidth;
         public int ScaleFactor;
 
-        public int CharToIndex(char ch)
+        public int Height { get { return FontSprite.BoardHeight; } }
+
+        public static int CharToIndex(char ch)
         {
             if (ch >= '0' && ch <= '9')
             {
@@ -23,6 +25,13 @@ namespace GameClassLibrary.Graphics
                 return (ch - 'a') + 10;
             }
             else return -1;
+        }
+
+        public static char IndexToChar(int i)
+        {
+            if (i >= 0 && i <= 9) return (char)(48 + i);
+            if (i >= 10 && i <= 35) return (char)(65 + i);
+            return ' ';
         }
     }
 }

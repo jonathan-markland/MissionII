@@ -8,6 +8,17 @@ namespace MissionIIClassLibrary.Modes
         private bool _releaseWaiting = true;
         private bool _firstCycle = true;
 
+        public TitleScreen()
+        {
+            if (MissionIIGameBoard.HiScoreTable == null) // TODO: Do we really want this created here?
+            {
+                MissionIIGameBoard.HiScoreTable = new GameClassLibrary.Hiscore.HiScoreScreen(
+                    new GameClassLibrary.Hiscore.HiScoreScreenDimensions
+                    { TopEdgeY = 70, BottomEdgeY = 246, NamesLeftX = 10, ScoresRightX = 310 },  // TODO: screen dimension constants!
+                    MissionIISprites.Font);
+            }
+        }
+
         public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
             if (_firstCycle)

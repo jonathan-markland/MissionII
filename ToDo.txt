@@ -1,23 +1,29 @@
 
+StockportM@r@th0n
+
 Release 1
 ---------
 
+[ ] Cut the main screen sound off after Z pressed.  Don't allow two instances of main screen sound to play at once.
+[ ] Refactor the title screens.  the hiscore integration is a hack.  Restore the class, but the loop will have to go
+    back to the hiscore screen.
+    eg:   class ImagePlateShowScreen (sprite)
+	eg:   class HiScoreScreen
+	
+[ ] Hi-score table entry after a good game.
 [ ] Some bypass keys to later levels.
+
+[ ] Change ghost timeouts?
 [ ] The level 2 pattern is too coarse to use.  Replace with something else.
 [ ] Seed the resampling thresholds from the level number, independently of the floor/walls.
-[ ] Score table.
-[ ] Cut the main screen sound off after Z pressed.  Don't allow two instances of main screen sound to play at once.
-[ ] Use all of the numbered sound files.
 [ ] Different bullet sounds by monster type.
 [ ] Change the droid firing sound to something more sophisticated?
 [ ] The facing direction of the man on level 1 is not good for turning against the monsters (unfair on new players)
 [ ] struct FacingDirection
 [ ] Fix the location of the key (etc) at start of level, not per room-start.
-[ ] Have a selection of explosion sounds and randomly select.
 [ ] Do the all the proposed refactorings (g.txt)
 [ ] Use of the font to display messages
 	[ ] Fix fuzzy font drawing.
-[ ] Base class routine to fire, calls derived to get the sound effect.
 
 [ ] Attribution:
 Downloaded on March 4th, 2018
@@ -55,8 +61,8 @@ Downloaded on March 4th, 2018
 
 Release 2
 ---------
+[ ] Base class routine to fire, calls derived to get the sound effect.
 [ ] Proper parser state machine for loading levels so we can report line numbers very easily.
-[ ] Hi-score table (although we need a proper font for this).
 [ ] Open maximised
 [ ] Ghost timing -- change as levels progress?
 [ ] Penalise shooting inaccuracy on later levels?
@@ -81,10 +87,12 @@ Release 2
 [X] Blue droid logic:  Stuck to doorways since new logic?  Bouncing off walls is better though.
 [X] Font
 [ ] NOT DOING:  Droid firing -- more aggressive as levels progress. - NO: Just have different types of droids.
+[X] Have a selection of explosion sounds and randomly select.
 [X] Have a selection of flooring sprites (darkish).
 [ ] NOT DOING: Render outlines around walls properly - I may just stick with the bricks.
 [X] Prefix all sound file names with "Sound" to avoid name clashes.
 [X] Design a different map for level 1.
+[X] Use all of the numbered sound files.
 [X] Design some further level maps
 [X] MUST DO - Replace all the copyright graphics.
 [X] Different types of brick for walls.

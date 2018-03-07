@@ -48,11 +48,11 @@ namespace GameClassLibrary.Graphics
 
             foreach (var ch in theText)
             {
-                var charIndex = theFont.CharToIndex(ch);
-                if (charIndex > 0)
+                var charIndex = Font.CharToIndex(ch);
+                if (charIndex >= 0)
                 {
                     drawingTarget.DrawSpritePieceStretched(
-                        charIndex * srcCharWidth, 0, 
+                        charIndex * srcCharWidth, 0, srcCharWidth, srcHeight, 
                         leftSideX, topSideY, destDeltaX, destHeight,
                         hostImageObject);
                 }

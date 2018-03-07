@@ -53,6 +53,10 @@
     <Compile Include="Graphics\SpriteInstanceExtensions.cs" />
     <Compile Include="Graphics\SpriteInstance.cs" />
     <Compile Include="Graphics\SpriteTraits.cs" />
+    <Compile Include="Hiscore\HiScoreScreen.cs" />
+    <Compile Include="Hiscore\HiScoreScreenDimensions.cs" />
+    <Compile Include="Hiscore\HiScoreTableEntry.cs" />
+    <Compile Include="Hiscore\HiScoreTableKeyStates.cs" />
     <Compile Include="Math\FoundDirections.cs" />
     <Compile Include="Math\FoundDirectionsException.cs" />
     <Compile Include="Math\MakeRectangle.cs" />
@@ -71,5 +75,6 @@
     <Compile Include="Walls\PositionFinder.cs" />
     <Compile Include="Walls\WallMatrix.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
