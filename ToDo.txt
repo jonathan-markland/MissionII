@@ -5,12 +5,20 @@ Release 1
 ---------
 
 [ ] Cut the main screen sound off after Z pressed.  Don't allow two instances of main screen sound to play at once.
+
 [ ] Refactor the title screens.  the hiscore integration is a hack.  Restore the class, but the loop will have to go
     back to the hiscore screen.
     eg:   class ImagePlateShowScreen (sprite)
 	eg:   class HiScoreScreen
-	
+
 [ ] Hi-score table entry after a good game.
+
+[ ] Hi score cursor needed.
+
+[ ] Persist the hi score table
+
+[ ] Test the name entry on hiscore.
+
 [ ] Some bypass keys to later levels.
 
 [ ] Change ghost timeouts?
