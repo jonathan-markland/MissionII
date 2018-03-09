@@ -38,13 +38,31 @@ namespace GameClassLibrary.Graphics
             while (n != 0);
         }
 
-        public static void DrawText(this IDrawingTarget drawingTarget, int leftSideX, int topSideY, string theText, Font theFont)
+        public static int MeasureText(string theText, Font theFont)
+        {
+            return theText.Length * theFont.CharWidth;
+        }
+
+        public static void DrawText(this IDrawingTarget drawingTarget, int x, int topSideY, string theText, Font theFont, TextAlignment textAlignment)
         {
             var destDeltaX = theFont.CharWidth * theFont.ScaleFactor;
             var srcHeight = theFont.FontSprite.BoardHeight;
             var srcCharWidth = theFont.CharWidth;
             var destHeight = srcHeight * theFont.ScaleFactor;
             var hostImageObject = theFont.FontSprite.GetHostImageObject(0);
+
+            if (textAlignment != TextAlignment.Left)
+            {
+                var textWidth = MeasureText(theText, theFont);
+                if (textAlignment == TextAlignment.Right)
+                {
+                    x -= textWidth;
+                }
+                else if (textAlignment == TextAlignment.Centre)
+                {
+                    x -= textWidth / 2;
+                }
+            }
 
             foreach (var ch in theText)
             {
@@ -53,10 +71,10 @@ namespace GameClassLibrary.Graphics
                 {
                     drawingTarget.DrawSpritePieceStretched(
                         charIndex * srcCharWidth, 0, srcCharWidth, srcHeight, 
-                        leftSideX, topSideY, destDeltaX, destHeight,
+                        x, topSideY, destDeltaX, destHeight,
                         hostImageObject);
                 }
-                leftSideX += destDeltaX;
+                x += destDeltaX;
             }
         }
 

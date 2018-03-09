@@ -53,6 +53,7 @@
     <Compile Include="Graphics\SpriteInstanceExtensions.cs" />
     <Compile Include="Graphics\SpriteInstance.cs" />
     <Compile Include="Graphics\SpriteTraits.cs" />
+    <Compile Include="Graphics\TextAlignment.cs" />
     <Compile Include="Hiscore\HiScoreScreen.cs" />
     <Compile Include="Hiscore\HiScoreScreenDimensions.cs" />
     <Compile Include="Hiscore\HiScoreTableEntry.cs" />

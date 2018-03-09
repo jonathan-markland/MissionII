@@ -14,6 +14,7 @@ namespace GameClassLibrary.Hiscore
         private uint _cycleCounter;
         private Font _theFont;
         private bool _sustainEditModeUntilButtonsReleased;
+        private static string NewEntryString = "A";
 
         public HiScoreScreen(HiScoreScreenDimensions hiScoreScreenDimensions, Font theFont)
         {
@@ -37,7 +38,7 @@ namespace GameClassLibrary.Hiscore
         public void ForceEnterScore(uint scoreObtained)
         {
             var tableRow = _scoreTable[NumPlaces - 1];
-            tableRow.Name = " "; // required for IncrementChar() / DecrementChar()!
+            tableRow.Name = NewEntryString;
             tableRow.Score = scoreObtained;
             tableRow.EditMode = true;
             _scoreTable.Sort((x,y) => (x.Score < y.Score) ? 1 : ((x.Score == y.Score) ? 0 : -1));
@@ -103,15 +104,32 @@ namespace GameClassLibrary.Hiscore
 
         private static char GetNextChar(char ch, int directionDelta)
         {
-            var charIndex = Font.CharToIndex(ch) + directionDelta;
+            var charIndex = CharToIndex(ch) + directionDelta;
             // NB: We use index -1 for SPACE, thus -1..35 is the range
             if (charIndex < -1) return 'Z'; // TODO: fix to be idealistic!
-            if (charIndex > 35) return ' '; // TODO: fix to be idealistic!
-            return Font.IndexToChar(charIndex);
+            if (charIndex > 25) return ' '; // TODO: fix to be idealistic!
+            return IndexToChar(charIndex);
+        }
+
+        public static int CharToIndex(char ch)
+        {
+            if (ch == ' ') return -1;
+            if (ch >= 'A' && ch <= 'Z') return ((int)ch) - 65;
+            return -1;
+        }
+
+        public static char IndexToChar(int theIndex)
+        {
+            if (theIndex >= 0 && theIndex <= 25)
+            {
+                return (char)(theIndex + 65);
+            }
+            return ' ';
         }
 
         private void IncrementChar(HiScoreTableEntry tableEntry, int directionDelta)
         {
+            // Up/Down tweaks the rightmost letter.
             var oldStr = tableEntry.Name;
             tableEntry.Name = oldStr.Substring(0, oldStr.Length - 1) + GetNextChar(oldStr.Last(), directionDelta);
         }
@@ -128,8 +146,8 @@ namespace GameClassLibrary.Hiscore
             var rowSpacing = ((_hiScoreScreenDimensions.BottomEdgeY - y) - _theFont.Height) / (NumPlaces - 1);
             foreach(var tableEntry in _scoreTable)
             {
-                drawingTarget.DrawText(nx, y, tableEntry.Name, _theFont);
-                drawingTarget.DrawText(sx - 100, y, tableEntry.ScoreString, _theFont); // TODO: right align and remove "- 100"
+                drawingTarget.DrawText(nx, y, tableEntry.Name, _theFont, TextAlignment.Left);
+                drawingTarget.DrawText(sx, y, tableEntry.ScoreString, _theFont, TextAlignment.Right);
                 y += rowSpacing;
             }
         }
