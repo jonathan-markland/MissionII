@@ -61,6 +61,7 @@
     <Compile Include="MissionIIGameBoard.cs" />
     <Compile Include="Modes\EnteringLevel.cs" />
     <Compile Include="Modes\BaseGameMode.cs" />
+    <Compile Include="Modes\HiScoreMode.cs" />
     <Compile Include="Modes\MissionIIGameModes.cs" />
     <Compile Include="MissionIIGameModeSelector.cs" />
     <Compile Include="BaseGameObject.cs" />
@@ -80,7 +81,7 @@
     <Compile Include="MissionIISprites.cs" />
     <Compile Include="Modes\GameOver.cs" />
     <Compile Include="Modes\GamePlay.cs" />
-    <Compile Include="Modes\InstructionsKeys.cs" />
+    <Compile Include="Modes\RotatingInstructions.cs" />
     <Compile Include="Modes\LeavingLevel.cs" />
     <Compile Include="Modes\Pause.cs" />
     <Compile Include="Modes\StartNewGame.cs" />

@@ -13,6 +13,7 @@ namespace GameClassLibrary.Hiscore
         private bool _waitingForRelease;
         private uint _cycleCounter;
         private Font _theFont;
+        private bool _sustainEditModeUntilButtonsReleased;
 
         public HiScoreScreen(HiScoreScreenDimensions hiScoreScreenDimensions, Font theFont)
         {
@@ -24,7 +25,8 @@ namespace GameClassLibrary.Hiscore
             _scoreTable.Add(new HiScoreTableEntry("IAN", 80000));
             _scoreTable.Add(new HiScoreTableEntry("FIDELIS", 60000));
             _scoreTable.Add(new HiScoreTableEntry("NAEEM", 40000));
-            _scoreTable.Add(new HiScoreTableEntry("BOB", 20000));
+            _scoreTable.Add(new HiScoreTableEntry("BOB", 2000));
+            _sustainEditModeUntilButtonsReleased = false;
         }
 
         public bool CanPlayerEnterTable(uint scoreObtained)
@@ -38,7 +40,7 @@ namespace GameClassLibrary.Hiscore
             tableRow.Name = " "; // required for IncrementChar() / DecrementChar()!
             tableRow.Score = scoreObtained;
             tableRow.EditMode = true;
-            _scoreTable.Sort();// TODO: comparer
+            _scoreTable.Sort((x,y) => (x.Score < y.Score) ? 1 : ((x.Score == y.Score) ? 0 : -1));
             _waitingForRelease = true; // opportunistic.
             _cycleCounter = 0;
         }
@@ -47,7 +49,7 @@ namespace GameClassLibrary.Hiscore
         {
             get
             {
-                return _scoreTable.Any(x => x.EditMode);
+                return _sustainEditModeUntilButtonsReleased || _scoreTable.Any(x => x.EditMode);
             }
         }
 
@@ -57,10 +59,11 @@ namespace GameClassLibrary.Hiscore
 
             if (_waitingForRelease && !keyStates.AllReleased) return;
             _waitingForRelease = false;
+            _sustainEditModeUntilButtonsReleased = false;
 
             // We don't store which of the entries is in edit mode.
 
-            foreach(var tableEntry in _scoreTable)
+            foreach (var tableEntry in _scoreTable)
             {
                 if (!tableEntry.EditMode) continue;
                 if (keyStates.Left) RubOut(tableEntry);
@@ -88,7 +91,9 @@ namespace GameClassLibrary.Hiscore
         {
             if (tableEntry.Name.Length == MaxNameLength)
             {
+                // Last char seen.  Editing done.
                 tableEntry.EditMode = false;
+                _sustainEditModeUntilButtonsReleased = true;
             }
             else
             {
@@ -108,7 +113,7 @@ namespace GameClassLibrary.Hiscore
         private void IncrementChar(HiScoreTableEntry tableEntry, int directionDelta)
         {
             var oldStr = tableEntry.Name;
-            tableEntry.Name = oldStr.Substring(oldStr.Length - 1) + GetNextChar(oldStr.Last(), directionDelta);
+            tableEntry.Name = oldStr.Substring(0, oldStr.Length - 1) + GetNextChar(oldStr.Last(), directionDelta);
         }
 
         /// <summary>

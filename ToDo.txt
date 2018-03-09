@@ -4,14 +4,13 @@ StockportM@r@th0n
 Release 1
 ---------
 
+[ ] Hiscore screen after entry - must do release waiting on the final FIRE button, before switching!
+    Perhaps the caller takes the screen away too soon because the edit mode status clears
+	immediately that the FIRE button goes DOWN on the last letter.
+
+[ ] Start letters in the middle.  Don't cycle digits on the hiscore screen!	
+	
 [ ] Cut the main screen sound off after Z pressed.  Don't allow two instances of main screen sound to play at once.
-
-[ ] Refactor the title screens.  the hiscore integration is a hack.  Restore the class, but the loop will have to go
-    back to the hiscore screen.
-    eg:   class ImagePlateShowScreen (sprite)
-	eg:   class HiScoreScreen
-
-[ ] Hi-score table entry after a good game.
 
 [ ] Hi score cursor needed.
 
@@ -134,3 +133,12 @@ Release 2
     is currently handling the AdvanceOneCycle() that caused the room-switch.  In fact, the
 	ForEachDo() no longer applies at the point of the room-switch.
 [X] BUG: LoseLife does not restore the correct facing direction as it was on room entry (seen in first room).
+
+[X] Refactor the title screens.  the hiscore integration is a hack.  Restore the class, but the loop will have to go
+    back to the hiscore screen.
+    eg:   class ImagePlateShowScreen (sprite)
+	eg:   class HiScoreScreen
+
+[X] Hi-score table entry after a good game.
+
+

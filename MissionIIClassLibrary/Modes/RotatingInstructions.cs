@@ -2,7 +2,7 @@
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class InstructionsKeys : BaseGameMode
+    public class RotatingInstructions : BaseGameMode
     {
         private int _countDown = Constants.TitleScreenRollCycles;
         private int _screenIndex = 1;
@@ -40,10 +40,6 @@ namespace MissionIIClassLibrary.Modes
         {
             drawingTarget.ClearScreen();
             drawingTarget.DrawSprite(0, 0, MissionIISprites.TitleScreen.GetHostImageObject(_screenIndex));
-            if (_screenIndex == 1)
-            {
-                MissionIIGameBoard.HiScoreTable.DrawScreen(drawingTarget);
-            }
         }
     }
 }

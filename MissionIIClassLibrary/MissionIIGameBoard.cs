@@ -15,7 +15,7 @@ namespace MissionIIClassLibrary
         public int BoardHeight; // TODO: There are also constants that are used for this.
         public int LevelNumber;
         public int RoomNumber; // one-based
-        public uint Score;
+        public uint Score = 50000;
         public uint Lives;
         public WorldWallData TheWorldWallData;
         public WallMatrix CurrentRoomWallData;
@@ -79,7 +79,7 @@ namespace MissionIIClassLibrary
             }
             else
             {
-                MissionIIGameModeSelector.ModeSelector.CurrentMode = new Modes.GameOver();
+                MissionIIGameModeSelector.ModeSelector.CurrentMode = new Modes.GameOver(Score);
             }
         }
 

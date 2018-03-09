@@ -30,7 +30,7 @@ namespace GameClassLibrary.Graphics
         public static char IndexToChar(int i)
         {
             if (i >= 0 && i <= 9) return (char)(48 + i);
-            if (i >= 10 && i <= 35) return (char)(65 + i);
+            if (i >= 10 && i <= 35) return (char)(55 + i);
             return ' ';
         }
     }

@@ -5,6 +5,12 @@ namespace MissionIIClassLibrary.Modes
     public class GameOver : BaseGameMode
     {
         private int _countDown = Constants.GameOverMessageCycles;
+        private uint _finalScore;
+
+        public GameOver(uint finalScore)
+        {
+            _finalScore = finalScore;
+        }
 
         public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
@@ -18,7 +24,7 @@ namespace MissionIIClassLibrary.Modes
             }
             else
             {
-                MissionIIGameModeSelector.ModeSelector.CurrentMode = new TitleScreen();
+                MissionIIGameModeSelector.ModeSelector.CurrentMode = new HiScoreMode(_finalScore);
             }
         }
 

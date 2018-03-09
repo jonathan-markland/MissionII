@@ -57,6 +57,7 @@ namespace MissionIIClassLibrary
         public static SpriteTraits WallBrick;
         public static SpriteTraits WallElectric;
         public static SpriteTraits TitleScreen;
+        public static SpriteTraits HiScoreScreen;
         public static SpriteTraits EnteringLevel;
         public static SpriteTraits GameOver;
         public static SpriteTraits Paused;
@@ -126,7 +127,8 @@ namespace MissionIIClassLibrary
             WallOutline = new SpriteTraits("WallOutline", 3);
             WallBrick = new SpriteTraits("WallBrick", 3);
             WallElectric = new SpriteTraits("WallElectric", 1);
-            TitleScreen = new SpriteTraits("TitleScreen", 5);
+            HiScoreScreen = new SpriteTraits("HiScoreScreen", 1);
+            TitleScreen = new SpriteTraits("TitleScreen", 4);
             EnteringLevel = new SpriteTraits("EnteringLevel", 1);
             GameOver = new SpriteTraits("GameOver", 1);
             Paused = new SpriteTraits("Paused", 1);

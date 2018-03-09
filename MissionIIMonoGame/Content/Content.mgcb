@@ -913,7 +913,7 @@
 /processorParam:TextureFormat=Color
 /build:TitleScreen_4.bmp
 
-#begin TitleScreen_5.bmp
+#begin HiScoreScreen.bmp
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -923,7 +923,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:TitleScreen_5.bmp
+/build:HiScoreScreen.bmp
 
 #begin EnteringLevel.bmp
 /importer:TextureImporter
