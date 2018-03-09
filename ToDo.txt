@@ -4,11 +4,11 @@ StockportM@r@th0n
 Release 1
 ---------
 
+[ ] Start letters in the middle.  
+
 [ ] Hiscore screen after entry - must do release waiting on the final FIRE button, before switching!
     Perhaps the caller takes the screen away too soon because the edit mode status clears
 	immediately that the FIRE button goes DOWN on the last letter.
-
-[ ] Start letters in the middle.  Don't cycle digits on the hiscore screen!	
 	
 [ ] Cut the main screen sound off after Z pressed.  Don't allow two instances of main screen sound to play at once.
 
@@ -16,7 +16,6 @@ Release 1
 
 [ ] Persist the hi score table
 
-[ ] Test the name entry on hiscore.
 
 [ ] Some bypass keys to later levels.
 
@@ -89,6 +88,8 @@ Release 2
 
 
 
+[X] Test the name entry on hiscore.
+[X] Don't cycle digits on the hiscore screen!	
 [X] Textures for walls and floors, re-coloured.
 [X] NO:  Firing  Up/Down or Left/Right travellers. -- They easily destroy too much.
 [X] Show the level number on the "entering" screen.

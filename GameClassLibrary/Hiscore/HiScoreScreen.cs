@@ -15,9 +15,13 @@ namespace GameClassLibrary.Hiscore
         private Font _theFont;
         private bool _sustainEditModeUntilButtonsReleased;
         private static string NewEntryString = "A";
+        private static string NextCharString = " ";
+        private SpriteTraits _cursorSprite;
 
-        public HiScoreScreen(HiScoreScreenDimensions hiScoreScreenDimensions, Font theFont)
+
+        public HiScoreScreen(HiScoreScreenDimensions hiScoreScreenDimensions, Font theFont, SpriteTraits cursorSprite)
         {
+            _cursorSprite = cursorSprite;
             _theFont = theFont;
             _waitingForRelease = true;
             _hiScoreScreenDimensions = hiScoreScreenDimensions;
@@ -44,6 +48,17 @@ namespace GameClassLibrary.Hiscore
             _scoreTable.Sort((x,y) => (x.Score < y.Score) ? 1 : ((x.Score == y.Score) ? 0 : -1));
             _waitingForRelease = true; // opportunistic.
             _cycleCounter = 0;
+        }
+
+        private bool CursorVisible
+        {
+            get
+            {
+                var shifted = (_cycleCounter >> 2);
+                var masked = shifted & 7;
+                var bitpos = 1 << (int) masked;
+                return (bitpos & 0xA8) != 0;
+            }
         }
 
         public bool InEditMode
@@ -98,7 +113,8 @@ namespace GameClassLibrary.Hiscore
             }
             else
             {
-                tableEntry.Name = tableEntry.Name + " "; // move onto next char, defaulting to space.
+                // Add another char
+                tableEntry.Name = tableEntry.Name + NextCharString;
             }
         }
 
@@ -146,7 +162,13 @@ namespace GameClassLibrary.Hiscore
             var rowSpacing = ((_hiScoreScreenDimensions.BottomEdgeY - y) - _theFont.Height) / (NumPlaces - 1);
             foreach(var tableEntry in _scoreTable)
             {
-                drawingTarget.DrawText(nx, y, tableEntry.Name, _theFont, TextAlignment.Left);
+                var nameText = tableEntry.Name;
+                drawingTarget.DrawText(nx, y, nameText, _theFont, TextAlignment.Left);
+                var nameLengthPixels = IDrawingTargetExtensions.MeasureText(nameText, _theFont);
+                if (tableEntry.EditMode && CursorVisible)
+                {
+                    drawingTarget.DrawFirstSprite(nx + nameLengthPixels, y, _cursorSprite);
+                }
                 drawingTarget.DrawText(sx, y, tableEntry.ScoreString, _theFont, TextAlignment.Right);
                 y += rowSpacing;
             }

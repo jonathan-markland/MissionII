@@ -15,7 +15,8 @@ namespace MissionIIClassLibrary.Modes
                 MissionIIGameBoard.HiScoreTable = new GameClassLibrary.Hiscore.HiScoreScreen(
                     new GameClassLibrary.Hiscore.HiScoreScreenDimensions
                     { TopEdgeY = 70, BottomEdgeY = 246, NamesLeftX = 10, ScoresRightX = 310 },  // TODO: screen dimension constants!
-                    MissionIISprites.Font);
+                    MissionIISprites.Font, 
+                    MissionIISprites.Life);
             }
         }
 
