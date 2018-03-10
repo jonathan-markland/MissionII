@@ -19,19 +19,24 @@ namespace GameClassLibrary.Hiscore
         private SpriteTraits _cursorSprite;
 
 
-        public HiScoreScreen(HiScoreScreenDimensions hiScoreScreenDimensions, Font theFont, SpriteTraits cursorSprite)
+        public HiScoreScreen(HiScoreScreenDimensions hiScoreScreenDimensions, Font theFont, SpriteTraits cursorSprite, uint lowestScore, uint scoreIncrement)
         {
             _cursorSprite = cursorSprite;
             _theFont = theFont;
             _waitingForRelease = true;
             _hiScoreScreenDimensions = hiScoreScreenDimensions;
             _scoreTable = new List<HiScoreTableEntry>();
-            _scoreTable.Add(new HiScoreTableEntry("JONATHAN", 100000));
-            _scoreTable.Add(new HiScoreTableEntry("IAN", 80000));
-            _scoreTable.Add(new HiScoreTableEntry("FIDELIS", 60000));
-            _scoreTable.Add(new HiScoreTableEntry("NAEEM", 40000));
-            _scoreTable.Add(new HiScoreTableEntry("BOB", 2000));
+            _scoreTable.Add(new HiScoreTableEntry("JUAN", lowestScore + 4 * scoreIncrement));
+            _scoreTable.Add(new HiScoreTableEntry("DIMITAR", lowestScore + 3 * scoreIncrement));
+            _scoreTable.Add(new HiScoreTableEntry("LAURA", lowestScore + 2 * scoreIncrement));
+            _scoreTable.Add(new HiScoreTableEntry("NICO", lowestScore + 1 * scoreIncrement));
+            _scoreTable.Add(new HiScoreTableEntry("JANE", lowestScore));
             _sustainEditModeUntilButtonsReleased = false;
+        }
+
+        private void SortScoreTable()
+        {
+            _scoreTable.Sort((x, y) => (x.Score < y.Score) ? 1 : ((x.Score == y.Score) ? 0 : -1));
         }
 
         public bool CanPlayerEnterTable(uint scoreObtained)
@@ -45,7 +50,7 @@ namespace GameClassLibrary.Hiscore
             tableRow.Name = NewEntryString;
             tableRow.Score = scoreObtained;
             tableRow.EditMode = true;
-            _scoreTable.Sort((x,y) => (x.Score < y.Score) ? 1 : ((x.Score == y.Score) ? 0 : -1));
+            SortScoreTable();
             _waitingForRelease = true; // opportunistic.
             _cycleCounter = 0;
         }

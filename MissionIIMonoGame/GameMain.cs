@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using System.Linq;
 using GameClassLibrary;
+using System;
 
 namespace MissionIIMonoGame
 {
@@ -173,13 +174,21 @@ namespace MissionIIMonoGame
             {
                 _scalingModes = ScalingModes.StretchPreservingAspect;
             }
-            if (theKeyboard.IsKeyDown(Keys.F3))
+            else if (theKeyboard.IsKeyDown(Keys.F3))
             {
                 _scalingModes = ScalingModes.StretchToFillWindow;
             }
-            if (theKeyboard.IsKeyDown(Keys.F4))
+            else if (theKeyboard.IsKeyDown(Keys.F4))
             {
                 _scalingModes = ScalingModes.SquarePixelsStretch;
+            }
+            else if (theKeyboard.IsKeyDown(Keys.F11))
+            {
+                ToggleFullScreen(true);
+            }
+            else if (theKeyboard.IsKeyDown(Keys.F12))
+            {
+                ToggleFullScreen(false);
             }
 
             _keyStates.Down = theKeyboard.IsKeyDown(Keys.Down);
@@ -189,6 +198,50 @@ namespace MissionIIMonoGame
             _keyStates.Fire = theKeyboard.IsKeyDown(Keys.Z);
             _keyStates.Quit = theKeyboard.IsKeyDown(Keys.Escape);
             _keyStates.Pause = theKeyboard.IsKeyDown(Keys.P);
+
+            var gamepadCapabilities = GamePad.GetCapabilities(PlayerIndex.One);
+            if (gamepadCapabilities.IsConnected)
+            {
+                var gamePadState = GamePad.GetState(PlayerIndex.One);
+
+                if (gamepadCapabilities.HasLeftXThumbStick)
+                {
+                    if (gamePadState.ThumbSticks.Left.X < -0.5f) _keyStates.Left = true;
+                    if (gamePadState.ThumbSticks.Left.X > 0.5f) _keyStates.Right = true;
+                    if (gamePadState.ThumbSticks.Left.Y < -0.5f) _keyStates.Down = true;
+                    if (gamePadState.ThumbSticks.Left.Y > 0.5f) _keyStates.Up = true;
+                }
+
+                if (gamepadCapabilities.HasRightXThumbStick)
+                {
+                    if (gamePadState.ThumbSticks.Right.X < -0.5f) _keyStates.Left = true;
+                    if (gamePadState.ThumbSticks.Right.X > 0.5f) _keyStates.Right = true;
+                    if (gamePadState.ThumbSticks.Right.Y < -0.5f) _keyStates.Down = true;
+                    if (gamePadState.ThumbSticks.Right.Y > 0.5f) _keyStates.Up = true;
+                }
+
+                if (gamePadState.IsButtonDown(Buttons.LeftTrigger)
+                    || gamePadState.IsButtonDown(Buttons.RightTrigger)
+                    || gamePadState.IsButtonDown(Buttons.A)
+                    || gamePadState.IsButtonDown(Buttons.B)
+                    || gamePadState.IsButtonDown(Buttons.X)
+                    || gamePadState.IsButtonDown(Buttons.Y)
+                    )
+                {
+                    _keyStates.Fire = true;
+                }
+
+                if (gamePadState.IsButtonDown(Buttons.Start))
+                {
+                    _keyStates.Pause = true;
+                }
+            }
+        }
+
+        private void ToggleFullScreen(bool stateToSet)
+        {
+            _graphicsDeviceManager.IsFullScreen = stateToSet;
+            _graphicsDeviceManager.ApplyChanges();
         }
 
         /// <summary>

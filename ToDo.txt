@@ -1,36 +1,26 @@
 
-StockportM@r@th0n
-
 Release 1
 ---------
 
-[ ] Start letters in the middle.  
-
-[ ] Hiscore screen after entry - must do release waiting on the final FIRE button, before switching!
-    Perhaps the caller takes the screen away too soon because the edit mode status clears
-	immediately that the FIRE button goes DOWN on the last letter.
-	
+[ ] "Death" robot.  Homing and fast.  Can be shot.
+[ ] Enter your name message
+[ ] Brick choice thresholding:  Vary per room.  Varience depends on level number.
 [ ] Cut the main screen sound off after Z pressed.  Don't allow two instances of main screen sound to play at once.
-
-[ ] Hi score cursor needed.
-
 [ ] Persist the hi score table
-
-
 [ ] Some bypass keys to later levels.
-
 [ ] Change ghost timeouts?
-[ ] The level 2 pattern is too coarse to use.  Replace with something else.
 [ ] Seed the resampling thresholds from the level number, independently of the floor/walls.
-[ ] Different bullet sounds by monster type.
-[ ] Change the droid firing sound to something more sophisticated?
 [ ] The facing direction of the man on level 1 is not good for turning against the monsters (unfair on new players)
 [ ] struct FacingDirection
 [ ] Fix the location of the key (etc) at start of level, not per room-start.
 [ ] Do the all the proposed refactorings (g.txt)
-[ ] Use of the font to display messages
-	[ ] Fix fuzzy font drawing.
+[ ] Use of the font to display messages, and get rid of the special number sprites.  Need to stretch font width ways.
+[ ] Delay before fire can start the game on the title screen.  Avoids accidental game starts.
+[ ] Solution SLN name and window title is silly.
+[ ] Readme.md
+[ ] SELECT and ESC close game.
 
+	
 [ ] Attribution:
 Downloaded on March 4th, 2018
      S: Reverberating Explosion.wav by kwahmah_02 -- https://freesound.org/s/268828/ -- License: Attribution
@@ -87,7 +77,20 @@ Release 2
 
 
 
+[X] The level 2 pattern is too coarse to use.  Replace with something else.
 
+[X] Hi score cursor needed.
+[X] Different bullet sounds by monster type.
+[X] Change the droid firing sound to something more sophisticated?
+
+[X] NO:  Start letters in the middle.  
+
+[X] Joystick!!
+[X] Hiscore screen after entry - must do release waiting on the final FIRE button, before switching!
+    Perhaps the caller takes the screen away too soon because the edit mode status clears
+	immediately that the FIRE button goes DOWN on the last letter.
+[X] F11 full screen
+	
 [X] Test the name entry on hiscore.
 [X] Don't cycle digits on the hiscore screen!	
 [X] Textures for walls and floors, re-coloured.

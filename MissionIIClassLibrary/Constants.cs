@@ -87,6 +87,8 @@
         public const int GoldCollectionScore = 1000;
         public const int InvincibilityAmuletScore = 750;
         public const int ExtraLifeScoreMultiple = 10000;
+        public const int InitialLowestHiScore = 2000;
+        public const int InitialHiScoresIncrement = 2000;
         #endregion
     }
 }
