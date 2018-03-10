@@ -31,6 +31,7 @@ namespace MissionIIMonoGame
             HostSuppliedSprite hostSuppliedSprite)
         {
             var monoGameSprite = (Texture2D)hostSuppliedSprite.HostObject;
+
             _spriteBatch.Draw(
                 monoGameSprite,
                 new Rectangle(dx, dy, dw, dh),

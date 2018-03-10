@@ -178,10 +178,10 @@ namespace MissionIIMonoGame
             {
                 _scalingModes = ScalingModes.StretchToFillWindow;
             }
-            /* else if (theKeyboard.IsKeyDown(Keys.F4))
+            else if (theKeyboard.IsKeyDown(Keys.F4))
             {
                 _scalingModes = ScalingModes.SquarePixelsStretch;
-            }*/
+            }
             else if (theKeyboard.IsKeyDown(Keys.F11))
             {
                 ToggleFullScreen(true);
@@ -253,7 +253,12 @@ namespace MissionIIMonoGame
             GraphicsDevice.SetRenderTarget(_backingScreen);
             GraphicsDevice.Clear(Color.Black);
 
-            _spriteBatch.Begin();
+            _spriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.AlphaBlend,
+                SamplerState.PointClamp,
+                DepthStencilState.None,
+                RasterizerState.CullCounterClockwise);
 
             MissionIIClassLibrary.MissionIIGameModeSelector.ModeSelector.CurrentMode.Draw(_monoGameDrawingTarget);
 
