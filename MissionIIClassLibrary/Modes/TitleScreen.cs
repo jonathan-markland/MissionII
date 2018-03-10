@@ -15,7 +15,7 @@ namespace MissionIIClassLibrary.Modes
                 MissionIIGameBoard.HiScoreTable = new GameClassLibrary.Hiscore.HiScoreScreen(
                     new GameClassLibrary.Hiscore.HiScoreScreenDimensions
                     { TopEdgeY = 70, BottomEdgeY = 246, NamesLeftX = 10, ScoresRightX = 310 },  // TODO: screen dimension constants!
-                    MissionIISprites.Font, 
+                    MissionIISprites.NarrowFont, 
                     MissionIISprites.Life,
                     Constants.InitialLowestHiScore,
                     Constants.InitialHiScoresIncrement);
@@ -52,6 +52,11 @@ namespace MissionIIClassLibrary.Modes
         {
             drawingTarget.ClearScreen();
             drawingTarget.DrawSprite(0, 0, MissionIISprites.TitleScreen.GetHostImageObject(0));
+            if (_countDown < Constants.TitleScreenRollCycles / 2)
+            {
+                drawingTarget.DrawText(310, 230, "BY JONATHAN MARKLAND",
+                    MissionIISprites.NarrowFont, TextAlignment.Right);
+            }
         }
     }
 }

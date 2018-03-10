@@ -40,15 +40,15 @@ namespace GameClassLibrary.Graphics
 
         public static int MeasureText(string theText, Font theFont)
         {
-            return theText.Length * theFont.CharWidth;
+            return theText.Length * theFont.CharWidth * theFont.ScaleFactorX;
         }
 
         public static void DrawText(this IDrawingTarget drawingTarget, int x, int topSideY, string theText, Font theFont, TextAlignment textAlignment)
         {
-            var destDeltaX = theFont.CharWidth * theFont.ScaleFactor;
+            var destDeltaX = theFont.CharWidth * theFont.ScaleFactorX;
             var srcHeight = theFont.FontSprite.BoardHeight;
             var srcCharWidth = theFont.CharWidth;
-            var destHeight = srcHeight * theFont.ScaleFactor;
+            var destHeight = srcHeight * theFont.ScaleFactorY;
             var hostImageObject = theFont.FontSprite.GetHostImageObject(0);
 
             if (textAlignment != TextAlignment.Left)

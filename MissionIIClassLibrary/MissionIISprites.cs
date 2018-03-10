@@ -57,14 +57,16 @@ namespace MissionIIClassLibrary
         public static SpriteTraits WallBrick;
         public static SpriteTraits WallElectric;
         public static SpriteTraits TitleScreen;
+        public static SpriteTraits Background;
         public static SpriteTraits HiScoreScreen;
-        public static SpriteTraits EnteringLevel;
         public static SpriteTraits GameOver;
         public static SpriteTraits Paused;
         public static SpriteTraits PatternResamplingSprite;
         public static SpriteTraits FontSprite;
         public static SpriteTraits InvincibilityAmulet;
-        public static Font Font;
+        public static Font NarrowFont;
+        public static Font WideFont;
+        public static Font GiantFont;
 
         // And references to the above, for convenience:
         public static List<SpriteTraits> TheNumbers; // TODO: I wanted the font instead
@@ -128,8 +130,8 @@ namespace MissionIIClassLibrary
             WallBrick = new SpriteTraits("WallBrick", 3);
             WallElectric = new SpriteTraits("WallElectric", 1);
             HiScoreScreen = new SpriteTraits("HiScoreScreen", 1);
-            TitleScreen = new SpriteTraits("TitleScreen", 4);
-            EnteringLevel = new SpriteTraits("EnteringLevel", 1);
+            TitleScreen = new SpriteTraits("TitleScreen", 1);
+            Background = new SpriteTraits("Background", 1);
             GameOver = new SpriteTraits("GameOver", 1);
             Paused = new SpriteTraits("Paused", 1);
             PatternResamplingSprite = new SpriteTraits("PatternResamplingSprite", 4);
@@ -152,7 +154,9 @@ namespace MissionIIClassLibrary
             WalkingRightUp = new SpriteTraits("WalkingRightUp", 2);
             WalkingUp = new SpriteTraits("WalkingUp", 2);
 
-            Font = new Font { FontSprite = FontSprite, CharWidth = 6, ScaleFactor = 1 };
+            NarrowFont = new Font { FontSprite = FontSprite, CharWidth = 6, ScaleFactorX = 1, ScaleFactorY = 1 };
+            WideFont = new Font { FontSprite = FontSprite, CharWidth = 6, ScaleFactorX = 2, ScaleFactorY = 1 };
+            GiantFont = new Font { FontSprite = FontSprite, CharWidth = 6, ScaleFactorX = 3, ScaleFactorY = 4 };
 
 
             // Now build a list of the numbers for convenience of the drawing routines:

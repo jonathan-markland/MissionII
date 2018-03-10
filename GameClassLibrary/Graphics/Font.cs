@@ -6,7 +6,8 @@ namespace GameClassLibrary.Graphics
     {
         public SpriteTraits FontSprite;
         public int CharWidth;
-        public int ScaleFactor;
+        public int ScaleFactorX;
+        public int ScaleFactorY;
 
         public int Height { get { return FontSprite.BoardHeight; } }
 

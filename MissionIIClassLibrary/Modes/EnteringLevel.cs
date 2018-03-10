@@ -33,8 +33,12 @@ namespace MissionIIClassLibrary.Modes
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, MissionIISprites.EnteringLevel.GetHostImageObject(0));
-            drawingTarget.DrawNumber(160, 50, (uint) _gameBoard.LevelNumber, MissionIISprites.TheNumbers);
+            drawingTarget.DrawSprite(0, 0, MissionIISprites.Background.GetHostImageObject(0));
+
+            var cx = Constants.ScreenWidth / 2;
+
+            drawingTarget.DrawText(cx, 40, "LEVEL " + _gameBoard.LevelNumber, MissionIISprites.GiantFont, TextAlignment.Centre);
+            drawingTarget.DrawText(cx, 110, "FIND THE FOLLOWING ITEMS", MissionIISprites.NarrowFont, TextAlignment.Centre);
 
             // Show the things you need to find on this level.
 

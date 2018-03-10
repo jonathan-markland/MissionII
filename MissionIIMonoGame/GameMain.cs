@@ -178,10 +178,10 @@ namespace MissionIIMonoGame
             {
                 _scalingModes = ScalingModes.StretchToFillWindow;
             }
-            else if (theKeyboard.IsKeyDown(Keys.F4))
+            /* else if (theKeyboard.IsKeyDown(Keys.F4))
             {
                 _scalingModes = ScalingModes.SquarePixelsStretch;
-            }
+            }*/
             else if (theKeyboard.IsKeyDown(Keys.F11))
             {
                 ToggleFullScreen(true);
