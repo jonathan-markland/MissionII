@@ -603,17 +603,11 @@ namespace MissionIIClassLibrary
 
             // Score:
 
-            var theNumbers = MissionIISprites.TheNumbers;
-            drawingTarget.DrawFirstSprite(0, 8, MissionIISprites.Score);
-            drawingTarget.DrawNumber(140, 8, Score, theNumbers);
+            drawingTarget.DrawText(0, 8, "SCORE " + Score, MissionIISprites.WideFont, TextAlignment.Left);
 
             // Level no, Room no:
 
-            drawingTarget.DrawFirstSprite(210, 8, MissionIISprites.Room);
-            drawingTarget.DrawNumber(
-                Constants.ScreenWidth, 8,
-                (uint)(LevelNumber * 100 +
-                RoomNumber), theNumbers);
+            drawingTarget.DrawText(Constants.ScreenWidth - 8, 8, ("ROOM " + LevelNumber) + RoomNumber, MissionIISprites.WideFont, TextAlignment.Right);
 
             // The Room:
 

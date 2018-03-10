@@ -27,16 +27,6 @@ namespace MissionIIClassLibrary
         public static SpriteTraits WalkingRightDown;
         public static SpriteTraits WalkingRightUp;
         public static SpriteTraits WalkingUp;
-        public static SpriteTraits Font0;
-        public static SpriteTraits Font1;
-        public static SpriteTraits Font2;
-        public static SpriteTraits Font3;
-        public static SpriteTraits Font4;
-        public static SpriteTraits Font5;
-        public static SpriteTraits Font6;
-        public static SpriteTraits Font7;
-        public static SpriteTraits Font8;
-        public static SpriteTraits Font9;
         public static SpriteTraits Ghost;
         public static SpriteTraits GhostStunned;
         public static SpriteTraits Gold;
@@ -49,9 +39,7 @@ namespace MissionIIClassLibrary
         public static SpriteTraits Monster5;
         public static SpriteTraits Potion;
         public static SpriteTraits Ring;
-        public static SpriteTraits Room;
         public static SpriteTraits Safe;
-        public static SpriteTraits Score;
         public static SpriteTraits FloorTile;
         public static SpriteTraits WallOutline;
         public static SpriteTraits WallBrick;
@@ -69,7 +57,6 @@ namespace MissionIIClassLibrary
         public static Font GiantFont;
 
         // And references to the above, for convenience:
-        public static List<SpriteTraits> TheNumbers; // TODO: I wanted the font instead
         public static List<SpriteTraits> ManStanding;
         public static List<SpriteTraits> ManWalking;
 
@@ -100,16 +87,6 @@ namespace MissionIIClassLibrary
             WalkingRightDown = new SpriteTraits("WalkingRightDown", 2);
             WalkingRightUp = new SpriteTraits("WalkingRightUp", 2);
             WalkingUp = new SpriteTraits("WalkingUp", 2);
-            Font0 = new SpriteTraits("Font0", 1);
-            Font1 = new SpriteTraits("Font1", 1);
-            Font2 = new SpriteTraits("Font2", 1);
-            Font3 = new SpriteTraits("Font3", 1);
-            Font4 = new SpriteTraits("Font4", 1);
-            Font5 = new SpriteTraits("Font5", 1);
-            Font6 = new SpriteTraits("Font6", 1);
-            Font7 = new SpriteTraits("Font7", 1);
-            Font8 = new SpriteTraits("Font8", 1);
-            Font9 = new SpriteTraits("Font9", 1);
             Ghost = new SpriteTraits("Ghost", 1);
             GhostStunned = new SpriteTraits("GhostStunned", 1);
             Gold = new SpriteTraits("Gold", 1);
@@ -122,9 +99,7 @@ namespace MissionIIClassLibrary
             Monster5 = new SpriteTraits("Monster5", 2);
             Potion = new SpriteTraits("Potion", 2);
             Ring = new SpriteTraits("Ring", 1);
-            Room = new SpriteTraits("Room", 1);
             Safe = new SpriteTraits("Safe", 1);
-            Score = new SpriteTraits("Score", 1);
             FloorTile = new SpriteTraits("FloorTile", 3);
             WallOutline = new SpriteTraits("WallOutline", 3);
             WallBrick = new SpriteTraits("WallBrick", 3);
@@ -157,22 +132,6 @@ namespace MissionIIClassLibrary
             NarrowFont = new Font { FontSprite = FontSprite, CharWidth = 6, ScaleFactorX = 1, ScaleFactorY = 1 };
             WideFont = new Font { FontSprite = FontSprite, CharWidth = 6, ScaleFactorX = 2, ScaleFactorY = 1 };
             GiantFont = new Font { FontSprite = FontSprite, CharWidth = 6, ScaleFactorX = 3, ScaleFactorY = 4 };
-
-
-            // Now build a list of the numbers for convenience of the drawing routines:
-            TheNumbers = new List<SpriteTraits>
-            {
-                Font0,
-                Font1,
-                Font2,
-                Font3,
-                Font4,
-                Font5,
-                Font6,
-                Font7,
-                Font8,
-                Font9
-            };
 
             ManStanding = new List<SpriteTraits>
             {

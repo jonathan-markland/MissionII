@@ -92,7 +92,6 @@
     <Compile Include="LevelExpander.cs" />
     <Compile Include="LevelFileParser.cs" />
     <Compile Include="LevelFileValidator.cs" />
-    <Compile Include="MissionIINumericSpriteFont.cs" />
     <Compile Include="Modes\TitleScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpecialMarkers.cs" />
