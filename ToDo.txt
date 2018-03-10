@@ -2,23 +2,16 @@
 Release 1
 ---------
 
-[ ] "Death" robot.  Homing and fast.  Can be shot.
 [ ] Enter your name message
-[ ] Brick choice thresholding:  Vary per room.  Varience depends on level number.
 [ ] Cut the main screen sound off after Z pressed.  Don't allow two instances of main screen sound to play at once.
-[ ] Persist the hi score table
 [ ] Some bypass keys to later levels.
-[ ] Change ghost timeouts?
-[ ] Seed the resampling thresholds from the level number, independently of the floor/walls.
 [ ] The facing direction of the man on level 1 is not good for turning against the monsters (unfair on new players)
-[ ] struct FacingDirection
-[ ] Fix the location of the key (etc) at start of level, not per room-start.
-[ ] Do the all the proposed refactorings (g.txt)
-[ ] Use of the font to display messages, and get rid of the special number sprites.  Need to stretch font width ways.
 [ ] Delay before fire can start the game on the title screen.  Avoids accidental game starts.
 [ ] Solution SLN name and window title is silly.
 [ ] Readme.md
 [ ] SELECT and ESC close game.
+
+
 
 	
 [ ] Attribution:
@@ -58,6 +51,13 @@ Downloaded on March 4th, 2018
 
 Release 2
 ---------
+[ ] Fix the location of the key (etc) at start of level, not per room-start.
+[ ] Persist the hi score table
+[ ] Seed the resampling thresholds from the level number, independently of the floor/walls.
+[ ] Brick choice thresholding:  Vary per room.  Varience depends on level number.
+[ ] "Death" robot.  Homing and fast.  Can be shot.
+[ ] Do the all the proposed refactorings (g.txt)
+[ ] Refactor to introduce struct FacingDirection
 [ ] Base class routine to fire, calls derived to get the sound effect.
 [ ] Proper parser state machine for loading levels so we can report line numbers very easily.
 [ ] Open maximised
@@ -76,12 +76,14 @@ Release 2
 
 
 
+[ ] Change ghost timeouts?
 
 [X] The level 2 pattern is too coarse to use.  Replace with something else.
 
 [X] Hi score cursor needed.
 [X] Different bullet sounds by monster type.
 [X] Change the droid firing sound to something more sophisticated?
+[X] Use of the font to display messages, and get rid of the special number sprites.  Need to stretch font width ways.
 
 [X] NO:  Start letters in the middle.  
 
