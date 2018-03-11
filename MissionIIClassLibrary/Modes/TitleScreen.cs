@@ -4,6 +4,7 @@ namespace MissionIIClassLibrary.Modes
 {
     public class TitleScreen : BaseGameMode
     {
+        private const int FireButtonPressEnableTime = (Constants.TitleScreenRollCycles * 3) / 4;
         private int _countDown = Constants.TitleScreenRollCycles;
         private bool _releaseWaiting = true;
         private bool _firstCycle = true;
@@ -32,7 +33,7 @@ namespace MissionIIClassLibrary.Modes
 
             if (theKeyStates.Fire)
             {
-                if (_releaseWaiting) return;
+                if (_releaseWaiting || _countDown > FireButtonPressEnableTime) return;
                 MissionIIGameModeSelector.ModeSelector.CurrentMode = new StartNewGame();
             }
 
