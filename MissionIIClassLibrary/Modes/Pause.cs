@@ -23,7 +23,8 @@ namespace MissionIIClassLibrary.Modes
                 Constants.ScreenHeight - 60,
                 4,
                 OnAccessCodeEntered,
-                MissionIISounds.ManFiring.Play);
+                MissionIISounds.ManFiring.Play,
+                MissionIIClassLibrary.MissionIISprites.GiantFont);
         }
 
         private void OnAccessCodeEntered(string accessCode)

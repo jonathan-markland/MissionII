@@ -3,9 +3,11 @@ Release 1
 ---------
 
 [ ] Enter your name message
-[ ] Cut the main screen sound off after Z pressed.  Don't allow two instances of main screen sound to play at once.
-[ ] Some bypass keys to later levels.
+[ ] Cut the main screen sound off after Z pressed.  Don't allow two instances of main screen sound to play at once.  Music feature needed.
 [ ] The facing direction of the man on level 1 is not good for turning against the monsters (unfair on new players)
+[ ] Duo bonus - multi shot with same bullet instance
+[ ] Score sapping by homing droids.
+[ ] Homing droid variants that are faster.
 
 
 
@@ -78,6 +80,7 @@ Release 2
 [X] The level 2 pattern is too coarse to use.  Replace with something else.
 
 [X] Hi score cursor needed.
+[X] Some bypass keys to later levels -- 2346789ERTYPAFGH
 [X] Different bullet sounds by monster type.
 [X] SELECT and ESC close game.
 [X] Change the droid firing sound to something more sophisticated?

@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GameClassLibrary.Graphics;
 
 namespace MissionIIClassLibrary.Controls
@@ -15,14 +12,16 @@ namespace MissionIIClassLibrary.Controls
         private int _maxLength;
         private Action<string> _onEntryCompleted;
         private Action _onPlayLetterSound;
+        private Font _theFont;
 
-        public AccessCodeAccumulatorControl(int centreX, int centreY, int maxLength, Action<string> onEntryCompleted, Action onPlayLetterSound)
+        public AccessCodeAccumulatorControl(int centreX, int centreY, int maxLength, Action<string> onEntryCompleted, Action onPlayLetterSound, Font theFont)
         {
             _centreX = centreX;
             _centreY = centreY;
             _maxLength = maxLength;
             _onEntryCompleted = onEntryCompleted;
             _onPlayLetterSound = onPlayLetterSound;
+            _theFont = theFont;
         }
 
         public void ClearEntry()
@@ -54,7 +53,7 @@ namespace MissionIIClassLibrary.Controls
         public void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawText(
-                _centreX, _centreY, _accessCode, MissionIISprites.GiantFont, TextAlignment.Centre);
+                _centreX, _centreY, _accessCode, _theFont, TextAlignment.Centre);
         }
 
         private string AccumulateAccessCode(string currentString, bool up, bool down, bool left, bool right, bool fire)
