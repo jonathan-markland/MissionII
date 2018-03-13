@@ -6,7 +6,6 @@ Release 1
 [ ] Cut the main screen sound off after Z pressed.  Don't allow two instances of main screen sound to play at once.
 [ ] Some bypass keys to later levels.
 [ ] The facing direction of the man on level 1 is not good for turning against the monsters (unfair on new players)
-[ ] Solution SLN name and window title is silly.
 
 
 
@@ -86,6 +85,7 @@ Release 2
 
 [X] NO:  Start letters in the middle.  
 
+[X] Solution SLN name and window title is silly.
 [X] Joystick!!
 [X] Hiscore screen after entry - must do release waiting on the final FIRE button, before switching!
     Perhaps the caller takes the screen away too soon because the edit mode status clears

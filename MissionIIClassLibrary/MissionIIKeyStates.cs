@@ -10,5 +10,13 @@ namespace MissionIIClassLibrary
         public bool Fire;
         public bool Quit;
         public bool Pause;
+
+        public bool AllKeysReleased
+        {
+            get
+            {
+                return !Up && !Down && !Left && !Right && !Fire && !Quit && !Pause;
+            }
+        }
     }
 }

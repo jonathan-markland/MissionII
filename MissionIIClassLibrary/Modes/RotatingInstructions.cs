@@ -45,8 +45,8 @@ namespace MissionIIClassLibrary.Modes
             }
             else if (_countDown < Constants.TitleScreenRollCycles * 3)
             {
-                drawingTarget.DrawText(cx, 100, "FIND OBJECTS ON LEVEL", theFont, c);
-                drawingTarget.DrawText(cx, 120, "THEN LOCATE THE EXIT", theFont, c);
+                drawingTarget.DrawText(cx, 100, "COLLECT OBJECTS ON LEVEL", theFont, c);
+                drawingTarget.DrawText(cx, 120, "THEN FIND THE SAFE", theFont, c);
                 drawingTarget.DrawText(cx, 160, "AVOID ELECTROCUTION", theFont, c);
             }
         }

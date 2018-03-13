@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Algorithms\IListExtensions.cs" />
     <Compile Include="Algorithms\IncrementingNumberAllocator.cs" />
+    <Compile Include="Algorithms\LevelAccessCodes.cs" />
     <Compile Include="Algorithms\UniqueNumberAllocator.cs" />
     <Compile Include="Containers\SuddenlyReplaceableList.cs" />
     <Compile Include="Graphics\Colour.cs" />

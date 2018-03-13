@@ -50,6 +50,7 @@
     <Compile Include="ArtificialIntelligence\Swoop.cs" />
     <Compile Include="ArtificialIntelligence\WanderingMine.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Controls\AccessCodeAccumulatorControl.cs" />
     <Compile Include="Droids\GuardianDroid.cs" />
     <Compile Include="Droids\WanderingMineDroid.cs" />
     <Compile Include="Interactibles\InvincibilityAmulet.cs" />

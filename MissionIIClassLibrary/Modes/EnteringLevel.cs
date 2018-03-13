@@ -6,15 +6,29 @@ namespace MissionIIClassLibrary.Modes
     {
         private MissionIIGameBoard _gameBoard;
         private int _countDown = Constants.EnteringLevelScreenCycles;
+        private string _levelAccessCode;
 
         public EnteringLevel(MissionIIGameBoard theGameBoard)
         {
             _gameBoard = theGameBoard;
+            if (ThisLevelHasAccessCode)
+            {
+                _levelAccessCode = GameClassLibrary.Algorithms.LevelAccessCodes.GetForLevel(_gameBoard.LevelNumber);
+            }
+        }
+
+        private bool ThisLevelHasAccessCode
+        {
+            get
+            {
+                var l = _gameBoard.LevelNumber;
+                return (l >= Constants.FirstLevelWithAccessCode && l <= Constants.LastLevelWithAccessCode);
+            }
         }
 
         public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
-            if (MissionIIModes.HandlePause(theKeyStates, this)) return;
+            if (MissionIIModes.HandlePause(_gameBoard, theKeyStates, this)) return;
             if (_countDown == Constants.EnteringLevelScreenCycles)
             {
                 MissionIISounds.EnteringLevel.Play();
@@ -38,12 +52,19 @@ namespace MissionIIClassLibrary.Modes
             var cx = Constants.ScreenWidth / 2;
 
             drawingTarget.DrawText(cx, 40, "LEVEL " + _gameBoard.LevelNumber, MissionIISprites.GiantFont, TextAlignment.Centre);
+
+            if (ThisLevelHasAccessCode)
+            {
+                drawingTarget.DrawText(Constants.ScreenWidth - 10, 50, "ACCESS", MissionIISprites.NarrowFont, TextAlignment.Right);
+                drawingTarget.DrawText(Constants.ScreenWidth - 10, 80, _levelAccessCode, MissionIISprites.NarrowFont, TextAlignment.Right);
+            }
+
             drawingTarget.DrawText(cx, 110, "FIND THE FOLLOWING ITEMS", MissionIISprites.NarrowFont, TextAlignment.Centre);
 
             // Show the things you need to find on this level.
 
             int x = Constants.ScreenWidth / 2;
-            int y = 150; // TODO: constant
+            int y = 130; // TODO: constant
             int dy = 24; // TODO: constant
 
             _gameBoard.ForEachThingWeHaveToFindOnThisLevel(
@@ -52,6 +73,10 @@ namespace MissionIIClassLibrary.Modes
                     drawingTarget.DrawFirstSpriteCentred(x, y, o.SpriteTraits);
                     y += dy;
                 });
+
+
+            drawingTarget.DrawText(cx, 210, "THEN TAKE TO THE SAFE", MissionIISprites.NarrowFont, TextAlignment.Centre);
+            drawingTarget.DrawFirstSpriteCentred(x, 230, MissionIISprites.Safe);
         }
     }
 }

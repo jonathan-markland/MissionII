@@ -4,6 +4,8 @@
     {
         #region General
         public const int StartLevelNumber = 1;
+        public const int FirstLevelWithAccessCode = 2;
+        public const int LastLevelWithAccessCode = 8;
         #endregion
 
         #region Lives
@@ -19,7 +21,7 @@
         public const int TitleScreenRollCycles = 400;
         public const int GameOverMessageCycles = 400;
         public const int LeavingLevelCycles = 100;
-        public const int EnteringLevelScreenCycles = 150;
+        public const int EnteringLevelScreenCycles = 250;
         public const int BulletCycles = 4;
         public const int GhostStartCycles = 1500;
         public const int GhostMovementCycles = 2;

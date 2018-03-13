@@ -23,6 +23,7 @@ namespace MissionIIClassLibrary
         public SuddenlyReplaceableList<BaseGameObject> ObjectsInRoom = new SuddenlyReplaceableList<BaseGameObject>();
         public List<BaseGameObject> ObjectsToRemove = new List<BaseGameObject>();
         public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
+
         public Interactibles.Key Key;
         public Interactibles.Ring Ring;
         public Interactibles.Gold Gold;
@@ -33,6 +34,22 @@ namespace MissionIIClassLibrary
 
         private WallAndFloorHostSprites _electrocutionBackgroundSprites;  // changes by level
         private WallAndFloorHostSprites _normalBackgroundSprites;         // changes by level
+
+
+
+        public bool LevelCodeAccepted(string accessCode)
+        {
+            for (int i=Constants.FirstLevelWithAccessCode; i<Constants.LastLevelWithAccessCode; i++)
+            {
+                if (accessCode == GameClassLibrary.Algorithms.LevelAccessCodes.GetForLevel(i))
+                {
+                    LevelNumber = i;
+                    PrepareForNewLevel();
+                    return true;
+                }
+            }
+            return false;
+        }
 
 
 

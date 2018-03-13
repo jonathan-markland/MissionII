@@ -14,7 +14,7 @@ namespace MissionIIClassLibrary.Modes
 
         public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
-            if (MissionIIModes.HandlePause(theKeyStates, this)) return;
+            if (MissionIIModes.HandlePause(_gameBoard, theKeyStates, this)) return;
             if (_countDown > 0)
             {
                 --_countDown;
