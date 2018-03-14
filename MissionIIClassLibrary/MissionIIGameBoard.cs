@@ -15,13 +15,14 @@ namespace MissionIIClassLibrary
         public int BoardHeight; // TODO: There are also constants that are used for this.
         public int LevelNumber;
         public int RoomNumber; // one-based
-        public uint Score = 50000;
+        public uint Score = Constants.InitialScore;
         public uint Lives;
         public WorldWallData TheWorldWallData;
         public WallMatrix CurrentRoomWallData;
         public GameObjects.Man Man = new GameObjects.Man();
         public SuddenlyReplaceableList<BaseGameObject> ObjectsInRoom = new SuddenlyReplaceableList<BaseGameObject>();
         public List<BaseGameObject> ObjectsToRemove = new List<BaseGameObject>();
+
         public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
 
         public Interactibles.Key Key;
@@ -51,6 +52,17 @@ namespace MissionIIClassLibrary
             return false;
         }
 
+
+
+        public GameClassLibrary.Math.Point GetCornerFurthestAwayFromMan()
+        {
+            var cx = Constants.ScreenWidth / 2;
+            var cy = Constants.ScreenHeight / 2;
+            var manCentre = Man.GetBoundingRectangle().Centre;
+            var x = manCentre.X < cx ? Constants.ScreenWidth : 0;
+            var y = manCentre.Y < cy ? Constants.ScreenHeight : 0;
+            return new Point(x, y);
+        }
 
 
 
@@ -211,10 +223,10 @@ namespace MissionIIClassLibrary
 
 
 
-        public bool KillThingsIfShot(GameObjects.Bullet theBullet)
+        public uint KillThingsIfShotAndGetHitCount(GameObjects.Bullet theBullet)
         {
-            bool hitSomething = false;
-
+            uint hitCount = 0;
+            
             ObjectsInRoom.ForEachDo(o =>
             {
                 if (o.GetBoundingRectangle().Intersects(theBullet.GetBoundingRectangle()))
@@ -236,12 +248,12 @@ namespace MissionIIClassLibrary
                                 MarkAllExplosionsAsUsedForBonusPurposes();
                             }
                         }
-                        hitSomething = true;
+                        ++hitCount;
                     }
                 }
             });
 
-            return hitSomething;
+            return hitCount;
         }
 
 
@@ -624,7 +636,7 @@ namespace MissionIIClassLibrary
 
             // Level no, Room no:
 
-            drawingTarget.DrawText(Constants.ScreenWidth - 4, 8, ("ROOM " + LevelNumber) + RoomNumber, MissionIISprites.WideFont, TextAlignment.Right);
+            drawingTarget.DrawText(Constants.ScreenWidth - 4, 8, ("ROOM " + RoomNumber) + " L" + LevelNumber, MissionIISprites.WideFont, TextAlignment.Right);
 
             // The Room:
 

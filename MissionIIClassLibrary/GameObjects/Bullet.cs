@@ -38,9 +38,15 @@ namespace MissionIIClassLibrary.GameObjects
                     Sprite.RoomX = proposedX;
                     Sprite.RoomY = proposedY;
 
-                    if (theGameBoard.KillThingsIfShot(this))
+                    var hitCount = theGameBoard.KillThingsIfShotAndGetHitCount(this);
+                    if (hitCount > 0)
                     {
                         theGameBoard.ObjectsToRemove.Add(this);
+                        if (_increasesScore && hitCount > 1)
+                        {
+                            theGameBoard.IncrementScore(Constants.MultiKillWithSingleBulletBonusScore);
+                            MissionIISounds.DuoBonus.Play();
+                        }
                         break;
                     }
                 }

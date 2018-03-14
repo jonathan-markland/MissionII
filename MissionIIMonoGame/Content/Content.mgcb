@@ -877,6 +877,12 @@
 /processorParam:Quality=Best
 /build:BonusSound.wav
 
+#begin DuoBonusSound.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:DuoBonusSound.wav
+
 #begin ExplosionSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

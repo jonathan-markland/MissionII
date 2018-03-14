@@ -2,7 +2,7 @@
 
 namespace GameClassLibrary.Hiscore
 {
-    public class HiScoreTableEntry
+    public class HiScoreTableEntryModel
     {
         private uint _score;
 
@@ -23,7 +23,7 @@ namespace GameClassLibrary.Hiscore
             }
         }
 
-        public HiScoreTableEntry(string playerName, uint playerScore)
+        public HiScoreTableEntryModel(string playerName, uint playerScore)
         {
             Name = playerName;
             Score = playerScore;

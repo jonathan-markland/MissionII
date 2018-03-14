@@ -37,8 +37,7 @@ namespace MissionIIClassLibrary.Modes
         private void CreateHiScoreControl()
         {
             _hiScoreScreenControl = new GameClassLibrary.Hiscore.HiScoreScreenControl(
-                new GameClassLibrary.Hiscore.HiScoreScreenDimensions
-                { TopEdgeY = 70, BottomEdgeY = 246, NamesLeftX = 10, ScoresRightX = 310 },  // TODO: screen dimension constants!
+                new GameClassLibrary.Math.Rectangle(10, 70, 300, 246-70),// TODO: screen dimension constants!
                 MissionIISprites.NarrowFont,
                 MissionIISprites.Life,
                 MissionIIGameBoard.HiScoreTableModel);
@@ -84,6 +83,10 @@ namespace MissionIIClassLibrary.Modes
             drawingTarget.ClearScreen();
             drawingTarget.DrawSprite(0, 0, MissionIISprites.HiScoreScreen.GetHostImageObject(0));
             _hiScoreScreenControl.DrawScreen(drawingTarget);
+            if (_enterScoreMode)
+            {
+                drawingTarget.DrawText(Constants.ScreenWidth / 2, 56, "ENTER YOUR NAME", MissionIISprites.WideFont, TextAlignment.Centre);
+            }
         }
     }
 }

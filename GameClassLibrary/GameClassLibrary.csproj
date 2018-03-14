@@ -58,9 +58,8 @@
     <Compile Include="Graphics\SpriteTraits.cs" />
     <Compile Include="Graphics\TextAlignment.cs" />
     <Compile Include="Hiscore\HiScoreScreenControl.cs" />
-    <Compile Include="Hiscore\HiScoreScreenDimensions.cs" />
     <Compile Include="Hiscore\HiScoreScreenModel.cs" />
-    <Compile Include="Hiscore\HiScoreTableEntry.cs" />
+    <Compile Include="Hiscore\HiScoreTableEntryModel.cs" />
     <Compile Include="Hiscore\HiScoreTableKeyStates.cs" />
     <Compile Include="Math\FoundDirections.cs" />
     <Compile Include="Math\FoundDirectionsException.cs" />

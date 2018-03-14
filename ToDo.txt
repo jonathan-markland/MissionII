@@ -2,20 +2,15 @@
 Release 1
 ---------
 
-[ ] Enter your name message
 [ ] Cut the main screen sound off after Z pressed.  Don't allow two instances of main screen sound to play at once.  Music feature needed.
 [ ] The facing direction of the man on level 1 is not good for turning against the monsters (unfair on new players)
-[ ] Duo bonus - multi shot with same bullet instance
-[ ] Score sapping by homing droids.
-[ ] Homing droid variants that are faster.
-[ ] Static hi score MODEL
-[ ] hi score screen control only created in the hi-score screen mode object.
-
 
 
 	
 [ ] Attribution:
-Downloaded on March 4th, 2018
+	S: Beep_06_triple_2015-06-22.wav by PaulMorek | License: Creative Commons 0
+	S: voc-formant4.wav by mikobuntu | License: Creative Commons 0
+
      S: Reverberating Explosion.wav by kwahmah_02 -- https://freesound.org/s/268828/ -- License: Attribution
      S: explosio.wav by Sergenious -- https://freesound.org/s/55830/ -- License: Attribution
      S: Miners Explosion.wav by shaynecantly -- https://freesound.org/s/131555/ -- License: Attribution
@@ -51,11 +46,13 @@ Downloaded on March 4th, 2018
 
 Release 2
 ---------
+[ ] Score sapping by homing droids -- a fraction of the score on room entry is taken.
 [ ] Fix the location of the key (etc) at start of level, not per room-start.
 [ ] Persist the hi score table
 [ ] Seed the resampling thresholds from the level number, independently of the floor/walls.
 [ ] Brick choice thresholding:  Vary per room.  Varience depends on level number.
 [ ] "Death" robot.  Homing and fast.  Can be shot.
+[ ] Homing droid variants that are faster.
 [ ] Do the all the proposed refactorings (g.txt)
 [ ] Refactor to introduce struct FacingDirection
 [ ] Base class routine to fire, calls derived to get the sound effect.
@@ -76,11 +73,17 @@ Release 2
 
 
 
+[ ] Show a 'bonus' sprite.
 [ ] Change ghost timeouts?
+[X] Enter your name message
 
+[X] Static hi score MODEL
+[X] hi score screen control only created in the hi-score screen mode object.
 [X] The level 2 pattern is too coarse to use.  Replace with something else.
+[X] Ghost should appear from corner furthest away from man.
 
 [X] Hi score cursor needed.
+[X] Duo bonus - multi shot with same bullet instance
 [X] Some bypass keys to later levels -- 2346789ERTYPAFGH
 [X] Different bullet sounds by monster type.
 [X] SELECT and ESC close game.

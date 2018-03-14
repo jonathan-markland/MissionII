@@ -18,7 +18,8 @@ namespace MissionIIClassLibrary
         public static SoundTraits SafeActivated; 
         public static SoundTraits Intro; 
         public static SoundTraits Explosion; 
-        public static SoundTraits Bonus; 
+        public static SoundTraits Bonus;
+        public static SoundTraits DuoBonus;
         public static SoundTraits StunGhost;
         public static SoundTraits FootStep1;
         public static SoundTraits FootStep2;
@@ -28,6 +29,7 @@ namespace MissionIIClassLibrary
         {
             Bonus = new SoundTraits("BonusSound", 1);
             DroidFiring = new SoundTraits("DroidFiringSound", 1);
+            DuoBonus = new SoundTraits("DuoBonusSound", 1);
             Electrocution = new SoundTraits("ElectrocutionSound", 1);
             EnteringLevel = new SoundTraits("EnteringLevelSound", 1);
             Explosion = new SoundTraits("ExplosionSound", 1);

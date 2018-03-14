@@ -1,9 +1,10 @@
 ﻿namespace MissionIIClassLibrary
 {
-    public static class Constants  // TODO: Location of some of these constants is suspect, in view of general name "Constants"
+    public static class Constants
     {
         #region General
         public const int StartLevelNumber = 1;
+        public const int InitialScore = 0; // intended for development
         public const int FirstLevelWithAccessCode = 2;
         public const int LastLevelWithAccessCode = 8;
         #endregion
@@ -23,7 +24,7 @@
         public const int LeavingLevelCycles = 100;
         public const int EnteringLevelScreenCycles = 250;
         public const int BulletCycles = 4;
-        public const int GhostStartCycles = 1500;
+        public const int GhostStartCycles = 1000;
         public const int GhostMovementCycles = 2;
         public const int GhostStunnedCycles = 200;
         public const int ManDeadDelayCycles = 100;
@@ -78,6 +79,7 @@
         #endregion
 
         #region Scoring
+        public const int MultiKillWithSingleBulletBonusScore = 250;
         public const int RoomClearingBonusScore = 250;
         public const int WanderingDroidKillScore = 60;
         public const int WanderingMineDroidKillScore = 60;

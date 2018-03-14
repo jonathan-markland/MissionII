@@ -5,16 +5,16 @@ namespace GameClassLibrary.Hiscore
 {
     public class HiScoreScreenModel
     {
-        private List<HiScoreTableEntry> _scoreTable;
+        private List<HiScoreTableEntryModel> _scoreTable;
 
         public HiScoreScreenModel(uint lowestScore, uint scoreIncrement)
         {
-            _scoreTable = new List<HiScoreTableEntry>();
-            _scoreTable.Add(new HiScoreTableEntry("JUAN", lowestScore + 4 * scoreIncrement));
-            _scoreTable.Add(new HiScoreTableEntry("DIMITAR", lowestScore + 3 * scoreIncrement));
-            _scoreTable.Add(new HiScoreTableEntry("LAURA", lowestScore + 2 * scoreIncrement));
-            _scoreTable.Add(new HiScoreTableEntry("NICO", lowestScore + 1 * scoreIncrement));
-            _scoreTable.Add(new HiScoreTableEntry("JANE", lowestScore));
+            _scoreTable = new List<HiScoreTableEntryModel>();
+            _scoreTable.Add(new HiScoreTableEntryModel("JUAN", lowestScore + 4 * scoreIncrement));
+            _scoreTable.Add(new HiScoreTableEntryModel("DIMITAR", lowestScore + 3 * scoreIncrement));
+            _scoreTable.Add(new HiScoreTableEntryModel("LAURA", lowestScore + 2 * scoreIncrement));
+            _scoreTable.Add(new HiScoreTableEntryModel("NICO", lowestScore + 1 * scoreIncrement));
+            _scoreTable.Add(new HiScoreTableEntryModel("JANE", lowestScore));
             SortScoreTable();
         }
 
