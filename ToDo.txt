@@ -2,7 +2,6 @@
 Release 1
 ---------
 
-[ ] Cut the main screen sound off after Z pressed.  Don't allow two instances of main screen sound to play at once.  Music feature needed.
 [ ] The facing direction of the man on level 1 is not good for turning against the monsters (unfair on new players)
 
 
@@ -58,6 +57,7 @@ Release 2
 [ ] Base class routine to fire, calls derived to get the sound effect.
 [ ] Proper parser state machine for loading levels so we can report line numbers very easily.
 [ ] Open maximised
+[ ] Design a music handling class, and reinstate the title screen music.
 [ ] Ghost timing -- change as levels progress?
 [ ] Penalise shooting inaccuracy on later levels?
 [ ] Cycle counts for animation in a configuration file?
