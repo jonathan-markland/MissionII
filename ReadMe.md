@@ -10,9 +10,9 @@ the treasured items, taking them to the safe.
 Avoid electrocution by touching walls, or the various kinds of
 sentry droids, and avoid getting shot!
 
-![Demo1](/GamePlayImages/Demo1.jpg)
+![Demo1](/GameplayImages/Demo1.jpg)
 
-![Demo2](/GamePlayImages/Demo2.jpg)
+![Demo2](/GameplayImages/Demo2.jpg)
 
 Program design and implementation by Jonathan Markland.
 Based on an original concept by Matthew Bates.
