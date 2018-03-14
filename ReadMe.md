@@ -28,6 +28,49 @@ rooms of all droids before leaving.
 Basic points are awarded for finding and collecting the items.
 
 
+User-defined Levels
+===================
+The levels can be defined by the user by modifying the levels.txt
+file, and additional levels can be appended.  However this file
+must be changed with extreme care, since the validation is very
+strict.  Validation failures are written to the console, so you
+need to run the game from cmd.exe to see the error message.
+
+
+User-defined graphics and sound
+===============================
+I wanted the graphics and sound to be definable by the user simply
+by replacing some files in a folder, however the MonoGame library
+has restrictions on simply doing this, they say to support
+portability between platforms (the "pipeline" tool).  
+
+I have yet to fully investigate how I can provide BMP/WAV formats
+that the user can re-design and replace, and work on different
+platforms.
+
+It would also be very nice if the user could change the dimensions
+of the sprites, and the screen re-scale.  This is definately a
+future concept, although I certainly wanted a "user-skinable" 
+feature in this first version.
+
+
+Notes to programmers
+====================
+
+C# source listing developed on Visual Studio 2017 Community Edition.
+
+Requires MONOGAME 3.6 library.
+
+It is *supposed* to be Linux/Mono compliant but I have put no work into
+getting this to build on that platform yet.
+
+Since MonoGame is supposed to be portable to the XBOX (etc) I
+suppose so should this game!  I have avoided requiring a keyboard,
+but I cannot test these platforms myself, so they are effectively 
+unsupported.
+
+
+
 Credits
 =======
 Game is a derivative work based on a 1982 game "Cybertron Mission" for 
@@ -71,26 +114,5 @@ Sound effects from FreeSound.org website, original file names as follows:
 - Explosion 3 by killkhan -- https://freesound.org/people/killkhan/sounds/150210/ | License: Attribution Noncommercial
 - Beep_06_triple_2015-06-22.wav by PaulMorek | License: Creative Commons 0
 - voc-formant4.wav by mikobuntu | License: Creative Commons 0
-
-
-User-defined Levels
-===================
-The levels can be defined by the user by modifying the levels.txt
-file, and additional levels can be appended.  However this file
-must be changed with extreme care, since the validation is very
-strict.  Validation failures are written to the console, so you
-need to run the game from cmd.exe to see the error message.
-
-
-Notes to programmers
-====================
-
-C# source listing developed on Visual Studio 2017 Community Edition.
-
-Requires MONOGAME 3.6 library.
-
-It is *supposed* to be Linux/Mono compliant but I have put no work into
-getting this to build on that platform yet.
-
 
 
