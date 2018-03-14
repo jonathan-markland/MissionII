@@ -9,7 +9,11 @@ namespace MissionIIClassLibrary.Modes
 
         public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
-            if (theKeyStates.Fire || _countDown == 0)
+            if (theKeyStates.Fire)
+            {
+                MissionIIGameModeSelector.ModeSelector.CurrentMode = new StartNewGame();
+            }
+            else if (_countDown == 0)
             {
                 MissionIIGameModeSelector.ModeSelector.CurrentMode = new TitleScreen();
             }

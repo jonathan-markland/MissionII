@@ -65,7 +65,7 @@ namespace MissionIIClassLibrary.Modes
             {
                 if (theKeyStates.Fire)
                 {
-                    MissionIIGameModeSelector.ModeSelector.CurrentMode = new TitleScreen();
+                    MissionIIGameModeSelector.ModeSelector.CurrentMode = new StartNewGame();
                 }
                 else if(_countDown > 0)
                 {

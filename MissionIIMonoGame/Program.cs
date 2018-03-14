@@ -13,8 +13,19 @@ namespace MissionIIMonoGame
         [STAThread]
         static void Main()
         {
-            using (var game = new GameMain())
-                game.Run();
+            try
+            {
+                using (var game = new GameMain())
+                {
+                    game.Run();
+                }
+            }
+            catch(Exception e)
+            {
+                // Intended for when modifying Levels.txt file.
+                Console.WriteLine("Game failed to start because of error:");
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
