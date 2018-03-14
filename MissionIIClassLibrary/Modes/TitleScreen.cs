@@ -11,13 +11,9 @@ namespace MissionIIClassLibrary.Modes
 
         public TitleScreen()
         {
-            if (MissionIIGameBoard.HiScoreTable == null) // TODO: Do we really want this created here?
+            if (MissionIIGameBoard.HiScoreTableModel == null) // TODO: Do we really want this created here?
             {
-                MissionIIGameBoard.HiScoreTable = new GameClassLibrary.Hiscore.HiScoreScreen(
-                    new GameClassLibrary.Hiscore.HiScoreScreenDimensions
-                    { TopEdgeY = 70, BottomEdgeY = 246, NamesLeftX = 10, ScoresRightX = 310 },  // TODO: screen dimension constants!
-                    MissionIISprites.NarrowFont, 
-                    MissionIISprites.Life,
+                MissionIIGameBoard.HiScoreTableModel = new GameClassLibrary.Hiscore.HiScoreScreenModel(
                     Constants.InitialLowestHiScore,
                     Constants.InitialHiScoresIncrement);
             }

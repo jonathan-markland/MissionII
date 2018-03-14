@@ -8,7 +8,8 @@ Release 1
 [ ] Duo bonus - multi shot with same bullet instance
 [ ] Score sapping by homing droids.
 [ ] Homing droid variants that are faster.
-
+[ ] Static hi score MODEL
+[ ] hi score screen control only created in the hi-score screen mode object.
 
 
 

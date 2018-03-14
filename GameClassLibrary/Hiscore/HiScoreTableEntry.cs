@@ -8,6 +8,8 @@ namespace GameClassLibrary.Hiscore
 
         public string Name { get; set; }
 
+        public string ScoreString { get; private set; }
+
         public uint Score
         {
             get
@@ -21,15 +23,10 @@ namespace GameClassLibrary.Hiscore
             }
         }
 
-        public bool EditMode { get; set; }
-
-        public string ScoreString { get; private set; }
-
         public HiScoreTableEntry(string playerName, uint playerScore)
         {
-            this.Name = playerName;
-            this.Score = playerScore;
-            this.EditMode = false;
+            Name = playerName;
+            Score = playerScore;
         }
     }
 }

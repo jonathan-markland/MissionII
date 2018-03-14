@@ -6,12 +6,14 @@ namespace MissionIIClassLibrary.Modes
     {
         private int _countDown = Constants.TitleScreenRollCycles;
         private bool _enterScoreMode;
+        private GameClassLibrary.Hiscore.HiScoreScreenControl _hiScoreScreenControl;
 
         /// <summary>
         /// Constructor for just showing the hi-score screen.
         /// </summary>
         public HiScoreMode()
         {
+            CreateHiScoreControl();
             _enterScoreMode = false;
         }
 
@@ -20,10 +22,11 @@ namespace MissionIIClassLibrary.Modes
         /// </summary>
         public HiScoreMode(uint scoreAchieved)
         {
-            if (MissionIIGameBoard.HiScoreTable.CanPlayerEnterTable(scoreAchieved))
+            CreateHiScoreControl();
+            if (_hiScoreScreenControl.CanPlayerEnterTable(scoreAchieved))
             {
                 _enterScoreMode = true;
-                MissionIIGameBoard.HiScoreTable.ForceEnterScore(scoreAchieved);
+                _hiScoreScreenControl.ForceEnterScore(scoreAchieved);
             }
             else
             {
@@ -31,18 +34,28 @@ namespace MissionIIClassLibrary.Modes
             }
         }
 
+        private void CreateHiScoreControl()
+        {
+            _hiScoreScreenControl = new GameClassLibrary.Hiscore.HiScoreScreenControl(
+                new GameClassLibrary.Hiscore.HiScoreScreenDimensions
+                { TopEdgeY = 70, BottomEdgeY = 246, NamesLeftX = 10, ScoresRightX = 310 },  // TODO: screen dimension constants!
+                MissionIISprites.NarrowFont,
+                MissionIISprites.Life,
+                MissionIIGameBoard.HiScoreTableModel);
+        }
+
         public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
         {
             if (_enterScoreMode)
             {
-                if (MissionIIGameBoard.HiScoreTable.InEditMode)
+                if (_hiScoreScreenControl.InEditMode)
                 {
                     var hsKeyStates = new GameClassLibrary.Hiscore.HiScoreTableKeyStates();
                     hsKeyStates.Down = theKeyStates.Down;
                     hsKeyStates.Up = theKeyStates.Up;
                     hsKeyStates.Left = theKeyStates.Left;
                     hsKeyStates.Fire = theKeyStates.Fire;
-                    MissionIIGameBoard.HiScoreTable.AdvanceOneCycle(hsKeyStates);
+                    _hiScoreScreenControl.AdvanceOneCycle(hsKeyStates);
                 }
                 else
                 {
@@ -70,7 +83,7 @@ namespace MissionIIClassLibrary.Modes
         {
             drawingTarget.ClearScreen();
             drawingTarget.DrawSprite(0, 0, MissionIISprites.HiScoreScreen.GetHostImageObject(0));
-            MissionIIGameBoard.HiScoreTable.DrawScreen(drawingTarget);
+            _hiScoreScreenControl.DrawScreen(drawingTarget);
         }
     }
 }

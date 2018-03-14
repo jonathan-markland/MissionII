@@ -47,6 +47,7 @@
     <Compile Include="Algorithms\LevelAccessCodes.cs" />
     <Compile Include="Algorithms\UniqueNumberAllocator.cs" />
     <Compile Include="Containers\SuddenlyReplaceableList.cs" />
+    <Compile Include="Controls\NameEntryControl.cs" />
     <Compile Include="Graphics\Colour.cs" />
     <Compile Include="Graphics\Font.cs" />
     <Compile Include="Graphics\HostSuppliedSprite.cs" />
@@ -56,8 +57,9 @@
     <Compile Include="Graphics\SpriteInstance.cs" />
     <Compile Include="Graphics\SpriteTraits.cs" />
     <Compile Include="Graphics\TextAlignment.cs" />
-    <Compile Include="Hiscore\HiScoreScreen.cs" />
+    <Compile Include="Hiscore\HiScoreScreenControl.cs" />
     <Compile Include="Hiscore\HiScoreScreenDimensions.cs" />
+    <Compile Include="Hiscore\HiScoreScreenModel.cs" />
     <Compile Include="Hiscore\HiScoreTableEntry.cs" />
     <Compile Include="Hiscore\HiScoreTableKeyStates.cs" />
     <Compile Include="Math\FoundDirections.cs" />
