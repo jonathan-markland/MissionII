@@ -81,3 +81,16 @@ must be changed with extreme care, since the validation is very
 strict.  Validation failures are written to the console, so you
 need to run the game from cmd.exe to see the error message.
 
+
+Notes to programmers
+====================
+
+C# source listing developed on Visual Studio 2017 Community Edition.
+
+Requires MONOGAME 3.6 library.
+
+It is *supposed* to be Linux/Mono compliant but I have put no work into
+getting this to build on that platform yet.
+
+
+
