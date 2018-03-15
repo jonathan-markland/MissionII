@@ -5,7 +5,7 @@ Mission II
 A retro 1980s style computer game.
 
 Navigate the maze of levels inside the fortress, and retrieve 
-the treasured items, taking them to the safe.
+the treasured items, then find the level exit.
 
 Avoid electrocution by touching walls, or the various kinds of
 sentry droids, and avoid getting shot!
