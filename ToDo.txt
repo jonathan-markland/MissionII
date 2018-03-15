@@ -3,8 +3,7 @@ Release 1
 ---------
 
 [ ] The facing direction of the man on level 1 is not good for turning against the monsters (unfair on new players)
-[ ] Design a music handling class, and reinstate the title screen music.
-
+[ ] Fix bug introduced where after entering name, holding fire starts new game right away.
  
 
 Release 2
@@ -83,6 +82,7 @@ Release 2
 [X] The level start position is not defined.  Have a character in the source file to specify it.
     And calculate the facing direction for the man on startup.
 [X] Droids can shoot ghost - should not happen
+[X] Design a music handling class, and reinstate the title screen music.
 
 [X] BUG: Carving removes too much eg room 106.
 [X] PAUSE GAME key.
