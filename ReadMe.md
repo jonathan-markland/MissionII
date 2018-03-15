@@ -97,6 +97,61 @@ some lambda callbacks that allow them to access sound playback
 and drawing features *without* them having to reference the 
 MonoGame assembly.
 
+Design
+------
+
+Using MonoGame, the main program has two key event driver entry
+points:  The time-tick handler "Update()", and the drawing 
+handler "Draw()".  These call into MissionIIClassLibrary to
+request drawing, and to advance the state of the game by ONE
+time slice worth of time.
+
+Modes
+-----
+The "MissionIIClassLibrary.Modes" namespace has the primary
+classes of interest.  These mode objects are like a storyboard
+in a film, and it's pretty intuitive what they're for.
+
+The Update() function calls into the current mode object via
+a static "ModeSelector" object.  Mode-changes take effect on
+the next cycle.
+
+The GameBoard class
+-------------------
+The "MissionIIGameBoard" class is the root of the game's state.
+I called it "GameBoard" to be analogous to Chess, for example.
+It holds all the gameplay pieces.
+
+This gets passed about a lot, and stuff has been refactored *out*
+of this class over development.  Since OO is a terrible discipline
+for "sketching" a program, this still has a load of public variables,
+and this could see further refactoring efforts.
+
+Interactibles
+-------------
+These are the objects the player interacts with, eg: keys.
+
+Droids
+------
+This namespace has all the droid types, including some I experimented
+with but didn't include.  Since droids can shoot each other, if you
+get too aggressive the man has no work to do!
+
+Droids use the ArtificialIntelligence classes to dictate how they work.
+
+GameObjects
+-----------
+This is a catch-all for any other game objects that don't fit the 
+above category.
+
+Further work
+------------
+I tend to write programs in "Sketch" format, only later forming things into 
+classes, and ultimately analyze these for potential to be re-usable only 
+*after* the fact.  I would typically migrate code out to the GameClassLibrary 
+if I spot its potential to be used in other games.
+
+There is still potential for more of this to be done.
 
 
 Credits
