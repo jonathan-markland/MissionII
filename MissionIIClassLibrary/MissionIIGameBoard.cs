@@ -646,7 +646,7 @@ namespace MissionIIClassLibrary
                 Constants.TileWidth,
                 Constants.TileHeight,
                 CurrentRoomWallData,
-                (Man.IsBeingElectrocuted) ? _electrocutionBackgroundSprites : _normalBackgroundSprites);
+                (Man.IsBeingElectrocutedByWalls) ? _electrocutionBackgroundSprites : _normalBackgroundSprites);
 
             // Draw objects in the room:
 

@@ -351,6 +351,11 @@ namespace MissionIIClassLibrary.GameObjects
 
         public bool IsBeingElectrocuted
         {
+            get { return _isElectrocuting; }
+        }
+
+        public bool IsBeingElectrocutedByWalls
+        {
             get { return _isElectrocutedByWalls; }
         }
 

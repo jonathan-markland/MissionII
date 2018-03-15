@@ -58,7 +58,7 @@ namespace MissionIIClassLibrary.Modes
                 _restartGameOnNextRelease = true;
                 _keyReleaseSeen = false;
             }
-            else
+            else if (!_theGameBoard.Man.IsDead && !_theGameBoard.Man.IsBeingElectrocuted) // anti-cheating!
             {
                 _accessCodeControl.AdvanceOneCycle(theKeyStates);
             }
