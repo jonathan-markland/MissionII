@@ -100,8 +100,8 @@ namespace MissionIIClassLibrary
         {
             return RecolourByThresholdAndSpecificColours(
                 hostSprite,
-                Colour.ToGreyscale((byte) highGreyLevel),
-                Colour.ToGreyscale((byte) lowGreyLevel));
+                Colour.ExpandToGreyScaleArgb((byte) highGreyLevel),
+                Colour.ExpandToGreyScaleArgb((byte) lowGreyLevel));
         }
 
 

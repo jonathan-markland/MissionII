@@ -8,6 +8,24 @@ namespace GameClassLibrary.Graphics
 {
     public static class Colour
     {
+        public static byte GetGreyLevel(uint rgbValue)
+        {
+            var r = (rgbValue >> 16) & 0xFF;
+            var g = (rgbValue >> 8) & 0xFF;
+            var b = (rgbValue) & 0xFF;
+
+            var rn = r * 87;
+            var gn = g * 141;
+            var bn = b * 28;
+
+            return (byte)((rn + gn + bn) >> 8);
+        }
+
+        public static uint ExpandToGreyScaleArgb(byte v)
+        {
+            return 0xFF000000 | (uint)(v << 16) | (uint)(v << 8) | v;
+        }
+
         public static int GetColourWheelBlueValue(int i)
         {
             i &= 255;
@@ -56,19 +74,6 @@ namespace GameClassLibrary.Graphics
                 }
                 uintArray[i] = r;
             }
-        }
-
-        public static void DumpBlue()
-        {
-            for (int i=0; i < 256; i++)
-            {
-                Console.WriteLine($"{i} : {GetColourWheelBlueValue(i)}");
-            }
-        }
-
-        public static uint ToGreyscale(byte v)
-        {
-            return 0xFF000000 | (uint)(v << 16) | (uint)(v << 8) | v;
         }
     }
 }

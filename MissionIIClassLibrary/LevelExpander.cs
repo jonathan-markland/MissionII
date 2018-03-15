@@ -210,7 +210,7 @@ namespace MissionIIClassLibrary
                     if ((wallData.Read(x, y) == WallMatrixChar.Space) ^ doWalls)
                     {
                         int cx = (x + logicalOffsetX) & 63;
-                        var greyLevel = Business.ToGreyscale(resamplingImageArray[cy * 64 + cx]);
+                        var greyLevel = Colour.GetGreyLevel(resamplingImageArray[cy * 64 + cx]);
                         wallData.SetStyleDelta(x, y, (byte)((greyLevel < sampleThreshold) ? 0 : 1));
                     }
                 }

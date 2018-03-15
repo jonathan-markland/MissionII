@@ -8,21 +8,6 @@ namespace MissionIIClassLibrary
 {
     public static class Business
     {
-        public static byte ToGreyscale(uint rgbValue)
-        {
-            var r = (rgbValue >> 16) & 0xFF;
-            var g = (rgbValue >> 8) & 0xFF;
-            var b = (rgbValue) & 0xFF;
-
-            var rn = r * 87;
-            var gn = g * 141;
-            var bn = b * 28;
-
-            return (byte) ((rn + gn + bn) >> 8);
-        }
-
-
-
         public static void Animate(ref int animationCountdown, ref int imageIndex, int animationCountdownReset, int maxImageCount)
         {
             if (animationCountdown <= 0)
