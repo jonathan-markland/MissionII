@@ -632,11 +632,11 @@ namespace MissionIIClassLibrary
 
             // Score:
 
-            drawingTarget.DrawText(4, 8, "SCORE " + Score, MissionIISprites.WideFont, TextAlignment.Left);
+            drawingTarget.DrawText(4, 8, "SCORE " + Score, MissionIIFonts.WideFont, TextAlignment.Left);
 
             // Level no, Room no:
 
-            drawingTarget.DrawText(Constants.ScreenWidth - 4, 8, ("ROOM " + RoomNumber) + " L" + LevelNumber, MissionIISprites.WideFont, TextAlignment.Right);
+            drawingTarget.DrawText(Constants.ScreenWidth - 4, 8, ("ROOM " + RoomNumber) + " L" + LevelNumber, MissionIIFonts.WideFont, TextAlignment.Right);
 
             // The Room:
 

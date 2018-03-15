@@ -24,7 +24,7 @@ namespace MissionIIClassLibrary.Modes
                 4,
                 OnAccessCodeEntered,
                 MissionIISounds.ManFiring.Play,
-                MissionIIClassLibrary.MissionIISprites.GiantFont);
+                MissionIIClassLibrary.MissionIIFonts.GiantFont);
         }
 
         private void OnAccessCodeEntered(string accessCode)

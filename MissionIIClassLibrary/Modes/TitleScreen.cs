@@ -52,7 +52,7 @@ namespace MissionIIClassLibrary.Modes
             if (_countDown < Constants.TitleScreenRollCycles / 2)
             {
                 drawingTarget.DrawText(310, 230, "BY JONATHAN MARKLAND",
-                    MissionIISprites.NarrowFont, TextAlignment.Right);
+                    MissionIIFonts.NarrowFont, TextAlignment.Right);
             }
         }
     }

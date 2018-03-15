@@ -27,7 +27,7 @@ namespace MissionIIClassLibrary.Modes
         {
             drawingTarget.ClearScreen();
             drawingTarget.DrawSprite(0, 0, MissionIISprites.Background.GetHostImageObject(0));
-            var theFont = MissionIISprites.NarrowFont;
+            var theFont = MissionIIFonts.NarrowFont;
             var cx = Constants.ScreenWidth / 2;
             var c = TextAlignment.Centre;
             if (_countDown < Constants.TitleScreenRollCycles * 1)

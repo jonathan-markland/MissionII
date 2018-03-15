@@ -54,6 +54,7 @@
     <Compile Include="Droids\GuardianDroid.cs" />
     <Compile Include="Droids\WanderingMineDroid.cs" />
     <Compile Include="Interactibles\InvincibilityAmulet.cs" />
+    <Compile Include="MissionIIFonts.cs" />
     <Compile Include="MissionIISounds.cs" />
     <Compile Include="Droids\WanderingDroid.cs" />
     <Compile Include="GameObjects\Bullet.cs" />

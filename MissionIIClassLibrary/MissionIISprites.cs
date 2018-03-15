@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 using GameClassLibrary.Graphics;
 
@@ -52,18 +52,13 @@ namespace MissionIIClassLibrary
         public static SpriteTraits PatternResamplingSprite;
         public static SpriteTraits FontSprite;
         public static SpriteTraits InvincibilityAmulet;
-        public static Font NarrowFont;
-        public static Font WideFont;
-        public static Font GiantFont;
 
         // And references to the above, for convenience:
         public static List<SpriteTraits> ManStanding;
         public static List<SpriteTraits> ManWalking;
 
         /// <summary>
-        /// Loads all the images for MissionII by calling back into the host
-        /// and passing each individual image name in turn, and expecting the
-        /// host to return a HostSuppliedSprite object, describing each.
+        /// Loads all the images for MissionII.
         /// </summary>
         public static void Load()
         {
@@ -128,10 +123,6 @@ namespace MissionIIClassLibrary
             WalkingRightDown = new SpriteTraits("WalkingRightDown", 2);
             WalkingRightUp = new SpriteTraits("WalkingRightUp", 2);
             WalkingUp = new SpriteTraits("WalkingUp", 2);
-
-            NarrowFont = new Font { FontSprite = FontSprite, CharWidth = 6, ScaleFactorX = 1, ScaleFactorY = 1 };
-            WideFont = new Font { FontSprite = FontSprite, CharWidth = 6, ScaleFactorX = 2, ScaleFactorY = 1 };
-            GiantFont = new Font { FontSprite = FontSprite, CharWidth = 6, ScaleFactorX = 3, ScaleFactorY = 4 };
 
             ManStanding = new List<SpriteTraits>
             {

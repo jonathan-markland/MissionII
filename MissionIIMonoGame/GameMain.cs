@@ -101,7 +101,6 @@ namespace MissionIIMonoGame
             _monoGameDrawingTarget = new MonoGameDrawingTarget(_spriteBatch);
 
             // Connect the library to the host routines to load sprites.
-            // The load the sprites for this game:
 
             GameClassLibrary.Graphics.SpriteTraits.InitSpriteSupplier((spriteName) => 
             {
@@ -114,11 +113,8 @@ namespace MissionIIMonoGame
                 };
             });
 
-            MissionIIClassLibrary.MissionIISprites.Load();
+            // Connect the library to the host routines that load and play sound:
 
-            // Connect the library to the host routines that load and play sound.
-            // Then load the sounds for this game:
-            
             GameClassLibrary.Sound.SoundTraits.InitSoundSupplier((soundName) =>
             {
                 return new GameClassLibrary.Sound.HostSuppliedSound
@@ -132,6 +128,10 @@ namespace MissionIIMonoGame
                 ((SoundEffect)soundTraits.HostSoundObject).Play();
             });
 
+            // Now that the above is done, we can load everything:
+
+            MissionIIClassLibrary.MissionIISprites.Load();
+            MissionIIClassLibrary.MissionIIFonts.Load();
             MissionIIClassLibrary.MissionIISounds.Load();
         }
 

@@ -51,15 +51,15 @@ namespace MissionIIClassLibrary.Modes
 
             var cx = Constants.ScreenWidth / 2;
 
-            drawingTarget.DrawText(cx, 40, "LEVEL " + _gameBoard.LevelNumber, MissionIISprites.GiantFont, TextAlignment.Centre);
+            drawingTarget.DrawText(cx, 40, "LEVEL " + _gameBoard.LevelNumber, MissionIIFonts.GiantFont, TextAlignment.Centre);
 
             if (ThisLevelHasAccessCode)
             {
-                drawingTarget.DrawText(Constants.ScreenWidth - 10, 50, "ACCESS", MissionIISprites.NarrowFont, TextAlignment.Right);
-                drawingTarget.DrawText(Constants.ScreenWidth - 10, 80, _levelAccessCode, MissionIISprites.NarrowFont, TextAlignment.Right);
+                drawingTarget.DrawText(Constants.ScreenWidth - 10, 50, "ACCESS", MissionIIFonts.NarrowFont, TextAlignment.Right);
+                drawingTarget.DrawText(Constants.ScreenWidth - 10, 80, _levelAccessCode, MissionIIFonts.NarrowFont, TextAlignment.Right);
             }
 
-            drawingTarget.DrawText(cx, 110, "FIND THE FOLLOWING ITEMS", MissionIISprites.NarrowFont, TextAlignment.Centre);
+            drawingTarget.DrawText(cx, 110, "FIND THE FOLLOWING ITEMS", MissionIIFonts.NarrowFont, TextAlignment.Centre);
 
             // Show the things you need to find on this level.
 
@@ -75,7 +75,7 @@ namespace MissionIIClassLibrary.Modes
                 });
 
 
-            drawingTarget.DrawText(cx, 210, "THEN TAKE TO THE SAFE", MissionIISprites.NarrowFont, TextAlignment.Centre);
+            drawingTarget.DrawText(cx, 210, "THEN TAKE TO THE SAFE", MissionIIFonts.NarrowFont, TextAlignment.Centre);
             drawingTarget.DrawFirstSpriteCentred(x, 230, MissionIISprites.Safe);
         }
     }

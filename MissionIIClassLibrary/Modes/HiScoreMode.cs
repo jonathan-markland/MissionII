@@ -38,7 +38,7 @@ namespace MissionIIClassLibrary.Modes
         {
             _hiScoreScreenControl = new GameClassLibrary.Hiscore.HiScoreScreenControl(
                 new GameClassLibrary.Math.Rectangle(10, 70, 300, 246-70),// TODO: screen dimension constants!
-                MissionIISprites.NarrowFont,
+                MissionIIFonts.NarrowFont,
                 MissionIISprites.Life,
                 MissionIIGameBoard.HiScoreTableModel);
         }
@@ -85,7 +85,7 @@ namespace MissionIIClassLibrary.Modes
             _hiScoreScreenControl.DrawScreen(drawingTarget);
             if (_enterScoreMode)
             {
-                drawingTarget.DrawText(Constants.ScreenWidth / 2, 56, "ENTER YOUR NAME", MissionIISprites.WideFont, TextAlignment.Centre);
+                drawingTarget.DrawText(Constants.ScreenWidth / 2, 56, "ENTER YOUR NAME", MissionIIFonts.WideFont, TextAlignment.Centre);
             }
         }
     }
