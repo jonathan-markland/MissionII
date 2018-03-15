@@ -2,10 +2,10 @@
 
 namespace MissionIIClassLibrary.Interactibles
 {
-    public class LevelSafe : InteractibleObject
+    public class LevelExit : InteractibleObject
     {
-        public LevelSafe(int roomNumber) 
-            : base(new SpriteInstance { Traits = MissionIISprites.Safe }, roomNumber)
+        public LevelExit(int roomNumber) 
+            : base(new SpriteInstance { Traits = MissionIISprites.LevelExit }, roomNumber)
         {
         }
 
@@ -24,7 +24,7 @@ namespace MissionIIClassLibrary.Interactibles
             if (carryingEverything)
             {
                 MissionIIGameModeSelector.ModeSelector.CurrentMode = new Modes.LeavingLevel(theGameBoard);
-                MissionIISounds.SafeActivated.Play();
+                MissionIISounds.LevelExitActivated.Play();
             }
         }
     }

@@ -73,7 +73,7 @@
     <Compile Include="ElectrocutionMethod.cs" />
     <Compile Include="Interactibles\Gold.cs" />
     <Compile Include="Interactibles\Key.cs" />
-    <Compile Include="Interactibles\LevelSafe.cs" />
+    <Compile Include="Interactibles\LevelExit.cs" />
     <Compile Include="MissionIIModes.cs" />
     <Compile Include="Interactibles\InteractibleObject.cs" />
     <Compile Include="MissionIIKeyStates.cs" />

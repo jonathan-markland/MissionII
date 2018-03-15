@@ -481,7 +481,7 @@
 /processorParam:TextureFormat=Color
 /build:Ring.bmp
 
-#begin Safe.bmp
+#begin LevelExit.bmp
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -491,7 +491,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Safe.bmp
+/build:LevelExit.bmp
 
 #begin Monster1_1.bmp
 /importer:TextureImporter
@@ -865,11 +865,11 @@
 /processorParam:Quality=Best
 /build:PickUpObjectSound.wav
 
-#begin SafeActivatedSound.wav
+#begin LevelExitActivatedSound.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:SafeActivatedSound.wav
+/build:LevelExitActivatedSound.wav
 
 #begin BonusSound.wav
 /importer:WavImporter

@@ -15,7 +15,7 @@ namespace MissionIIClassLibrary
         public static SoundTraits ManGrunt; 
         public static SoundTraits PauseMode; 
         public static SoundTraits PickUpObject;
-        public static SoundTraits SafeActivated; 
+        public static SoundTraits LevelExitActivated; 
         public static SoundTraits Intro; 
         public static SoundTraits Explosion; 
         public static SoundTraits Bonus;
@@ -44,7 +44,7 @@ namespace MissionIIClassLibrary
             ManGrunt = new SoundTraits("ManGruntSound", 2);
             PauseMode = new SoundTraits("PauseModeSound", 1);
             PickUpObject = new SoundTraits("PickUpObjectSound", 1);
-            SafeActivated = new SoundTraits("SafeActivatedSound", 1);
+            LevelExitActivated = new SoundTraits("LevelExitActivatedSound", 1);
             StunGhost = new SoundTraits("StunGhostSound", 1);
         }
     }

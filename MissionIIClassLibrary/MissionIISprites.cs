@@ -39,7 +39,7 @@ namespace MissionIIClassLibrary
         public static SpriteTraits Monster5;
         public static SpriteTraits Potion;
         public static SpriteTraits Ring;
-        public static SpriteTraits Safe;
+        public static SpriteTraits LevelExit;
         public static SpriteTraits FloorTile;
         public static SpriteTraits WallOutline;
         public static SpriteTraits WallBrick;
@@ -94,7 +94,7 @@ namespace MissionIIClassLibrary
             Monster5 = new SpriteTraits("Monster5", 2);
             Potion = new SpriteTraits("Potion", 2);
             Ring = new SpriteTraits("Ring", 1);
-            Safe = new SpriteTraits("Safe", 1);
+            LevelExit = new SpriteTraits("LevelExit", 1);
             FloorTile = new SpriteTraits("FloorTile", 3);
             WallOutline = new SpriteTraits("WallOutline", 3);
             WallBrick = new SpriteTraits("WallBrick", 3);

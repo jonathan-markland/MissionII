@@ -76,8 +76,8 @@ namespace MissionIIClassLibrary.Modes
                 });
 
 
-            drawingTarget.DrawText(cx, 210, "THEN TAKE TO THE SAFE", MissionIIFonts.NarrowFont, TextAlignment.Centre);
-            drawingTarget.DrawFirstSpriteCentred(x, 230, MissionIISprites.Safe);
+            drawingTarget.DrawText(cx, 210, "THEN FIND THE LEVEL EXIT", MissionIIFonts.NarrowFont, TextAlignment.Centre);
+            drawingTarget.DrawFirstSpriteCentred(x, 230, MissionIISprites.LevelExit);
         }
     }
 }

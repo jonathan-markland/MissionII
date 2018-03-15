@@ -28,7 +28,7 @@ namespace MissionIIClassLibrary
         public Interactibles.Key Key;
         public Interactibles.Ring Ring;
         public Interactibles.Gold Gold;
-        public Interactibles.LevelSafe Safe;
+        public Interactibles.LevelExit LevelExit;
         public Interactibles.Potion Potion;
         public Interactibles.InvincibilityAmulet InvincibilityAmulet;
         public PositionAndDirection ManPositionOnRoomEntry;
@@ -330,7 +330,7 @@ namespace MissionIIClassLibrary
                 }
             });
 
-            Safe = new MissionIIClassLibrary.Interactibles.LevelSafe(roomNumberAllocator.Next());
+            LevelExit = new MissionIIClassLibrary.Interactibles.LevelExit(roomNumberAllocator.Next());
             Potion = new MissionIIClassLibrary.Interactibles.Potion(roomNumberAllocator.Next());
             InvincibilityAmulet = new MissionIIClassLibrary.Interactibles.InvincibilityAmulet(roomNumberAllocator.Next());
 
@@ -383,7 +383,7 @@ namespace MissionIIClassLibrary
             IncludeIfInCurrentRoom(Key, objectsList);
             IncludeIfInCurrentRoom(Ring, objectsList);
             IncludeIfInCurrentRoom(Gold, objectsList);
-            IncludeIfInCurrentRoom(Safe, objectsList);
+            IncludeIfInCurrentRoom(LevelExit, objectsList);
             IncludeIfInCurrentRoom(Potion, objectsList);
             IncludeIfInCurrentRoom(InvincibilityAmulet, objectsList);
 
