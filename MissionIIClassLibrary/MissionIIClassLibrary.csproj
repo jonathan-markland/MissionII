@@ -64,7 +64,7 @@
     <Compile Include="MissionIIGameBoard.cs" />
     <Compile Include="Modes\EnteringLevel.cs" />
     <Compile Include="Modes\BaseGameMode.cs" />
-    <Compile Include="Modes\HiScoreMode.cs" />
+    <Compile Include="Modes\HiScore.cs" />
     <Compile Include="Modes\MissionIIGameModes.cs" />
     <Compile Include="MissionIIGameModeSelector.cs" />
     <Compile Include="BaseGameObject.cs" />

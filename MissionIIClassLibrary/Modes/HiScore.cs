@@ -2,7 +2,7 @@
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class HiScoreMode : BaseGameMode
+    public class HiScore : BaseGameMode
     {
         private int _countDown = Constants.TitleScreenRollCycles;
         private bool _enterScoreMode;
@@ -11,7 +11,7 @@ namespace MissionIIClassLibrary.Modes
         /// <summary>
         /// Constructor for just showing the hi-score screen.
         /// </summary>
-        public HiScoreMode()
+        public HiScore()
         {
             CreateHiScoreControl();
             _enterScoreMode = false;
@@ -20,7 +20,7 @@ namespace MissionIIClassLibrary.Modes
         /// <summary>
         /// Constructor for finishing a game.
         /// </summary>
-        public HiScoreMode(uint scoreAchieved)
+        public HiScore(uint scoreAchieved)
         {
             CreateHiScoreControl();
             if (_hiScoreScreenControl.CanPlayerEnterTable(scoreAchieved))
