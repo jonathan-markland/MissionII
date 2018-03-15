@@ -2,7 +2,7 @@
 Mission II
 ==========
 
-A retro 1980s style computer game ~10 week C#/Monogame project.
+A retro 1980s style computer game.
 
 Navigate the maze of levels inside the fortress, and retrieve 
 the treasured items, taking them to the safe.
@@ -14,9 +14,11 @@ sentry droids, and avoid getting shot!
 
 ![Demo2](/GameplayImages/Demo2.jpg)
 
-Program design and implementation by Jonathan Markland.
-Based on an original concept by Matthew Bates.
+The game supports *keyboard* and *joypad* operation.
 
+Cursor keys are used to move around, and Z is the FIRE button.
+Press P to pause the name, which also allows entry of the
+quick access code to advance you to later levels.
 
 Scoring
 =======
@@ -34,7 +36,7 @@ The levels can be defined by the user by modifying the levels.txt
 file, and additional levels can be appended.  However this file
 must be changed with extreme care, since the validation is very
 strict.  Validation failures are written to the console, so you
-need to run the game from cmd.exe to see the error message.
+need to run the game from *cmd.exe* to see the error message.
 
 
 User-defined graphics and sound
@@ -70,11 +72,43 @@ but I cannot test these platforms myself, so they are effectively
 unsupported.
 
 
+Design notes
+------------
+The game has a three-layer architecture using the following assemblies:
+
+	- MissionIIMonoGame
+	- MissionIIClassLibrary
+    - GameClassLibrary
+
+Rules:
+
+GameClassLibrary is intended for future games, and must contain
+NO MonoGame and NO MissionII specific references or concepts.
+
+MissionIIClassLibrary is intended to contain pretty much 100%
+of this game, and must NOT contain any MonoGame assembly or
+class references.  This separates the game from MonoGame, and
+could allow me to lift it over to any other reasonable 2D game
+framework.
+
+MissionIIMonoGame is the main program, and contains an assembly
+reference to MonoGame 3.6.  This supplies the above libraries with
+some lambda callbacks that allow them to access sound playback
+and drawing features *without* them having to reference the 
+MonoGame assembly.
+
+
 
 Credits
 =======
-Game is a derivative work based on a 1982 game "Cybertron Mission" for 
-the BBC Micro, written by Matthew Bates.
+The game is fairly standard navigate the maze, shoot things, and collect things
+type of game!  However, the concept that the red monsters can trap you rather
+than outright kill you was borrowed from a 1982 game called "Cybertron Mission" 
+for the BBC Micro.  I then remembered that the original had the "ghost" as a
+novel time limit for each room, which was when I decided that if I borrowed 
+that idea, I would be better off turning this game into a sequel.
+
+The original Cybertron Mission was written by Matthew Bates.
 
 My re-make features completely new graphics, smooth gameplay feel,
 and, of course, sound!
