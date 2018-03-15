@@ -31,6 +31,7 @@ namespace MissionIIClassLibrary.Modes
             if (MissionIIModes.HandlePause(_gameBoard, theKeyStates, this)) return;
             if (_countDown == Constants.EnteringLevelScreenCycles)
             {
+                GameClassLibrary.Sound.SoundTraits.StopBackgroundMusic();
                 MissionIISounds.EnteringLevel.Play();
             }
             if (_countDown > 0)

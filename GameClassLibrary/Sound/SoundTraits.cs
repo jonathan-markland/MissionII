@@ -8,9 +8,9 @@ namespace GameClassLibrary.Sound
     {
         private static Func<string, HostSuppliedSound> _hostSoundSupplier;
         private static Action<HostSuppliedSound> _hostPlaySoundAction;
+        private static Action<HostSuppliedSound> _hostPlayMusicAction;
+        private static Action _hostStopMusicAction;
         private static Random _rndGen;
-        // private static Action<HostSuppliedSound> _hostCreateAndPlaySharedSoundAction;
-        // private static Action<HostSuppliedSound> _hostStopSharedSoundPlayingAction;
         private List<HostSuppliedSound> _hostSoundObjects;
 
         public static void InitSoundSupplier(
@@ -27,6 +27,18 @@ namespace GameClassLibrary.Sound
             _rndGen = new Random(0);
         }
 
+        public static void InitMusicPlay(
+            Action<HostSuppliedSound> hostPlayMusicAction)
+        {
+            _hostPlayMusicAction = hostPlayMusicAction;
+        }
+
+        public static void InitMusicStop(
+            Action hostStopMusicAction)
+        {
+            _hostStopMusicAction = hostStopMusicAction;
+        }
+
         public SoundTraits(string soundName, int soundCount)
         {
             var hostSoundObjects = new List<HostSuppliedSound>();
@@ -40,39 +52,39 @@ namespace GameClassLibrary.Sound
             _hostSoundObjects = hostSoundObjects;
         }
 
+        private void ChooseHostSoundAndDo(Action<HostSuppliedSound> theAction)
+        {
+            if (_hostSoundObjects.Count == 1)
+            {
+                theAction(_hostSoundObjects[0]);
+            }
+            else if (_hostSoundObjects.Count > 1)
+            {
+                theAction(_hostSoundObjects[_rndGen.Next(_hostSoundObjects.Count)]);
+            }
+        }
+
         /// <summary>
         /// Play a new instance of the sound.
         /// </summary>
         public void Play()
         {
-            if (_hostSoundObjects.Count == 1)
-            { 
-                _hostPlaySoundAction(_hostSoundObjects[0]);
-            }
-            else if (_hostSoundObjects.Count > 1)
-            {
-                _hostPlaySoundAction(_hostSoundObjects[_rndGen.Next(_hostSoundObjects.Count)]);
-            }
+            ChooseHostSoundAndDo(_hostPlaySoundAction);
         }
 
         /// <summary>
-        /// Creates a shared instance of the sound, and plays it.
-        /// Unless the shared instance already exists, in which case we don't create again.
-        /// If the shared instances is already playing, this call has no effect.
+        /// Play an instance of this sound as background music.
+        /// This is IGNORED if music is currently playing -- you should stop it first.
+        /// This can be stopped with the static StopBackgroundMusic() command.
         /// </summary>
-        public void EnsurePlaying()
+        public void PlayAsBackgroundMusic()
         {
-            
+            ChooseHostSoundAndDo(_hostPlayMusicAction);
         }
 
-        /// <summary>
-        /// If a shared instance of this sound exists, then stop it playing.
-        /// If no shared instance exists, or the shared instance isn't playing,
-        /// then this takes no effect.
-        /// </summary>
-        public void EnsureStopped()
+        public static void StopBackgroundMusic()
         {
-
+            _hostStopMusicAction();
         }
     }
 }

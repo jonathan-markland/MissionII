@@ -23,7 +23,7 @@ namespace MissionIIClassLibrary.Modes
         {
             if (_firstCycle)
             {
-                // TODO: Requires proper music handling in the library:  MissionIISounds.Intro.Play();
+                MissionIISounds.Intro.PlayAsBackgroundMusic();
                 _firstCycle = false;
             }
 

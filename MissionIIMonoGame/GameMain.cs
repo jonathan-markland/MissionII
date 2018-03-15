@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Audio;
 using System.Linq;
 using GameClassLibrary;
 using System;
+using GameClassLibrary.Sound;
 
 namespace MissionIIMonoGame
 {
@@ -128,11 +129,53 @@ namespace MissionIIMonoGame
                 ((SoundEffect)soundTraits.HostSoundObject).Play();
             });
 
+
+            GameClassLibrary.Sound.SoundTraits.InitMusicPlay(PlayMusic);
+            GameClassLibrary.Sound.SoundTraits.InitMusicStop(StopMusic);
+
             // Now that the above is done, we can load everything:
 
             MissionIIClassLibrary.MissionIISprites.Load();
             MissionIIClassLibrary.MissionIIFonts.Load();
             MissionIIClassLibrary.MissionIISounds.Load();
+        }
+
+        private static object _musicLock = new object();
+        private static SoundEffectInstance _soundEffectInstance;
+
+        private void PlayMusic(HostSuppliedSound obj)
+        {
+            lock (_musicLock)
+            {
+                if (_soundEffectInstance != null)
+                {
+                    if (_soundEffectInstance.State == SoundState.Playing)
+                    {
+                        return; // Something already playing.
+                    }
+                }
+            }
+
+            StopMusic();
+
+            lock (_musicLock)
+            {
+                _soundEffectInstance = ((SoundEffect)obj.HostSoundObject).CreateInstance();
+                _soundEffectInstance.Play();
+            }
+        }
+
+        private void StopMusic()
+        {
+            lock (_musicLock)
+            {
+                if (_soundEffectInstance != null)
+                {
+                    _soundEffectInstance.Stop();
+                    _soundEffectInstance.Dispose();
+                    _soundEffectInstance = null;
+                }
+            }
         }
 
         /// <summary>
