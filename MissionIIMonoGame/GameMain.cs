@@ -1,10 +1,9 @@
-﻿using Microsoft.Xna.Framework;
+﻿
+using System.Linq;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
-using System.Linq;
-using GameClassLibrary;
-using System;
 using GameClassLibrary.Sound;
 
 namespace MissionIIMonoGame
@@ -21,12 +20,14 @@ namespace MissionIIMonoGame
     /// </summary>
     public class GameMain : Game
     {
-        GraphicsDeviceManager _graphicsDeviceManager;
-        SpriteBatch _spriteBatch;
-        RenderTarget2D _backingScreen;
-        MonoGameDrawingTarget _monoGameDrawingTarget;
-        MissionIIClassLibrary.MissionIIKeyStates _keyStates;
-        ScalingModes _scalingModes;
+        private GraphicsDeviceManager _graphicsDeviceManager;
+        private SpriteBatch _spriteBatch;
+        private RenderTarget2D _backingScreen;
+        private MonoGameDrawingTarget _monoGameDrawingTarget;
+        private MissionIIClassLibrary.MissionIIKeyStates _keyStates;
+        private ScalingModes _scalingModes;
+        private static object _musicLock = new object();
+        private static SoundEffectInstance _soundEffectInstance;
 
 
 
@@ -73,6 +74,7 @@ namespace MissionIIMonoGame
         }
 
 
+
         /// <summary>
         /// Allows the game to perform any initialization it needs to before starting to run.
         /// This is where it can query for any required services and load any non-graphic
@@ -81,10 +83,10 @@ namespace MissionIIMonoGame
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
-
             base.Initialize();
         }
+
+
 
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
@@ -140,8 +142,7 @@ namespace MissionIIMonoGame
             MissionIIClassLibrary.MissionIISounds.Load();
         }
 
-        private static object _musicLock = new object();
-        private static SoundEffectInstance _soundEffectInstance;
+
 
         private void PlayMusic(HostSuppliedSound obj)
         {
@@ -165,6 +166,8 @@ namespace MissionIIMonoGame
             }
         }
 
+
+
         private void StopMusic()
         {
             lock (_musicLock)
@@ -178,14 +181,18 @@ namespace MissionIIMonoGame
             }
         }
 
+
+        
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
         /// game-specific content.
         /// </summary>
         protected override void UnloadContent()
         {
-            // TODO: Unload any non ContentManager content here
+            StopMusic();
         }
+
+
 
         /// <summary>
         /// Allows the game to run logic such as updating the world,
@@ -201,12 +208,12 @@ namespace MissionIIMonoGame
                 Exit();
             }
             */
-
             ReadAndStorePlayerInputs();
             MissionIIClassLibrary.MissionIIGameModeSelector.ModeSelector.CurrentMode.AdvanceOneCycle(_keyStates);
-
             base.Update(gameTime);
         }
+
+
 
         private void ReadAndStorePlayerInputs()
         {
@@ -280,11 +287,15 @@ namespace MissionIIMonoGame
             }
         }
 
+
+
         private void ToggleFullScreen(bool stateToSet)
         {
             _graphicsDeviceManager.IsFullScreen = stateToSet;
             _graphicsDeviceManager.ApplyChanges();
         }
+
+
 
         /// <summary>
         /// This is called when the game should draw itself.
