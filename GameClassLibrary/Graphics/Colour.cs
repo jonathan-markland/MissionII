@@ -32,7 +32,7 @@ namespace GameClassLibrary.Graphics
             var r = GetColourWheelRedValue(i);
             var g = GetColourWheelGreenValue(i);
             var b = GetColourWheelBlueValue(i);
-            return (uint)(0xFF000000 | r << 16 | g << 8 | b);
+            return 0xFF000000 | (uint)(r << 16) | (uint)(g << 8) | (uint)b;
         }
 
         public static void ReplaceWithThreshold(uint[] uintArray, uint highColour, uint lowColour)
@@ -68,7 +68,7 @@ namespace GameClassLibrary.Graphics
 
         public static uint ToGreyscale(byte v)
         {
-            return (uint) (((uint) 0xFF000000) | (v << 16) | v << 8 | v);
+            return 0xFF000000 | (uint)(v << 16) | (uint)(v << 8) | v;
         }
     }
 }

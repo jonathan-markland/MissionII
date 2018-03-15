@@ -195,7 +195,6 @@ namespace MissionIIMonoGame
         protected override void Update(GameTime gameTime)
         {
             /* TODO: Maybe re-instate this somehow.  Needs thinking about.
-             
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed
                 || Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
@@ -203,10 +202,7 @@ namespace MissionIIMonoGame
             }
             */
 
-            // TODO: Add your update logic here
             ReadAndStorePlayerInputs();
-            // TODO: remove function called:  var elapsedTime = GetGameTimeElapsed(gameTime);
-
             MissionIIClassLibrary.MissionIIGameModeSelector.ModeSelector.CurrentMode.AdvanceOneCycle(_keyStates);
 
             base.Update(gameTime);
