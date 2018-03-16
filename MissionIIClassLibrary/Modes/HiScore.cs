@@ -6,6 +6,7 @@ namespace MissionIIClassLibrary.Modes
     {
         private int _countDown = Constants.TitleScreenRollCycles;
         private bool _enterScoreMode;
+        private bool _justEnteredName;
         private GameClassLibrary.Hiscore.HiScoreScreenControl _hiScoreScreenControl;
 
         /// <summary>
@@ -15,6 +16,7 @@ namespace MissionIIClassLibrary.Modes
         {
             CreateHiScoreControl();
             _enterScoreMode = false;
+            _justEnteredName = false;
         }
 
         /// <summary>
@@ -59,16 +61,20 @@ namespace MissionIIClassLibrary.Modes
                 else
                 {
                     _enterScoreMode = false;
+                    _justEnteredName = true;
                 }
             }
             else // show
             {
-                if (theKeyStates.Fire)
+                if(_countDown > 0)
                 {
-                    MissionIIGameModeSelector.ModeSelector.CurrentMode = new StartNewGame();
-                }
-                else if(_countDown > 0)
-                {
+                    if (theKeyStates.Fire)
+                    {
+                        if (!_justEnteredName || _countDown < (Constants.TitleScreenRollCycles * 3 / 4))
+                        {
+                            MissionIIGameModeSelector.ModeSelector.CurrentMode = new StartNewGame();
+                        }
+                    }
                     --_countDown;
                 }
                 else
