@@ -97,7 +97,14 @@ namespace GameClassLibrary.Controls
             else
             {
                 // Add another char
-                _editString = _editString + NextCharString;
+                if (_editString.Length == 0)
+                {
+                    _editString += NextCharString;
+                }
+                else
+                {
+                    _editString += _editString.Last();
+                }
             }
         }
 
