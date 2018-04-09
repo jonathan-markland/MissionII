@@ -3,35 +3,57 @@ Release 1
 ---------
 
 [ ] The facing direction of the man on level 1 is not good for turning against the monsters (unfair on new players)
-[ ] Fix bug introduced where after entering name, holding fire starts new game right away.
+ 
+ 
  
 
 Release 2
 ---------
+
+Droids
 [ ] Score sapping by homing droids -- a fraction of the score on room entry is taken.
+[ ] Homing droid variants that are faster.
+[ ] "Death" robot.  Homing and fast.  Can be shot.
+[ ] Ghost timing -- change as levels progress?
+[ ] Did but wasn't impressed:  A second droid type for level 1:  WanderingMine
+[ ] Boss robots that are larger and take more hits to kill.
+[ ] Did but the just destroyed too much for the player!:  Red versions of the yellow droids:  They fire perpendicular to travel?
+
+Visuals
+[ ] Show a 'bonus' sprite.
+[ ] Open maximised
+
+Goals
+[ ] Penalise shooting inaccuracy on later levels?
+
+Objects
 [ ] Fix the location of the key (etc) at start of level, not per room-start.
-[ ] Persist the hi score table
+
+Graphics
 [ ] Seed the resampling thresholds from the level number, independently of the floor/walls.
 [ ] Brick choice thresholding:  Vary per room.  Varience depends on level number.
-[ ] "Death" robot.  Homing and fast.  Can be shot.
-[ ] Homing droid variants that are faster.
-[ ] Do the all the proposed refactorings (g.txt)
+
+Implementation smoothing
 [ ] Refactor to introduce struct FacingDirection
-[ ] Base class routine to fire, calls derived to get the sound effect.
 [ ] Proper parser state machine for loading levels so we can report line numbers very easily.
-[ ] Open maximised
-[ ] Ghost timing -- change as levels progress?
-[ ] Penalise shooting inaccuracy on later levels?
-[ ] Cycle counts for animation in a configuration file?
-[ ] Skin folder - but with one skin only for now.  The software must dynamically load the graphics, and not use the monogame Content system.
+[ ] Base class routine to fire, calls derived to get the sound effect.
+
+User configurability
 [ ] Selection of skins.
-[ ] A second droid type for level 1:  WanderingMine
-[ ] Red versions of the yellow droids:  They fire perpendicular to travel?
-[ ] Boss robots that are larger and take more hits to kill.
-[ ] Show a 'bonus' sprite.
+[ ] Skin folder - but with one skin only for now.  The software must dynamically load the graphics, and not use the monogame Content system.
+[ ] Cycle counts for animation in a configuration file?
+
+Misc
+[ ] Persist the hi score table
 
 
 
+
+
+Completed issues
+----------------
+
+[X] Fix bug introduced where after entering name, holding fire starts new game right away.
 [X] Enter your name message
 
 [X] Static hi score MODEL

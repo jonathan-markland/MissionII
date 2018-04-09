@@ -47,7 +47,7 @@ namespace MissionIIMonoGame
                     return resultColorData.Select(x => x.PackedValue).ToArray();
                 };
 
-            GameClassLibrary.Graphics.HostSuppliedSprite.UintArrayToSprite = // TODO: sort out like the above somehow!
+            GameClassLibrary.Graphics.HostSuppliedSprite.UintArrayToSprite =
                 (theArray, theWidth, theHeight) =>
                 {
                     // The game engine will call out to this.  This separates
@@ -55,8 +55,8 @@ namespace MissionIIMonoGame
 
                     if(    theWidth  >= 0 
                         && theHeight >= 0 
-                        && theWidth  <= 10000 
-                        && theHeight <= 10000
+                        && theWidth  <= 10000 // just overflow prevention
+                        && theHeight <= 10000 // just overflow prevention
                         && (theWidth * theHeight) == theArray.Length)
                     {
                         var colorData = theArray.Select(x => new Color(x));
