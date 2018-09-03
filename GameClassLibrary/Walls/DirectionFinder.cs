@@ -33,7 +33,7 @@ namespace GameClassLibrary.Walls
 
 
 
-        public static int GetDirectionFacingAwayFromWalls(WallMatrix fileWallData, Point startCluster, int sourceClusterSide)
+        public static int GetDirectionFacingAwayFromWalls(WriteableWallMatrix fileWallData, Point startCluster, int sourceClusterSide)
         {
             var clusterCanvas = new ClusterCanvas(
                 fileWallData, startCluster.X, startCluster.Y, sourceClusterSide);

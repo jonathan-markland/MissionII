@@ -5,10 +5,10 @@ namespace GameClassLibrary.Walls
 {
     public class WallMatrix
     {
-        private WallMatrixChar[] _wallData;
-        private byte[] _styleDeltas;
-        private int _blockCountH;
-        private int _blockCountV;
+        protected WallMatrixChar[] _wallData;
+        protected byte[] _styleDeltas;
+        protected int _blockCountH;
+        protected int _blockCountV;
 
         public WallMatrix(int blockCountH, int blockCountV)
         {
@@ -33,7 +33,7 @@ namespace GameClassLibrary.Walls
         {
             if (x >= 0 && x < _blockCountH)
             {
-                if (y >=0 && y < _blockCountV)
+                if (y >= 0 && y < _blockCountV)
                 {
                     return _wallData[y * _blockCountH + x];
                 }
@@ -53,37 +53,6 @@ namespace GameClassLibrary.Walls
             return defaultIfOutsideBounds;
         }
 
-        public void Write(Point p, WallMatrixChar ch)
-        {
-            Write(p.X, p.Y, ch);
-        }
-
-        public void Write(int x, int y, WallMatrixChar ch)
-        {
-            if (x >= 0 && x < _blockCountH)
-            {
-                if (y >= 0 && y < _blockCountV)
-                {
-                    _wallData[y * _blockCountH + x] = ch;
-                    return;
-                }
-            }
-            throw new Exception("WallMatrix class write outside bounds.");
-        }
-
-        public void SetStyleDelta(int x, int y, byte styleDelta)
-        {
-            if (x >= 0 && x < _blockCountH)
-            {
-                if (y >= 0 && y < _blockCountV)
-                {
-                    _styleDeltas[y * _blockCountH + x] = styleDelta;
-                    return;
-                }
-            }
-            throw new Exception("WallMatrix class write outside bounds.");
-        }
-
         public byte GetStyleDelta(int x, int y)
         {
             if (x >= 0 && x < _blockCountH)
@@ -95,12 +64,5 @@ namespace GameClassLibrary.Walls
             }
             throw new Exception("WallMatrix class read outside bounds.");
         }
-    }
-
-    public enum WallMatrixChar : byte
-    {
-        Space = 0,
-        Brick = 1,
-        Electric = 2
     }
 }

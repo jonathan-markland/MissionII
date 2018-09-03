@@ -8,7 +8,7 @@ namespace GameClassLibrary.Walls.Clusters
         // Area codes:  456
         //              789
 
-		private WallMatrix _wallMatrix;
+		private WriteableWallMatrix _wallMatrix;
 		private int _originX;
 		private int _originY;
 		private int _endOffset;
@@ -16,7 +16,7 @@ namespace GameClassLibrary.Walls.Clusters
 		
 		
 		
-		public ClusterCanvas(WallMatrix wallMatrix, int clusterIndexX, int clusterIndexY, int clusterSide)
+		public ClusterCanvas(WriteableWallMatrix wallMatrix, int clusterIndexX, int clusterIndexY, int clusterSide)
 		{
 			_wallMatrix = wallMatrix;
 			_originX = clusterIndexX * clusterSide;

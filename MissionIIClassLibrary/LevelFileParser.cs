@@ -39,7 +39,7 @@ namespace MissionIIClassLibrary
 
     public class Room
     {
-        public Room(int x, int y, WallMatrix fileWallData)
+        public Room(int x, int y, WriteableWallMatrix fileWallData)
         {
             RoomX = x;
             RoomY = y;
@@ -53,8 +53,8 @@ namespace MissionIIClassLibrary
 
         public int RoomX;
         public int RoomY;
-        public WallMatrix FileWallData;
-        public WallMatrix WallData;
+        public WriteableWallMatrix FileWallData;
+        public WriteableWallMatrix WallData;
     }
 
 
@@ -171,7 +171,7 @@ namespace MissionIIClassLibrary
             for (int roomX = 0; roomX < Constants.RoomsHorizontally; ++roomX)
             {
                 rowOfRooms.Add(new Room(roomX + 1, roomY, 
-                    new WallMatrix(Constants.SourceFileRoomCharsHorizontally, Constants.SourceFileCharsVertically)));
+                    new WriteableWallMatrix(Constants.SourceFileRoomCharsHorizontally, Constants.SourceFileCharsVertically)));
             }
 
             if (streamReader.ReadLine().Length != 0)
@@ -235,7 +235,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void PaintLine(WallMatrix targetMatrix, int rowNumber, string thisLine)
+        public static void PaintLine(WriteableWallMatrix targetMatrix, int rowNumber, string thisLine)
         {
             int x = 0;
             foreach(char ch in thisLine)

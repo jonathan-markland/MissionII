@@ -104,7 +104,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static void AlignDoorwaysGoingLeftRight(WallMatrix room1, WallMatrix room2)
+        private static void AlignDoorwaysGoingLeftRight(WriteableWallMatrix room1, WriteableWallMatrix room2)
         {
             AlignDoorwaysScan(
                 room1, new Point(24, 0), 
@@ -115,7 +115,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static void AlignDoorwaysGoingUpDown(WallMatrix room1, WallMatrix room2)
+        private static void AlignDoorwaysGoingUpDown(WriteableWallMatrix room1, WriteableWallMatrix room2)
         {
             AlignDoorwaysScan(
                 room1, new Point(0, 24),
@@ -127,8 +127,8 @@ namespace MissionIIClassLibrary
 
 
         private static void AlignDoorwaysScan(
-            WallMatrix room1, Point point1,
-            WallMatrix room2, Point point2,
+            WriteableWallMatrix room1, Point point1,
+            WriteableWallMatrix room2, Point point2,
             MovementDeltas movementDeltas,
             int blockCount)
         {
@@ -148,7 +148,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static void AddDecorativeBrickwork(WallMatrix expandedData)
+        private static void AddDecorativeBrickwork(WriteableWallMatrix expandedData)
         {
             // Turn Electric areas into Brick leaving just an Electric outline.
 
@@ -166,7 +166,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static bool SurroundedByWall4(WallMatrix wallMatrix, int x, int y) // TODO: We could be arty and call this instead.
+        private static bool SurroundedByWall4(WriteableWallMatrix wallMatrix, int x, int y) // TODO: We could be arty and call this instead.
         {
             return
                    wallMatrix.Read(x, y - 1) != WallMatrixChar.Space
@@ -177,7 +177,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static bool SurroundedByWall8(WallMatrix wallMatrix, int x, int y)
+        private static bool SurroundedByWall8(WriteableWallMatrix wallMatrix, int x, int y)
         {
             return
                    wallMatrix.Read(x, y - 1) != WallMatrixChar.Space
@@ -193,7 +193,7 @@ namespace MissionIIClassLibrary
 
 
         private static void SetWallStyleDeltas(
-            WallMatrix wallData,
+            WriteableWallMatrix wallData,
             uint[] resamplingImageArray,
             int logicalOffsetX,
             int logicalOffsetY,

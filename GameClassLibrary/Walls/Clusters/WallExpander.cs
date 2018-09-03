@@ -7,13 +7,13 @@ namespace GameClassLibrary.Walls.Clusters
         private int _clustersVertically;
         private int _sourceClusterSide;
         private int _destClusterSide;
-        private WallMatrix _sourceMatrix;
-        private WallMatrix _destMatrix;
+        private WriteableWallMatrix _sourceMatrix;
+        private WriteableWallMatrix _destMatrix;
 
 
 
         public WallExpander(
-            WallMatrix sourceMatrix,
+            WriteableWallMatrix sourceMatrix,
             int clustersHorizontally, int clustersVertically,
             int sourceClusterSide, int destClusterSide)
         {
@@ -27,7 +27,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        public WallMatrix GetExpandedWalls()
+        public WriteableWallMatrix GetExpandedWalls()
         {
             // 789       78889
             // 456 ----> 45556
@@ -35,7 +35,7 @@ namespace GameClassLibrary.Walls.Clusters
             //           45556
             //           12223
 
-            var destMatrix = new WallMatrix(
+            var destMatrix = new WriteableWallMatrix(
                 _clustersHorizontally * _destClusterSide,
                 _clustersVertically * _destClusterSide);
 
@@ -54,7 +54,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private void ExpandCluster(int x, int y, WallMatrix destMatrix)
+        private void ExpandCluster(int x, int y, WriteableWallMatrix destMatrix)
         {
             // NB: Order is significant
 
@@ -73,7 +73,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private void SidePiece(WallMatrix destMatrix, int x, int y, int targetSide, int dx, int dy, int joinSide)
+        private void SidePiece(WriteableWallMatrix destMatrix, int x, int y, int targetSide, int dx, int dy, int joinSide)
         {
             /*
              *  JKL
@@ -125,7 +125,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private void CentrePiece(WallMatrix destMatrix, int x, int y)
+        private void CentrePiece(WriteableWallMatrix destMatrix, int x, int y)
         {
             // The level designer specified whether the centres are filled.
 
@@ -138,7 +138,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
         private void CornerPiece(
-            WallMatrix destMatrix, int x, int y, int targetCorner, 
+            WriteableWallMatrix destMatrix, int x, int y, int targetCorner, 
             int adjacentSide1, int adjacentSide2)
         {
             /*
