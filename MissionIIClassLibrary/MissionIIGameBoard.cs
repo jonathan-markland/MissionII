@@ -14,14 +14,7 @@ namespace MissionIIClassLibrary
         // to other classes.  TODO: There is still more that can be done here.  Might also 
         // be nice not to pass this around so much.
 
-        public static GameClassLibrary.Hiscore.HiScoreScreenModel HiScoreTableModel;
-        public int BoardWidth;  // TODO: There are also constants that are used for this.
-        public int BoardHeight; // TODO: There are also constants that are used for this.
-
-        public int LevelNumber;
         private uint Score = Constants.InitialScore;
-        public uint Lives;
-        public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
         private Interactibles.Key Key;
         private Interactibles.Ring Ring;
         private Interactibles.Gold Gold;
@@ -32,6 +25,12 @@ namespace MissionIIClassLibrary
         private WallAndFloorHostSprites _electrocutionBackgroundSprites;  // changes by level
         private WallAndFloorHostSprites _normalBackgroundSprites;         // changes by level
 
+        public int LevelNumber;
+        public uint Lives;
+        public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
+        public static GameClassLibrary.Hiscore.HiScoreScreenModel HiScoreTableModel;
+        public int BoardWidth;  // TODO: There are also constants that are used for this.
+        public int BoardHeight; // TODO: There are also constants that are used for this.
         public int RoomNumber; // one-based
         public WorldWallData TheWorldWallData;
         public WallMatrix CurrentRoomWallData;
