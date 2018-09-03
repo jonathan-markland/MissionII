@@ -10,31 +10,34 @@ namespace MissionIIClassLibrary
 {
     public class MissionIIGameBoard
     {
+        // The Game Board class is where things have started out, before being refactored out
+        // to other classes.  TODO: There is still more that can be done here.  Might also 
+        // be nice not to pass this around so much.
+
         public static GameClassLibrary.Hiscore.HiScoreScreenModel HiScoreTableModel;
         public int BoardWidth;  // TODO: There are also constants that are used for this.
         public int BoardHeight; // TODO: There are also constants that are used for this.
+
         public int LevelNumber;
-        public int RoomNumber; // one-based
-        public uint Score = Constants.InitialScore;
+        private uint Score = Constants.InitialScore;
         public uint Lives;
+        public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
+        private Interactibles.Key Key;
+        private Interactibles.Ring Ring;
+        private Interactibles.Gold Gold;
+        private Interactibles.LevelExit LevelExit;
+        private Interactibles.Potion Potion;
+        private Interactibles.InvincibilityAmulet InvincibilityAmulet;
+        private PositionAndDirection ManPositionOnRoomEntry;
+        private WallAndFloorHostSprites _electrocutionBackgroundSprites;  // changes by level
+        private WallAndFloorHostSprites _normalBackgroundSprites;         // changes by level
+
+        public int RoomNumber; // one-based
         public WorldWallData TheWorldWallData;
         public WallMatrix CurrentRoomWallData;
         public GameObjects.Man Man = new GameObjects.Man();
         public SuddenlyReplaceableList<BaseGameObject> ObjectsInRoom = new SuddenlyReplaceableList<BaseGameObject>();
         public List<BaseGameObject> ObjectsToRemove = new List<BaseGameObject>();
-
-        public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
-
-        public Interactibles.Key Key;
-        public Interactibles.Ring Ring;
-        public Interactibles.Gold Gold;
-        public Interactibles.LevelExit LevelExit;
-        public Interactibles.Potion Potion;
-        public Interactibles.InvincibilityAmulet InvincibilityAmulet;
-        public PositionAndDirection ManPositionOnRoomEntry;
-
-        private WallAndFloorHostSprites _electrocutionBackgroundSprites;  // changes by level
-        private WallAndFloorHostSprites _normalBackgroundSprites;         // changes by level
 
 
 
@@ -563,12 +566,9 @@ namespace MissionIIClassLibrary
             get
             {
                 bool foundDroids = false;
-                ObjectsInRoom.ForEachDo(o => 
+                ObjectsInRoom.ForEach<Droids.BaseDroid>(o => 
                 {
-                    if (o is Droids.BaseDroid)
-                    {
-                        foundDroids = true;
-                    }
+                    foundDroids = true;   // TODO: Library issue:  It's not optimal that we can't break the ForEach.
                 });
                 return foundDroids;
             }
@@ -581,10 +581,9 @@ namespace MissionIIClassLibrary
             get
             {
                 int n = 0;
-                ObjectsInRoom.ForEachDo(o =>
+                ObjectsInRoom.ForEach<GameObjects.Explosion>(theExplosion =>
                 {
-                    var theExplosion = o as GameObjects.Explosion;
-                    if (theExplosion != null && theExplosion.CanBeConsideredForMultiKillBonus)
+                    if (theExplosion.CanBeConsideredForMultiKillBonus)
                     {
                         ++n;
                     }
@@ -597,13 +596,9 @@ namespace MissionIIClassLibrary
 
         public void MarkAllExplosionsAsUsedForBonusPurposes()
         {
-            ObjectsInRoom.ForEachDo(o =>
+            ObjectsInRoom.ForEach<GameObjects.Explosion>(theExplosion =>
             {
-                var theExplosion = o as GameObjects.Explosion;
-                if (theExplosion != null)
-                {
-                    theExplosion.MarkAsUsedForBonus();
-                }
+                theExplosion.MarkAsUsedForBonus();
             });
         }
 

@@ -48,6 +48,9 @@ namespace GameClassLibrary.Containers
             _theList = newList;
         }
 
+        /// <summary>
+        /// For each item in the list, do the action.
+        /// </summary>
         public void ForEachDo(Action<T> theAction)
         {
             var addressOfOriginalList = _theList;
@@ -59,6 +62,27 @@ namespace GameClassLibrary.Containers
                 theAction(_theList[i]);
                 // _theList might have been invalidated.
                 if (!object.ReferenceEquals(_theList, addressOfOriginalList)) break; // abort because client replaced list during iteration.
+            }
+        }
+
+        /// <summary>
+        /// For each item in the list of the given class A, do the action.
+        /// </summary>
+        public void ForEach<A>(Action<A> theAction) where A : class
+        {
+            var addressOfOriginalList = _theList;
+            // Note: We support the collection being appended while this loop executes.
+            var originalListLength = _theList.Count;
+            for (int i = 0; i < _theList.Count; i++)
+            {
+                System.Diagnostics.Debug.Assert(_theList.Count >= originalListLength);
+                var a = _theList[i] as A;
+                if (a != null)
+                {
+                    theAction(a);
+                    // _theList might have been invalidated by the action.
+                    if (!object.ReferenceEquals(_theList, addressOfOriginalList)) break; // abort because client replaced list during iteration.
+                }
             }
         }
     }
