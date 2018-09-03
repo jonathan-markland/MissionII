@@ -13,14 +13,8 @@ namespace MissionIIClassLibrary.Modes
                 var loadedWorld = MissionIIClassLibrary.LevelFileParser.Parse(sr);
                 MissionIIClassLibrary.LevelFileValidator.ExpectValidPathsInWorld(loadedWorld);
                 MissionIIClassLibrary.LevelExpander.ExpandWallsInWorld(loadedWorld, MissionIISprites.PatternResamplingSprite);
-                
-                var gameBoard = new MissionIIClassLibrary.MissionIIGameBoard()
-                {
-                    TheWorldWallData = loadedWorld,
-                    BoardWidth = Constants.ScreenWidth,
-                    BoardHeight = Constants.ScreenHeight,
-                    LevelNumber = Constants.StartLevelNumber
-                };
+
+                var gameBoard = new MissionIIClassLibrary.MissionIIGameBoard(loadedWorld);
 
                 gameBoard.PrepareForNewLevel();
             }

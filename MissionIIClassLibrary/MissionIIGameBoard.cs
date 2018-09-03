@@ -25,24 +25,38 @@ namespace MissionIIClassLibrary
         private WallAndFloorHostSprites _electrocutionBackgroundSprites;  // changes by level
         private WallAndFloorHostSprites _normalBackgroundSprites;         // changes by level
         private uint Lives;
+        private WorldWallData TheWorldWallData;
+        private int RoomNumber; // one-based
+
+
 
         public int LevelNumber;
         public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
-        public static GameClassLibrary.Hiscore.HiScoreScreenModel HiScoreTableModel;
-        public int BoardWidth;  // TODO: There are also constants that are used for this.
-        public int BoardHeight; // TODO: There are also constants that are used for this.
-        public int RoomNumber; // one-based
-        public WorldWallData TheWorldWallData;
         public WallMatrix CurrentRoomWallData;
         public GameObjects.Man Man = new GameObjects.Man();
         public SuddenlyReplaceableList<BaseGameObject> ObjectsInRoom = new SuddenlyReplaceableList<BaseGameObject>();
         public List<BaseGameObject> ObjectsToRemove = new List<BaseGameObject>();
 
+        public static GameClassLibrary.Hiscore.HiScoreScreenModel HiScoreTableModel { get; private set; }
 
 
-        public MissionIIGameBoard()
+
+        public MissionIIGameBoard(WorldWallData worldWallData)
         {
+            TheWorldWallData = worldWallData;
             Lives = Constants.InitialLives;
+            LevelNumber = Constants.StartLevelNumber;
+
+            HiScoreTableModel = new GameClassLibrary.Hiscore.HiScoreScreenModel(
+                Constants.InitialLowestHiScore,
+                Constants.InitialHiScoresIncrement);
+        }
+
+
+
+        public void MoveRoomNumberByDelta(int roomNumberDelta)
+        {
+            RoomNumber += roomNumberDelta;
         }
 
 

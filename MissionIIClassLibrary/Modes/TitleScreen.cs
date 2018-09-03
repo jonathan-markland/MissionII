@@ -11,12 +11,6 @@ namespace MissionIIClassLibrary.Modes
 
         public TitleScreen()
         {
-            if (MissionIIGameBoard.HiScoreTableModel == null) // TODO: Do we really want this created here?
-            {
-                MissionIIGameBoard.HiScoreTableModel = new GameClassLibrary.Hiscore.HiScoreScreenModel(
-                    Constants.InitialLowestHiScore,
-                    Constants.InitialHiScoresIncrement);
-            }
         }
 
         public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
