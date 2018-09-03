@@ -19,6 +19,6 @@ namespace MissionIIClassLibrary
         public int RoomX { get; private set; }
         public int RoomY { get; private set; }
         public WallMatrix FileWallData { get; private set; }
-        public WriteableWallMatrix WallData;
+        public WallMatrix WallData { get; private set; }
     }
 }

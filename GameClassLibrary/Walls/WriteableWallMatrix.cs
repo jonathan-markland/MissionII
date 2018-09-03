@@ -10,10 +10,14 @@ namespace GameClassLibrary.Walls
         {
         }
 
+
+
         public void Write(Point p, WallMatrixChar ch)
         {
             Write(p.X, p.Y, ch);
         }
+
+
 
         public void Write(int x, int y, WallMatrixChar ch)
         {
@@ -28,6 +32,8 @@ namespace GameClassLibrary.Walls
             throw new Exception("WallMatrix class write outside bounds.");
         }
 
+
+
         public void SetStyleDelta(int x, int y, byte styleDelta)
         {
             if (x >= 0 && x < _blockCountH)
@@ -40,6 +46,5 @@ namespace GameClassLibrary.Walls
             }
             throw new Exception("WallMatrix class write outside bounds.");
         }
-
     }
 }
