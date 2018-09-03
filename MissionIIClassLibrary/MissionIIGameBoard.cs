@@ -24,9 +24,9 @@ namespace MissionIIClassLibrary
         private PositionAndDirection ManPositionOnRoomEntry;
         private WallAndFloorHostSprites _electrocutionBackgroundSprites;  // changes by level
         private WallAndFloorHostSprites _normalBackgroundSprites;         // changes by level
+        private uint Lives;
 
         public int LevelNumber;
-        public uint Lives;
         public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
         public static GameClassLibrary.Hiscore.HiScoreScreenModel HiScoreTableModel;
         public int BoardWidth;  // TODO: There are also constants that are used for this.
@@ -37,6 +37,13 @@ namespace MissionIIClassLibrary
         public GameObjects.Man Man = new GameObjects.Man();
         public SuddenlyReplaceableList<BaseGameObject> ObjectsInRoom = new SuddenlyReplaceableList<BaseGameObject>();
         public List<BaseGameObject> ObjectsToRemove = new List<BaseGameObject>();
+
+
+
+        public MissionIIGameBoard()
+        {
+            Lives = Constants.InitialLives;
+        }
 
 
 

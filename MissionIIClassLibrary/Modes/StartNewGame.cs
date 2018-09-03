@@ -19,8 +19,7 @@ namespace MissionIIClassLibrary.Modes
                     TheWorldWallData = loadedWorld,
                     BoardWidth = Constants.ScreenWidth,
                     BoardHeight = Constants.ScreenHeight,
-                    LevelNumber = Constants.StartLevelNumber,
-                    Lives = Constants.InitialLives
+                    LevelNumber = Constants.StartLevelNumber
                 };
 
                 gameBoard.PrepareForNewLevel();
