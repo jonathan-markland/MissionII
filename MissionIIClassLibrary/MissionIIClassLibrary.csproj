@@ -55,6 +55,7 @@
     <Compile Include="Droids\WanderingMineDroid.cs" />
     <Compile Include="IDrawingTargetExtensionsForMissionII.cs" />
     <Compile Include="Interactibles\InvincibilityAmulet.cs" />
+    <Compile Include="Level.cs" />
     <Compile Include="MissionIIFonts.cs" />
     <Compile Include="MissionIISounds.cs" />
     <Compile Include="Droids\WanderingDroid.cs" />
@@ -96,8 +97,10 @@
     <Compile Include="LevelFileValidator.cs" />
     <Compile Include="Modes\TitleScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Room.cs" />
     <Compile Include="SpecialMarkers.cs" />
     <Compile Include="WallAndFloorHostSprites.cs" />
+    <Compile Include="WorldWallData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GameClassLibrary\GameClassLibrary.csproj">

@@ -6,58 +6,6 @@ using GameClassLibrary.Walls;
 
 namespace MissionIIClassLibrary
 {
-    public class WorldWallData
-    {
-        public List<Level> Levels;
-    }
-
-
-
-    public class Level
-    {
-        private SpecialMarkers _specialMarkers;
-
-        public Level(int levelNumber, List<Room> roomList, SpecialMarkers specialMarkers)
-        {
-            LevelNumber = levelNumber;
-            Rooms = roomList;
-            _specialMarkers = specialMarkers;
-            if (specialMarkers.StartRoom == null)
-            {
-                throw new Exception($"Man start position marker 'x' has not been set.");
-            }
-        }
-
-        public Room ManStartRoom { get { return _specialMarkers.StartRoom; } }
-        public Point ManStartCluster { get { return _specialMarkers.ManStart; } }
-        public int ManStartFacingDirection { get { return _specialMarkers.InitialManFacingDirection; } }
-        public int LevelNumber { get; private set; }
-        public List<Room> Rooms { get; private set; }
-    }
-
-
-
-    public class Room
-    {
-        public Room(int x, int y, WriteableWallMatrix fileWallData)
-        {
-            RoomX = x;
-            RoomY = y;
-            FileWallData = fileWallData;
-        }
-
-        public int RoomNumber
-        {
-            get { return RoomX + Constants.RoomsHorizontally * (RoomY - 1); }
-        }
-
-        public int RoomX;
-        public int RoomY;
-        public WriteableWallMatrix FileWallData;
-        public WriteableWallMatrix WallData;
-    }
-
-
     public static class LevelFileParser
     {
         public static WorldWallData Parse(StreamReader streamReader)
