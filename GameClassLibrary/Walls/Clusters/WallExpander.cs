@@ -7,13 +7,13 @@ namespace GameClassLibrary.Walls.Clusters
         private int _clustersVertically;
         private int _sourceClusterSide;
         private int _destClusterSide;
-        private WriteableWallMatrix _sourceMatrix;
+        private WallMatrix _sourceMatrix;
         private WriteableWallMatrix _destMatrix;
 
 
 
         public WallExpander(
-            WriteableWallMatrix sourceMatrix,
+            WallMatrix sourceMatrix,
             int clustersHorizontally, int clustersVertically,
             int sourceClusterSide, int destClusterSide)
         {
@@ -95,7 +95,7 @@ namespace GameClassLibrary.Walls.Clusters
              */
 
             var srcClusterCanvas = new ClusterCanvas(_sourceMatrix, x, y, _sourceClusterSide);
-            var dstClusterCanvas = new ClusterCanvas(destMatrix, x, y, _destClusterSide);
+            var dstClusterCanvas = new WriteableClusterCanvas(destMatrix, x, y, _destClusterSide);
 
             if (srcClusterCanvas.IsSpace(targetSide)) // If B is unfilled, 
             {
@@ -129,7 +129,7 @@ namespace GameClassLibrary.Walls.Clusters
         {
             // The level designer specified whether the centres are filled.
 
-            var dstClusterCanvas = new ClusterCanvas(destMatrix, x, y, _destClusterSide);
+            var dstClusterCanvas = new WriteableClusterCanvas(destMatrix, x, y, _destClusterSide);
             var srcClusterCanvas = new ClusterCanvas(_sourceMatrix, x, y, _sourceClusterSide);
 
             dstClusterCanvas.Paint(5, srcClusterCanvas.IsWall(5));
@@ -152,7 +152,7 @@ namespace GameClassLibrary.Walls.Clusters
              *   ...resp. for 3, 7, 9
              */
 
-            var dstClusterCanvas = new ClusterCanvas(destMatrix, x, y, _destClusterSide);
+            var dstClusterCanvas = new WriteableClusterCanvas(destMatrix, x, y, _destClusterSide);
 
             dstClusterCanvas.Paint(targetCorner,
                 dstClusterCanvas.IsWall(adjacentSide1)

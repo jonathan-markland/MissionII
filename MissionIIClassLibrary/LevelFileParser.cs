@@ -115,11 +115,15 @@ namespace MissionIIClassLibrary
 
         public static List<Room> ParseRowOfRooms(StreamReader streamReader, int roomY, SpecialMarkers specialMarkers)
         {
+            var rowOfWallMatrices = new List<WriteableWallMatrix>(Constants.RoomsHorizontally);
+
             var rowOfRooms = new List<Room>(Constants.RoomsHorizontally);
+
             for (int roomX = 0; roomX < Constants.RoomsHorizontally; ++roomX)
             {
-                rowOfRooms.Add(new Room(roomX + 1, roomY, 
-                    new WriteableWallMatrix(Constants.SourceFileRoomCharsHorizontally, Constants.SourceFileCharsVertically)));
+                var m = new WriteableWallMatrix(Constants.SourceFileRoomCharsHorizontally, Constants.SourceFileCharsVertically);
+                rowOfWallMatrices.Add(m);
+                rowOfRooms.Add(new Room(roomX + 1, roomY, m));
             }
 
             if (streamReader.ReadLine().Length != 0)
@@ -155,9 +159,10 @@ namespace MissionIIClassLibrary
                 {
                     try
                     {
-                        var targetRoom = rowOfRooms[roomX - 1];
-                        var sourceString = theSplittings[roomX - 1];
-                        PaintLine(targetRoom.FileWallData, rowNumber, sourceString);
+                        var x = roomX - 1;
+                        var targetRoom = rowOfRooms[x];
+                        var sourceString = theSplittings[x];
+                        PaintLine(rowOfWallMatrices[x], rowNumber, sourceString);
                         ScanForSpecialMarkers(sourceString, rowNumber, targetRoom, specialMarkers);
                     }
                     catch (Exception e)

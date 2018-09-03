@@ -4,7 +4,7 @@ namespace MissionIIClassLibrary
 {
     public class Room
     {
-        public Room(int x, int y, WriteableWallMatrix fileWallData)
+        public Room(int x, int y, WallMatrix fileWallData)
         {
             RoomX = x;
             RoomY = y;
@@ -16,9 +16,9 @@ namespace MissionIIClassLibrary
             get { return RoomX + Constants.RoomsHorizontally * (RoomY - 1); }
         }
 
-        public int RoomX;
-        public int RoomY;
-        public WriteableWallMatrix FileWallData;
+        public int RoomX { get; private set; }
+        public int RoomY { get; private set; }
+        public WallMatrix FileWallData { get; private set; }
         public WriteableWallMatrix WallData;
     }
 }

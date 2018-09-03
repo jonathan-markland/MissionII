@@ -2,76 +2,27 @@
 
 namespace GameClassLibrary.Walls.Clusters
 {
-    public struct ClusterCanvas
+    public class ClusterCanvas
     {
         //              123
         // Area codes:  456
         //              789
 
-		private WriteableWallMatrix _wallMatrix;
-		private int _originX;
-		private int _originY;
-		private int _endOffset;
-		private int _innerLength;
+		private WallMatrix _wallMatrix;
+		protected int _originX;
+		protected int _originY;
+		protected int _endOffset;
+		protected int _innerLength;
 		
 		
 		
-		public ClusterCanvas(WriteableWallMatrix wallMatrix, int clusterIndexX, int clusterIndexY, int clusterSide)
+		public ClusterCanvas(WallMatrix wallMatrix, int clusterIndexX, int clusterIndexY, int clusterSide)
 		{
 			_wallMatrix = wallMatrix;
 			_originX = clusterIndexX * clusterSide;
 			_originY = clusterIndexY * clusterSide;
 			_endOffset = clusterSide - 1;
 			_innerLength = clusterSide - 2;
-		}
-		
-		
-		
-		public void Paint(int areaCode, bool paintWall)
-		{
-			Paint(areaCode, paintWall ? WallMatrixChar.Electric : WallMatrixChar.Space);
-		}
-		
-		
-		
-		public void Paint(int areaCode, WallMatrixChar paintChar)
-		{
-			var e = _endOffset;
-			var s = _innerLength;
-			
-			     if (areaCode == 1)  Paint(0,0,1,1, paintChar);
-			else if (areaCode == 3)  Paint(e,0,1,1, paintChar);
-			else if (areaCode == 7)  Paint(0,e,1,1, paintChar);
-			else if (areaCode == 9)  Paint(e,e,1,1, paintChar);
-			else if (areaCode == 5)  Paint(1,1,s,s, paintChar);
-			else if (areaCode == 2)  Paint(1,0,s,1, paintChar);
-			else if (areaCode == 4)  Paint(0,1,1,s, paintChar);
-			else if (areaCode == 6)  Paint(e,1,1,s, paintChar);
-			else if (areaCode == 8)  Paint(1,e,s,1, paintChar);
-			else throw new Exception($"ClusterCanvas.Paint() error:  '{areaCode}' is not a valid area code.");
-		}
-
-		
-		
-		private void Paint(int x, int y, int w, int h, WallMatrixChar paintChar)
-		{
-			// TODO:  Could assert area fits.  Not massively important since Write() does bounds checking.
-			
-			x += _originX;
-			y += _originY;
-			var e = x + w;
-			var f = y + h;
-			
-			while (y < f)
-			{
-				while (x < e)
-				{
-					_wallMatrix.Write(x, y, paintChar);
-					++x;
-				}
-				x -= w;
-				++y;
-			}
 		}
 		
 		

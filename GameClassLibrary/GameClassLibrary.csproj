@@ -73,6 +73,7 @@
     <Compile Include="Sound\HostSuppliedSound.cs" />
     <Compile Include="Sound\SoundTraits.cs" />
     <Compile Include="Walls\Clusters\ClusterCanvas.cs" />
+    <Compile Include="Walls\Clusters\WriteableClusterCanvas.cs" />
     <Compile Include="Walls\CollisionDetection.cs" />
     <Compile Include="Walls\DirectionFinder.cs" />
     <Compile Include="Walls\Clusters\WallExpander.cs" />
