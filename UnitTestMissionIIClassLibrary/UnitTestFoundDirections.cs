@@ -14,7 +14,7 @@ namespace UnitTestMissionIIClassLibrary
             // This scenario returns 1 direction (UP).
             // UP is when bit 0 = 1.
             // The Count==1 because only ONE direction is returned.
-            return new FoundDirections { DirectionsMask = 1, Count = 1 };
+            return new FoundDirections(1, 1);
         }
 
         private static FoundDirections Scenario_8_1()
@@ -23,7 +23,7 @@ namespace UnitTestMissionIIClassLibrary
             // UP is when bit 0 = 1.
             // DOWN-RIGHT is when bit 3 = 1.
             // The Count==2 because TWO directions are returned.
-            return new FoundDirections { DirectionsMask = 8 | 1, Count = 2 };
+            return new FoundDirections(8 | 1, 2);
         }
 
         private static FoundDirections Scenario_16_8_2()
@@ -33,7 +33,7 @@ namespace UnitTestMissionIIClassLibrary
             // DOWN-RIGHT is when bit 3 = 1.
             // DOWN is when bit 4 = 1.
             // The Count==3 because THREE directions are returned.
-            return new FoundDirections { DirectionsMask = 16 | 8 | 2, Count = 3 };
+            return new FoundDirections(16 | 8 | 2, 3);
         }
 
         private static FoundDirections Scenario_128()
@@ -41,21 +41,21 @@ namespace UnitTestMissionIIClassLibrary
             // This scenario returns 1 direction (UP-LEFT).
             // UP-LEFT is when bit 7 = 1.
             // The Count==1 because only ONE direction is returned.
-            return new FoundDirections { DirectionsMask = 128, Count = 1 };
+            return new FoundDirections(128, 1);
         }
 
         private static FoundDirections Scenario_128_64_32_16_8_4_2_1()
         {
             // This scenario returns all 8 directions.
             // The Count==8 therefore.
-            return new FoundDirections { DirectionsMask = 128 | 64 | 32 | 16 | 8 | 4 | 2 | 1, Count = 8 };
+            return new FoundDirections(128 | 64 | 32 | 16 | 8 | 4 | 2 | 1, 8);
         }
 
         private static FoundDirections Scenario_No_Directions()
         {
             // This scenario returns no directions.
             // The Count==0 therefore.
-            return new FoundDirections { DirectionsMask = 0, Count = 0 };
+            return new FoundDirections(0, 0);
         }
 
         #endregion
@@ -73,7 +73,7 @@ namespace UnitTestMissionIIClassLibrary
         {
             for (int i = 0; i < 8; i++)
             {
-                var fd = new FoundDirections { DirectionsMask = 1 << i, Count = 1 };
+                var fd = new FoundDirections( 1 << i, 1 );
                 Assert.IsTrue(fd.Choose(0) == i);
             }
         }

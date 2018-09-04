@@ -9,6 +9,10 @@ namespace GameClassLibrary.Graphics
         private List<HostSuppliedSprite> _hostImageObjects;
         private static Func<string, HostSuppliedSprite> _hostSpriteSupplier;
 
+        /// <summary>
+        /// Must be initialised by the hosting environment.
+        /// Allows a client to obtain a host sprite object, given a sprite name.
+        /// </summary>
         public static void InitSpriteSupplier(Func<string, HostSuppliedSprite> hostSpriteSupplier)
         {
             _hostSpriteSupplier = hostSpriteSupplier;

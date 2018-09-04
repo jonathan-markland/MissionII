@@ -3,9 +3,9 @@
     public struct MovementDeltas
     {
         public MovementDeltas(int dx, int dy) { this.dx = dx; this.dy = dy; }
-        public int dx;
-        public int dy;
 
+        public int dx { get; private set; }
+        public int dy { get; private set; }
 
         public bool Stationary { get { return dx == 0 && dy == 0; } }
 

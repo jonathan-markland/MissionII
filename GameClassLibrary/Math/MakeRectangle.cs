@@ -9,6 +9,8 @@ namespace GameClassLibrary.Math
             return resultRect;
         }
 
+
+
         public static Rectangle GetSquarePixelsProjectionArea(int hostWidth, int hostHeight, int sourceWidth, int sourceHeight)
         {
             int sourceSidePixels = System.Math.Max(sourceWidth, sourceHeight); // consider as a square
@@ -16,6 +18,8 @@ namespace GameClassLibrary.Math
             int multiplier = System.Math.Max(smallestDimension / sourceSidePixels, 1);
             return CentredInArea(hostWidth, hostHeight, multiplier * sourceWidth, multiplier * sourceHeight);
         }
+
+
 
         public static Rectangle GetBestFitProjectionArea(int hostWidth, int hostHeight, int sourceWidth, int sourceHeight)
         {

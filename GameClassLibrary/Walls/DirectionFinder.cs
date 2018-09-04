@@ -28,7 +28,7 @@ namespace GameClassLibrary.Walls
                     ++countFound;
                 }
             }
-            return new FoundDirections { Count = countFound, DirectionsMask = resultMask };
+            return new FoundDirections(resultMask, countFound);
         }
 
 
