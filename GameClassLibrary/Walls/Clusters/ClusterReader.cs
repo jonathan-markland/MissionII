@@ -2,7 +2,10 @@
 
 namespace GameClassLibrary.Walls.Clusters
 {
-    public class ClusterCanvas
+    /// <summary>
+    /// Provides a way to query a "cluster" (a 3x3 arrangement of tiles).
+    /// </summary>
+    public class ClusterReader
     {
         //              123
         // Area codes:  456
@@ -16,7 +19,7 @@ namespace GameClassLibrary.Walls.Clusters
 		
 		
 		
-		public ClusterCanvas(WallMatrix wallMatrix, int clusterIndexX, int clusterIndexY, int clusterSide)
+		public ClusterReader(WallMatrix wallMatrix, int clusterIndexX, int clusterIndexY, int clusterSide)
 		{
 			_wallMatrix = wallMatrix;
 			_originX = clusterIndexX * clusterSide;
@@ -54,7 +57,7 @@ namespace GameClassLibrary.Walls.Clusters
 			else if (areaCode == 4)  return Test(0,1);
 			else if (areaCode == 6)  return Test(e,1);
 			else if (areaCode == 8)  return Test(1,e);
-			else throw new Exception("ClusterCanvas.Test() error:  '{areaCode}' is not a valid area code.");
+			else throw new Exception($"ClusterCanvas.Test() error:  '{areaCode}' is not a valid area code.");
 		}
 		
 		

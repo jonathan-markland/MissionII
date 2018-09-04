@@ -1,6 +1,10 @@
 ﻿
 namespace GameClassLibrary.Walls.Clusters
 {
+    /// <summary>
+    /// In a room tile map consisting of n*m 3*3 tile clusters,
+    /// this returns an equivalent map with the tiles expanded to 5*5.
+    /// </summary>
     public struct WallExpander
     {
         private int _clustersHorizontally;
@@ -94,7 +98,7 @@ namespace GameClassLibrary.Walls.Clusters
              *       (respectively for the other sides, 4, 6, 8).
              */
 
-            var srcClusterCanvas = new ClusterCanvas(_sourceMatrix, x, y, _sourceClusterSide);
+            var srcClusterCanvas = new ClusterReader(_sourceMatrix, x, y, _sourceClusterSide);
             var dstClusterCanvas = new WriteableClusterCanvas(destMatrix, x, y, _destClusterSide);
 
             if (srcClusterCanvas.IsSpace(targetSide)) // If B is unfilled, 
@@ -110,7 +114,7 @@ namespace GameClassLibrary.Walls.Clusters
                     && otherX < _clustersHorizontally
                     && otherY < _clustersVertically)   // except if the 3x3 above exists
                 {
-                    var srcOtherClusterCanvas = new ClusterCanvas(_sourceMatrix, otherX, otherY, _sourceClusterSide);
+                    var srcOtherClusterCanvas = new ClusterReader(_sourceMatrix, otherX, otherY, _sourceClusterSide);
                     dstClusterCanvas.Paint(targetSide,
                         ! (srcOtherClusterCanvas.IsWall(joinSide)
                         && srcOtherClusterCanvas.IsWall(5)
@@ -130,7 +134,7 @@ namespace GameClassLibrary.Walls.Clusters
             // The level designer specified whether the centres are filled.
 
             var dstClusterCanvas = new WriteableClusterCanvas(destMatrix, x, y, _destClusterSide);
-            var srcClusterCanvas = new ClusterCanvas(_sourceMatrix, x, y, _sourceClusterSide);
+            var srcClusterCanvas = new ClusterReader(_sourceMatrix, x, y, _sourceClusterSide);
 
             dstClusterCanvas.Paint(5, srcClusterCanvas.IsWall(5));
         }

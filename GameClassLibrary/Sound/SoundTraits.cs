@@ -13,6 +13,10 @@ namespace GameClassLibrary.Sound
         private static Random _rndGen;
         private List<HostSuppliedSound> _hostSoundObjects;
 
+        /// <summary>
+        /// Must be called by the host to specify a handler that can provide
+        /// sound sample object by name.
+        /// </summary>
         public static void InitSoundSupplier(
             Func<string, HostSuppliedSound> hostSoundSupplier)
         {

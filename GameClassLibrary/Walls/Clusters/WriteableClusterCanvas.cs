@@ -2,8 +2,16 @@
 
 namespace GameClassLibrary.Walls.Clusters
 {
-    public class WriteableClusterCanvas : ClusterCanvas
+    /// <summary>
+    /// A "canvas" that supports writing to 3x3 clusters.
+    /// </summary>
+    public class WriteableClusterCanvas : ClusterReader
     {
+        // Area codes:
+        // 789       
+        // 456 
+        // 123       
+
         private WriteableWallMatrix _writeableWallMatrix;
 
 

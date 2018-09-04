@@ -35,7 +35,7 @@ namespace GameClassLibrary.Walls
 
         public static int GetDirectionFacingAwayFromWalls(WallMatrix fileWallData, Point startCluster, int sourceClusterSide)
         {
-            var clusterCanvas = new ClusterCanvas(
+            var clusterCanvas = new ClusterReader(
                 fileWallData, startCluster.X, startCluster.Y, sourceClusterSide);
 
             // Note this is a priority order:

@@ -119,10 +119,8 @@ namespace MissionIIMonoGame
 
             GameClassLibrary.Sound.SoundTraits.InitSoundSupplier((soundName) =>
             {
-                return new GameClassLibrary.Sound.HostSuppliedSound
-                {
-                    HostSoundObject = Content.Load<SoundEffect>(soundName)
-                };
+                return new GameClassLibrary.Sound.HostSuppliedSound(
+                    Content.Load<SoundEffect>(soundName));
             });
 
             GameClassLibrary.Sound.SoundTraits.InitSoundPlay((soundTraits) =>
