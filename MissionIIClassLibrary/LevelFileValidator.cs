@@ -6,15 +6,15 @@ namespace MissionIIClassLibrary
 {
     public static class LevelFileValidator
     {
-        public static void ExpectValidPathsInWorld(WorldWallData theWorld)
+        public static void ExpectValidPathsInWorld(List<Level> levelsList)
         {
-            foreach (var thisLevel in theWorld.Levels)
+            foreach (var thisLevel in levelsList)
             {
                 foreach (var thisRoom in thisLevel.Rooms)
                 {
                     try
                     {
-                        ExpectValidPathsInRoom(thisRoom.FileWallData);
+                        ExpectValidPathsInRoom(thisRoom.WallData);
                         ExpectEdgeDoorwaysMatchOtherRooms(thisRoom, thisLevel.Rooms);
                     }
                     catch(Exception e)
@@ -111,7 +111,7 @@ namespace MissionIIClassLibrary
 
             for (int i=0; i < Constants.ClustersHorizontally; i++) // TODO: collapse H/V constants to one.
             {
-                var thisRoomSquare = thisRoom.FileWallData.Read(startX, startY);
+                var thisRoomSquare = thisRoom.WallData.Read(startX, startY);
 
                 if (otherRoomIsOffMap)
                 {
@@ -131,7 +131,7 @@ namespace MissionIIClassLibrary
                     var otherRoomPosY = travellingHorizontally ? (n - startY) : startY; 
 
                     // Fetch corresponding char in adjacent room, and check:
-                    var otherRoomSquare = otherRoom.FileWallData.Read(otherRoomPosX, otherRoomPosY);
+                    var otherRoomSquare = otherRoom.WallData.Read(otherRoomPosX, otherRoomPosY);
 
                     if (! BothAreSpaceOrBothAreWall(thisRoomSquare, otherRoomSquare))
                     {

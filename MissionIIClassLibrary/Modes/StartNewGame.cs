@@ -10,15 +10,20 @@ namespace MissionIIClassLibrary.Modes
         {
             using (var sr = new StreamReader("Resources\\Levels.txt"))
             {
-                var loadedWorld = MissionIIClassLibrary.LevelFileParser.Parse(sr);
-                MissionIIClassLibrary.LevelFileValidator.ExpectValidPathsInWorld(loadedWorld);
-                MissionIIClassLibrary.LevelExpander.ExpandWallsInWorld(loadedWorld, MissionIISprites.PatternResamplingSprite);
+                var levelsList = MissionIIClassLibrary.LevelFileParser.Parse(sr);
+                MissionIIClassLibrary.LevelFileValidator.ExpectValidPathsInWorld(levelsList);
 
+                var expandedLevelsList = MissionIIClassLibrary.LevelExpander.ExpandWallsInWorld(
+                    levelsList, MissionIISprites.PatternResamplingSprite);
+
+                var loadedWorld = new WorldWallData { Levels = expandedLevelsList };
                 var gameBoard = new MissionIIClassLibrary.MissionIIGameBoard(loadedWorld);
 
                 gameBoard.PrepareForNewLevel();
             }
         }
+
+
 
         public override void Draw(IDrawingTarget drawingTarget)
         {

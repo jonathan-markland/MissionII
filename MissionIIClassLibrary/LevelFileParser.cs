@@ -8,7 +8,7 @@ namespace MissionIIClassLibrary
 {
     public static class LevelFileParser
     {
-        public static WorldWallData Parse(StreamReader streamReader)
+        public static List<Level> Parse(StreamReader streamReader)
         {
             var levelsList = new List<Level>();
             int nextLevelNumber = 1;
@@ -43,7 +43,7 @@ namespace MissionIIClassLibrary
                 ++nextLevelNumber;
             }
 
-            return new WorldWallData { Levels = levelsList };
+            return levelsList;
         }
 
 

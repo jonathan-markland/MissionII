@@ -12,82 +12,122 @@ namespace MissionIIClassLibrary
         public const int ExpandSize = 5;
 
 
-        public static void ExpandWallsInWorld(
-            WorldWallData theWorld, 
+
+        public static List<Level> ExpandWallsInWorld(
+            List<Level> sourceLevelsList,
             SpriteTraits wallPatternResamplingSprite) // TODO: Should we avoid dependency on Graphics?  Pass in the resample array instead?
         {
+            var expandedLevelList = new List<Level>();
             var levelIndex = 0;
 
-            foreach(var thisLevel in theWorld.Levels)
+            foreach (var thisLevel in sourceLevelsList)
             {
                 var resamplingImageIndex = levelIndex % wallPatternResamplingSprite.ImageCount;
-                var roomsList = thisLevel.Rooms;
-
-                // Expand all the rooms from the size they are in the source
-                // text files to the size they need to be for targetting the
-                // screen.
-
-                foreach (var thisRoom in roomsList)
-                {
-                    thisRoom.WallData = new WallExpander(
-                        thisRoom.FileWallData, 
-                        Constants.ClustersHorizontally,
-                        Constants.ClustersVertically,
-                        Constants.SourceClusterSide,
-                        Constants.DestClusterSide).GetExpandedWalls();
-                }
-
-                // Now we know all the rooms, ensure the doorways line up.
-
-                AlignDoorways(roomsList);
-
-                // Now add decorative brickwork via a filter, and decorative
-                // "style deltas" which are zero based values that can be used
-                // to choose alternate sprites on a per-brick basis.
-
-                var resamplingColourData = 
-                    wallPatternResamplingSprite.GetHostImageObject(resamplingImageIndex).ToArray();
-
-                foreach (var thisRoom in roomsList)
-                {
-                    AddDecorativeBrickwork(thisRoom.WallData);
-
-                    // Set style pattern on the wall squares:
-
-                    SetWallStyleDeltas(
-                        thisRoom.WallData,
-                        resamplingColourData, 
-                        thisRoom.RoomNumber * 8,
-                        thisRoom.RoomNumber * 4,
-                        128, 
-                        true);
-
-                    // Set style pattern on the floor squares:
-
-                    SetWallStyleDeltas(
-                        thisRoom.WallData,
-                        resamplingColourData,
-                        thisRoom.RoomNumber * 4,
-                        thisRoom.RoomNumber * 8,
-                        128,
-                        false);
-                }
-
+                expandedLevelList.Add(ExpandWallsInLevel(resamplingImageIndex, thisLevel, wallPatternResamplingSprite));
                 ++levelIndex;
             }
+
+            return expandedLevelList;
         }
 
 
 
-        private static void AlignDoorways(List<Room> roomsList)
+        private static Level ExpandWallsInLevel(
+            int resamplingImageIndex, 
+            Level thisLevel, 
+            SpriteTraits wallPatternResamplingSprite)
+        {
+            // Expand all the rooms from the size they are in the source
+            // text files to the size they need to be for targetting the
+            // screen.
+
+            var roomsList = thisLevel.Rooms;
+            var expandedRoomMatrices = GetListOfExpandedRoomMatrices(roomsList);
+
+            // Now we know all the rooms, ensure the doorways line up.
+
+            AlignDoorways(expandedRoomMatrices);
+
+            // Now add decorative brickwork via a filter, and decorative
+            // "style deltas" which are zero based values that can be used
+            // to choose alternate sprites on a per-brick basis.
+
+            var resamplingColourData =
+                wallPatternResamplingSprite.GetHostImageObject(resamplingImageIndex).ToArray();
+
+            var newRoomsList = new List<Room>();
+
+            for (int i = 0; i < roomsList.Count; i++)
+            {
+                newRoomsList.Add(GetDecoratedRoom(expandedRoomMatrices[i], roomsList[i], resamplingColourData));
+            }
+
+            return new Level(thisLevel.LevelNumber, newRoomsList, thisLevel.SpecialMarkers);
+        }
+
+
+
+        private static List<WriteableWallMatrix> GetListOfExpandedRoomMatrices(List<Room> roomsList)
+        {
+            var listOfWriteableRoomMatrices = new List<WriteableWallMatrix>();
+
+            foreach (var thisRoom in roomsList)
+            {
+                listOfWriteableRoomMatrices.Add(
+                    new WallExpander(
+                        thisRoom.WallData,
+                        Constants.ClustersHorizontally,
+                        Constants.ClustersVertically,
+                        Constants.SourceClusterSide,
+                        Constants.DestClusterSide)
+                            .GetExpandedWalls());
+            }
+
+            return listOfWriteableRoomMatrices;
+        }
+
+
+
+        private static Room GetDecoratedRoom(WriteableWallMatrix thisMatrix, Room sourceRoom, uint[] resamplingColourData)
+        {
+            var n = sourceRoom.RoomNumber;
+
+            AddDecorativeBrickwork(thisMatrix);
+
+            // Set style pattern on the wall squares:
+
+            SetWallStyleDeltas(
+                thisMatrix,
+                resamplingColourData,
+                n * 8,
+                n * 4,
+                128,
+                true);
+
+            // Set style pattern on the floor squares:
+
+            SetWallStyleDeltas(
+                thisMatrix,
+                resamplingColourData,
+                n * 4,
+                n * 8,
+                128,
+                false);
+
+            return new Room(sourceRoom.RoomX, sourceRoom.RoomY, thisMatrix);
+        }
+
+
+
+        private static void AlignDoorways(List<WriteableWallMatrix> matricesInRoomOrder)
         {
             for (int y = 0; y < Constants.RoomsVertically; y++)
             {
                 for (int x = 0; x < Constants.RoomsHorizontally - 1; x++)
                 {
                     AlignDoorwaysGoingLeftRight(
-                        roomsList[y * Constants.RoomsHorizontally + x].WallData,
-                        roomsList[y * Constants.RoomsHorizontally + x + 1].WallData);
+                        matricesInRoomOrder[y * Constants.RoomsHorizontally + x],
+                        matricesInRoomOrder[y * Constants.RoomsHorizontally + x + 1]);
                 }
             }
 
@@ -96,30 +136,30 @@ namespace MissionIIClassLibrary
                 for (int x = 0; x < Constants.RoomsHorizontally; x++)
                 {
                     AlignDoorwaysGoingUpDown(
-                        roomsList[y * Constants.RoomsHorizontally + x].WallData,
-                        roomsList[(y+1) * Constants.RoomsHorizontally + x].WallData);
+                        matricesInRoomOrder[y * Constants.RoomsHorizontally + x],
+                        matricesInRoomOrder[(y+1) * Constants.RoomsHorizontally + x]);
                 }
             }
         }
 
 
 
-        private static void AlignDoorwaysGoingLeftRight(WriteableWallMatrix room1, WriteableWallMatrix room2)
+        private static void AlignDoorwaysGoingLeftRight(WriteableWallMatrix roomMatrix1, WriteableWallMatrix roomMatrix2)
         {
             AlignDoorwaysScan(
-                room1, new Point(24, 0), 
-                room2, new Point(0, 0), 
+                roomMatrix1, new Point(24, 0), 
+                roomMatrix2, new Point(0, 0), 
                 new MovementDeltas(0, 1), 
                 25);
         }
 
 
 
-        private static void AlignDoorwaysGoingUpDown(WriteableWallMatrix room1, WriteableWallMatrix room2)
+        private static void AlignDoorwaysGoingUpDown(WriteableWallMatrix roomMatrix1, WriteableWallMatrix roomMatrix2)
         {
             AlignDoorwaysScan(
-                room1, new Point(0, 24),
-                room2, new Point(0, 0),
+                roomMatrix1, new Point(0, 24),
+                roomMatrix2, new Point(0, 0),
                 new MovementDeltas(1, 0),
                 25);
         }
@@ -127,18 +167,18 @@ namespace MissionIIClassLibrary
 
 
         private static void AlignDoorwaysScan(
-            WriteableWallMatrix room1, Point point1,
-            WriteableWallMatrix room2, Point point2,
+            WriteableWallMatrix roomMatrix1, Point point1,
+            WriteableWallMatrix roomMatrix2, Point point2,
             MovementDeltas movementDeltas,
             int blockCount)
         {
             while (blockCount > 0)
             {
-                if (   room1.Read(point1) != WallMatrixChar.Space
-                    || room2.Read(point2) != WallMatrixChar.Space)
+                if (   roomMatrix1.Read(point1) != WallMatrixChar.Space
+                    || roomMatrix2.Read(point2) != WallMatrixChar.Space)
                 {
-                    room1.Write(point1, WallMatrixChar.Electric);
-                    room2.Write(point2, WallMatrixChar.Electric);
+                    roomMatrix1.Write(point1, WallMatrixChar.Electric);
+                    roomMatrix2.Write(point2, WallMatrixChar.Electric);
                 }
                 point1 = point1 + movementDeltas;
                 point2 = point2 + movementDeltas;
@@ -148,7 +188,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static void AddDecorativeBrickwork(WriteableWallMatrix expandedData)
+        private static void AddDecorativeBrickwork(WriteableWallMatrix wallMatrix)
         {
             // Turn Electric areas into Brick leaving just an Electric outline.
 
@@ -156,9 +196,9 @@ namespace MissionIIClassLibrary
             {
                 for (int x = 1; x < 24; ++x)
                 {
-                    if (SurroundedByWall8(expandedData, x, y))
+                    if (SurroundedByWall8(wallMatrix, x, y))
                     {
-                        expandedData.Write(x, y, WallMatrixChar.Brick);
+                        wallMatrix.Write(x, y, WallMatrixChar.Brick);
                     }
                 }
             }
@@ -193,7 +233,7 @@ namespace MissionIIClassLibrary
 
 
         private static void SetWallStyleDeltas(
-            WriteableWallMatrix wallData,
+            WriteableWallMatrix wallMatrix,
             uint[] resamplingImageArray,
             int logicalOffsetX,
             int logicalOffsetY,
@@ -202,16 +242,16 @@ namespace MissionIIClassLibrary
         {
             System.Diagnostics.Debug.Assert(resamplingImageArray.Length == 64*64);
 
-            for (int y=0; y < wallData.CountV; y++)
+            for (int y=0; y < wallMatrix.CountV; y++)
             {
                 int cy = (y + logicalOffsetY) & 63;
-                for (int x = 0; x < wallData.CountH; x++)
+                for (int x = 0; x < wallMatrix.CountH; x++)
                 {
-                    if ((wallData.Read(x, y) == WallMatrixChar.Space) ^ doWalls)
+                    if ((wallMatrix.Read(x, y) == WallMatrixChar.Space) ^ doWalls)
                     {
                         int cx = (x + logicalOffsetX) & 63;
                         var greyLevel = Colour.GetGreyLevel(resamplingImageArray[cy * 64 + cx]);
-                        wallData.SetStyleDelta(x, y, (byte)((greyLevel < sampleThreshold) ? 0 : 1));
+                        wallMatrix.SetStyleDelta(x, y, (byte)((greyLevel < sampleThreshold) ? 0 : 1));
                     }
                 }
             }

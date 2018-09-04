@@ -3,6 +3,9 @@ using GameClassLibrary.Math;
 
 namespace GameClassLibrary.Walls
 {
+    /// <summary>
+    /// Wall matrix for a room.  (Immutable).
+    /// </summary>
     public class WallMatrix
     {
         protected WallMatrixChar[] _wallData;

@@ -24,5 +24,6 @@ namespace MissionIIClassLibrary
         public int ManStartFacingDirection { get { return _specialMarkers.InitialManFacingDirection; } }
         public int LevelNumber { get; private set; }
         public List<Room> Rooms { get; private set; }
+        public SpecialMarkers SpecialMarkers { get { return _specialMarkers; } }
     }
 }
