@@ -28,12 +28,11 @@ namespace MissionIIClassLibrary.GameObjects
         {
             get
             {
-                return new PositionAndDirection
-                {
-                    Position = new Point(SpriteInstance.RoomX, SpriteInstance.RoomY),
-                    FacingDirection = _facingDirection
-                };
+                return new PositionAndDirection(
+                    new Point(SpriteInstance.RoomX, SpriteInstance.RoomY),
+                    _facingDirection);
             }
+
             set
             {
                 _isDead = false;
