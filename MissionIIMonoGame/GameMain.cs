@@ -62,7 +62,7 @@ namespace MissionIIMonoGame
                         var colorData = theArray.Select(x => new Color(x));
                         var hostImage = new Texture2D(GraphicsDevice, theWidth, theHeight);
                         hostImage.SetData(theArray);
-                        return new GameClassLibrary.Graphics.HostSuppliedSprite { HostObject = hostImage, BoardWidth = theWidth, BoardHeight = theHeight };
+                        return new GameClassLibrary.Graphics.HostSuppliedSprite(hostImage, theWidth, theHeight);
                     }
                     throw new System.Exception("Cannot create sprite from array and stated dimensions.");
                 };
@@ -108,12 +108,11 @@ namespace MissionIIMonoGame
             GameClassLibrary.Graphics.SpriteTraits.InitSpriteSupplier((spriteName) => 
             {
                 var texture2d = Content.Load<Texture2D>(spriteName);
-                return new GameClassLibrary.Graphics.HostSuppliedSprite
-                {
-                    BoardHeight = texture2d.Height, // By design, the client doesn't know how to obtain this itself.
-                    BoardWidth = texture2d.Width,   // By design, the client doesn't know how to obtain this itself.
-                    HostObject = texture2d
-                };
+                return new GameClassLibrary.Graphics.HostSuppliedSprite(
+                    texture2d,
+                    texture2d.Width,     // By design, the client doesn't know how to obtain this itself.
+                    texture2d.Height     // By design, the client doesn't know how to obtain this itself.
+                );
             });
 
             // Connect the library to the host routines that load and play sound:

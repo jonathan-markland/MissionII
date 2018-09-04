@@ -3,11 +3,21 @@ using System;
 
 namespace GameClassLibrary.Graphics
 {
+    /// <summary>
+    /// Container for a host sprite object, where the type of the object is hidden.
+    /// </summary>
     public struct HostSuppliedSprite
     {
-        public int BoardWidth;
-        public int BoardHeight;
-        public object HostObject;
+        public int BoardWidth { get; private set; }
+        public int BoardHeight { get; private set; }
+        public object HostObject { get; private set; }
+
+        public HostSuppliedSprite(object hostObject, int w, int h)
+        {
+            BoardWidth = w;
+            BoardHeight = h;
+            HostObject = hostObject;
+        }
 
         public uint[] ToArray()
         {
