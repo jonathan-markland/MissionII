@@ -4,10 +4,18 @@ namespace GameClassLibrary.Graphics
 {
     public class Font
     {
-        public SpriteTraits FontSprite;
-        public int CharWidth;
-        public int ScaleFactorX;
-        public int ScaleFactorY;
+        public SpriteTraits FontSprite { get; private set; }
+        public int CharWidth { get; private set; }
+        public int ScaleFactorX { get; private set; }
+        public int ScaleFactorY { get; private set; }
+
+        public Font(SpriteTraits fontSprite, int charWidth, int scaleFactorX, int scaleFactorY)
+        {
+            FontSprite = fontSprite;
+            CharWidth = charWidth;
+            ScaleFactorX = scaleFactorX;
+            ScaleFactorY = scaleFactorY;
+        }
 
         public int Height { get { return FontSprite.BoardHeight; } }
 

@@ -14,9 +14,9 @@ namespace MissionIIClassLibrary
         /// </summary>
         public static void Load()
         {
-            NarrowFont = new Font { FontSprite = MissionIISprites.FontSprite, CharWidth = 6, ScaleFactorX = 1, ScaleFactorY = 1 };
-            WideFont   = new Font { FontSprite = MissionIISprites.FontSprite, CharWidth = 6, ScaleFactorX = 2, ScaleFactorY = 1 };
-            GiantFont  = new Font { FontSprite = MissionIISprites.FontSprite, CharWidth = 6, ScaleFactorX = 3, ScaleFactorY = 4 };
+            NarrowFont = new Font(MissionIISprites.FontSprite, charWidth: 6, scaleFactorX: 1, scaleFactorY: 1);
+            WideFont   = new Font(MissionIISprites.FontSprite, charWidth: 6, scaleFactorX: 2, scaleFactorY: 1);
+            GiantFont  = new Font(MissionIISprites.FontSprite, charWidth: 6, scaleFactorX: 3, scaleFactorY: 4);
         }
     }
 }
