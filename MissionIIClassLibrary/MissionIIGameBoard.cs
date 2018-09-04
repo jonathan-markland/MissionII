@@ -37,7 +37,6 @@ namespace MissionIIClassLibrary
         public SuddenlyReplaceableList<BaseGameObject> ObjectsInRoom = new SuddenlyReplaceableList<BaseGameObject>();
         public List<BaseGameObject> ObjectsToRemove = new List<BaseGameObject>();
 
-        public static GameClassLibrary.Hiscore.HiScoreScreenModel HiScoreTableModel { get; private set; }
 
 
 
@@ -46,10 +45,6 @@ namespace MissionIIClassLibrary
             TheWorldWallData = worldWallData;
             Lives = Constants.InitialLives;
             LevelNumber = Constants.StartLevelNumber;
-
-            HiScoreTableModel = new GameClassLibrary.Hiscore.HiScoreScreenModel(
-                Constants.InitialLowestHiScore,
-                Constants.InitialHiScoresIncrement);
         }
 
 

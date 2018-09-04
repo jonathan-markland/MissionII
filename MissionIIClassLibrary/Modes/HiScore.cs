@@ -4,10 +4,22 @@ namespace MissionIIClassLibrary.Modes
 {
     public class HiScore : BaseGameMode
     {
+        private static GameClassLibrary.Hiscore.HiScoreScreenModel HiScoreTableModel;
         private int _countDown = Constants.TitleScreenRollCycles;
         private bool _enterScoreMode;
         private bool _justEnteredName;
         private GameClassLibrary.Hiscore.HiScoreScreenControl _hiScoreScreenControl;
+
+        /// <summary>
+        /// Construction must be called once on program start up.
+        /// </summary>
+        public static void StaticInit()
+        {
+            HiScoreTableModel =
+                new GameClassLibrary.Hiscore.HiScoreScreenModel(
+                    Constants.InitialLowestHiScore,
+                    Constants.InitialHiScoresIncrement);
+        }
 
         /// <summary>
         /// Constructor for just showing the hi-score screen.
@@ -42,7 +54,7 @@ namespace MissionIIClassLibrary.Modes
                 new GameClassLibrary.Math.Rectangle(10, 70, 300, 246-70),// TODO: screen dimension constants!
                 MissionIIFonts.NarrowFont,
                 MissionIISprites.Life,
-                MissionIIGameBoard.HiScoreTableModel);
+                HiScoreTableModel);
         }
 
         public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)

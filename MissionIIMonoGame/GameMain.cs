@@ -134,6 +134,11 @@ namespace MissionIIMonoGame
 
             // Now that the above is done, we can load everything:
 
+            MissionIIClassLibrary.Modes.HiScore.StaticInit();
+
+            MissionIIClassLibrary.MissionIIGameModeSelector.ModeSelector =
+                new MissionIIClassLibrary.Modes.MissionIIGameModes();
+
             MissionIIClassLibrary.MissionIISprites.Load();
             MissionIIClassLibrary.MissionIIFonts.Load();
             MissionIIClassLibrary.MissionIISounds.Load();
