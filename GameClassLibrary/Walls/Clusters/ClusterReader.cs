@@ -12,34 +12,40 @@ namespace GameClassLibrary.Walls.Clusters
         //              789
 
 		private WallMatrix _wallMatrix;
-		protected int _originX;
+        private WallMatrixChar _spaceCharValue;
+
+        protected int _originX;
 		protected int _originY;
 		protected int _endOffset;
 		protected int _innerLength;
 		
 		
 		
-		public ClusterReader(WallMatrix wallMatrix, int clusterIndexX, int clusterIndexY, int clusterSide)
+		public ClusterReader(
+            WallMatrix wallMatrix, 
+            int clusterIndexX, int clusterIndexY, 
+            int clusterSide, WallMatrixChar spaceCharValue)
 		{
 			_wallMatrix = wallMatrix;
 			_originX = clusterIndexX * clusterSide;
 			_originY = clusterIndexY * clusterSide;
 			_endOffset = clusterSide - 1;
 			_innerLength = clusterSide - 2;
-		}
+            _spaceCharValue = spaceCharValue;
+        }
 		
 		
 		
 		public bool IsWall(int areaCode)
 		{
-			return Test(areaCode) != WallMatrixChar.Space;
+			return Test(areaCode) != _spaceCharValue;
 		}
 		
 		
 		
 		public bool IsSpace(int areaCode)
 		{
-			return Test(areaCode) == WallMatrixChar.Space;
+			return Test(areaCode) == _spaceCharValue;
 		}
 		
 		

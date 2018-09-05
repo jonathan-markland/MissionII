@@ -146,7 +146,8 @@ namespace MissionIIClassLibrary
         {
             return Man.SpriteInstance.MoveConsideringWallsOnly(
                 CurrentRoomWallData, Constants.TileWidth, Constants.TileHeight,
-                movementDeltas);
+                movementDeltas,
+                WallMatrixChar.Space);
         }
 
 
@@ -156,7 +157,8 @@ namespace MissionIIClassLibrary
             return DirectionFinder.GetFreeDirections(
                 currentExtents, CurrentRoomWallData,
                 Constants.TileWidth,
-                Constants.TileHeight);
+                Constants.TileHeight,
+                WallMatrixChar.Space);
         }
 
 
@@ -497,7 +499,8 @@ namespace MissionIIClassLibrary
                         pointsList.Add(new Point(x, y));
                     }
                     return true;
-                });
+                },
+                WallMatrixChar.Space);
 
             pointsList.Shuffle(Rng.Generator);
 
@@ -562,7 +565,7 @@ namespace MissionIIClassLibrary
 
             return spriteInstance.MoveConsideringWallsOnly(
                 CurrentRoomWallData, Constants.TileWidth, Constants.TileHeight,
-                movementDeltas);
+                movementDeltas, WallMatrixChar.Space);
         }
 
 

@@ -13,7 +13,8 @@ namespace GameClassLibrary.Graphics
             this SpriteInstance spriteInstance,
             WallMatrix wallMatrix,
             int tileWidth, int tileHeight,
-            MovementDeltas movementDeltas)
+            MovementDeltas movementDeltas,
+            WallMatrixChar spaceCharValue)
         {
             var proposedX = spriteInstance.X + movementDeltas.dx;
             var proposedY = spriteInstance.Y + movementDeltas.dy;
@@ -24,7 +25,8 @@ namespace GameClassLibrary.Graphics
                 wallMatrix, tileWidth, tileHeight,
                 proposedX, proposedY,
                 spriteInstance.Traits.BoardWidth,
-                spriteInstance.Traits.BoardHeight);
+                spriteInstance.Traits.BoardHeight,
+                spaceCharValue);
 
             if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
             {

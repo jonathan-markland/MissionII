@@ -10,7 +10,7 @@ namespace MissionIIClassLibrary
         private Room _manStartRoom;
         private int _initialManFacingDirection;
 
-        public void SetManStartCluster(Room startRoom, Point startCluster)
+        public void SetManStartCluster(Room startRoom, Point startCluster, WallMatrixChar spaceCharValue)
         {
             if (_manStart.HasValue)
             {
@@ -26,7 +26,8 @@ namespace MissionIIClassLibrary
             }
             _manStart = startCluster;
             _manStartRoom = startRoom;
-            _initialManFacingDirection = DirectionFinder.GetDirectionFacingAwayFromWalls(startRoom.WallData, startCluster, Constants.SourceClusterSide);
+            _initialManFacingDirection = DirectionFinder.GetDirectionFacingAwayFromWalls(
+                startRoom.WallData, startCluster, Constants.SourceClusterSide, spaceCharValue);
         }
 
         public Point ManStart

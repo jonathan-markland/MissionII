@@ -163,7 +163,7 @@ namespace MissionIIClassLibrary
                         var targetRoom = rowOfRooms[x];
                         var sourceString = theSplittings[x];
                         PaintLine(rowOfWallMatrices[x], rowNumber, sourceString);
-                        ScanForSpecialMarkers(sourceString, rowNumber, targetRoom, specialMarkers);
+                        ScanForSpecialMarkers(sourceString, rowNumber, targetRoom, specialMarkers, WallMatrixChar.Space);
                     }
                     catch (Exception e)
                     {
@@ -200,7 +200,10 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ScanForSpecialMarkers(string sourceString, int rowNumber, Room targetRoom, SpecialMarkers specialMarkers)
+        public static void ScanForSpecialMarkers(
+            string sourceString, int rowNumber, 
+            Room targetRoom, SpecialMarkers specialMarkers, 
+            WallMatrixChar spaceCharValue)
         {
             int x = 0;
             foreach (char ch in sourceString)
@@ -209,7 +212,8 @@ namespace MissionIIClassLibrary
                 {
                     specialMarkers.SetManStartCluster(
                         targetRoom, 
-                        new Point(x / Constants.SourceClusterSide, rowNumber / Constants.SourceClusterSide));
+                        new Point(x / Constants.SourceClusterSide, rowNumber / Constants.SourceClusterSide), 
+                        spaceCharValue);
                 }
                 x++;
             }

@@ -31,7 +31,8 @@ namespace MissionIIClassLibrary.GameObjects
                     proposedX,
                     proposedY,
                     Sprite.Traits.BoardWidth,
-                    Sprite.Traits.BoardHeight);
+                    Sprite.Traits.BoardHeight,
+                    WallMatrixChar.Space);
 
                 if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
                 {

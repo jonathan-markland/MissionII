@@ -20,7 +20,8 @@ namespace GameClassLibrary.Walls
             int objectX,
             int objectY,
             int objectWidth,
-            int objectHeight)
+            int objectHeight,
+            WallMatrixChar spaceCharValue)
         {
             if (wallData.Empty) return WallHitTestResult.HitWall; // Required.
 
@@ -49,7 +50,7 @@ namespace GameClassLibrary.Walls
             {
                 for (int x = cX; x < cx2; x++)
                 {
-                    if (wallData.Read(x, y) != WallMatrixChar.Space)
+                    if (wallData.Read(x, y) != spaceCharValue)
                     {
                         return WallHitTestResult.HitWall;  // hit wall block  // NB: If indexing fails, all rows MUST be the same length!
                     }
