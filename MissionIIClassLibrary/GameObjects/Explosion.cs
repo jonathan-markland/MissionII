@@ -46,7 +46,7 @@ namespace MissionIIClassLibrary.GameObjects
 
         public override Rectangle GetBoundingRectangle()
         {
-            return SpriteInstance.GetBoundingRectangle();
+            return SpriteInstance.Extents;
         }
 
         public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)

@@ -32,8 +32,8 @@ namespace MissionIIClassLibrary
         public static void DrawWalls(
             this IDrawingTarget drawingTarget,
             int leftX, int topY, int tileWidth, int tileHeight,
-            WallMatrix wallData,
-            WallAndFloorHostSprites hostSprites)
+            WallMatrix wallData, // TODO: Don't really want to re-map this on the fly.  Pre-calculate.
+            WallAndFloorHostSprites hostSprites) // TODO: pass array of sprite indices
         {
             for (int y = 0; y < wallData.CountV; y++)
             {
@@ -41,7 +41,7 @@ namespace MissionIIClassLibrary
                 for (int x = 0; x < wallData.CountH; x++)
                 {
                     var ch = wallData.Read(x, y);
-                    var styleDelta = wallData.GetStyleDelta(x, y);
+                    var styleDelta = wallData.GetStyleDelta(x, y); // TODO: Don't want this here.
                     if (ch == WallMatrixChar.Electric) // <-- confusing that this really means draw the wall in either normal or electric state
                     {
                         drawingTarget.DrawSprite(leftX, topY, hostSprites.OutlineBricks[styleDelta]);

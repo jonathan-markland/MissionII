@@ -70,7 +70,7 @@ namespace MissionIIClassLibrary.GameObjects
 
         public override Rectangle GetBoundingRectangle()
         {
-            return Sprite.GetBoundingRectangle();
+            return Sprite.Extents;
         }
 
         public override bool YouHaveBeenShot(MissionIIGameBoard theGameBoard, bool shotByMan)

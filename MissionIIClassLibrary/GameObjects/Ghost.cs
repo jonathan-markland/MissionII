@@ -78,7 +78,7 @@ namespace MissionIIClassLibrary.GameObjects
         {
             if (IsActive)
             {
-                return _spriteInstance.GetBoundingRectangle();
+                return _spriteInstance.Extents;
             }
             else return new Rectangle(-1,-1,0,0); // empty if ghost not started
         }

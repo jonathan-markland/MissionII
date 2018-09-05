@@ -26,7 +26,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                 }
                 else
                 {
-                    ChooseNewMovement(theGameBoard, spriteInstance.GetBoundingRectangle());
+                    ChooseNewMovement(theGameBoard, spriteInstance.Extents);
                 }
             }
         }

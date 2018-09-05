@@ -59,7 +59,7 @@ namespace MissionIIClassLibrary.Interactibles
 
         public override Rectangle GetBoundingRectangle()
         {
-            return Sprite.GetBoundingRectangle(); // Note: applies in every room!
+            return Sprite.Extents; // Note: applies in every room!
         }
 
         public override bool YouHaveBeenShot(MissionIIGameBoard theGameBoard, bool shotByMan)
