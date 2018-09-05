@@ -24,13 +24,6 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        public void Paint(int areaCode, bool paintWall)
-        {
-            Paint(areaCode, paintWall ? WallMatrixChar.Electric : WallMatrixChar.Space);
-        }
-
-
-
         public void Paint(int areaCode, WallMatrixChar paintChar)
         {
             var e = _endOffset;

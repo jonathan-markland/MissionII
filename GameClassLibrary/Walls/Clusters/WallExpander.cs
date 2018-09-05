@@ -31,6 +31,13 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
+        public static void Paint(WriteableClusterCanvas dstClusterCanvas, int areaCode, bool paintWall)
+        {
+            dstClusterCanvas.Paint(areaCode, paintWall ? WallMatrixChar.Electric : WallMatrixChar.Space);
+        }
+
+
+
         public WriteableWallMatrix GetExpandedWalls()
         {
             // 789       78889
@@ -103,7 +110,7 @@ namespace GameClassLibrary.Walls.Clusters
 
             if (srcClusterCanvas.IsSpace(targetSide)) // If B is unfilled, 
             {
-                dstClusterCanvas.Paint(targetSide, false); // 2 will be unfilled.
+                Paint(dstClusterCanvas, targetSide, false); // 2 will be unfilled.
             }
             else
             {
@@ -115,14 +122,14 @@ namespace GameClassLibrary.Walls.Clusters
                     && otherY < _clustersVertically)   // except if the 3x3 above exists
                 {
                     var srcOtherClusterCanvas = new ClusterReader(_sourceMatrix, otherX, otherY, _sourceClusterSide);
-                    dstClusterCanvas.Paint(targetSide,
+                    Paint(dstClusterCanvas, targetSide,
                         ! (srcOtherClusterCanvas.IsWall(joinSide)
                         && srcOtherClusterCanvas.IsWall(5)
                         && !srcClusterCanvas.IsWall(5)));  // AND has filled(N) & filled(Q) & !filled(E) then 2 can be unfilled.
                 }
                 else
                 {
-                    dstClusterCanvas.Paint(targetSide, true);  // Otherwise 2 is filled ...
+                    Paint(dstClusterCanvas, targetSide, true);  // Otherwise 2 is filled ...
                 }
             }
         }
@@ -136,7 +143,7 @@ namespace GameClassLibrary.Walls.Clusters
             var dstClusterCanvas = new WriteableClusterCanvas(destMatrix, x, y, _destClusterSide);
             var srcClusterCanvas = new ClusterReader(_sourceMatrix, x, y, _sourceClusterSide);
 
-            dstClusterCanvas.Paint(5, srcClusterCanvas.IsWall(5));
+            Paint(dstClusterCanvas, 5, srcClusterCanvas.IsWall(5));
         }
 
 
@@ -158,7 +165,7 @@ namespace GameClassLibrary.Walls.Clusters
 
             var dstClusterCanvas = new WriteableClusterCanvas(destMatrix, x, y, _destClusterSide);
 
-            dstClusterCanvas.Paint(targetCorner,
+            Paint(dstClusterCanvas, targetCorner,
                 dstClusterCanvas.IsWall(adjacentSide1)
                 || dstClusterCanvas.IsWall(adjacentSide2));
         }
