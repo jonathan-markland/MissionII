@@ -21,8 +21,8 @@ namespace MissionIIClassLibrary.GameObjects
         {
             for (int i = 0; i < Constants.BulletCycles; i++)
             {
-                var proposedX = Sprite.RoomX + BulletDirection.dx;
-                var proposedY = Sprite.RoomY + BulletDirection.dy;
+                var proposedX = Sprite.X + BulletDirection.dx;
+                var proposedY = Sprite.Y + BulletDirection.dy;
 
                 var hitResult = CollisionDetection.HitsWalls(
                     theGameBoard.CurrentRoomWallData,
@@ -35,8 +35,8 @@ namespace MissionIIClassLibrary.GameObjects
 
                 if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
                 {
-                    Sprite.RoomX = proposedX;
-                    Sprite.RoomY = proposedY;
+                    Sprite.X = proposedX;
+                    Sprite.Y = proposedY;
 
                     var hitCount = theGameBoard.KillThingsIfShotAndGetHitCount(this);
                     if (hitCount > 0)

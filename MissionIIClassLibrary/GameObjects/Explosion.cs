@@ -15,8 +15,8 @@ namespace MissionIIClassLibrary.GameObjects
 
         public Explosion(int roomX, int roomY, SpriteTraits explosionKind, bool canBeConsideredForBonus)
         {
-            SpriteInstance.RoomX = roomX;
-            SpriteInstance.RoomY = roomY;
+            SpriteInstance.X = roomX;
+            SpriteInstance.Y = roomY;
             SpriteInstance.Traits = explosionKind;
             _canBeConsideredForMultiKillBonus = canBeConsideredForBonus;
         }

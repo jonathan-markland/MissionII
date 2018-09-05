@@ -15,8 +15,8 @@ namespace GameClassLibrary.Graphics
             int tileWidth, int tileHeight,
             MovementDeltas movementDeltas)
         {
-            var proposedX = spriteInstance.RoomX + movementDeltas.dx;
-            var proposedY = spriteInstance.RoomY + movementDeltas.dy;
+            var proposedX = spriteInstance.X + movementDeltas.dx;
+            var proposedY = spriteInstance.Y + movementDeltas.dy;
 
             // First consider both X and Y deltas directly:
 
@@ -28,8 +28,8 @@ namespace GameClassLibrary.Graphics
 
             if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
             {
-                spriteInstance.RoomX = proposedX;
-                spriteInstance.RoomY = proposedY;
+                spriteInstance.X = proposedX;
+                spriteInstance.Y = proposedY;
             }
 
             return hitResult;

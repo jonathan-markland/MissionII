@@ -30,8 +30,8 @@ namespace MissionIIClassLibrary.GameObjects
                 if (_startCountDown == 0)
                 {
                     var furthestCorner = theGameBoard.GetCornerFurthestAwayFromMan();
-                    _spriteInstance.RoomX = furthestCorner.X;
-                    _spriteInstance.RoomY = furthestCorner.Y;
+                    _spriteInstance.X = furthestCorner.X;
+                    _spriteInstance.Y = furthestCorner.Y;
                     _spriteInstance.Traits = MissionIISprites.Ghost;
                     MissionIISounds.GhostAppearing.Play();
                 }

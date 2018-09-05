@@ -196,28 +196,28 @@ namespace MissionIIClassLibrary
 
             if (bulletDirection.dx < 0)
             {
-                x = (sourceSprite.RoomX - bulletWidth) - Constants.BulletSpacing;
+                x = (sourceSprite.X - bulletWidth) - Constants.BulletSpacing;
             }
             else if (bulletDirection.dx > 0)
             {
-                x = sourceSprite.RoomX + sourceSprite.Traits.BoardWidth + Constants.BulletSpacing;
+                x = sourceSprite.X + sourceSprite.Traits.BoardWidth + Constants.BulletSpacing;
             }
             else // (bulletDirection.dx == 0)
             {
-                x = sourceSprite.RoomX + ((sourceSprite.Traits.BoardWidth - bulletWidth) / 2);
+                x = sourceSprite.X + ((sourceSprite.Traits.BoardWidth - bulletWidth) / 2);
             }
 
             if (bulletDirection.dy < 0)
             {
-                y = (sourceSprite.RoomY - bulletHeight) - Constants.BulletSpacing;
+                y = (sourceSprite.Y - bulletHeight) - Constants.BulletSpacing;
             }
             else if (bulletDirection.dy > 0)
             {
-                y = sourceSprite.RoomY + sourceSprite.Traits.BoardHeight + Constants.BulletSpacing;
+                y = sourceSprite.Y + sourceSprite.Traits.BoardHeight + Constants.BulletSpacing;
             }
             else // (bulletDirection.dy == 0)
             {
-                y = sourceSprite.RoomY + ((sourceSprite.Traits.BoardHeight - bulletHeight) / 2);
+                y = sourceSprite.Y + ((sourceSprite.Traits.BoardHeight - bulletHeight) / 2);
             }
 
             if (bulletDirection.dx == 0 && bulletDirection.dy == 0)
@@ -230,8 +230,8 @@ namespace MissionIIClassLibrary
                 (
                     new SpriteInstance
                     {
-                        RoomX = x,
-                        RoomY = y,
+                        X = x,
+                        Y = y,
                         Traits = theBulletTraits
                     }
                     , bulletDirection
@@ -529,8 +529,8 @@ namespace MissionIIClassLibrary
             SpriteInstance spriteInstance,
             MovementDeltas movementDeltas)
         {
-            var oldX = spriteInstance.RoomX;
-            var oldY = spriteInstance.RoomY;
+            var oldX = spriteInstance.X;
+            var oldY = spriteInstance.Y;
 
             var myNewRectangle = new Rectangle(
                 oldX + movementDeltas.dx,
@@ -651,8 +651,8 @@ namespace MissionIIClassLibrary
             // The Room:
 
             drawingTarget.DrawWalls(
-                Constants.RoomOriginX,
-                Constants.RoomOriginY,
+                Constants.RoomOriginX, // TODO: Should not need to use origin.
+                Constants.RoomOriginY, // TODO: Should not need to use origin.
                 Constants.TileWidth,
                 Constants.TileHeight,
                 CurrentRoomWallData,

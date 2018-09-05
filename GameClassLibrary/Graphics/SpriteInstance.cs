@@ -6,16 +6,14 @@ namespace GameClassLibrary.Graphics
     public class SpriteInstance
     {
         /// <summary>
-        /// Position of sprite with respect to left edge of room.
-        /// (Not left edge of screen!)
+        /// Horizontal position of sprite.
         /// </summary>
-        public int RoomX;
+        public int X;
 
         /// <summary>
-        /// Position of sprite with respect to top of room.
-        /// (Not top edge of screen!)
+        /// Vertical position of sprite.
         /// </summary>
-        public int RoomY;
+        public int Y;
 
         /// <summary>
         /// Defines the graphic image, or images, for this sprite instance.
@@ -24,7 +22,7 @@ namespace GameClassLibrary.Graphics
 
         public Rectangle GetBoundingRectangle()
         {
-            return new Rectangle(RoomX, RoomY, Traits.BoardWidth, Traits.BoardHeight);
+            return new Rectangle(X, Y, Traits.BoardWidth, Traits.BoardHeight);
         }
 
         public bool Intersects(SpriteInstance otherSprite)
@@ -39,14 +37,14 @@ namespace GameClassLibrary.Graphics
 
         public Point TopLeftPosition
         {
-            get { return new Point(RoomX, RoomY); }
-            set { RoomX = value.X; RoomY = value.Y; }
+            get { return new Point(X, Y); }
+            set { X = value.X; Y = value.Y; }
         }
 
         public void MoveBy(MovementDeltas movementDeltas)
         {
-            RoomX += movementDeltas.dx;
-            RoomY += movementDeltas.dy;
+            X += movementDeltas.dx;
+            Y += movementDeltas.dy;
         }
     }
 }

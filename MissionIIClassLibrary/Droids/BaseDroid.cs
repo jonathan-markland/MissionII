@@ -36,8 +36,8 @@ namespace MissionIIClassLibrary.Droids
             // TODO: FUTURE: We assume the explosion dimensions match the droid.  We should centre it about the droid.
             theGameBoard.ObjectsInRoom.Add(
                 new GameObjects.Explosion(
-                    SpriteInstance.RoomX,
-                    SpriteInstance.RoomY,
+                    SpriteInstance.X,
+                    SpriteInstance.Y,
                     MissionIISprites.Explosion,
                     shotByMan));
 

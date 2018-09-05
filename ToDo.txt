@@ -1,4 +1,18 @@
 
+Sep 2018
+--------
+[ ] Scalar type for "Model Space" rather than just using "int".
+[ ] Model-space should cover the entire level, not just one room.
+    [ ] Thus, WallMatrix covers entire level.
+	[ ] SpriteInstance.RoomX : described as being relative to top left pixel of the room.
+	    Needs to be in entire-level model-space ultimately, but could refactor to be screen-relative for now.
+[ ] "BoardWidth" etc is really in Model-space units
+[ ] WallMatrixChar is in the general library but specific to MissionII, replace with struct that wraps a byte.
+[ ] DrawWalls() would need clipping support in a viewport, but it's bad because WallAndFloorHostSprites needs
+    just to be an array of SpriteInstance, and we don't want GetStyleDelta():  pre-calculate.
+
+
+
 Release 1
 ---------
 

@@ -29,15 +29,15 @@ namespace MissionIIClassLibrary.GameObjects
             get
             {
                 return new PositionAndDirection(
-                    new Point(SpriteInstance.RoomX, SpriteInstance.RoomY),
+                    new Point(SpriteInstance.X, SpriteInstance.Y),
                     _facingDirection);
             }
 
             set
             {
                 _isDead = false;
-                SpriteInstance.RoomX = value.Position.X;
-                SpriteInstance.RoomY = value.Position.Y;
+                SpriteInstance.X = value.Position.X;
+                SpriteInstance.Y = value.Position.Y;
                 _facingDirection = value.FacingDirection;
                 Standing(value.FacingDirection);
             }
@@ -236,8 +236,8 @@ namespace MissionIIClassLibrary.GameObjects
             _isDead = false;
             _facingDirection = theDirection;
             Standing(theDirection);
-            SpriteInstance.RoomX = roomX;
-            SpriteInstance.RoomY = roomY;
+            SpriteInstance.X = roomX;
+            SpriteInstance.Y = roomY;
         }
 
         private void Die()
@@ -309,10 +309,10 @@ namespace MissionIIClassLibrary.GameObjects
             // Note: We sort of assume all the rooms are the same size!  (Which they are!)
             var roomWidth = theGameBoard.CurrentRoomWallData.CountH * Constants.TileWidth; // TODO: Not ideal having these possibly repeated calculations.
             var roomHeight = theGameBoard.CurrentRoomWallData.CountV * Constants.TileHeight; // TODO: Not ideal having these possibly repeated calculations.
-            SpriteInstance.RoomX += roomWidth * deltaRoomWidth;
-            SpriteInstance.RoomX += deltaSpriteWidth;
-            SpriteInstance.RoomY += roomHeight * deltaRoomHeight;
-            SpriteInstance.RoomY += deltaSpriteHeight;
+            SpriteInstance.X += roomWidth * deltaRoomWidth;
+            SpriteInstance.X += deltaSpriteWidth;
+            SpriteInstance.Y += roomHeight * deltaRoomHeight;
+            SpriteInstance.Y += deltaSpriteHeight;
             if (! theGameBoard.DroidsExistInRoom)
             {
                 theGameBoard.IncrementScore(Constants.RoomClearingBonusScore);
