@@ -81,7 +81,8 @@ namespace MissionIIClassLibrary
                         Constants.SourceClusterSide,
                         Constants.DestClusterSide,
                         WallMatrixChar.Electric,
-                        WallMatrixChar.Space)
+                        WallMatrixChar.Space,
+                        MissionIIGameBoard.IsSpace)
                             .GetExpandedWalls());
             }
 

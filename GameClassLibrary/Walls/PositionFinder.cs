@@ -20,8 +20,8 @@ namespace GameClassLibrary.Walls
                         int tileHeight,
                         int tallestWidth,
                         int tallestHeight,
-                        Func<int,int,bool> lambdaFunc, 
-                        WallMatrixChar spaceCharValue)
+                        Func<int,int,bool> lambdaFunc,
+                        Func<WallMatrixChar, bool> isSpaceFunc)
         {
             var roomWidth = wallData.CountH * tileWidth; // TODO: Not ideal having these possibly repeated calculations.
             var roomHeight = wallData.CountV * tileHeight; // TODO: Not ideal having these possibly repeated calculations.
@@ -41,7 +41,7 @@ namespace GameClassLibrary.Walls
                 {
                     if (CollisionDetection.HitsWalls(
                         wallData, tileWidth, tileHeight, x, y, 
-                        tallestWidth, tallestHeight, spaceCharValue) == CollisionDetection.WallHitTestResult.NothingHit)
+                        tallestWidth, tallestHeight, isSpaceFunc) == CollisionDetection.WallHitTestResult.NothingHit)
                     {
                         if (!lambdaFunc(x, y)) return;
                     }

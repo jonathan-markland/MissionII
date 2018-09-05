@@ -16,8 +16,10 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        public WriteableClusterCanvas(WriteableWallMatrix wallMatrix, int clusterIndexX, int clusterIndexY, int clusterSide, WallMatrixChar spaceCharValue)
-            : base(wallMatrix, clusterIndexX, clusterIndexY, clusterSide, spaceCharValue)
+        public WriteableClusterCanvas(
+            WriteableWallMatrix wallMatrix, int clusterIndexX, int clusterIndexY, 
+            int clusterSide, Func<WallMatrixChar, bool> isSpaceFunc)
+                : base(wallMatrix, clusterIndexX, clusterIndexY, clusterSide, isSpaceFunc)
         {
             _writeableWallMatrix = wallMatrix;
         }

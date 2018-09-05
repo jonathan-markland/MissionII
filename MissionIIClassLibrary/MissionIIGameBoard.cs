@@ -142,12 +142,19 @@ namespace MissionIIClassLibrary
 
 
 
+        public static bool IsSpace(WallMatrixChar c)
+        {
+            return c == WallMatrixChar.Space;
+        }
+
+
+
         public CollisionDetection.WallHitTestResult MoveManOnePixel(MovementDeltas movementDeltas)
         {
             return Man.SpriteInstance.MoveConsideringWallsOnly(
                 CurrentRoomWallData, Constants.TileWidth, Constants.TileHeight,
                 movementDeltas,
-                WallMatrixChar.Space);
+                IsSpace);
         }
 
 
@@ -158,7 +165,7 @@ namespace MissionIIClassLibrary
                 currentExtents, CurrentRoomWallData,
                 Constants.TileWidth,
                 Constants.TileHeight,
-                WallMatrixChar.Space);
+                IsSpace);
         }
 
 
@@ -500,7 +507,7 @@ namespace MissionIIClassLibrary
                     }
                     return true;
                 },
-                WallMatrixChar.Space);
+                IsSpace);
 
             pointsList.Shuffle(Rng.Generator);
 
@@ -565,7 +572,7 @@ namespace MissionIIClassLibrary
 
             return spriteInstance.MoveConsideringWallsOnly(
                 CurrentRoomWallData, Constants.TileWidth, Constants.TileHeight,
-                movementDeltas, WallMatrixChar.Space);
+                movementDeltas, IsSpace);
         }
 
 

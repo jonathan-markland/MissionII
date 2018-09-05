@@ -10,7 +10,7 @@ namespace GameClassLibrary.Walls
             Rectangle currentExtents, 
             WallMatrix currentRoomWallData, 
             int tileWidth, int tileHeight,
-            WallMatrixChar spaceCharValue)
+            Func<WallMatrixChar, bool> isSpaceFunc)
         {
             int countFound = 0;
             int resultMask = 0;
@@ -22,7 +22,7 @@ namespace GameClassLibrary.Walls
                     currentRoomWallData, tileWidth, tileHeight, 
                     currentExtents.Left, currentExtents.Top, 
                     currentExtents.Width, currentExtents.Height, 
-                    spaceCharValue);
+                    isSpaceFunc);
 
                 if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
                 {
@@ -37,10 +37,10 @@ namespace GameClassLibrary.Walls
 
         public static int GetDirectionFacingAwayFromWalls(
             WallMatrix fileWallData, Point startCluster, int sourceClusterSide,
-            WallMatrixChar spaceCharValue)
+            Func<WallMatrixChar, bool> isSpaceFunc)
         {
             var clusterCanvas = new ClusterReader(
-                fileWallData, startCluster.X, startCluster.Y, sourceClusterSide, spaceCharValue);
+                fileWallData, startCluster.X, startCluster.Y, sourceClusterSide, isSpaceFunc);
 
             // Note this is a priority order:
             if (clusterCanvas.IsSpace(8)) return 4; // FACING DOWN

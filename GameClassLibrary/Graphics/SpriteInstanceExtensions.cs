@@ -1,4 +1,5 @@
 ﻿
+using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
 
@@ -14,7 +15,7 @@ namespace GameClassLibrary.Graphics
             WallMatrix wallMatrix,
             int tileWidth, int tileHeight,
             MovementDeltas movementDeltas,
-            WallMatrixChar spaceCharValue)
+            Func<WallMatrixChar, bool> isSpaceFunc)
         {
             var proposedX = spriteInstance.X + movementDeltas.dx;
             var proposedY = spriteInstance.Y + movementDeltas.dy;
@@ -26,7 +27,7 @@ namespace GameClassLibrary.Graphics
                 proposedX, proposedY,
                 spriteInstance.Traits.BoardWidth,
                 spriteInstance.Traits.BoardHeight,
-                spaceCharValue);
+                isSpaceFunc);
 
             if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
             {

@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace GameClassLibrary.Walls
 {
     public static class CollisionDetection
@@ -21,7 +23,7 @@ namespace GameClassLibrary.Walls
             int objectY,
             int objectWidth,
             int objectHeight,
-            WallMatrixChar spaceCharValue)
+            Func<WallMatrixChar, bool> isSpaceFunc)
         {
             if (wallData.Empty) return WallHitTestResult.HitWall; // Required.
 
@@ -50,7 +52,7 @@ namespace GameClassLibrary.Walls
             {
                 for (int x = cX; x < cx2; x++)
                 {
-                    if (wallData.Read(x, y) != spaceCharValue)
+                    if (!isSpaceFunc(wallData.Read(x, y)))
                     {
                         return WallHitTestResult.HitWall;  // hit wall block  // NB: If indexing fails, all rows MUST be the same length!
                     }

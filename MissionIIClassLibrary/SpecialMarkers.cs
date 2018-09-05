@@ -27,7 +27,7 @@ namespace MissionIIClassLibrary
             _manStart = startCluster;
             _manStartRoom = startRoom;
             _initialManFacingDirection = DirectionFinder.GetDirectionFacingAwayFromWalls(
-                startRoom.WallData, startCluster, Constants.SourceClusterSide, spaceCharValue);
+                startRoom.WallData, startCluster, Constants.SourceClusterSide, MissionIIGameBoard.IsSpace);
         }
 
         public Point ManStart
