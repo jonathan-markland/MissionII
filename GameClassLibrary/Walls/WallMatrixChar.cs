@@ -1,9 +1,9 @@
 ﻿namespace GameClassLibrary.Walls
 {
-    public enum WallMatrixChar : byte
+    public struct WallMatrixChar
     {
-        Space = 0,
-        Brick = 1,
-        Electric = 2
+        public byte Value;
+        public static bool operator==(WallMatrixChar a, WallMatrixChar b) { return a.Value == b.Value; }
+        public static bool operator!=(WallMatrixChar a, WallMatrixChar b) { return a.Value != b.Value; }
     }
 }

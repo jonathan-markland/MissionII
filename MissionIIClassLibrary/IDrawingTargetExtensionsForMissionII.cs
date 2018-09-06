@@ -42,11 +42,11 @@ namespace MissionIIClassLibrary
                 {
                     var ch = wallData.Read(x, y);
                     var styleDelta = wallData.GetStyleDelta(x, y); // TODO: Don't want this here.
-                    if (ch == WallMatrixChar.Electric) // <-- confusing that this really means draw the wall in either normal or electric state
+                    if (ch == WallMatrixChar2.Electric) // <-- confusing that this really means draw the wall in either normal or electric state
                     {
                         drawingTarget.DrawSprite(leftX, topY, hostSprites.OutlineBricks[styleDelta]);
                     }
-                    else if (ch != WallMatrixChar.Space)
+                    else if (ch != WallMatrixChar2.Space)
                     {
                         drawingTarget.DrawSprite(leftX, topY, hostSprites.FillerBricks[styleDelta]);
                     }
