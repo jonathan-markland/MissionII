@@ -67,9 +67,9 @@ namespace MissionIIClassLibrary
 
 
 
-        private static List<WriteableWallMatrix> GetListOfExpandedRoomMatrices(List<Room> roomsList)
+        private static List<WriteableTileMatrix> GetListOfExpandedRoomMatrices(List<Room> roomsList)
         {
-            var listOfWriteableRoomMatrices = new List<WriteableWallMatrix>();
+            var listOfWriteableRoomMatrices = new List<WriteableTileMatrix>();
 
             foreach (var thisRoom in roomsList)
             {
@@ -91,7 +91,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static Room GetDecoratedRoom(WriteableWallMatrix thisMatrix, Room sourceRoom, uint[] resamplingColourData)
+        private static Room GetDecoratedRoom(WriteableTileMatrix thisMatrix, Room sourceRoom, uint[] resamplingColourData)
         {
             var n = sourceRoom.RoomNumber;
 
@@ -122,7 +122,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static void AlignDoorways(List<WriteableWallMatrix> matricesInRoomOrder)
+        private static void AlignDoorways(List<WriteableTileMatrix> matricesInRoomOrder)
         {
             for (int y = 0; y < Constants.RoomsVertically; y++)
             {
@@ -147,7 +147,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static void AlignDoorwaysGoingLeftRight(WriteableWallMatrix roomMatrix1, WriteableWallMatrix roomMatrix2)
+        private static void AlignDoorwaysGoingLeftRight(WriteableTileMatrix roomMatrix1, WriteableTileMatrix roomMatrix2)
         {
             AlignDoorwaysScan(
                 roomMatrix1, new Point(24, 0), 
@@ -158,7 +158,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static void AlignDoorwaysGoingUpDown(WriteableWallMatrix roomMatrix1, WriteableWallMatrix roomMatrix2)
+        private static void AlignDoorwaysGoingUpDown(WriteableTileMatrix roomMatrix1, WriteableTileMatrix roomMatrix2)
         {
             AlignDoorwaysScan(
                 roomMatrix1, new Point(0, 24),
@@ -170,8 +170,8 @@ namespace MissionIIClassLibrary
 
 
         private static void AlignDoorwaysScan(
-            WriteableWallMatrix roomMatrix1, Point point1,
-            WriteableWallMatrix roomMatrix2, Point point2,
+            WriteableTileMatrix roomMatrix1, Point point1,
+            WriteableTileMatrix roomMatrix2, Point point2,
             MovementDeltas movementDeltas,
             int blockCount)
         {
@@ -191,7 +191,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static void AddDecorativeBrickwork(WriteableWallMatrix wallMatrix)
+        private static void AddDecorativeBrickwork(WriteableTileMatrix wallMatrix)
         {
             // Turn Electric areas into Brick leaving just an Electric outline.
 
@@ -209,7 +209,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static bool SurroundedByWall4(WriteableWallMatrix wallMatrix, int x, int y) // TODO: We could be arty and call this instead.
+        private static bool SurroundedByWall4(WriteableTileMatrix wallMatrix, int x, int y) // TODO: We could be arty and call this instead.
         {
             return
                    wallMatrix.TileAt(x, y - 1) != MissionIITile.Space
@@ -220,7 +220,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static bool SurroundedByWall8(WriteableWallMatrix wallMatrix, int x, int y)
+        private static bool SurroundedByWall8(WriteableTileMatrix wallMatrix, int x, int y)
         {
             return
                    wallMatrix.TileAt(x, y - 1) != MissionIITile.Space
@@ -236,7 +236,7 @@ namespace MissionIIClassLibrary
 
 
         private static void SetWallStyleDeltas(
-            WriteableWallMatrix wallMatrix,
+            WriteableTileMatrix wallMatrix,
             uint[] resamplingImageArray,
             int logicalOffsetX,
             int logicalOffsetY,

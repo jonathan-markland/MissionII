@@ -12,12 +12,12 @@ namespace GameClassLibrary.Walls.Clusters
         // 456 
         // 123       
 
-        private WriteableWallMatrix _writeableWallMatrix;
+        private WriteableTileMatrix _writeableWallMatrix;
 
 
 
         public WriteableClusterCanvas(
-            WriteableWallMatrix wallMatrix, int clusterIndexX, int clusterIndexY, 
+            WriteableTileMatrix wallMatrix, int clusterIndexX, int clusterIndexY, 
             int clusterSide, Func<Tile, bool> isSpaceFunc)
                 : base(wallMatrix, clusterIndexX, clusterIndexY, clusterSide, isSpaceFunc)
         {

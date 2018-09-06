@@ -3,9 +3,9 @@ using GameClassLibrary.Math;
 
 namespace GameClassLibrary.Walls
 {
-    public class WriteableWallMatrix : TileMatrix
+    public class WriteableTileMatrix : TileMatrix
     {
-        public WriteableWallMatrix(int blockCountH, int blockCountV)
+        public WriteableTileMatrix(int blockCountH, int blockCountV)
             : base(blockCountH, blockCountV)
         {
         }
@@ -29,7 +29,7 @@ namespace GameClassLibrary.Walls
                     return;
                 }
             }
-            throw new Exception("WallMatrix class write outside bounds.");
+            throw new Exception("TileMatrix class write outside bounds.");
         }
 
 
@@ -44,7 +44,7 @@ namespace GameClassLibrary.Walls
                     return;
                 }
             }
-            throw new Exception("WallMatrix class write outside bounds.");
+            throw new Exception("TileMatrix class write outside bounds.");
         }
     }
 }

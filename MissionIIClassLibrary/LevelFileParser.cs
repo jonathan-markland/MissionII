@@ -115,13 +115,13 @@ namespace MissionIIClassLibrary
 
         public static List<Room> ParseRowOfRooms(StreamReader streamReader, int roomY, SpecialMarkers specialMarkers)
         {
-            var rowOfWallMatrices = new List<WriteableWallMatrix>(Constants.RoomsHorizontally);
+            var rowOfWallMatrices = new List<WriteableTileMatrix>(Constants.RoomsHorizontally);
 
             var rowOfRooms = new List<Room>(Constants.RoomsHorizontally);
 
             for (int roomX = 0; roomX < Constants.RoomsHorizontally; ++roomX)
             {
-                var m = new WriteableWallMatrix(Constants.SourceFileRoomCharsHorizontally, Constants.SourceFileCharsVertically);
+                var m = new WriteableTileMatrix(Constants.SourceFileRoomCharsHorizontally, Constants.SourceFileCharsVertically);
                 rowOfWallMatrices.Add(m);
                 rowOfRooms.Add(new Room(roomX + 1, roomY, m));
             }
@@ -188,7 +188,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void PaintLine(WriteableWallMatrix targetMatrix, int rowNumber, string thisLine)
+        public static void PaintLine(WriteableTileMatrix targetMatrix, int rowNumber, string thisLine)
         {
             int x = 0;
             foreach(char ch in thisLine)

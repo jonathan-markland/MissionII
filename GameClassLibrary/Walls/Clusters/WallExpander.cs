@@ -14,7 +14,7 @@ namespace GameClassLibrary.Walls.Clusters
         private int _sourceClusterSide;
         private int _destClusterSide;
         private TileMatrix _sourceMatrix;
-        private WriteableWallMatrix _destMatrix;
+        private WriteableTileMatrix _destMatrix;
         private Tile _spaceCharValue;
         private Tile _wallCharValue;
         private Func<Tile, bool> _isSpaceFunc;
@@ -49,7 +49,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        public WriteableWallMatrix GetExpandedWalls()
+        public WriteableTileMatrix GetExpandedWalls()
         {
             // 789       78889
             // 456 ----> 45556
@@ -57,7 +57,7 @@ namespace GameClassLibrary.Walls.Clusters
             //           45556
             //           12223
 
-            var destMatrix = new WriteableWallMatrix(
+            var destMatrix = new WriteableTileMatrix(
                 _clustersHorizontally * _destClusterSide,
                 _clustersVertically * _destClusterSide);
 
@@ -76,7 +76,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private void ExpandCluster(int x, int y, WriteableWallMatrix destMatrix)
+        private void ExpandCluster(int x, int y, WriteableTileMatrix destMatrix)
         {
             // NB: Order is significant
 
@@ -95,7 +95,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private void SidePiece(WriteableWallMatrix destMatrix, int x, int y, int targetSide, int dx, int dy, int joinSide)
+        private void SidePiece(WriteableTileMatrix destMatrix, int x, int y, int targetSide, int dx, int dy, int joinSide)
         {
             /*
              *  JKL
@@ -147,7 +147,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private void CentrePiece(WriteableWallMatrix destMatrix, int x, int y)
+        private void CentrePiece(WriteableTileMatrix destMatrix, int x, int y)
         {
             // The level designer specified whether the centres are filled.
 
@@ -160,7 +160,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
         private void CornerPiece(
-            WriteableWallMatrix destMatrix, int x, int y, int targetCorner, 
+            WriteableTileMatrix destMatrix, int x, int y, int targetCorner, 
             int adjacentSide1, int adjacentSide2)
         {
             /*
