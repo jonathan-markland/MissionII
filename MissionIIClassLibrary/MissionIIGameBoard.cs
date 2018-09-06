@@ -6,16 +6,6 @@ using GameClassLibrary.Algorithms;
 using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
 
-namespace GameClassLibrary.Walls
-{
-    public static class WallMatrixChar2
-    {
-        public static Tile Space = new Tile { VisualIndex = 0 };
-        public static Tile Brick = new Tile { VisualIndex = 1 };
-        public static Tile Electric = new Tile { VisualIndex = 2 };
-    }
-}
-
 namespace MissionIIClassLibrary
 {
     public class MissionIIGameBoard
@@ -154,7 +144,7 @@ namespace MissionIIClassLibrary
 
         public static bool IsSpace(Tile c)
         {
-            return c == WallMatrixChar2.Space;
+            return c == MissionIITile.Space;
         }
 
 

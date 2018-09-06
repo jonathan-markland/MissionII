@@ -80,8 +80,8 @@ namespace MissionIIClassLibrary
                         Constants.ClustersVertically,
                         Constants.SourceClusterSide,
                         Constants.DestClusterSide,
-                        WallMatrixChar2.Electric,
-                        WallMatrixChar2.Space,
+                        MissionIITile.Electric,
+                        MissionIITile.Space,
                         MissionIIGameBoard.IsSpace)
                             .GetExpandedWalls());
             }
@@ -177,11 +177,11 @@ namespace MissionIIClassLibrary
         {
             while (blockCount > 0)
             {
-                if (   roomMatrix1.Read(point1) != WallMatrixChar2.Space
-                    || roomMatrix2.Read(point2) != WallMatrixChar2.Space)
+                if (   roomMatrix1.Read(point1) != MissionIITile.Space
+                    || roomMatrix2.Read(point2) != MissionIITile.Space)
                 {
-                    roomMatrix1.Write(point1, WallMatrixChar2.Electric);
-                    roomMatrix2.Write(point2, WallMatrixChar2.Electric);
+                    roomMatrix1.Write(point1, MissionIITile.Electric);
+                    roomMatrix2.Write(point2, MissionIITile.Electric);
                 }
                 point1 = point1 + movementDeltas;
                 point2 = point2 + movementDeltas;
@@ -201,7 +201,7 @@ namespace MissionIIClassLibrary
                 {
                     if (SurroundedByWall8(wallMatrix, x, y))
                     {
-                        wallMatrix.Write(x, y, WallMatrixChar2.Brick);
+                        wallMatrix.Write(x, y, MissionIITile.Brick);
                     }
                 }
             }
@@ -212,10 +212,10 @@ namespace MissionIIClassLibrary
         private static bool SurroundedByWall4(WriteableWallMatrix wallMatrix, int x, int y) // TODO: We could be arty and call this instead.
         {
             return
-                   wallMatrix.Read(x, y - 1) != WallMatrixChar2.Space
-                && wallMatrix.Read(x, y + 1) != WallMatrixChar2.Space
-                && wallMatrix.Read(x - 1, y) != WallMatrixChar2.Space
-                && wallMatrix.Read(x + 1, y) != WallMatrixChar2.Space;
+                   wallMatrix.Read(x, y - 1) != MissionIITile.Space
+                && wallMatrix.Read(x, y + 1) != MissionIITile.Space
+                && wallMatrix.Read(x - 1, y) != MissionIITile.Space
+                && wallMatrix.Read(x + 1, y) != MissionIITile.Space;
         }
 
 
@@ -223,14 +223,14 @@ namespace MissionIIClassLibrary
         private static bool SurroundedByWall8(WriteableWallMatrix wallMatrix, int x, int y)
         {
             return
-                   wallMatrix.Read(x, y - 1) != WallMatrixChar2.Space
-                && wallMatrix.Read(x, y + 1) != WallMatrixChar2.Space
-                && wallMatrix.Read(x - 1, y) != WallMatrixChar2.Space
-                && wallMatrix.Read(x + 1, y) != WallMatrixChar2.Space
-                && wallMatrix.Read(x - 1, y - 1) != WallMatrixChar2.Space
-                && wallMatrix.Read(x + 1, y - 1) != WallMatrixChar2.Space
-                && wallMatrix.Read(x - 1, y + 1) != WallMatrixChar2.Space
-                && wallMatrix.Read(x + 1, y + 1) != WallMatrixChar2.Space;
+                   wallMatrix.Read(x, y - 1) != MissionIITile.Space
+                && wallMatrix.Read(x, y + 1) != MissionIITile.Space
+                && wallMatrix.Read(x - 1, y) != MissionIITile.Space
+                && wallMatrix.Read(x + 1, y) != MissionIITile.Space
+                && wallMatrix.Read(x - 1, y - 1) != MissionIITile.Space
+                && wallMatrix.Read(x + 1, y - 1) != MissionIITile.Space
+                && wallMatrix.Read(x - 1, y + 1) != MissionIITile.Space
+                && wallMatrix.Read(x + 1, y + 1) != MissionIITile.Space;
         }
 
 
@@ -250,7 +250,7 @@ namespace MissionIIClassLibrary
                 int cy = (y + logicalOffsetY) & 63;
                 for (int x = 0; x < wallMatrix.CountH; x++)
                 {
-                    if ((wallMatrix.Read(x, y) == WallMatrixChar2.Space) ^ doWalls)
+                    if ((wallMatrix.Read(x, y) == MissionIITile.Space) ^ doWalls)
                     {
                         int cx = (x + logicalOffsetX) & 63;
                         var greyLevel = Colour.GetGreyLevel(resamplingImageArray[cy * 64 + cx]);

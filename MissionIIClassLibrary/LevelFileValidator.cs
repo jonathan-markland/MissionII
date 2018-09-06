@@ -55,7 +55,7 @@ namespace MissionIIClassLibrary
 
         public static bool BothAreSpaceOrBothAreWall(Tile c1, Tile c2)
         {
-            return !((c1 == WallMatrixChar2.Space) ^ (c2 == WallMatrixChar2.Space));
+            return !((c1 == MissionIITile.Space) ^ (c2 == MissionIITile.Space));
         }
 
 
@@ -115,7 +115,7 @@ namespace MissionIIClassLibrary
 
                 if (otherRoomIsOffMap)
                 {
-                    if (thisRoomSquare == WallMatrixChar2.Space)
+                    if (thisRoomSquare == MissionIITile.Space)
                     {
                         throw new Exception($"No doorway must exist at ({startX},{startY}) because it leads off the map.");
                     }
@@ -179,11 +179,11 @@ namespace MissionIIClassLibrary
             var c2 = fileWallData.Read(x + 1, y + 2);
             var c3 = fileWallData.Read(x + 2, y + 2);
 
-            var spaceIn8246 = (c8 == WallMatrixChar2.Space || c2 == WallMatrixChar2.Space || c4 == WallMatrixChar2.Space || c6 == WallMatrixChar2.Space);
+            var spaceIn8246 = (c8 == MissionIITile.Space || c2 == MissionIITile.Space || c4 == MissionIITile.Space || c6 == MissionIITile.Space);
 
             // Centre square space-check rules.
 
-            if (spaceIn8246 && c5 != WallMatrixChar2.Space)
+            if (spaceIn8246 && c5 != MissionIITile.Space)
             {
                 throw new Exception($"Character at ({x+1},{y+1}) must be a space!");
             }
@@ -196,22 +196,22 @@ namespace MissionIIClassLibrary
 
             // Corner squares cannot just be spaces.
 
-            if (c7 == WallMatrixChar2.Space && !(c4 == WallMatrixChar2.Space && c5 == WallMatrixChar2.Space && c8 == WallMatrixChar2.Space))
+            if (c7 == MissionIITile.Space && !(c4 == MissionIITile.Space && c5 == MissionIITile.Space && c8 == MissionIITile.Space))
             {
                 throw new Exception($"Corner square at ({x},{y}) cannot be a space.");
             }
 
-            if (c9 == WallMatrixChar2.Space && !(c6 == WallMatrixChar2.Space && c5 == WallMatrixChar2.Space && c8 == WallMatrixChar2.Space))
+            if (c9 == MissionIITile.Space && !(c6 == MissionIITile.Space && c5 == MissionIITile.Space && c8 == MissionIITile.Space))
             {
                 throw new Exception($"Corner square at ({x+2},{y}) cannot be a space.");
             }
 
-            if (c3 == WallMatrixChar2.Space && !(c2 == WallMatrixChar2.Space && c5 == WallMatrixChar2.Space && c6 == WallMatrixChar2.Space))
+            if (c3 == MissionIITile.Space && !(c2 == MissionIITile.Space && c5 == MissionIITile.Space && c6 == MissionIITile.Space))
             {
                 throw new Exception($"Corner square at ({x+2},{y+2}) cannot be a space.");
             }
 
-            if (c1 == WallMatrixChar2.Space && !(c2 == WallMatrixChar2.Space && c5 == WallMatrixChar2.Space && c4 == WallMatrixChar2.Space))
+            if (c1 == MissionIITile.Space && !(c2 == MissionIITile.Space && c5 == MissionIITile.Space && c4 == MissionIITile.Space))
             {
                 throw new Exception($"Corner square at ({x},{y+2}) cannot be a space.");
             }
