@@ -10,7 +10,7 @@ namespace GameClassLibrary.Walls
             Rectangle currentExtents, 
             TileMatrix currentRoomWallData, 
             int tileWidth, int tileHeight,
-            Func<Tile, bool> isSpaceFunc)
+            Func<Tile, bool> isSpace)
         {
             int countFound = 0;
             int resultMask = 0;
@@ -22,7 +22,7 @@ namespace GameClassLibrary.Walls
                     currentRoomWallData, tileWidth, tileHeight, 
                     currentExtents.Left, currentExtents.Top, 
                     currentExtents.Width, currentExtents.Height, 
-                    isSpaceFunc);
+                    isSpace);
 
                 if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
                 {

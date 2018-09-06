@@ -23,7 +23,7 @@ namespace GameClassLibrary.Walls
             int objectY,
             int objectWidth,
             int objectHeight,
-            Func<Tile, bool> isSpaceFunc)
+            Func<Tile, bool> isSpace)
         {
             if (wallData.Empty) return WallHitTestResult.HitWall; // Required.
 
@@ -52,7 +52,7 @@ namespace GameClassLibrary.Walls
             {
                 for (int x = cX; x < cx2; x++)
                 {
-                    if (!isSpaceFunc(wallData.TileAt(x, y)))
+                    if (!isSpace(wallData.TileAt(x, y)))
                     {
                         return WallHitTestResult.HitWall;  // hit wall block  // NB: If indexing fails, all rows MUST be the same length!
                     }

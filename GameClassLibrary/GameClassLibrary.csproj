@@ -80,7 +80,7 @@
     <Compile Include="Walls\PositionFinder.cs" />
     <Compile Include="Walls\Tile.cs" />
     <Compile Include="Walls\TileMatrix.cs" />
-    <Compile Include="Walls\WriteableWallMatrix.cs" />
+    <Compile Include="Walls\WriteableTileMatrix.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
