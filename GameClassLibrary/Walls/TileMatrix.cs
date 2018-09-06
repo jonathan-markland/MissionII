@@ -15,13 +15,13 @@ namespace GameClassLibrary.Walls
 
 
 
-        public TileMatrix(int blockCountH, int blockCountV)
+        public TileMatrix(int tileCountH, int tileCountV)
         {
-            var n = blockCountH * blockCountV;
+            var n = tileCountH * tileCountV;
             _theTiles = new Tile[n];
             _styleDeltas = new byte[n];
-            _countH = blockCountH;
-            _countV = blockCountV;
+            _countH = tileCountH;
+            _countV = tileCountV;
         }
 
 
