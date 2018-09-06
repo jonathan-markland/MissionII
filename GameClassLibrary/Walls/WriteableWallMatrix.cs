@@ -21,11 +21,11 @@ namespace GameClassLibrary.Walls
 
         public void Write(int x, int y, Tile ch)
         {
-            if (x >= 0 && x < _blockCountH)
+            if (x >= 0 && x < _countH)
             {
-                if (y >= 0 && y < _blockCountV)
+                if (y >= 0 && y < _countV)
                 {
-                    _wallData[y * _blockCountH + x] = ch;
+                    _theTiles[y * _countH + x] = ch;
                     return;
                 }
             }
@@ -36,11 +36,11 @@ namespace GameClassLibrary.Walls
 
         public void SetStyleDelta(int x, int y, byte styleDelta)
         {
-            if (x >= 0 && x < _blockCountH)
+            if (x >= 0 && x < _countH)
             {
-                if (y >= 0 && y < _blockCountV)
+                if (y >= 0 && y < _countV)
                 {
-                    _styleDeltas[y * _blockCountH + x] = styleDelta;
+                    _styleDeltas[y * _countH + x] = styleDelta;
                     return;
                 }
             }

@@ -70,7 +70,7 @@ namespace GameClassLibrary.Walls.Clusters
 		
 		private Tile Test(int x, int y)
 		{
-			return _wallMatrix.Read(x + _originX, y + _originY);
+			return _wallMatrix.TileAt(x + _originX, y + _originY);
 		}
     }
 }

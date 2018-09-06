@@ -62,8 +62,8 @@ namespace MissionIIClassLibrary
 
         public static void ValidateTileConnection(TileMatrix fileWallData, int x, int y, int dx, int dy)
         {
-            var c1 = fileWallData.Read(x, y);
-            var c2 = fileWallData.Read(x + dx, y + dy);
+            var c1 = fileWallData.TileAt(x, y);
+            var c2 = fileWallData.TileAt(x + dx, y + dy);
             if (! BothAreSpaceOrBothAreWall(c1, c2))
             {
                 throw new Exception($"Invalid connection between 3 x 3 tiles at ({x},{y}).  Both must be spaces, or both must be wall.");
@@ -111,7 +111,7 @@ namespace MissionIIClassLibrary
 
             for (int i=0; i < Constants.ClustersHorizontally; i++) // TODO: collapse H/V constants to one.
             {
-                var thisRoomSquare = thisRoom.WallData.Read(startX, startY);
+                var thisRoomSquare = thisRoom.WallData.TileAt(startX, startY);
 
                 if (otherRoomIsOffMap)
                 {
@@ -131,7 +131,7 @@ namespace MissionIIClassLibrary
                     var otherRoomPosY = travellingHorizontally ? (n - startY) : startY; 
 
                     // Fetch corresponding char in adjacent room, and check:
-                    var otherRoomSquare = otherRoom.WallData.Read(otherRoomPosX, otherRoomPosY);
+                    var otherRoomSquare = otherRoom.WallData.TileAt(otherRoomPosX, otherRoomPosY);
 
                     if (! BothAreSpaceOrBothAreWall(thisRoomSquare, otherRoomSquare))
                     {
@@ -169,15 +169,15 @@ namespace MissionIIClassLibrary
             // 456
             // 123
 
-            var c7 = fileWallData.Read(x + 0, y + 0);
-            var c8 = fileWallData.Read(x + 1, y + 0);
-            var c9 = fileWallData.Read(x + 2, y + 0);
-            var c4 = fileWallData.Read(x + 0, y + 1);
-            var c5 = fileWallData.Read(x + 1, y + 1);
-            var c6 = fileWallData.Read(x + 2, y + 1);
-            var c1 = fileWallData.Read(x + 0, y + 2);
-            var c2 = fileWallData.Read(x + 1, y + 2);
-            var c3 = fileWallData.Read(x + 2, y + 2);
+            var c7 = fileWallData.TileAt(x + 0, y + 0);
+            var c8 = fileWallData.TileAt(x + 1, y + 0);
+            var c9 = fileWallData.TileAt(x + 2, y + 0);
+            var c4 = fileWallData.TileAt(x + 0, y + 1);
+            var c5 = fileWallData.TileAt(x + 1, y + 1);
+            var c6 = fileWallData.TileAt(x + 2, y + 1);
+            var c1 = fileWallData.TileAt(x + 0, y + 2);
+            var c2 = fileWallData.TileAt(x + 1, y + 2);
+            var c3 = fileWallData.TileAt(x + 2, y + 2);
 
             var spaceIn8246 = (c8 == MissionIITile.Space || c2 == MissionIITile.Space || c4 == MissionIITile.Space || c6 == MissionIITile.Space);
 

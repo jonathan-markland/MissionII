@@ -8,61 +8,86 @@ namespace GameClassLibrary.Walls
     /// </summary>
     public class TileMatrix
     {
-        protected Tile[] _wallData;
+        protected Tile[] _theTiles;
         protected byte[] _styleDeltas;
-        protected int _blockCountH;
-        protected int _blockCountV;
+        protected int _countH;
+        protected int _countV;
+
+
 
         public TileMatrix(int blockCountH, int blockCountV)
         {
             var n = blockCountH * blockCountV;
-            _wallData = new Tile[n];
+            _theTiles = new Tile[n];
             _styleDeltas = new byte[n];
-            _blockCountH = blockCountH;
-            _blockCountV = blockCountV;
+            _countH = blockCountH;
+            _countV = blockCountV;
         }
 
-        public int CountH { get { return _blockCountH; } }
-        public int CountV { get { return _blockCountV; } }
 
-        public bool Empty { get { return _blockCountH == 0 || _blockCountV == 0; } }
+        /// <summary>
+        /// The number of tiles horizontally.
+        /// </summary>
+        public int CountH { get { return _countH; } }
 
-        public Tile Read(Point p)
+        /// <summary>
+        /// The number of tiles vertically.
+        /// </summary>
+        public int CountV { get { return _countV; } }
+
+        /// <summary>
+        /// Query if the matrix has no size.
+        /// </summary>
+        public bool Empty { get { return _countH == 0 || _countV == 0; } }
+
+        /// <summary>
+        /// Return the tile at the position given.
+        /// </summary>
+        public Tile TileAt(Point p)
         {
-            return Read(p.X, p.Y);
+            return TileAt(p.X, p.Y);
         }
 
-        public Tile Read(int x, int y)
+        /// <summary>
+        /// Return the tile at the position given.
+        /// </summary>
+        public Tile TileAt(int x, int y)
         {
-            if (x >= 0 && x < _blockCountH)
+            if (x >= 0 && x < _countH)
             {
-                if (y >= 0 && y < _blockCountV)
+                if (y >= 0 && y < _countV)
                 {
-                    return _wallData[y * _blockCountH + x];
+                    return _theTiles[y * _countH + x];
                 }
             }
-            throw new Exception("WallMatrix class read outside bounds.");
+            throw new Exception("TileMatrix class read outside bounds.");
         }
 
-        public Tile Read(int x, int y, Tile defaultIfOutsideBounds)
+        /// <summary>
+        /// Return the tile at the position given, or return the default if
+        /// the position is outside the bounds of this tile matrix.
+        /// </summary>
+        public Tile TileAt(int x, int y, Tile defaultIfOutsideBounds)
         {
-            if (x >= 0 && x < _blockCountH)
+            if (x >= 0 && x < _countH)
             {
-                if (y >= 0 && y < _blockCountV)
+                if (y >= 0 && y < _countV)
                 {
-                    return _wallData[y * _blockCountH + x];
+                    return _theTiles[y * _countH + x];
                 }
             }
             return defaultIfOutsideBounds;
         }
 
+
+
         public byte GetStyleDelta(int x, int y)
         {
-            if (x >= 0 && x < _blockCountH)
+            if (x >= 0 && x < _countH)
             {
-                if (y >= 0 && y < _blockCountV)
+                if (y >= 0 && y < _countV)
                 {
-                    return _styleDeltas[y * _blockCountH + x];
+                    return _styleDeltas[y * _countH + x];
                 }
             }
             throw new Exception("WallMatrix class read outside bounds.");

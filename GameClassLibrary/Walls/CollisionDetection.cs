@@ -52,7 +52,7 @@ namespace GameClassLibrary.Walls
             {
                 for (int x = cX; x < cx2; x++)
                 {
-                    if (!isSpaceFunc(wallData.Read(x, y)))
+                    if (!isSpaceFunc(wallData.TileAt(x, y)))
                     {
                         return WallHitTestResult.HitWall;  // hit wall block  // NB: If indexing fails, all rows MUST be the same length!
                     }
