@@ -11,8 +11,8 @@ namespace GameClassLibrary.Walls.Clusters
         // Area codes:  456
         //              789
 
-		private WallMatrix _wallMatrix;
-        private Func<WallMatrixChar, bool> _isSpaceFunc;
+		private TileMatrix _wallMatrix;
+        private Func<Tile, bool> _isSpaceFunc;
 
         protected int _originX;
 		protected int _originY;
@@ -22,9 +22,9 @@ namespace GameClassLibrary.Walls.Clusters
 		
 		
 		public ClusterReader(
-            WallMatrix wallMatrix, 
+            TileMatrix wallMatrix, 
             int clusterIndexX, int clusterIndexY, 
-            int clusterSide, Func<WallMatrixChar, bool> isSpaceFunc)
+            int clusterSide, Func<Tile, bool> isSpaceFunc)
 		{
 			_wallMatrix = wallMatrix;
 			_originX = clusterIndexX * clusterSide;
@@ -50,7 +50,7 @@ namespace GameClassLibrary.Walls.Clusters
 		
 		
 		
-		public WallMatrixChar Test(int areaCode)
+		public Tile Test(int areaCode)
 		{
 			var e = _endOffset;
 			
@@ -68,7 +68,7 @@ namespace GameClassLibrary.Walls.Clusters
 		
 		
 		
-		private WallMatrixChar Test(int x, int y)
+		private Tile Test(int x, int y)
 		{
 			return _wallMatrix.Read(x + _originX, y + _originY);
 		}

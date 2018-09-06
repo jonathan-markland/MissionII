@@ -13,21 +13,21 @@ namespace GameClassLibrary.Walls.Clusters
         private int _clustersVertically;
         private int _sourceClusterSide;
         private int _destClusterSide;
-        private WallMatrix _sourceMatrix;
+        private TileMatrix _sourceMatrix;
         private WriteableWallMatrix _destMatrix;
-        private WallMatrixChar _spaceCharValue;
-        private WallMatrixChar _wallCharValue;
-        private Func<WallMatrixChar, bool> _isSpaceFunc;
+        private Tile _spaceCharValue;
+        private Tile _wallCharValue;
+        private Func<Tile, bool> _isSpaceFunc;
 
 
 
         public WallExpander(
-            WallMatrix sourceMatrix,
+            TileMatrix sourceMatrix,
             int clustersHorizontally, int clustersVertically,
             int sourceClusterSide, int destClusterSide, 
-            WallMatrixChar wallCharValue,
-            WallMatrixChar spaceCharValue,
-            Func<WallMatrixChar, bool> isSpaceFunc)
+            Tile wallCharValue,
+            Tile spaceCharValue,
+            Func<Tile, bool> isSpaceFunc)
         {
             _sourceMatrix = sourceMatrix;
             _destMatrix = null;

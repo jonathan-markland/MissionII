@@ -27,7 +27,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ExpectValidPathsInRoom(WallMatrix fileWallData)
+        public static void ExpectValidPathsInRoom(TileMatrix fileWallData)
         {
             // Validations for each 3x3 group of tiles individually:
 
@@ -53,14 +53,14 @@ namespace MissionIIClassLibrary
 
 
 
-        public static bool BothAreSpaceOrBothAreWall(WallMatrixChar c1, WallMatrixChar c2)
+        public static bool BothAreSpaceOrBothAreWall(Tile c1, Tile c2)
         {
             return !((c1 == WallMatrixChar2.Space) ^ (c2 == WallMatrixChar2.Space));
         }
 
 
 
-        public static void ValidateTileConnection(WallMatrix fileWallData, int x, int y, int dx, int dy)
+        public static void ValidateTileConnection(TileMatrix fileWallData, int x, int y, int dx, int dy)
         {
             var c1 = fileWallData.Read(x, y);
             var c2 = fileWallData.Read(x + dx, y + dy);
@@ -163,7 +163,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ExpectValidThreeByThree(WallMatrix fileWallData, int x, int y)
+        public static void ExpectValidThreeByThree(TileMatrix fileWallData, int x, int y)
         {
             // 789
             // 456

@@ -10,9 +10,9 @@ namespace GameClassLibrary.Walls
 {
     public static class WallMatrixChar2
     {
-        public static WallMatrixChar Space = new WallMatrixChar { Value = 0 };
-        public static WallMatrixChar Brick = new WallMatrixChar { Value = 1 };
-        public static WallMatrixChar Electric = new WallMatrixChar { Value = 2 };
+        public static Tile Space = new Tile { VisualIndex = 0 };
+        public static Tile Brick = new Tile { VisualIndex = 1 };
+        public static Tile Electric = new Tile { VisualIndex = 2 };
     }
 }
 
@@ -42,7 +42,7 @@ namespace MissionIIClassLibrary
 
         public int LevelNumber;
         public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
-        public WallMatrix CurrentRoomWallData;
+        public TileMatrix CurrentRoomWallData;
         public GameObjects.Man Man = new GameObjects.Man();
         public SuddenlyReplaceableList<BaseGameObject> ObjectsInRoom = new SuddenlyReplaceableList<BaseGameObject>();
         public List<BaseGameObject> ObjectsToRemove = new List<BaseGameObject>();
@@ -152,7 +152,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static bool IsSpace(WallMatrixChar c)
+        public static bool IsSpace(Tile c)
         {
             return c == WallMatrixChar2.Space;
         }

@@ -3,7 +3,7 @@ using GameClassLibrary.Math;
 
 namespace GameClassLibrary.Walls
 {
-    public class WriteableWallMatrix : WallMatrix
+    public class WriteableWallMatrix : TileMatrix
     {
         public WriteableWallMatrix(int blockCountH, int blockCountV)
             : base(blockCountH, blockCountV)
@@ -12,14 +12,14 @@ namespace GameClassLibrary.Walls
 
 
 
-        public void Write(Point p, WallMatrixChar ch)
+        public void Write(Point p, Tile ch)
         {
             Write(p.X, p.Y, ch);
         }
 
 
 
-        public void Write(int x, int y, WallMatrixChar ch)
+        public void Write(int x, int y, Tile ch)
         {
             if (x >= 0 && x < _blockCountH)
             {

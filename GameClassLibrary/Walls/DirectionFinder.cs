@@ -8,9 +8,9 @@ namespace GameClassLibrary.Walls
     {
         public static FoundDirections GetFreeDirections(
             Rectangle currentExtents, 
-            WallMatrix currentRoomWallData, 
+            TileMatrix currentRoomWallData, 
             int tileWidth, int tileHeight,
-            Func<WallMatrixChar, bool> isSpaceFunc)
+            Func<Tile, bool> isSpaceFunc)
         {
             int countFound = 0;
             int resultMask = 0;
@@ -36,8 +36,8 @@ namespace GameClassLibrary.Walls
 
 
         public static int GetDirectionFacingAwayFromWalls(
-            WallMatrix fileWallData, Point startCluster, int sourceClusterSide,
-            Func<WallMatrixChar, bool> isSpaceFunc)
+            TileMatrix fileWallData, Point startCluster, int sourceClusterSide,
+            Func<Tile, bool> isSpaceFunc)
         {
             var clusterCanvas = new ClusterReader(
                 fileWallData, startCluster.X, startCluster.Y, sourceClusterSide, isSpaceFunc);

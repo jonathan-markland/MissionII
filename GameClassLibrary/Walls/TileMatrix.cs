@@ -4,19 +4,19 @@ using GameClassLibrary.Math;
 namespace GameClassLibrary.Walls
 {
     /// <summary>
-    /// Wall matrix for a room.  (Immutable).
+    /// Tile matrix for a room.  (Immutable).
     /// </summary>
-    public class WallMatrix
+    public class TileMatrix
     {
-        protected WallMatrixChar[] _wallData;
+        protected Tile[] _wallData;
         protected byte[] _styleDeltas;
         protected int _blockCountH;
         protected int _blockCountV;
 
-        public WallMatrix(int blockCountH, int blockCountV)
+        public TileMatrix(int blockCountH, int blockCountV)
         {
             var n = blockCountH * blockCountV;
-            _wallData = new WallMatrixChar[n];
+            _wallData = new Tile[n];
             _styleDeltas = new byte[n];
             _blockCountH = blockCountH;
             _blockCountV = blockCountV;
@@ -27,12 +27,12 @@ namespace GameClassLibrary.Walls
 
         public bool Empty { get { return _blockCountH == 0 || _blockCountV == 0; } }
 
-        public WallMatrixChar Read(Point p)
+        public Tile Read(Point p)
         {
             return Read(p.X, p.Y);
         }
 
-        public WallMatrixChar Read(int x, int y)
+        public Tile Read(int x, int y)
         {
             if (x >= 0 && x < _blockCountH)
             {
@@ -44,7 +44,7 @@ namespace GameClassLibrary.Walls
             throw new Exception("WallMatrix class read outside bounds.");
         }
 
-        public WallMatrixChar Read(int x, int y, WallMatrixChar defaultIfOutsideBounds)
+        public Tile Read(int x, int y, Tile defaultIfOutsideBounds)
         {
             if (x >= 0 && x < _blockCountH)
             {

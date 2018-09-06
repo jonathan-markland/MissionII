@@ -18,7 +18,7 @@ namespace GameClassLibrary.Walls.Clusters
 
         public WriteableClusterCanvas(
             WriteableWallMatrix wallMatrix, int clusterIndexX, int clusterIndexY, 
-            int clusterSide, Func<WallMatrixChar, bool> isSpaceFunc)
+            int clusterSide, Func<Tile, bool> isSpaceFunc)
                 : base(wallMatrix, clusterIndexX, clusterIndexY, clusterSide, isSpaceFunc)
         {
             _writeableWallMatrix = wallMatrix;
@@ -26,7 +26,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        public void Paint(int areaCode, WallMatrixChar paintChar)
+        public void Paint(int areaCode, Tile paintChar)
         {
             var e = _endOffset;
             var s = _innerLength;
@@ -45,7 +45,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private void Paint(int x, int y, int w, int h, WallMatrixChar paintChar)
+        private void Paint(int x, int y, int w, int h, Tile paintChar)
         {
             // TODO:  Could assert area fits.  Not massively important since Write() does bounds checking.
 

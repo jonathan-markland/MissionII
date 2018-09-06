@@ -177,7 +177,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static WallMatrixChar CharToWallMatrixChar(char ch)
+        public static Tile CharToWallMatrixChar(char ch)
         {
             if (ch == ' ' || ch == 'x') return WallMatrixChar2.Space;  // 'x' marks man start spot
             if (ch == '#') return WallMatrixChar2.Electric;
@@ -203,7 +203,7 @@ namespace MissionIIClassLibrary
         public static void ScanForSpecialMarkers(
             string sourceString, int rowNumber, 
             Room targetRoom, SpecialMarkers specialMarkers, 
-            WallMatrixChar spaceCharValue)
+            Tile spaceCharValue)
         {
             int x = 0;
             foreach (char ch in sourceString)

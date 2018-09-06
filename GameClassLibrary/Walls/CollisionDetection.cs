@@ -16,14 +16,14 @@ namespace GameClassLibrary.Walls
         }
 
         public static WallHitTestResult HitsWalls(
-            WallMatrix wallData,
+            TileMatrix wallData,
             int tileWidth,
             int tileHeight,
             int objectX,
             int objectY,
             int objectWidth,
             int objectHeight,
-            Func<WallMatrixChar, bool> isSpaceFunc)
+            Func<Tile, bool> isSpaceFunc)
         {
             if (wallData.Empty) return WallHitTestResult.HitWall; // Required.
 

@@ -12,10 +12,10 @@ namespace GameClassLibrary.Graphics
         /// </summary>
         public static CollisionDetection.WallHitTestResult MoveConsideringWallsOnly(
             this SpriteInstance spriteInstance,
-            WallMatrix wallMatrix,
+            TileMatrix wallMatrix,
             int tileWidth, int tileHeight,
             MovementDeltas movementDeltas,
-            Func<WallMatrixChar, bool> isSpaceFunc)
+            Func<Tile, bool> isSpaceFunc)
         {
             var proposedX = spriteInstance.X + movementDeltas.dx;
             var proposedY = spriteInstance.Y + movementDeltas.dy;

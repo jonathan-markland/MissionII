@@ -4,7 +4,7 @@ namespace MissionIIClassLibrary
 {
     public class Room
     {
-        public Room(int x, int y, WallMatrix wallData)
+        public Room(int x, int y, TileMatrix wallData)
         {
             RoomX = x;
             RoomY = y;
@@ -32,6 +32,6 @@ namespace MissionIIClassLibrary
         /// <summary>
         /// Wall data for this room.
         /// </summary>
-        public WallMatrix WallData { get; private set; }
+        public TileMatrix WallData { get; private set; }
     }
 }

@@ -10,7 +10,7 @@ namespace MissionIIClassLibrary
         private Room _manStartRoom;
         private int _initialManFacingDirection;
 
-        public void SetManStartCluster(Room startRoom, Point startCluster, WallMatrixChar spaceCharValue)
+        public void SetManStartCluster(Room startRoom, Point startCluster, Tile spaceCharValue)
         {
             if (_manStart.HasValue)
             {

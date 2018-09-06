@@ -32,7 +32,7 @@ namespace MissionIIClassLibrary
         public static void DrawWalls(
             this IDrawingTarget drawingTarget,
             int leftX, int topY, int tileWidth, int tileHeight,
-            WallMatrix wallData, // TODO: Don't really want to re-map this on the fly.  Pre-calculate.
+            TileMatrix wallData, // TODO: Don't really want to re-map this on the fly.  Pre-calculate.
             WallAndFloorHostSprites hostSprites) // TODO: pass array of sprite indices
         {
             for (int y = 0; y < wallData.CountV; y++)
