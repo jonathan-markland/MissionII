@@ -53,7 +53,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static bool BothAreSpaceOrBothAreWall(Tile c1, Tile c2)
+        public static bool BothAreSpaceOrBothAreNotSpace(Tile c1, Tile c2)
         {
             return !((c1 == MissionIITile.Space) ^ (c2 == MissionIITile.Space));
         }
@@ -64,7 +64,7 @@ namespace MissionIIClassLibrary
         {
             var c1 = fileWallData.TileAt(x, y);
             var c2 = fileWallData.TileAt(x + dx, y + dy);
-            if (! BothAreSpaceOrBothAreWall(c1, c2))
+            if (! BothAreSpaceOrBothAreNotSpace(c1, c2))
             {
                 throw new Exception($"Invalid connection between 3 x 3 tiles at ({x},{y}).  Both must be spaces, or both must be wall.");
             }
@@ -133,7 +133,7 @@ namespace MissionIIClassLibrary
                     // Fetch corresponding char in adjacent room, and check:
                     var otherRoomSquare = otherRoom.WallData.TileAt(otherRoomPosX, otherRoomPosY);
 
-                    if (! BothAreSpaceOrBothAreWall(thisRoomSquare, otherRoomSquare))
+                    if (! BothAreSpaceOrBothAreNotSpace(thisRoomSquare, otherRoomSquare))
                     {
                         throw new Exception($"Invalid connection " +
                             $"to ({otherRoomPosX},{otherRoomPosY}) in room {otherRoom.RoomX},{otherRoom.RoomY} " +
