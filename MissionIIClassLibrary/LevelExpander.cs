@@ -254,7 +254,9 @@ namespace MissionIIClassLibrary
                     {
                         int cx = (x + logicalOffsetX) & 63;
                         var greyLevel = Colour.GetGreyLevel(resamplingImageArray[cy * 64 + cx]);
-                        wallMatrix.SetStyleDelta(x, y, (byte)((greyLevel < sampleThreshold) ? 0 : 1));
+                        var styleDelta = (byte)((greyLevel < sampleThreshold) ? 0 : 1);
+                        var item = (byte)(wallMatrix.TileAt(x, y).VisualIndex | styleDelta);
+                        wallMatrix.Write(x, y, new Tile { VisualIndex = item });
                     }
                 }
             }

@@ -41,7 +41,7 @@ namespace MissionIIClassLibrary
                 for (int x = 0; x < wallData.CountH; x++)
                 {
                     var ch = wallData.TileAt(x, y);
-                    var styleDelta = wallData.GetStyleDelta(x, y); // TODO: Don't want this here.
+                    var styleDelta = ch.VisualIndex & 1; // TODO: Don't want this here.
                     if (ch == MissionIITile.Electric) // <-- confusing that this really means draw the wall in either normal or electric state
                     {
                         drawingTarget.DrawSprite(leftX, topY, hostSprites.OutlineBricks[styleDelta]);

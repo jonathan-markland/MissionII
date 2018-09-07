@@ -9,7 +9,6 @@ namespace GameClassLibrary.Walls
     public class TileMatrix
     {
         protected Tile[] _theTiles;
-        protected byte[] _styleDeltas;
         protected int _countH;
         protected int _countV;
 
@@ -19,7 +18,6 @@ namespace GameClassLibrary.Walls
         {
             var n = tileCountH * tileCountV;
             _theTiles = new Tile[n];
-            _styleDeltas = new byte[n];
             _countH = tileCountH;
             _countV = tileCountV;
         }
@@ -77,20 +75,6 @@ namespace GameClassLibrary.Walls
                 }
             }
             return defaultIfOutsideBounds;
-        }
-
-
-
-        public byte GetStyleDelta(int x, int y)
-        {
-            if (x >= 0 && x < _countH)
-            {
-                if (y >= 0 && y < _countV)
-                {
-                    return _styleDeltas[y * _countH + x];
-                }
-            }
-            throw new Exception("WallMatrix class read outside bounds.");
         }
     }
 }

@@ -31,20 +31,5 @@ namespace GameClassLibrary.Walls
             }
             throw new Exception("TileMatrix class write outside bounds.");
         }
-
-
-
-        public void SetStyleDelta(int x, int y, byte styleDelta)
-        {
-            if (x >= 0 && x < _countH)
-            {
-                if (y >= 0 && y < _countV)
-                {
-                    _styleDeltas[y * _countH + x] = styleDelta;
-                    return;
-                }
-            }
-            throw new Exception("TileMatrix class write outside bounds.");
-        }
     }
 }
