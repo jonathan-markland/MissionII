@@ -5,12 +5,8 @@ using System.Collections.Generic;
 
 namespace MissionIIClassLibrary
 {
-    public class WallAndFloorHostSprites
+    public static class WallAndFloorHostSprites
     {
-        public HostSuppliedSprite[] TileSprites { get; private set; }  // Can be indexed by MissionIITile masks, and those masks + 1
-
-
-
         private const int GreyLevelSeparation = 10;
         private const int OutlineBrickLevelSeparation = 55;
         private const int FillerBrickLevelSeparation = 35;
@@ -21,7 +17,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public WallAndFloorHostSprites(
+        public static HostSuppliedSprite[] GenerateImages(
             int levelNumber,
             SpriteTraits outlineSpriteTraits,
             SpriteTraits brickSpriteTraits,
@@ -80,12 +76,12 @@ namespace MissionIIClassLibrary
             resultSprites[MissionIITile.BrickMask + 1] = fillerBricks[1];
             resultSprites[MissionIITile.ElectricMask] = outlineBricks[0];
             resultSprites[MissionIITile.ElectricMask + 1] = outlineBricks[1];
-            TileSprites = resultSprites;
+            return resultSprites;
         }
 
 
 
-        private HostSuppliedSprite[] RecolourByThresholdAndColourWheel(HostSuppliedSprite[] hostSpritesArray, int seedValue)
+        private static HostSuppliedSprite[] RecolourByThresholdAndColourWheel(HostSuppliedSprite[] hostSpritesArray, int seedValue)
         {
             var theList = new List<HostSuppliedSprite>();
             foreach(var hostSprite in hostSpritesArray)
@@ -103,7 +99,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private HostSuppliedSprite RecolourByThresholdAndGreyLevels(HostSuppliedSprite hostSprite, int lowGreyLevel, int highGreyLevel)
+        private static HostSuppliedSprite RecolourByThresholdAndGreyLevels(HostSuppliedSprite hostSprite, int lowGreyLevel, int highGreyLevel)
         {
             return RecolourByThresholdAndSpecificColours(
                 hostSprite,
@@ -113,7 +109,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private HostSuppliedSprite RecolourByThresholdAndSpecificColours(HostSuppliedSprite hostSprite, uint highColour, uint lowColour)
+        private static HostSuppliedSprite RecolourByThresholdAndSpecificColours(HostSuppliedSprite hostSprite, uint highColour, uint lowColour)
         {
             var imageDataArray = hostSprite.ToArray();
             Colour.ReplaceWithThreshold(imageDataArray, highColour, lowColour);

@@ -22,8 +22,8 @@ namespace MissionIIClassLibrary
         private Interactibles.Potion Potion;
         private Interactibles.InvincibilityAmulet InvincibilityAmulet;
         private PositionAndDirection ManPositionOnRoomEntry;
-        private WallAndFloorHostSprites _electrocutionBackgroundSprites;  // changes by level
-        private WallAndFloorHostSprites _normalBackgroundSprites;         // changes by level
+        private HostSuppliedSprite[] _electrocutionBackgroundSprites;  // changes by level
+        private HostSuppliedSprite[] _normalBackgroundSprites;         // changes by level
         private uint Lives;
         private WorldWallData TheWorldWallData;
         private int RoomNumber; // one-based
@@ -287,13 +287,13 @@ namespace MissionIIClassLibrary
             var theLevel = TheWorldWallData.Levels[levelIndex];
 
             // Prepare the background walls / floors / electrocution brick tile sprites:
-            _normalBackgroundSprites = new WallAndFloorHostSprites(
+            _normalBackgroundSprites = WallAndFloorHostSprites.GenerateImages(
                 LevelNumber,
                 MissionIISprites.WallOutline,
                 MissionIISprites.WallBrick,
                 MissionIISprites.FloorTile);
 
-            _electrocutionBackgroundSprites = new WallAndFloorHostSprites(
+            _electrocutionBackgroundSprites = WallAndFloorHostSprites.GenerateImages(
                 LevelNumber,
                 MissionIISprites.WallElectric,
                 MissionIISprites.WallBrick,
@@ -653,7 +653,7 @@ namespace MissionIIClassLibrary
 
             // The Room:
 
-            drawingTarget.DrawWalls(
+            drawingTarget.DrawTileMatrix(
                 Constants.RoomOriginX, // TODO: Should not need to use origin.
                 Constants.RoomOriginY, // TODO: Should not need to use origin.
                 Constants.TileWidth,

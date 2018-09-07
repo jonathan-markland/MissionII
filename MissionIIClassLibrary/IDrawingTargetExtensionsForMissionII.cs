@@ -29,19 +29,19 @@ namespace MissionIIClassLibrary
                 theSprite.Traits.GetHostImageObject(spriteIndex));
         }
 
-        public static void DrawWalls(
+        public static void DrawTileMatrix(
             this IDrawingTarget drawingTarget,
             int leftX, int topY, int tileWidth, int tileHeight,
-            TileMatrix wallData, // TODO: Don't really want to re-map this on the fly.  Pre-calculate.
-            WallAndFloorHostSprites hostSprites) // TODO: pass array of sprite indices
+            TileMatrix tileMatrix,
+            HostSuppliedSprite[] hostSpritesFortiles)
         {
-            for (int y = 0; y < wallData.CountV; y++)
+            for (int y = 0; y < tileMatrix.CountV; y++)
             {
                 int a = leftX;
-                for (int x = 0; x < wallData.CountH; x++)
+                for (int x = 0; x < tileMatrix.CountH; x++)
                 {
-                    var t = wallData.TileAt(x, y).VisualIndex;
-                    drawingTarget.DrawSprite(leftX, topY, hostSprites.TileSprites[t]);
+                    var t = tileMatrix.TileAt(x, y).VisualIndex;
+                    drawingTarget.DrawSprite(leftX, topY, hostSpritesFortiles[t]);
                     leftX += tileWidth;
                 }
                 leftX = a;
