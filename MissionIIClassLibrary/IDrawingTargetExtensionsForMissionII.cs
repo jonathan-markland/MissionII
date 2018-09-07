@@ -40,20 +40,8 @@ namespace MissionIIClassLibrary
                 int a = leftX;
                 for (int x = 0; x < wallData.CountH; x++)
                 {
-                    var ch = wallData.TileAt(x, y);
-                    var styleDelta = ch.VisualIndex & 1; // TODO: Don't want this here.
-                    if (ch == MissionIITile.Electric) // <-- confusing that this really means draw the wall in either normal or electric state
-                    {
-                        drawingTarget.DrawSprite(leftX, topY, hostSprites.OutlineBricks[styleDelta]);
-                    }
-                    else if (!ch.IsSpace())
-                    {
-                        drawingTarget.DrawSprite(leftX, topY, hostSprites.FillerBricks[styleDelta]);
-                    }
-                    else
-                    {
-                        drawingTarget.DrawSprite(leftX, topY, hostSprites.FloorBricks[styleDelta]);
-                    }
+                    var t = wallData.TileAt(x, y).VisualIndex;
+                    drawingTarget.DrawSprite(leftX, topY, hostSprites.TileSprites[t]);
                     leftX += tileWidth;
                 }
                 leftX = a;

@@ -6,7 +6,12 @@ namespace MissionIIClassLibrary
     {
         public static bool IsSpace(this Tile t)
         {
-            return t.HasFlag(2);
+            return t.HasFlag(MissionIITile.SpaceMask);
+        }
+
+        public static bool IsElectric(this Tile t)
+        {
+            return t.HasFlag(MissionIITile.ElectricMask);
         }
     }
 }

@@ -7,9 +7,7 @@ namespace MissionIIClassLibrary
 {
     public class WallAndFloorHostSprites
     {
-        public HostSuppliedSprite[] OutlineBricks { get; private set; }  // Has 2 items
-        public HostSuppliedSprite[] FillerBricks { get; private set; }   // Has 2 items
-        public HostSuppliedSprite[] FloorBricks { get; private set; }    // Has 2 items
+        public HostSuppliedSprite[] TileSprites { get; private set; }  // Can be indexed by MissionIITile masks, and those masks + 1
 
 
 
@@ -42,7 +40,7 @@ namespace MissionIIClassLibrary
                 throw new Exception("Brick sprite sets aren't the same dimensions!");
             }
 
-            OutlineBricks = RecolourByThresholdAndColourWheel(
+            var outlineBricks = RecolourByThresholdAndColourWheel(
                 new HostSuppliedSprite[]
                 {
                     outlineSpriteTraits.GetHostImageObject(levelNumber % outlineSpriteTraits.ImageCount),
@@ -50,7 +48,7 @@ namespace MissionIIClassLibrary
                 },
                 levelNumber * OutlineBrickLevelSeparation);
 
-            FillerBricks = RecolourByThresholdAndColourWheel(
+            var fillerBricks = RecolourByThresholdAndColourWheel(
                 new HostSuppliedSprite[]
                 {
                     brickSpriteTraits.GetHostImageObject(levelNumber % brickSpriteTraits.ImageCount),
@@ -60,7 +58,7 @@ namespace MissionIIClassLibrary
 
             var baseBrickGreyLevel = (levelNumber & 1) * FloorBrickLevelSeparation + FloorBrickLevelBase;
 
-            FloorBricks = new HostSuppliedSprite[]
+            var floorBricks = new HostSuppliedSprite[]
             {
                 // First brick type sprite
                 RecolourByThresholdAndGreyLevels(
@@ -74,6 +72,15 @@ namespace MissionIIClassLibrary
                     baseBrickGreyLevel + GreyLevelSeparation * 3, 
                     baseBrickGreyLevel + GreyLevelSeparation * 4)
             };
+
+            var resultSprites = new HostSuppliedSprite[16];
+            resultSprites[MissionIITile.SpaceMask] = floorBricks[0];
+            resultSprites[MissionIITile.SpaceMask+1] = floorBricks[1];
+            resultSprites[MissionIITile.BrickMask] = fillerBricks[0];
+            resultSprites[MissionIITile.BrickMask + 1] = fillerBricks[1];
+            resultSprites[MissionIITile.ElectricMask] = outlineBricks[0];
+            resultSprites[MissionIITile.ElectricMask + 1] = outlineBricks[1];
+            TileSprites = resultSprites;
         }
 
 
