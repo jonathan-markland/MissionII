@@ -55,7 +55,7 @@ namespace MissionIIClassLibrary
 
         public static bool BothAreSpaceOrBothAreNotSpace(Tile c1, Tile c2)
         {
-            return !((c1 == MissionIITile.Space) ^ (c2 == MissionIITile.Space));
+            return !((c1.IsSpace()) ^ (c2.IsSpace()));
         }
 
 
@@ -115,7 +115,7 @@ namespace MissionIIClassLibrary
 
                 if (otherRoomIsOffMap)
                 {
-                    if (thisRoomSquare == MissionIITile.Space)
+                    if (thisRoomSquare.IsSpace())
                     {
                         throw new Exception($"No doorway must exist at ({startX},{startY}) because it leads off the map.");
                     }
@@ -179,11 +179,11 @@ namespace MissionIIClassLibrary
             var c2 = fileWallData.TileAt(x + 1, y + 2);
             var c3 = fileWallData.TileAt(x + 2, y + 2);
 
-            var spaceIn8246 = (c8 == MissionIITile.Space || c2 == MissionIITile.Space || c4 == MissionIITile.Space || c6 == MissionIITile.Space);
+            var spaceIn8246 = (c8.IsSpace() || c2.IsSpace() || c4.IsSpace() || c6.IsSpace());
 
             // Centre square space-check rules.
 
-            if (spaceIn8246 && c5 != MissionIITile.Space)
+            if (spaceIn8246 && !c5.IsSpace())
             {
                 throw new Exception($"Character at ({x+1},{y+1}) must be a space!");
             }
@@ -196,22 +196,22 @@ namespace MissionIIClassLibrary
 
             // Corner squares cannot just be spaces.
 
-            if (c7 == MissionIITile.Space && !(c4 == MissionIITile.Space && c5 == MissionIITile.Space && c8 == MissionIITile.Space))
+            if (c7.IsSpace() && !(c4.IsSpace() && c5.IsSpace() && c8.IsSpace()))
             {
                 throw new Exception($"Corner square at ({x},{y}) cannot be a space.");
             }
 
-            if (c9 == MissionIITile.Space && !(c6 == MissionIITile.Space && c5 == MissionIITile.Space && c8 == MissionIITile.Space))
+            if (c9.IsSpace() && !(c6.IsSpace() && c5.IsSpace() && c8.IsSpace()))
             {
                 throw new Exception($"Corner square at ({x+2},{y}) cannot be a space.");
             }
 
-            if (c3 == MissionIITile.Space && !(c2 == MissionIITile.Space && c5 == MissionIITile.Space && c6 == MissionIITile.Space))
+            if (c3.IsSpace() && !(c2.IsSpace() && c5.IsSpace() && c6.IsSpace()))
             {
                 throw new Exception($"Corner square at ({x+2},{y+2}) cannot be a space.");
             }
 
-            if (c1 == MissionIITile.Space && !(c2 == MissionIITile.Space && c5 == MissionIITile.Space && c4 == MissionIITile.Space))
+            if (c1.IsSpace() && !(c2.IsSpace() && c5.IsSpace() && c4.IsSpace()))
             {
                 throw new Exception($"Corner square at ({x},{y+2}) cannot be a space.");
             }

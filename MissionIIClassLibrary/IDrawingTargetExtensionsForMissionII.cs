@@ -46,7 +46,7 @@ namespace MissionIIClassLibrary
                     {
                         drawingTarget.DrawSprite(leftX, topY, hostSprites.OutlineBricks[styleDelta]);
                     }
-                    else if (ch != MissionIITile.Space)
+                    else if (!ch.IsSpace())
                     {
                         drawingTarget.DrawSprite(leftX, topY, hostSprites.FillerBricks[styleDelta]);
                     }

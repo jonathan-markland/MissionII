@@ -82,7 +82,7 @@ namespace MissionIIClassLibrary
                         Constants.DestClusterSide,
                         MissionIITile.Electric,
                         MissionIITile.Space,
-                        MissionIIGameBoard.IsSpace)
+                        TileExtensions.IsSpace)
                             .GetExpandedWalls());
             }
 
@@ -177,8 +177,8 @@ namespace MissionIIClassLibrary
         {
             while (blockCount > 0)
             {
-                if (   roomMatrix1.TileAt(point1) != MissionIITile.Space
-                    || roomMatrix2.TileAt(point2) != MissionIITile.Space)
+                if (   !roomMatrix1.TileAt(point1).IsSpace()
+                    || !roomMatrix2.TileAt(point2).IsSpace())
                 {
                     roomMatrix1.Write(point1, MissionIITile.Electric);
                     roomMatrix2.Write(point2, MissionIITile.Electric);
@@ -212,10 +212,10 @@ namespace MissionIIClassLibrary
         private static bool SurroundedByWall4(WriteableTileMatrix wallMatrix, int x, int y) // TODO: We could be arty and call this instead.
         {
             return
-                   wallMatrix.TileAt(x, y - 1) != MissionIITile.Space
-                && wallMatrix.TileAt(x, y + 1) != MissionIITile.Space
-                && wallMatrix.TileAt(x - 1, y) != MissionIITile.Space
-                && wallMatrix.TileAt(x + 1, y) != MissionIITile.Space;
+                   !wallMatrix.TileAt(x, y - 1).IsSpace()
+                && !wallMatrix.TileAt(x, y + 1).IsSpace()
+                && !wallMatrix.TileAt(x - 1, y).IsSpace()
+                && !wallMatrix.TileAt(x + 1, y).IsSpace();
         }
 
 
@@ -223,14 +223,14 @@ namespace MissionIIClassLibrary
         private static bool SurroundedByWall8(WriteableTileMatrix wallMatrix, int x, int y)
         {
             return
-                   wallMatrix.TileAt(x, y - 1) != MissionIITile.Space
-                && wallMatrix.TileAt(x, y + 1) != MissionIITile.Space
-                && wallMatrix.TileAt(x - 1, y) != MissionIITile.Space
-                && wallMatrix.TileAt(x + 1, y) != MissionIITile.Space
-                && wallMatrix.TileAt(x - 1, y - 1) != MissionIITile.Space
-                && wallMatrix.TileAt(x + 1, y - 1) != MissionIITile.Space
-                && wallMatrix.TileAt(x - 1, y + 1) != MissionIITile.Space
-                && wallMatrix.TileAt(x + 1, y + 1) != MissionIITile.Space;
+                   !wallMatrix.TileAt(x, y - 1).IsSpace()
+                && !wallMatrix.TileAt(x, y + 1).IsSpace()
+                && !wallMatrix.TileAt(x - 1, y).IsSpace()
+                && !wallMatrix.TileAt(x + 1, y).IsSpace()
+                && !wallMatrix.TileAt(x - 1, y - 1).IsSpace()
+                && !wallMatrix.TileAt(x + 1, y - 1).IsSpace()
+                && !wallMatrix.TileAt(x - 1, y + 1).IsSpace()
+                && !wallMatrix.TileAt(x + 1, y + 1).IsSpace();
         }
 
 
@@ -250,7 +250,7 @@ namespace MissionIIClassLibrary
                 int cy = (y + logicalOffsetY) & 63;
                 for (int x = 0; x < wallMatrix.CountH; x++)
                 {
-                    if ((wallMatrix.TileAt(x, y) == MissionIITile.Space) ^ doWalls)
+                    if ((wallMatrix.TileAt(x, y).IsSpace()) ^ doWalls)
                     {
                         int cx = (x + logicalOffsetX) & 63;
                         var greyLevel = Colour.GetGreyLevel(resamplingImageArray[cy * 64 + cx]);

@@ -32,7 +32,7 @@ namespace MissionIIClassLibrary.GameObjects
                     proposedY,
                     Sprite.Traits.BoardWidth,
                     Sprite.Traits.BoardHeight,
-                    MissionIIGameBoard.IsSpace);
+                    TileExtensions.IsSpace);
 
                 if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
                 {

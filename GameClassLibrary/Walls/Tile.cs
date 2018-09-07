@@ -13,5 +13,6 @@
         public static bool operator==(Tile a, Tile b) { return a.VisualIndex == b.VisualIndex; }
         public static bool operator!=(Tile a, Tile b) { return a.VisualIndex != b.VisualIndex; }
         public static bool operator&(Tile a, Tile b) { return (a.VisualIndex & b.VisualIndex) != 0; }
+        public bool HasFlag(int b) { return (VisualIndex & b) != 0; }
     }
 }
