@@ -20,8 +20,8 @@ namespace GameClassLibrary.Graphics
 
             return GameClassLibrary.Graphics.HostSuppliedSprite.UintArrayToSprite(
                 imageDataArray,
-                hostSprite.BoardWidth,
-                hostSprite.BoardHeight);
+                hostSprite.Width,
+                hostSprite.Height);
         }
 
 

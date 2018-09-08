@@ -35,16 +35,16 @@ namespace GameClassLibrary.Graphics
                 var thisHostImageInfo = _hostSpriteSupplier((imageCount == 1) ? spriteName : spriteName + "_" + i);
                 if (i == 1)
                 {
-                    boardWidth = thisHostImageInfo.BoardWidth;
-                    boardHeight = thisHostImageInfo.BoardHeight;
+                    boardWidth = thisHostImageInfo.Width;
+                    boardHeight = thisHostImageInfo.Height;
                 }
                 else
                 {
-                    if (boardWidth != thisHostImageInfo.BoardWidth)
+                    if (boardWidth != thisHostImageInfo.Width)
                     {
                         throw new Exception("Sprite widths don't match in the file set for '" + spriteName + "'.");
                     }
-                    if (boardHeight != thisHostImageInfo.BoardHeight)
+                    if (boardHeight != thisHostImageInfo.Height)
                     {
                         throw new Exception("Sprite heights don't match in the file set for '" + spriteName + "'.");
                     }

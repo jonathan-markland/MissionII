@@ -8,14 +8,14 @@ namespace GameClassLibrary.Graphics
     /// </summary>
     public struct HostSuppliedSprite
     {
-        public int BoardWidth { get; private set; }
-        public int BoardHeight { get; private set; }
+        public int Width { get; private set; }
+        public int Height { get; private set; }
         public object HostObject { get; private set; }
 
         public HostSuppliedSprite(object hostObject, int w, int h)
         {
-            BoardWidth = w;
-            BoardHeight = h;
+            Width = w;
+            Height = h;
             HostObject = hostObject;
         }
 
