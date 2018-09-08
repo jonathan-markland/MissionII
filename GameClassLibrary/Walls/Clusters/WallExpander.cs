@@ -4,8 +4,8 @@ using System;
 namespace GameClassLibrary.Walls.Clusters
 {
     /// <summary>
-    /// In a room tile map consisting of n*m 3*3 tile clusters,
-    /// this returns an equivalent map with the tiles expanded to 5*5.
+    /// In a room tile map, each cluster of 9 tiles (3x3), is expanded
+    /// to a cluster of 25 (5x5).
     /// </summary>
     public struct WallExpander
     {
