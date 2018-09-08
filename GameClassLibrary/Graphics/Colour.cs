@@ -26,6 +26,11 @@ namespace GameClassLibrary.Graphics
             return 0xFF000000 | (uint)(v << 16) | (uint)(v << 8) | v;
         }
 
+        public static uint ToGreyscale(uint rgbValue)
+        {
+            return ExpandToGreyScaleArgb(GetGreyLevel(rgbValue));
+        }
+
         public static int GetColourWheelBlueValue(int i)
         {
             i &= 255;
@@ -51,6 +56,15 @@ namespace GameClassLibrary.Graphics
             var g = GetColourWheelGreenValue(i);
             var b = GetColourWheelBlueValue(i);
             return 0xFF000000 | (uint)(r << 16) | (uint)(g << 8) | (uint)b;
+        }
+
+        public static void ToGreyscale(uint[] uintArray)
+        {
+            var n = uintArray.Length;
+            for (int i = 0; i < n; i++)
+            {
+                uintArray[i] = ToGreyscale(uintArray[i]);
+            }
         }
 
         public static void ReplaceWithThreshold(uint[] uintArray, uint highColour, uint lowColour)

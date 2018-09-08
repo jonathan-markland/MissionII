@@ -41,28 +41,28 @@ namespace MissionIIClassLibrary
             var electricTile1 = RecolourByThresholdAndColourWheel(
                 electricSpriteTraits.GetHostImageObject(levelNumber % electricSpriteTraits.ImageCount),
                 ne1,
-                ne1 + TwoColourBrickColourSeparation);
+                ne1 + TwoColourBrickColourSeparation, true);
 
             var ne2 = ne1 + ColourSeparationBetweenColouredBricks;
 
             var electricTile2 = RecolourByThresholdAndColourWheel(
                 electricSpriteTraits.GetHostImageObject((levelNumber + 1) % electricSpriteTraits.ImageCount),
                 ne2,
-                ne2 + TwoColourBrickColourSeparation);
+                ne2 + TwoColourBrickColourSeparation, true);
 
             var nw1 = levelNumber * WallBrickLevelSeparation;
 
             var wallTile1 = RecolourByThresholdAndColourWheel(
                 wallSpriteTraits.GetHostImageObject(levelNumber % wallSpriteTraits.ImageCount),
                 nw1,
-                nw1 + TwoColourBrickColourSeparation);
+                nw1 + TwoColourBrickColourSeparation, false);
 
             var nw2 = nw1 + ColourSeparationBetweenColouredBricks;
 
             var wallTile2 = RecolourByThresholdAndColourWheel(
                 wallSpriteTraits.GetHostImageObject((levelNumber + 1) % wallSpriteTraits.ImageCount),
                 nw2,
-                nw2 + TwoColourBrickColourSeparation);
+                nw2 + TwoColourBrickColourSeparation, false);
 
             var baseBrickGreyLevel = (levelNumber & 1) * FloorBrickLevelSeparation + FloorBrickLevelBase;
 
@@ -91,13 +91,15 @@ namespace MissionIIClassLibrary
         private static HostSuppliedSprite RecolourByThresholdAndColourWheel(
             HostSuppliedSprite hostSprite, 
             int highColourSeed, 
-            int lowColourSeed)
+            int lowColourSeed,
+            bool applyGreyscale)
         {
             var highColour = Colour.GetWheelColourAsPackedValue(highColourSeed);
             var lowColour = Colour.GetWheelColourAsPackedValue(lowColourSeed);
             var imageDataArray = hostSprite.PixelsToUintArray();
 
             Colour.ReplaceWithThreshold(imageDataArray, highColour, lowColour);
+            if(applyGreyscale) Colour.ToGreyscale(imageDataArray);
 
             return GameClassLibrary.Graphics.HostSuppliedSprite.UintArrayToSprite(
                 imageDataArray, 
