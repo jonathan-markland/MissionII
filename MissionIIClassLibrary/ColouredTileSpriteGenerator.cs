@@ -36,33 +36,29 @@ namespace MissionIIClassLibrary
                 throw new Exception("Brick sprite sets aren't the same dimensions!");
             }
 
-            var ne1 = levelNumber * ElectricBrickLevelSeparation;
-
-            var electricTile1 = RecolourByThresholdAndColourWheel(
+            var electricTile1 = RecolourByThreshold(
                 electricSpriteTraits.GetHostImageObject(levelNumber % electricSpriteTraits.ImageCount),
-                ne1,
-                ne1 + TwoColourBrickColourSeparation, true);
+                0xFFFFFFFF,
+                0xFFFFFFFF);
 
-            var ne2 = ne1 + ColourSeparationBetweenColouredBricks;
-
-            var electricTile2 = RecolourByThresholdAndColourWheel(
+            var electricTile2 = RecolourByThreshold(
                 electricSpriteTraits.GetHostImageObject((levelNumber + 1) % electricSpriteTraits.ImageCount),
-                ne2,
-                ne2 + TwoColourBrickColourSeparation, true);
+                0xFFFFFFFF,
+                0xFFFFFFFF);
 
             var nw1 = levelNumber * WallBrickLevelSeparation;
 
             var wallTile1 = RecolourByThresholdAndColourWheel(
                 wallSpriteTraits.GetHostImageObject(levelNumber % wallSpriteTraits.ImageCount),
                 nw1,
-                nw1 + TwoColourBrickColourSeparation, false);
+                nw1 + TwoColourBrickColourSeparation);
 
             var nw2 = nw1 + ColourSeparationBetweenColouredBricks;
 
             var wallTile2 = RecolourByThresholdAndColourWheel(
                 wallSpriteTraits.GetHostImageObject((levelNumber + 1) % wallSpriteTraits.ImageCount),
                 nw2,
-                nw2 + TwoColourBrickColourSeparation, false);
+                nw2 + TwoColourBrickColourSeparation);
 
             var baseBrickGreyLevel = (levelNumber & 1) * FloorBrickLevelSeparation + FloorBrickLevelBase;
 
@@ -91,19 +87,27 @@ namespace MissionIIClassLibrary
         private static HostSuppliedSprite RecolourByThresholdAndColourWheel(
             HostSuppliedSprite hostSprite, 
             int highColourSeed, 
-            int lowColourSeed,
-            bool applyGreyscale)
+            int lowColourSeed)
         {
             var highColour = Colour.GetWheelColourAsPackedValue(highColourSeed);
             var lowColour = Colour.GetWheelColourAsPackedValue(lowColourSeed);
+            return RecolourByThreshold(hostSprite, highColour, lowColour);
+        }
+
+
+
+        private static HostSuppliedSprite RecolourByThreshold(
+            HostSuppliedSprite hostSprite,
+            uint highColour,
+            uint lowColour)
+        {
             var imageDataArray = hostSprite.PixelsToUintArray();
 
             Colour.ReplaceWithThreshold(imageDataArray, highColour, lowColour);
-            if(applyGreyscale) Colour.ToGreyscale(imageDataArray);
 
             return GameClassLibrary.Graphics.HostSuppliedSprite.UintArrayToSprite(
-                imageDataArray, 
-                hostSprite.BoardWidth, 
+                imageDataArray,
+                hostSprite.BoardWidth,
                 hostSprite.BoardHeight);
         }
 
