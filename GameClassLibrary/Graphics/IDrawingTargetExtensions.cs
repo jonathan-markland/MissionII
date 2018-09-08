@@ -14,11 +14,15 @@ namespace GameClassLibrary.Graphics
                 theSprite.GetHostImageObject(0));
         }
 
+
+
         public static void DrawFirstSprite(
             this IDrawingTarget drawingTarget, int x, int y, SpriteTraits theSprite)
         {
             drawingTarget.DrawSprite(x, y, theSprite.GetHostImageObject(0));
         }
+
+
 
         public static void DrawNumber(
             this IDrawingTarget drawingTarget, int rightSideX, int topSideY, uint theValue, 
@@ -42,10 +46,14 @@ namespace GameClassLibrary.Graphics
             while (n != 0);
         }
 
+
+
         public static int MeasureText(string theText, Font theFont)
         {
             return theText.Length * theFont.CharWidth * theFont.ScaleFactorX;
         }
+
+
 
         public static void DrawText(
             this IDrawingTarget drawingTarget, int x, int topSideY, 
@@ -84,6 +92,8 @@ namespace GameClassLibrary.Graphics
             }
         }
 
+
+
         public static void DrawRepeats(
             this IDrawingTarget drawingTarget, int leftX, int topY, int deltaX, int deltaY, 
             uint repeatCount, SpriteTraits theSprite)
@@ -97,9 +107,12 @@ namespace GameClassLibrary.Graphics
             }
         }
 
-        public static void DrawTileMatrix(
+
+
+        public static void DrawTileMatrix(   // TODO: Should this allow huge tile arrays, thus require iterating over a portion only?
             this IDrawingTarget drawingTarget,
-            int leftX, int topY, int tileWidth, int tileHeight,
+            int leftX, int topY, 
+            int tileWidth, int tileHeight,   // TODO: Should these go in the TileMatrix ?
             Walls.TileMatrix tileMatrix,
             HostSuppliedSprite[] hostSpritesFortiles)
         {
