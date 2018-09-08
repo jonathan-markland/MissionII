@@ -25,7 +25,7 @@ namespace MissionIIClassLibrary.GameObjects
                 var proposedY = Sprite.Y + BulletDirection.dy;
 
                 var hitResult = CollisionDetection.HitsWalls(
-                    theGameBoard.CurrentRoomWallData,
+                    theGameBoard.CurrentRoomTileMatrix,
                     Constants.TileWidth,
                     Constants.TileHeight,
                     proposedX,

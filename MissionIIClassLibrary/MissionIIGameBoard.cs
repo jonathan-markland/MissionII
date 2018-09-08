@@ -27,12 +27,13 @@ namespace MissionIIClassLibrary
         private uint Lives;
         private WorldWallData TheWorldWallData;
         private int RoomNumber; // one-based
+        private uint _cycleCount;
 
 
 
         public int LevelNumber;
         public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
-        public TileMatrix CurrentRoomWallData;
+        public TileMatrix CurrentRoomTileMatrix;
         public GameObjects.Man Man = new GameObjects.Man();
         public SuddenlyReplaceableList<BaseGameObject> ObjectsInRoom = new SuddenlyReplaceableList<BaseGameObject>();
         public List<BaseGameObject> ObjectsToRemove = new List<BaseGameObject>();
@@ -45,6 +46,7 @@ namespace MissionIIClassLibrary
             TheWorldWallData = worldWallData;
             Lives = Constants.InitialLives;
             LevelNumber = Constants.StartLevelNumber;
+            _cycleCount = 0;
         }
 
 
@@ -86,6 +88,7 @@ namespace MissionIIClassLibrary
 
         public void Update(MissionIIKeyStates keyStates)
         {
+            ++_cycleCount;
             ObjectsInRoom.ForEachDo(o => { o.AdvanceOneCycle(this, keyStates); });
             ObjectsInRoom.RemoveThese(ObjectsToRemove);
             ObjectsToRemove.Clear();
@@ -145,7 +148,7 @@ namespace MissionIIClassLibrary
         public CollisionDetection.WallHitTestResult MoveManOnePixel(MovementDeltas movementDeltas)
         {
             return Man.SpriteInstance.MoveConsideringWallsOnly(
-                CurrentRoomWallData, Constants.TileWidth, Constants.TileHeight,
+                CurrentRoomTileMatrix, Constants.TileWidth, Constants.TileHeight,
                 movementDeltas,
                 TileExtensions.IsFloor);
         }
@@ -155,7 +158,7 @@ namespace MissionIIClassLibrary
         public FoundDirections GetFreeDirections(Rectangle currentExtents)
         {
             return DirectionFinder.GetFreeDirections(
-                currentExtents, CurrentRoomWallData,
+                currentExtents, CurrentRoomTileMatrix,
                 Constants.TileWidth,
                 Constants.TileHeight,
                 TileExtensions.IsFloor);
@@ -386,7 +389,7 @@ namespace MissionIIClassLibrary
                     .Levels[(LevelNumber - 1) % maxLevelNumber]
                     .Rooms[thisRoomNumber - 1];
 
-            CurrentRoomWallData = thisRoom.WallData;
+            CurrentRoomTileMatrix = thisRoom.WallData;
 
             var objectsList = new List<BaseGameObject>();
 
@@ -489,7 +492,7 @@ namespace MissionIIClassLibrary
             var pointsList = new List<Point>();
 
             PositionFinder.ForEachEmptyCell(
-                CurrentRoomWallData,
+                CurrentRoomTileMatrix,
                 Constants.TileWidth,
                 Constants.TileHeight,
                 posnWidth,
@@ -566,7 +569,7 @@ namespace MissionIIClassLibrary
             }
 
             return spriteInstance.MoveConsideringWallsOnly(
-                CurrentRoomWallData, Constants.TileWidth, Constants.TileHeight,
+                CurrentRoomTileMatrix, Constants.TileWidth, Constants.TileHeight,
                 movementDeltas, TileExtensions.IsFloor);
         }
 
@@ -651,17 +654,24 @@ namespace MissionIIClassLibrary
 
             // Level no, Room no:
 
-            drawingTarget.DrawText(Constants.ScreenWidth - 4, 8, ("ROOM " + RoomNumber) + " L" + LevelNumber, MissionIIFonts.WideFont, TextAlignment.Right);
+            drawingTarget.DrawText(
+                Constants.ScreenWidth - 4, 8, 
+                ("ROOM " + RoomNumber) + " L" + LevelNumber, MissionIIFonts.WideFont, TextAlignment.Right);
 
             // The Room:
 
-            drawingTarget.DrawTileMatrix(
-                Constants.RoomOriginX, // TODO: Should not need to use origin.
-                Constants.RoomOriginY, // TODO: Should not need to use origin.
-                Constants.TileWidth,
-                Constants.TileHeight,
-                CurrentRoomWallData,
-                (Man.IsBeingElectrocutedByWalls) ? _electrocutionBackgroundSprites : _normalBackgroundSprites);
+            var drawTileMatrix = (!Man.IsBeingElectrocutedByWalls) | (_cycleCount & 2) == 0;
+
+            if (drawTileMatrix)
+            {
+                drawingTarget.DrawTileMatrix(
+                    Constants.RoomOriginX, // TODO: Should not need to use origin.
+                    Constants.RoomOriginY, // TODO: Should not need to use origin.
+                    Constants.TileWidth,
+                    Constants.TileHeight,
+                    CurrentRoomTileMatrix,
+                    (_cycleCount & 4) == 0 ? _electrocutionBackgroundSprites : _normalBackgroundSprites);
+            }
 
             // Draw objects in the room:
 
@@ -670,7 +680,10 @@ namespace MissionIIClassLibrary
             // Lives:
 
             int y = Constants.ScreenHeight - 16;
-            drawingTarget.DrawRepeats(Constants.InventoryIndent, y, 8, 0, System.Math.Min(Lives, Constants.MaxDisplayedLives), MissionIISprites.Life);
+
+            drawingTarget.DrawRepeats(
+                Constants.InventoryIndent, y, 8, 0, 
+                System.Math.Min(Lives, Constants.MaxDisplayedLives), MissionIISprites.Life);
 
             // Player inventory:
 
