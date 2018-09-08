@@ -670,7 +670,7 @@ namespace MissionIIClassLibrary
                     Constants.TileWidth,
                     Constants.TileHeight,
                     CurrentRoomTileMatrix,
-                    (_cycleCount & 4) == 0 ? _electrocutionBackgroundSprites : _normalBackgroundSprites);
+                    (_cycleCount & 32) == 0 ? _electrocutionBackgroundSprites : _normalBackgroundSprites);
             }
 
             // Draw objects in the room:

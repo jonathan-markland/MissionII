@@ -41,7 +41,7 @@ namespace GameClassLibrary.Graphics
         {
             var highColour = Colour.GetWheelColourAsPackedValue(highColourWheelIndex);
             var lowColour = Colour.GetWheelColourAsPackedValue(lowColourWheelIndex);
-            return RecolourByThreshold(hostSprite, highColour, lowColour);
+            return hostSprite.RecolourByThreshold(highColour, lowColour);
         }
 
 
@@ -57,20 +57,9 @@ namespace GameClassLibrary.Graphics
         public static HostSuppliedSprite RecolourByThresholdAndGreyLevels(
             this HostSuppliedSprite hostSprite, int lowGreyLevel, int highGreyLevel)
         {
-            return RecolourByThresholdAndSpecificColours(
-                hostSprite,
+            return hostSprite.RecolourByThreshold(
                 Colour.ExpandToGreyScaleArgb((byte)highGreyLevel),
                 Colour.ExpandToGreyScaleArgb((byte)lowGreyLevel));
-        }
-
-
-
-        public static HostSuppliedSprite RecolourByThresholdAndSpecificColours(
-            this HostSuppliedSprite hostSprite, uint highColour, uint lowColour)
-        {
-            var imageDataArray = hostSprite.PixelsToUintArray();
-            Colour.ReplaceWithThreshold(imageDataArray, highColour, lowColour);
-            return HostSuppliedSprite.UintArrayToSprite(imageDataArray, hostSprite.BoardWidth, hostSprite.BoardHeight);
         }
     }
 }
