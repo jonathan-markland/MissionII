@@ -86,10 +86,10 @@ namespace MissionIIClassLibrary
             var theList = new List<HostSuppliedSprite>();
             foreach(var hostSprite in hostSpritesArray)
             {
-                var firstColour = Colour.GetWheelColourAsPackedValue(seedValue);
-                var secondColour = Colour.GetWheelColourAsPackedValue(seedValue + TwoColourBrickColourSeparation);
+                var highColour = Colour.GetWheelColourAsPackedValue(seedValue);
+                var lowColour = Colour.GetWheelColourAsPackedValue(seedValue + TwoColourBrickColourSeparation);
                 var imageDataArray = hostSprite.PixelsToUintArray();
-                Colour.ReplaceWithThreshold(imageDataArray, firstColour, secondColour);
+                Colour.ReplaceWithThreshold(imageDataArray, highColour, lowColour);
                 var newHostImage = GameClassLibrary.Graphics.HostSuppliedSprite.UintArrayToSprite(imageDataArray, hostSprite.BoardWidth, hostSprite.BoardHeight);
                 theList.Add(newHostImage);
                 seedValue += ColourSeparationBetweenColouredBricks;
