@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using System.Collections.Generic;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
@@ -15,15 +15,14 @@ namespace MissionIIClassLibrary
 
         public static List<Level> ExpandWallsInWorld(
             List<Level> sourceLevelsList,
-            SpriteTraits wallPatternResamplingSprite) // TODO: Should we avoid dependency on Graphics?  Pass in the resample array instead?
+            Func<int, uint[]> resamplingPixelArrayProvider)
         {
             var expandedLevelList = new List<Level>();
             var levelIndex = 0;
 
             foreach (var thisLevel in sourceLevelsList)
             {
-                var resamplingImageIndex = levelIndex % wallPatternResamplingSprite.ImageCount;
-                expandedLevelList.Add(ExpandWallsInLevel(resamplingImageIndex, thisLevel, wallPatternResamplingSprite));
+                expandedLevelList.Add(ExpandWallsInLevel(thisLevel, resamplingPixelArrayProvider(levelIndex)));
                 ++levelIndex;
             }
 
@@ -33,9 +32,8 @@ namespace MissionIIClassLibrary
 
 
         private static Level ExpandWallsInLevel(
-            int resamplingImageIndex, 
             Level thisLevel, 
-            SpriteTraits wallPatternResamplingSprite)
+            uint[] resamplingColourData)
         {
             // Expand all the rooms from the size they are in the source
             // text files to the size they need to be for targetting the
@@ -51,9 +49,6 @@ namespace MissionIIClassLibrary
             // Now add decorative brickwork via a filter, and decorative
             // "style deltas" which are zero based values that can be used
             // to choose alternate sprites on a per-brick basis.
-
-            var resamplingColourData =
-                wallPatternResamplingSprite.GetHostImageObject(resamplingImageIndex).ToArray();
 
             var newRoomsList = new List<Room>();
 

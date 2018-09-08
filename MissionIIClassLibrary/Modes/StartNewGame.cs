@@ -14,7 +14,13 @@ namespace MissionIIClassLibrary.Modes
                 MissionIIClassLibrary.LevelFileValidator.ExpectValidPathsInWorld(levelsList);
 
                 var expandedLevelsList = MissionIIClassLibrary.LevelExpander.ExpandWallsInWorld(
-                    levelsList, MissionIISprites.PatternResamplingSprite);
+                    levelsList, imageSeed =>
+                    {
+                        var s = MissionIISprites.PatternResamplingSprite;
+                        var imageIndex = imageSeed % s.ImageCount;
+                        var imagePixelsArray = s.GetHostImageObject(imageIndex).ToPixelsArray();
+                        return imagePixelsArray;
+                    });
 
                 var loadedWorld = new WorldWallData { Levels = expandedLevelsList };
                 var gameBoard = new MissionIIClassLibrary.MissionIIGameBoard(loadedWorld);

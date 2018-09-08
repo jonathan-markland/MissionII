@@ -19,7 +19,7 @@ namespace GameClassLibrary.Graphics
             HostObject = hostObject;
         }
 
-        public uint[] ToArray()
+        public uint[] ToPixelsArray()
         {
             return ToUintArrayHandler(this);
         }
