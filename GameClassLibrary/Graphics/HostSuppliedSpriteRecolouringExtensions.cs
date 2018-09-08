@@ -15,13 +15,8 @@ namespace GameClassLibrary.Graphics
             uint lowColourARGB)
         {
             var imageDataArray = hostSprite.PixelsToUintArray();
-
             Colour.ReplaceWithThreshold(imageDataArray, highColourARGB, lowColourARGB);
-
-            return GameClassLibrary.Graphics.HostSuppliedSprite.UintArrayToSprite(
-                imageDataArray,
-                hostSprite.Width,
-                hostSprite.Height);
+            return new HostSuppliedSprite(imageDataArray, hostSprite.Width, hostSprite.Height);
         }
 
 

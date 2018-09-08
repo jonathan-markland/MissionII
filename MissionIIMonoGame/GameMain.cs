@@ -35,37 +35,26 @@ namespace MissionIIMonoGame
         {
             base.Window.AllowUserResizing = true;
 
-            GameClassLibrary.Graphics.HostSuppliedSprite.ToUintArrayHandler = 
+            GameClassLibrary.Graphics.HostSuppliedSprite.InitialisationByHost(
+                (theArray, theWidth, theHeight) =>
+                {
+                    // The library will call out to this.
+                    // This separates the engine from MonoGame.
+                    var colorData = theArray.Select(x => new Color(x));
+                    var hostImage = new Texture2D(GraphicsDevice, theWidth, theHeight);
+                    hostImage.SetData(theArray);
+                    return hostImage;
+                },
                 (obj) =>
                 {
                     // The game engine will call out to this.  This separates
                     // the engine from MonoGame.
-                    var hostImage = (Texture2D)obj.HostObject;
+                    var hostImage = (Texture2D)obj;
                     var n = hostImage.Width * hostImage.Height;
                     var resultColorData = new Color[n];
                     hostImage.GetData(resultColorData);
                     return resultColorData.Select(x => x.PackedValue).ToArray();
-                };
-
-            GameClassLibrary.Graphics.HostSuppliedSprite.UintArrayToSprite =
-                (theArray, theWidth, theHeight) =>
-                {
-                    // The game engine will call out to this.  This separates
-                    // the engine from MonoGame.
-
-                    if(    theWidth  >= 0 
-                        && theHeight >= 0 
-                        && theWidth  <= 10000 // just overflow prevention
-                        && theHeight <= 10000 // just overflow prevention
-                        && (theWidth * theHeight) == theArray.Length)
-                    {
-                        var colorData = theArray.Select(x => new Color(x));
-                        var hostImage = new Texture2D(GraphicsDevice, theWidth, theHeight);
-                        hostImage.SetData(theArray);
-                        return new GameClassLibrary.Graphics.HostSuppliedSprite(hostImage, theWidth, theHeight);
-                    }
-                    throw new System.Exception("Cannot create sprite from array and stated dimensions.");
-                };
+                });
 
             _keyStates = new MissionIIClassLibrary.MissionIIKeyStates();
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
