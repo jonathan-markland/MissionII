@@ -19,82 +19,90 @@ namespace MissionIIClassLibrary
 
         public static HostSuppliedSprite[] GenerateImages(
             int levelNumber,
-            SpriteTraits outlineSpriteTraits,
-            SpriteTraits brickSpriteTraits,
+            SpriteTraits electricSpriteTraits,
+            SpriteTraits wallSpriteTraits,
             SpriteTraits floorSpriteTraits)
         {
             --levelNumber; // because it's 1-based!
 
-            var theWidth = outlineSpriteTraits.Width;
-            var theHeight = outlineSpriteTraits.Height;
+            var theWidth = electricSpriteTraits.Width;
+            var theHeight = electricSpriteTraits.Height;
 
-            if (brickSpriteTraits.Width != theWidth
-                || brickSpriteTraits.Height != theHeight
+            if (wallSpriteTraits.Width != theWidth
+                || wallSpriteTraits.Height != theHeight
                 || floorSpriteTraits.Width != theWidth
                 || floorSpriteTraits.Height != theHeight)
             {
                 throw new Exception("Brick sprite sets aren't the same dimensions!");
             }
 
-            var electricTiles = RecolourByThresholdAndColourWheel(
-                new HostSuppliedSprite[]
-                {
-                    outlineSpriteTraits.GetHostImageObject(levelNumber % outlineSpriteTraits.ImageCount),
-                    outlineSpriteTraits.GetHostImageObject((levelNumber + 1) % outlineSpriteTraits.ImageCount)
-                },
-                levelNumber * ElectricBrickLevelSeparation);
+            var ne1 = levelNumber * ElectricBrickLevelSeparation;
 
-            var wallTiles = RecolourByThresholdAndColourWheel(
-                new HostSuppliedSprite[]
-                {
-                    brickSpriteTraits.GetHostImageObject(levelNumber % brickSpriteTraits.ImageCount),
-                    brickSpriteTraits.GetHostImageObject((levelNumber + 1) % brickSpriteTraits.ImageCount)
-                },
-                levelNumber * WallBrickLevelSeparation);
+            var electricTile1 = RecolourByThresholdAndColourWheel(
+                electricSpriteTraits.GetHostImageObject(levelNumber % electricSpriteTraits.ImageCount),
+                ne1,
+                ne1 + TwoColourBrickColourSeparation);
+
+            var ne2 = ne1 + ColourSeparationBetweenColouredBricks;
+
+            var electricTile2 = RecolourByThresholdAndColourWheel(
+                electricSpriteTraits.GetHostImageObject((levelNumber + 1) % electricSpriteTraits.ImageCount),
+                ne2,
+                ne2 + TwoColourBrickColourSeparation);
+
+            var nw1 = levelNumber * WallBrickLevelSeparation;
+
+            var wallTile1 = RecolourByThresholdAndColourWheel(
+                wallSpriteTraits.GetHostImageObject(levelNumber % wallSpriteTraits.ImageCount),
+                nw1,
+                nw1 + TwoColourBrickColourSeparation);
+
+            var nw2 = nw1 + ColourSeparationBetweenColouredBricks;
+
+            var wallTile2 = RecolourByThresholdAndColourWheel(
+                wallSpriteTraits.GetHostImageObject((levelNumber + 1) % wallSpriteTraits.ImageCount),
+                nw2,
+                nw2 + TwoColourBrickColourSeparation);
 
             var baseBrickGreyLevel = (levelNumber & 1) * FloorBrickLevelSeparation + FloorBrickLevelBase;
 
-            var floorTiles = new HostSuppliedSprite[]
-            {
-                // First brick type sprite
-                RecolourByThresholdAndGreyLevels(
-                    floorSpriteTraits.GetHostImageObject(levelNumber % floorSpriteTraits.ImageCount),
-                    baseBrickGreyLevel, 
-                    baseBrickGreyLevel + GreyLevelSeparation),
+            var floorTile1 = RecolourByThresholdAndGreyLevels(
+                floorSpriteTraits.GetHostImageObject(levelNumber % floorSpriteTraits.ImageCount),
+                baseBrickGreyLevel,
+                baseBrickGreyLevel + GreyLevelSeparation);
 
-                // Second brick type sprite
-                RecolourByThresholdAndGreyLevels(
-                    floorSpriteTraits.GetHostImageObject((levelNumber + 1) % floorSpriteTraits.ImageCount),
-                    baseBrickGreyLevel + GreyLevelSeparation * 3, 
-                    baseBrickGreyLevel + GreyLevelSeparation * 4)
-            };
+            var floorTile2 = RecolourByThresholdAndGreyLevels(
+                floorSpriteTraits.GetHostImageObject((levelNumber + 1) % floorSpriteTraits.ImageCount),
+                baseBrickGreyLevel + GreyLevelSeparation * 3,
+                baseBrickGreyLevel + GreyLevelSeparation * 4);
 
             var resultSprites = new HostSuppliedSprite[10]; // NB: Not all slots are needed, only those below:
-            resultSprites[MissionIITile.FloorMask] = floorTiles[0];
-            resultSprites[MissionIITile.FloorMask+1] = floorTiles[1];
-            resultSprites[MissionIITile.WallMask] = wallTiles[0];
-            resultSprites[MissionIITile.WallMask + 1] = wallTiles[1];
-            resultSprites[MissionIITile.ElectricWallMask] = electricTiles[0];
-            resultSprites[MissionIITile.ElectricWallMask + 1] = electricTiles[1];
+            resultSprites[MissionIITile.FloorMask] = floorTile1;
+            resultSprites[MissionIITile.FloorMask+1] = floorTile2;
+            resultSprites[MissionIITile.WallMask] = wallTile1;
+            resultSprites[MissionIITile.WallMask + 1] = wallTile2;
+            resultSprites[MissionIITile.ElectricWallMask] = electricTile1;
+            resultSprites[MissionIITile.ElectricWallMask + 1] = electricTile2;
             return resultSprites;
         }
 
 
 
-        private static HostSuppliedSprite[] RecolourByThresholdAndColourWheel(HostSuppliedSprite[] hostSpritesArray, int seedValue)
+        private static HostSuppliedSprite RecolourByThresholdAndColourWheel(
+            HostSuppliedSprite hostSprite, 
+            int highColourSeed, 
+            int lowColourSeed)
         {
-            var theList = new List<HostSuppliedSprite>();
-            foreach(var hostSprite in hostSpritesArray)
-            {
-                var highColour = Colour.GetWheelColourAsPackedValue(seedValue);
-                var lowColour = Colour.GetWheelColourAsPackedValue(seedValue + TwoColourBrickColourSeparation);
-                var imageDataArray = hostSprite.PixelsToUintArray();
-                Colour.ReplaceWithThreshold(imageDataArray, highColour, lowColour);
-                var newHostImage = GameClassLibrary.Graphics.HostSuppliedSprite.UintArrayToSprite(imageDataArray, hostSprite.BoardWidth, hostSprite.BoardHeight);
-                theList.Add(newHostImage);
-                seedValue += ColourSeparationBetweenColouredBricks;
-            }
-            return theList.ToArray();
+            var highColour = Colour.GetWheelColourAsPackedValue(highColourSeed);
+            var lowColour = Colour.GetWheelColourAsPackedValue(lowColourSeed);
+            var imageDataArray = hostSprite.PixelsToUintArray();
+
+            Colour.ReplaceWithThreshold(imageDataArray, highColour, lowColour);
+
+            return GameClassLibrary.Graphics.HostSuppliedSprite.UintArrayToSprite(
+                imageDataArray, 
+                hostSprite.BoardWidth, 
+                hostSprite.BoardHeight);
         }
 
 
