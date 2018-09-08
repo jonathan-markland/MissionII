@@ -15,8 +15,8 @@ namespace GameClassLibrary.Walls.Clusters
         private int _destClusterSide;
         private TileMatrix _sourceMatrix;
         private WriteableTileMatrix _destMatrix;
-        private Tile _spaceCharValue;
-        private Tile _wallCharValue;
+        private Tile _outputFloorTile;
+        private Tile _outputWallTile;
         private Func<Tile, bool> _isSpaceFunc;
 
 
@@ -24,10 +24,10 @@ namespace GameClassLibrary.Walls.Clusters
         public WallExpander(
             TileMatrix sourceMatrix,
             int clustersHorizontally, int clustersVertically,
-            int sourceClusterSide, int destClusterSide, 
-            Tile wallCharValue,
-            Tile spaceCharValue,
-            Func<Tile, bool> isSpaceFunc)
+            int sourceClusterSide, int destClusterSide,
+            Func<Tile, bool> isSpaceFunc,
+            Tile outputWallTile,
+            Tile outputFloorTile)
         {
             _sourceMatrix = sourceMatrix;
             _destMatrix = null;
@@ -35,16 +35,16 @@ namespace GameClassLibrary.Walls.Clusters
             _clustersVertically = clustersVertically;
             _sourceClusterSide = sourceClusterSide;
             _destClusterSide = destClusterSide;
-            _spaceCharValue = spaceCharValue;
-            _wallCharValue = wallCharValue;
             _isSpaceFunc = isSpaceFunc;
+            _outputFloorTile = outputFloorTile;
+            _outputWallTile = outputWallTile;
         }
 
 
 
         public void Paint(WriteableClusterCanvas dstClusterCanvas, int areaCode, bool paintWall)
         {
-            dstClusterCanvas.Paint(areaCode, paintWall ? _wallCharValue : _spaceCharValue);
+            dstClusterCanvas.Paint(areaCode, paintWall ? _outputWallTile : _outputFloorTile);
         }
 
 

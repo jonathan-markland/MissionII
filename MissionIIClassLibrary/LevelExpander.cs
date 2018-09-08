@@ -75,9 +75,9 @@ namespace MissionIIClassLibrary
                         Constants.ClustersVertically,
                         Constants.SourceClusterSide,
                         Constants.DestClusterSide,
+                        TileExtensions.IsSpace,
                         MissionIITile.Electric,
-                        MissionIITile.Space,
-                        TileExtensions.IsSpace)
+                        MissionIITile.Space)
                             .GetExpandedWalls());
             }
 
