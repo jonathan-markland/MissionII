@@ -123,9 +123,7 @@ I called it "GameBoard" to be analogous to Chess, for example.
 It holds all the gameplay pieces.
 
 This gets passed about a lot, and stuff has been refactored *out*
-of this class over development.  Since OO is a terrible discipline
-for "sketching" a program, this still has a load of public variables,
-and this could see further refactoring efforts.
+of this class over development.  
 
 Interactibles
 -------------

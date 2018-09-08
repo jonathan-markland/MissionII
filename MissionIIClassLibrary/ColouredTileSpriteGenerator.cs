@@ -36,41 +36,47 @@ namespace MissionIIClassLibrary
                 throw new Exception("Brick sprite sets aren't the same dimensions!");
             }
 
-            var electricTile1 = RecolourByThreshold(
-                electricSpriteTraits.GetHostImageObject(levelNumber % electricSpriteTraits.ImageCount),
-                argbColourForElectricTiles,
-                argbColourForElectricTiles);
+            var electricTile1 =
+                electricSpriteTraits.GetHostImageObject(levelNumber % electricSpriteTraits.ImageCount)
+                    .RecolourByThreshold(
+                        argbColourForElectricTiles,
+                        argbColourForElectricTiles);
 
-            var electricTile2 = RecolourByThreshold(
-                electricSpriteTraits.GetHostImageObject((levelNumber + 1) % electricSpriteTraits.ImageCount),
-                argbColourForElectricTiles,
-                argbColourForElectricTiles);
+            var electricTile2 =
+                electricSpriteTraits.GetHostImageObject((levelNumber + 1) % electricSpriteTraits.ImageCount)
+                    .RecolourByThreshold(
+                        argbColourForElectricTiles,
+                        argbColourForElectricTiles);
 
             var nw1 = levelNumber * WallBrickLevelSeparation;
 
-            var wallTile1 = RecolourByThresholdAndColourWheel(
-                wallSpriteTraits.GetHostImageObject(levelNumber % wallSpriteTraits.ImageCount),
-                nw1,
-                nw1 + TwoColourBrickColourSeparation);
+            var wallTile1 =
+                wallSpriteTraits.GetHostImageObject(levelNumber % wallSpriteTraits.ImageCount)
+                    .RecolourByThresholdAndColourWheel(
+                        nw1,
+                        nw1 + TwoColourBrickColourSeparation);
 
             var nw2 = nw1 + ColourSeparationBetweenColouredBricks;
 
-            var wallTile2 = RecolourByThresholdAndColourWheel(
-                wallSpriteTraits.GetHostImageObject((levelNumber + 1) % wallSpriteTraits.ImageCount),
-                nw2,
-                nw2 + TwoColourBrickColourSeparation);
+            var wallTile2 =
+                wallSpriteTraits.GetHostImageObject((levelNumber + 1) % wallSpriteTraits.ImageCount)
+                    .RecolourByThresholdAndColourWheel(
+                        nw2,
+                        nw2 + TwoColourBrickColourSeparation);
 
             var baseBrickGreyLevel = (levelNumber & 1) * FloorBrickLevelSeparation + FloorBrickLevelBase;
 
-            var floorTile1 = RecolourByThresholdAndGreyLevels(
-                floorSpriteTraits.GetHostImageObject(levelNumber % floorSpriteTraits.ImageCount),
-                baseBrickGreyLevel,
-                baseBrickGreyLevel + GreyLevelSeparation);
+            var floorTile1 =
+                floorSpriteTraits.GetHostImageObject(levelNumber % floorSpriteTraits.ImageCount)
+                    .RecolourByThresholdAndGreyLevels(
+                        baseBrickGreyLevel,
+                        baseBrickGreyLevel + GreyLevelSeparation);
 
-            var floorTile2 = RecolourByThresholdAndGreyLevels(
-                floorSpriteTraits.GetHostImageObject((levelNumber + 1) % floorSpriteTraits.ImageCount),
-                baseBrickGreyLevel + GreyLevelSeparation * 3,
-                baseBrickGreyLevel + GreyLevelSeparation * 4);
+            var floorTile2 =
+                floorSpriteTraits.GetHostImageObject((levelNumber + 1) % floorSpriteTraits.ImageCount)
+                    .RecolourByThresholdAndGreyLevels(
+                        baseBrickGreyLevel + GreyLevelSeparation * 3,
+                        baseBrickGreyLevel + GreyLevelSeparation * 4);
 
             var resultSprites = new HostSuppliedSprite[10]; // NB: Not all slots are needed, only those below:
             resultSprites[MissionIITile.FloorMask] = floorTile1;
@@ -80,54 +86,6 @@ namespace MissionIIClassLibrary
             resultSprites[MissionIITile.ElectricWallMask] = electricTile1;
             resultSprites[MissionIITile.ElectricWallMask + 1] = electricTile2;
             return resultSprites;
-        }
-
-
-
-        private static HostSuppliedSprite RecolourByThresholdAndColourWheel(
-            HostSuppliedSprite hostSprite, 
-            int highColourSeed, 
-            int lowColourSeed)
-        {
-            var highColour = Colour.GetWheelColourAsPackedValue(highColourSeed);
-            var lowColour = Colour.GetWheelColourAsPackedValue(lowColourSeed);
-            return RecolourByThreshold(hostSprite, highColour, lowColour);
-        }
-
-
-
-        private static HostSuppliedSprite RecolourByThreshold(
-            HostSuppliedSprite hostSprite,
-            uint highColour,
-            uint lowColour)
-        {
-            var imageDataArray = hostSprite.PixelsToUintArray();
-
-            Colour.ReplaceWithThreshold(imageDataArray, highColour, lowColour);
-
-            return GameClassLibrary.Graphics.HostSuppliedSprite.UintArrayToSprite(
-                imageDataArray,
-                hostSprite.BoardWidth,
-                hostSprite.BoardHeight);
-        }
-
-
-
-        private static HostSuppliedSprite RecolourByThresholdAndGreyLevels(HostSuppliedSprite hostSprite, int lowGreyLevel, int highGreyLevel)
-        {
-            return RecolourByThresholdAndSpecificColours(
-                hostSprite,
-                Colour.ExpandToGreyScaleArgb((byte) highGreyLevel),
-                Colour.ExpandToGreyScaleArgb((byte) lowGreyLevel));
-        }
-
-
-
-        private static HostSuppliedSprite RecolourByThresholdAndSpecificColours(HostSuppliedSprite hostSprite, uint highColour, uint lowColour)
-        {
-            var imageDataArray = hostSprite.PixelsToUintArray();
-            Colour.ReplaceWithThreshold(imageDataArray, highColour, lowColour);
-            return HostSuppliedSprite.UintArrayToSprite(imageDataArray, hostSprite.BoardWidth, hostSprite.BoardHeight);
         }
     }
 }
