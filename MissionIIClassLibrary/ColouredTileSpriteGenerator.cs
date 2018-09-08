@@ -1,15 +1,15 @@
 ﻿
 using System;
-using GameClassLibrary.Graphics;
 using System.Collections.Generic;
+using GameClassLibrary.Graphics;
 
 namespace MissionIIClassLibrary
 {
-    public static class WallAndFloorHostSprites
+    public static class ColouredTileSpriteGenerator
     {
         private const int GreyLevelSeparation = 10;
-        private const int OutlineBrickLevelSeparation = 55;
-        private const int FillerBrickLevelSeparation = 35;
+        private const int ElectricBrickLevelSeparation = 55;
+        private const int WallBrickLevelSeparation = 35;
         private const int FloorBrickLevelSeparation = 18;
         private const int FloorBrickLevelBase = 25;
         private const int TwoColourBrickColourSeparation = 30;
@@ -36,25 +36,25 @@ namespace MissionIIClassLibrary
                 throw new Exception("Brick sprite sets aren't the same dimensions!");
             }
 
-            var outlineBricks = RecolourByThresholdAndColourWheel(
+            var electricTiles = RecolourByThresholdAndColourWheel(
                 new HostSuppliedSprite[]
                 {
                     outlineSpriteTraits.GetHostImageObject(levelNumber % outlineSpriteTraits.ImageCount),
                     outlineSpriteTraits.GetHostImageObject((levelNumber + 1) % outlineSpriteTraits.ImageCount)
                 },
-                levelNumber * OutlineBrickLevelSeparation);
+                levelNumber * ElectricBrickLevelSeparation);
 
-            var fillerBricks = RecolourByThresholdAndColourWheel(
+            var wallTiles = RecolourByThresholdAndColourWheel(
                 new HostSuppliedSprite[]
                 {
                     brickSpriteTraits.GetHostImageObject(levelNumber % brickSpriteTraits.ImageCount),
                     brickSpriteTraits.GetHostImageObject((levelNumber + 1) % brickSpriteTraits.ImageCount)
                 },
-                levelNumber * FillerBrickLevelSeparation);
+                levelNumber * WallBrickLevelSeparation);
 
             var baseBrickGreyLevel = (levelNumber & 1) * FloorBrickLevelSeparation + FloorBrickLevelBase;
 
-            var floorBricks = new HostSuppliedSprite[]
+            var floorTiles = new HostSuppliedSprite[]
             {
                 // First brick type sprite
                 RecolourByThresholdAndGreyLevels(
@@ -69,13 +69,13 @@ namespace MissionIIClassLibrary
                     baseBrickGreyLevel + GreyLevelSeparation * 4)
             };
 
-            var resultSprites = new HostSuppliedSprite[16];
-            resultSprites[MissionIITile.FloorMask] = floorBricks[0];
-            resultSprites[MissionIITile.FloorMask+1] = floorBricks[1];
-            resultSprites[MissionIITile.WallMask] = fillerBricks[0];
-            resultSprites[MissionIITile.WallMask + 1] = fillerBricks[1];
-            resultSprites[MissionIITile.ElectricWallMask] = outlineBricks[0];
-            resultSprites[MissionIITile.ElectricWallMask + 1] = outlineBricks[1];
+            var resultSprites = new HostSuppliedSprite[10]; // NB: Not all slots are needed, only those below:
+            resultSprites[MissionIITile.FloorMask] = floorTiles[0];
+            resultSprites[MissionIITile.FloorMask+1] = floorTiles[1];
+            resultSprites[MissionIITile.WallMask] = wallTiles[0];
+            resultSprites[MissionIITile.WallMask + 1] = wallTiles[1];
+            resultSprites[MissionIITile.ElectricWallMask] = electricTiles[0];
+            resultSprites[MissionIITile.ElectricWallMask + 1] = electricTiles[1];
             return resultSprites;
         }
 

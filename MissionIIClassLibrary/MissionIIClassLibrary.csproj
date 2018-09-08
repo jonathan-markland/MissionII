@@ -101,7 +101,7 @@
     <Compile Include="Room.cs" />
     <Compile Include="SpecialMarkers.cs" />
     <Compile Include="TileExtensions.cs" />
-    <Compile Include="WallAndFloorHostSprites.cs" />
+    <Compile Include="ColouredTileSpriteGenerator.cs" />
     <Compile Include="WorldWallData.cs" />
   </ItemGroup>
   <ItemGroup>

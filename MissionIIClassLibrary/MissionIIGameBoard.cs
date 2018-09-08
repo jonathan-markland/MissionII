@@ -287,13 +287,13 @@ namespace MissionIIClassLibrary
             var theLevel = TheWorldWallData.Levels[levelIndex];
 
             // Prepare the background walls / floors / electrocution brick tile sprites:
-            _normalBackgroundSprites = WallAndFloorHostSprites.GenerateImages(
+            _normalBackgroundSprites = ColouredTileSpriteGenerator.GenerateImages(
                 LevelNumber,
                 MissionIISprites.WallOutline,
                 MissionIISprites.WallBrick,
                 MissionIISprites.FloorTile);
 
-            _electrocutionBackgroundSprites = WallAndFloorHostSprites.GenerateImages(
+            _electrocutionBackgroundSprites = ColouredTileSpriteGenerator.GenerateImages(
                 LevelNumber,
                 MissionIISprites.WallElectric,
                 MissionIISprites.WallBrick,
