@@ -291,13 +291,15 @@ namespace MissionIIClassLibrary
                 LevelNumber,
                 MissionIISprites.WallOutline,
                 MissionIISprites.WallBrick,
-                MissionIISprites.FloorTile);
+                MissionIISprites.FloorTile,
+                0xFFFFFFFF);
 
             _electrocutionBackgroundSprites = ColouredTileSpriteGenerator.GenerateImages(
                 LevelNumber,
-                MissionIISprites.WallElectric,
+                MissionIISprites.WallOutline,
                 MissionIISprites.WallBrick,
-                MissionIISprites.FloorTile);
+                MissionIISprites.FloorTile,
+                0xFFBBFFFF);
 
             // Set the start room number:
             RoomNumber = theLevel.ManStartRoom.RoomNumber;

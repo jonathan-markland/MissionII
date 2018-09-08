@@ -43,7 +43,6 @@ namespace MissionIIClassLibrary
         public static SpriteTraits FloorTile;
         public static SpriteTraits WallOutline;
         public static SpriteTraits WallBrick;
-        public static SpriteTraits WallElectric;
         public static SpriteTraits TitleScreen;
         public static SpriteTraits Background;
         public static SpriteTraits HiScoreScreen;
@@ -98,7 +97,6 @@ namespace MissionIIClassLibrary
             FloorTile = new SpriteTraits("FloorTile", 3);
             WallOutline = new SpriteTraits("WallOutline", 3);
             WallBrick = new SpriteTraits("WallBrick", 3);
-            WallElectric = new SpriteTraits("WallElectric", 1);
             HiScoreScreen = new SpriteTraits("HiScoreScreen", 1);
             TitleScreen = new SpriteTraits("TitleScreen", 1);
             Background = new SpriteTraits("Background", 1);

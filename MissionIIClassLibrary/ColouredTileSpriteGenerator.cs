@@ -1,6 +1,5 @@
 ﻿
 using System;
-using System.Collections.Generic;
 using GameClassLibrary.Graphics;
 
 namespace MissionIIClassLibrary
@@ -21,7 +20,8 @@ namespace MissionIIClassLibrary
             int levelNumber,
             SpriteTraits electricSpriteTraits,
             SpriteTraits wallSpriteTraits,
-            SpriteTraits floorSpriteTraits)
+            SpriteTraits floorSpriteTraits,
+            uint argbColourForElectricTiles)
         {
             --levelNumber; // because it's 1-based!
 
@@ -38,13 +38,13 @@ namespace MissionIIClassLibrary
 
             var electricTile1 = RecolourByThreshold(
                 electricSpriteTraits.GetHostImageObject(levelNumber % electricSpriteTraits.ImageCount),
-                0xFFFFFFFF,
-                0xFFFFFFFF);
+                argbColourForElectricTiles,
+                argbColourForElectricTiles);
 
             var electricTile2 = RecolourByThreshold(
                 electricSpriteTraits.GetHostImageObject((levelNumber + 1) % electricSpriteTraits.ImageCount),
-                0xFFFFFFFF,
-                0xFFFFFFFF);
+                argbColourForElectricTiles,
+                argbColourForElectricTiles);
 
             var nw1 = levelNumber * WallBrickLevelSeparation;
 
