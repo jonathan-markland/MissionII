@@ -17,7 +17,7 @@ namespace GameClassLibrary.Graphics
             ScaleFactorY = scaleFactorY;
         }
 
-        public int Height { get { return FontSprite.BoardHeight; } }
+        public int Height { get { return FontSprite.Height; } }
 
         public static int CharToIndex(char ch)
         {

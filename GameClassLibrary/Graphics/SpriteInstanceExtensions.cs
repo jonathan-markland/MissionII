@@ -25,8 +25,8 @@ namespace GameClassLibrary.Graphics
             var hitResult = CollisionDetection.HitsWalls(
                 wallMatrix, tileWidth, tileHeight,
                 proposedX, proposedY,
-                spriteInstance.Traits.BoardWidth,
-                spriteInstance.Traits.BoardHeight,
+                spriteInstance.Traits.Width,
+                spriteInstance.Traits.Height,
                 isFloorFunc);
 
             if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)

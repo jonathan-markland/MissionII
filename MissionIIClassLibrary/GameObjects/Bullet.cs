@@ -30,8 +30,8 @@ namespace MissionIIClassLibrary.GameObjects
                     Constants.TileHeight,
                     proposedX,
                     proposedY,
-                    Sprite.Traits.BoardWidth,
-                    Sprite.Traits.BoardHeight,
+                    Sprite.Traits.Width,
+                    Sprite.Traits.Height,
                     TileExtensions.IsFloor);
 
                 if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)

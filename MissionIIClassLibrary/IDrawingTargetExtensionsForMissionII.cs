@@ -29,24 +29,5 @@ namespace MissionIIClassLibrary
                 theSprite.Traits.GetHostImageObject(spriteIndex));
         }
 
-        public static void DrawTileMatrix(
-            this IDrawingTarget drawingTarget,
-            int leftX, int topY, int tileWidth, int tileHeight,
-            TileMatrix tileMatrix,
-            HostSuppliedSprite[] hostSpritesFortiles)
-        {
-            for (int y = 0; y < tileMatrix.CountV; y++)
-            {
-                int a = leftX;
-                for (int x = 0; x < tileMatrix.CountH; x++)
-                {
-                    var t = tileMatrix.TileAt(x, y).VisualIndex;
-                    drawingTarget.DrawSprite(leftX, topY, hostSpritesFortiles[t]);
-                    leftX += tileWidth;
-                }
-                leftX = a;
-                topY += tileHeight;
-            }
-        }
     }
 }

@@ -191,8 +191,8 @@ namespace MissionIIClassLibrary
             }
 
             var theBulletTraits = MissionIISprites.Bullet;
-            var bulletWidth = theBulletTraits.BoardWidth;
-            var bulletHeight = theBulletTraits.BoardHeight;
+            var bulletWidth = theBulletTraits.Width;
+            var bulletHeight = theBulletTraits.Height;
 
             int x, y;
 
@@ -202,11 +202,11 @@ namespace MissionIIClassLibrary
             }
             else if (bulletDirection.dx > 0)
             {
-                x = sourceSprite.X + sourceSprite.Traits.BoardWidth + Constants.BulletSpacing;
+                x = sourceSprite.X + sourceSprite.Traits.Width + Constants.BulletSpacing;
             }
             else // (bulletDirection.dx == 0)
             {
-                x = sourceSprite.X + ((sourceSprite.Traits.BoardWidth - bulletWidth) / 2);
+                x = sourceSprite.X + ((sourceSprite.Traits.Width - bulletWidth) / 2);
             }
 
             if (bulletDirection.dy < 0)
@@ -215,11 +215,11 @@ namespace MissionIIClassLibrary
             }
             else if (bulletDirection.dy > 0)
             {
-                y = sourceSprite.Y + sourceSprite.Traits.BoardHeight + Constants.BulletSpacing;
+                y = sourceSprite.Y + sourceSprite.Traits.Height + Constants.BulletSpacing;
             }
             else // (bulletDirection.dy == 0)
             {
-                y = sourceSprite.Y + ((sourceSprite.Traits.BoardHeight - bulletHeight) / 2);
+                y = sourceSprite.Y + ((sourceSprite.Traits.Height - bulletHeight) / 2);
             }
 
             if (bulletDirection.dx == 0 && bulletDirection.dy == 0)
@@ -308,8 +308,8 @@ namespace MissionIIClassLibrary
 
             // TODO: all man sprites must be checked for SAME dimensions.
             // Calculate centering offsets for man within cluster:
-            var manCX = (clusterSizeX - MissionIISprites.ManStanding[0].BoardWidth) / 2;
-            var manCY = (clusterSizeY - MissionIISprites.ManStanding[0].BoardHeight) / 2;
+            var manCX = (clusterSizeX - MissionIISprites.ManStanding[0].Width) / 2;
+            var manCY = (clusterSizeY - MissionIISprites.ManStanding[0].Height) / 2;
 
             // Set man start position (according to 'x' in source level data for this level):
             var manX = manCX + theLevel.ManStartCluster.X * clusterSizeX;
@@ -538,8 +538,8 @@ namespace MissionIIClassLibrary
             var myNewRectangle = new Rectangle(
                 oldX + movementDeltas.dx,
                 oldY + movementDeltas.dy,
-                spriteInstance.Traits.BoardWidth,
-                spriteInstance.Traits.BoardHeight);
+                spriteInstance.Traits.Width,
+                spriteInstance.Traits.Height);
 
             var hitResult = CollisionDetection.WallHitTestResult.NothingHit;
             ObjectsInRoom.ForEachDo(theObject =>
@@ -676,7 +676,7 @@ namespace MissionIIClassLibrary
             foreach (var carriedObject in PlayerInventory)
             {
                 var spriteTraits = carriedObject.SpriteTraits;
-                var spriteWidth = spriteTraits.BoardWidth;
+                var spriteWidth = spriteTraits.Width;
                 x -= spriteWidth;
                 drawingTarget.DrawFirstSprite(x, y, spriteTraits);
                 x -= Constants.InventoryItemSpacing;

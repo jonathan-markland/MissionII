@@ -25,7 +25,7 @@ namespace GameClassLibrary.Graphics
         /// </summary>
         public Rectangle Extents
         {
-            get { return new Rectangle(X, Y, Traits.BoardWidth, Traits.BoardHeight); }
+            get { return new Rectangle(X, Y, Traits.Width, Traits.Height); }
         }
 
         /// <summary>

@@ -9,8 +9,8 @@ namespace GameClassLibrary.Graphics
             this IDrawingTarget drawingTarget, int cx, int cy, SpriteTraits theSprite)
         {
             drawingTarget.DrawSprite(
-                cx - theSprite.BoardWidth / 2,
-                cy - theSprite.BoardHeight / 2,
+                cx - theSprite.Width / 2,
+                cy - theSprite.Height / 2,
                 theSprite.GetHostImageObject(0));
         }
 
@@ -35,7 +35,7 @@ namespace GameClassLibrary.Graphics
             {
                 var thisDigit = n % 10;
                 var thisSprite = theFontSprites[(int)thisDigit];
-                rightSideX -= thisSprite.BoardWidth;
+                rightSideX -= thisSprite.Width;
                 drawingTarget.DrawFirstSprite(rightSideX, topSideY, thisSprite);
                 n = n / 10;
             }
@@ -52,7 +52,7 @@ namespace GameClassLibrary.Graphics
             string theText, Font theFont, TextAlignment textAlignment)
         {
             var destDeltaX = theFont.CharWidth * theFont.ScaleFactorX;
-            var srcHeight = theFont.FontSprite.BoardHeight;
+            var srcHeight = theFont.FontSprite.Height;
             var srcCharWidth = theFont.CharWidth;
             var destHeight = srcHeight * theFont.ScaleFactorY;
             var hostImageObject = theFont.FontSprite.GetHostImageObject(0);
@@ -94,6 +94,26 @@ namespace GameClassLibrary.Graphics
                 leftX += deltaX;
                 topY += deltaY;
                 --repeatCount;
+            }
+        }
+
+        public static void DrawTileMatrix(
+            this IDrawingTarget drawingTarget,
+            int leftX, int topY, int tileWidth, int tileHeight,
+            Walls.TileMatrix tileMatrix,
+            HostSuppliedSprite[] hostSpritesFortiles)
+        {
+            for (int y = 0; y < tileMatrix.CountV; y++)
+            {
+                int a = leftX;
+                for (int x = 0; x < tileMatrix.CountH; x++)
+                {
+                    var t = tileMatrix.TileAt(x, y).VisualIndex;
+                    drawingTarget.DrawSprite(leftX, topY, hostSpritesFortiles[t]);
+                    leftX += tileWidth;
+                }
+                leftX = a;
+                topY += tileHeight;
             }
         }
     }

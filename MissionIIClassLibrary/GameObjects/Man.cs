@@ -269,7 +269,7 @@ namespace MissionIIClassLibrary.GameObjects
                 theGameBoard,
                 -Constants.RoomsHorizontally,
                 0, 0,
-                +1, -SpriteInstance.Traits.BoardHeight);
+                +1, -SpriteInstance.Traits.Height);
         }
 
         private void RoomDown(MissionIIGameBoard theGameBoard)
@@ -278,7 +278,7 @@ namespace MissionIIClassLibrary.GameObjects
                 theGameBoard,
                 Constants.RoomsHorizontally,
                 0, 0,
-                -1, +SpriteInstance.Traits.BoardHeight);
+                -1, +SpriteInstance.Traits.Height);
         }
 
         private void RoomLeft(MissionIIGameBoard theGameBoard)
@@ -286,7 +286,7 @@ namespace MissionIIClassLibrary.GameObjects
             MoveRooms(
                 theGameBoard,
                 -1,
-                +1, -SpriteInstance.Traits.BoardWidth,
+                +1, -SpriteInstance.Traits.Width,
                 0, 0);
         }
 
@@ -295,7 +295,7 @@ namespace MissionIIClassLibrary.GameObjects
             MoveRooms(
                 theGameBoard,
                 + 1,
-                -1, +SpriteInstance.Traits.BoardWidth,
+                -1, +SpriteInstance.Traits.Width,
                 0, 0);
         }
 

@@ -25,13 +25,13 @@ namespace MissionIIClassLibrary
         {
             --levelNumber; // because it's 1-based!
 
-            var theWidth = outlineSpriteTraits.BoardWidth;
-            var theHeight = outlineSpriteTraits.BoardHeight;
+            var theWidth = outlineSpriteTraits.Width;
+            var theHeight = outlineSpriteTraits.Height;
 
-            if (brickSpriteTraits.BoardWidth != theWidth
-                || brickSpriteTraits.BoardHeight != theHeight
-                || floorSpriteTraits.BoardWidth != theWidth
-                || floorSpriteTraits.BoardHeight != theHeight)
+            if (brickSpriteTraits.Width != theWidth
+                || brickSpriteTraits.Height != theHeight
+                || floorSpriteTraits.Width != theWidth
+                || floorSpriteTraits.Height != theHeight)
             {
                 throw new Exception("Brick sprite sets aren't the same dimensions!");
             }
