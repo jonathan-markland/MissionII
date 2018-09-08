@@ -18,7 +18,7 @@ namespace MissionIIClassLibrary.Modes
                     {
                         var s = MissionIISprites.PatternResamplingSprite;
                         var imageIndex = imageSeed % s.ImageCount;
-                        var imagePixelsArray = s.GetHostImageObject(imageIndex).ToPixelsArray();
+                        var imagePixelsArray = s.GetHostImageObject(imageIndex).PixelsToUintArray();
                         return imagePixelsArray;
                     });
 
