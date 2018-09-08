@@ -15,7 +15,7 @@ namespace GameClassLibrary.Graphics
             TileMatrix wallMatrix,
             int tileWidth, int tileHeight,
             MovementDeltas movementDeltas,
-            Func<Tile, bool> isSpaceFunc)
+            Func<Tile, bool> isFloorFunc)
         {
             var proposedX = spriteInstance.X + movementDeltas.dx;
             var proposedY = spriteInstance.Y + movementDeltas.dy;
@@ -27,7 +27,7 @@ namespace GameClassLibrary.Graphics
                 proposedX, proposedY,
                 spriteInstance.Traits.BoardWidth,
                 spriteInstance.Traits.BoardHeight,
-                isSpaceFunc);
+                isFloorFunc);
 
             if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
             {

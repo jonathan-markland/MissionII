@@ -163,7 +163,7 @@ namespace MissionIIClassLibrary
                         var targetRoom = rowOfRooms[x];
                         var sourceString = theSplittings[x];
                         PaintLine(rowOfWallMatrices[x], rowNumber, sourceString);
-                        ScanForSpecialMarkers(sourceString, rowNumber, targetRoom, specialMarkers, MissionIITile.Space);
+                        ScanForSpecialMarkers(sourceString, rowNumber, targetRoom, specialMarkers, MissionIITile.Floor);
                     }
                     catch (Exception e)
                     {
@@ -179,9 +179,9 @@ namespace MissionIIClassLibrary
 
         public static Tile CharToWallMatrixChar(char ch)
         {
-            if (ch == ' ' || ch == 'x') return MissionIITile.Space;  // 'x' marks man start spot
-            if (ch == '#') return MissionIITile.Electric;
-            if (ch == '@') return MissionIITile.Electric;
+            if (ch == ' ' || ch == 'x') return MissionIITile.Floor;  // 'x' marks man start spot
+            if (ch == '#') return MissionIITile.ElectricWall;
+            if (ch == '@') return MissionIITile.ElectricWall;
             // NB: There is no specification of any other WallMatrixChar kinds in the source text file.
             throw new Exception($"Cannot recognise character '{ch}' as a valid wall layout character.");
         }

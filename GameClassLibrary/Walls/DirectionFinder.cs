@@ -10,7 +10,7 @@ namespace GameClassLibrary.Walls
             Rectangle currentExtents, 
             TileMatrix currentRoomWallData, 
             int tileWidth, int tileHeight,
-            Func<Tile, bool> isSpace)
+            Func<Tile, bool> isFloor)
         {
             int countFound = 0;
             int resultMask = 0;
@@ -22,7 +22,7 @@ namespace GameClassLibrary.Walls
                     currentRoomWallData, tileWidth, tileHeight, 
                     currentExtents.Left, currentExtents.Top, 
                     currentExtents.Width, currentExtents.Height, 
-                    isSpace);
+                    isFloor);
 
                 if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
                 {
@@ -37,16 +37,16 @@ namespace GameClassLibrary.Walls
 
         public static int GetDirectionFacingAwayFromWalls(
             TileMatrix fileWallData, Point startCluster, int sourceClusterSide,
-            Func<Tile, bool> isSpaceFunc)
+            Func<Tile, bool> isFloorFunc)
         {
             var clusterCanvas = new ClusterReader(
-                fileWallData, startCluster.X, startCluster.Y, sourceClusterSide, isSpaceFunc);
+                fileWallData, startCluster.X, startCluster.Y, sourceClusterSide, isFloorFunc);
 
             // Note this is a priority order:
-            if (clusterCanvas.IsSpace(8)) return 4; // FACING DOWN
-            if (clusterCanvas.IsSpace(6)) return 2; // FACING RIGHT
-            if (clusterCanvas.IsSpace(4)) return 6; // FACING LEFT
-            if (clusterCanvas.IsSpace(2)) return 0; // FACING UP
+            if (clusterCanvas.IsFloor(8)) return 4; // FACING DOWN
+            if (clusterCanvas.IsFloor(6)) return 2; // FACING RIGHT
+            if (clusterCanvas.IsFloor(4)) return 6; // FACING LEFT
+            if (clusterCanvas.IsFloor(2)) return 0; // FACING UP
             throw new Exception("Cannot establish an exit direction, all sides of cluster have walls.");
         }
 

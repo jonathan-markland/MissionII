@@ -17,7 +17,7 @@ namespace GameClassLibrary.Walls.Clusters
         private WriteableTileMatrix _destMatrix;
         private Tile _outputFloorTile;
         private Tile _outputWallTile;
-        private Func<Tile, bool> _isSpaceFunc;
+        private Func<Tile, bool> _isFloorFunc;
 
 
 
@@ -25,7 +25,7 @@ namespace GameClassLibrary.Walls.Clusters
             TileMatrix sourceMatrix,
             int clustersHorizontally, int clustersVertically,
             int sourceClusterSide, int destClusterSide,
-            Func<Tile, bool> isSpaceFunc,
+            Func<Tile, bool> isFloorFunc,
             Tile outputWallTile,
             Tile outputFloorTile)
         {
@@ -35,7 +35,7 @@ namespace GameClassLibrary.Walls.Clusters
             _clustersVertically = clustersVertically;
             _sourceClusterSide = sourceClusterSide;
             _destClusterSide = destClusterSide;
-            _isSpaceFunc = isSpaceFunc;
+            _isFloorFunc = isFloorFunc;
             _outputFloorTile = outputFloorTile;
             _outputWallTile = outputWallTile;
         }
@@ -116,10 +116,10 @@ namespace GameClassLibrary.Walls.Clusters
              *       (respectively for the other sides, 4, 6, 8).
              */
 
-            var srcClusterCanvas = new ClusterReader(_sourceMatrix, x, y, _sourceClusterSide, _isSpaceFunc);
-            var dstClusterCanvas = new WriteableClusterCanvas(destMatrix, x, y, _destClusterSide, _isSpaceFunc);
+            var srcClusterCanvas = new ClusterReader(_sourceMatrix, x, y, _sourceClusterSide, _isFloorFunc);
+            var dstClusterCanvas = new WriteableClusterCanvas(destMatrix, x, y, _destClusterSide, _isFloorFunc);
 
-            if (srcClusterCanvas.IsSpace(targetSide)) // If B is unfilled, 
+            if (srcClusterCanvas.IsFloor(targetSide)) // If B is unfilled, 
             {
                 Paint(dstClusterCanvas, targetSide, false); // 2 will be unfilled.
             }
@@ -132,7 +132,7 @@ namespace GameClassLibrary.Walls.Clusters
                     && otherX < _clustersHorizontally
                     && otherY < _clustersVertically)   // except if the 3x3 above exists
                 {
-                    var srcOtherClusterCanvas = new ClusterReader(_sourceMatrix, otherX, otherY, _sourceClusterSide, _isSpaceFunc);
+                    var srcOtherClusterCanvas = new ClusterReader(_sourceMatrix, otherX, otherY, _sourceClusterSide, _isFloorFunc);
                     Paint(dstClusterCanvas, targetSide,
                         ! (srcOtherClusterCanvas.IsWall(joinSide)
                         && srcOtherClusterCanvas.IsWall(5)
@@ -151,8 +151,8 @@ namespace GameClassLibrary.Walls.Clusters
         {
             // The level designer specified whether the centres are filled.
 
-            var dstClusterCanvas = new WriteableClusterCanvas(destMatrix, x, y, _destClusterSide, _isSpaceFunc);
-            var srcClusterCanvas = new ClusterReader(_sourceMatrix, x, y, _sourceClusterSide, _isSpaceFunc);
+            var dstClusterCanvas = new WriteableClusterCanvas(destMatrix, x, y, _destClusterSide, _isFloorFunc);
+            var srcClusterCanvas = new ClusterReader(_sourceMatrix, x, y, _sourceClusterSide, _isFloorFunc);
 
             Paint(dstClusterCanvas, 5, srcClusterCanvas.IsWall(5));
         }
@@ -174,7 +174,7 @@ namespace GameClassLibrary.Walls.Clusters
              *   ...resp. for 3, 7, 9
              */
 
-            var dstClusterCanvas = new WriteableClusterCanvas(destMatrix, x, y, _destClusterSide, _isSpaceFunc);
+            var dstClusterCanvas = new WriteableClusterCanvas(destMatrix, x, y, _destClusterSide, _isFloorFunc);
 
             Paint(dstClusterCanvas, targetCorner,
                 dstClusterCanvas.IsWall(adjacentSide1)

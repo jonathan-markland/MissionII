@@ -55,7 +55,7 @@ namespace MissionIIClassLibrary
 
         public static bool BothAreSpaceOrBothAreNotSpace(Tile c1, Tile c2)
         {
-            return !((c1.IsSpace()) ^ (c2.IsSpace()));
+            return !((c1.IsFloor()) ^ (c2.IsFloor()));
         }
 
 
@@ -115,7 +115,7 @@ namespace MissionIIClassLibrary
 
                 if (otherRoomIsOffMap)
                 {
-                    if (thisRoomSquare.IsSpace())
+                    if (thisRoomSquare.IsFloor())
                     {
                         throw new Exception($"No doorway must exist at ({startX},{startY}) because it leads off the map.");
                     }
@@ -179,11 +179,11 @@ namespace MissionIIClassLibrary
             var c2 = fileWallData.TileAt(x + 1, y + 2);
             var c3 = fileWallData.TileAt(x + 2, y + 2);
 
-            var spaceIn8246 = (c8.IsSpace() || c2.IsSpace() || c4.IsSpace() || c6.IsSpace());
+            var spaceIn8246 = (c8.IsFloor() || c2.IsFloor() || c4.IsFloor() || c6.IsFloor());
 
             // Centre square space-check rules.
 
-            if (spaceIn8246 && !c5.IsSpace())
+            if (spaceIn8246 && !c5.IsFloor())
             {
                 throw new Exception($"Character at ({x+1},{y+1}) must be a space!");
             }
@@ -196,22 +196,22 @@ namespace MissionIIClassLibrary
 
             // Corner squares cannot just be spaces.
 
-            if (c7.IsSpace() && !(c4.IsSpace() && c5.IsSpace() && c8.IsSpace()))
+            if (c7.IsFloor() && !(c4.IsFloor() && c5.IsFloor() && c8.IsFloor()))
             {
                 throw new Exception($"Corner square at ({x},{y}) cannot be a space.");
             }
 
-            if (c9.IsSpace() && !(c6.IsSpace() && c5.IsSpace() && c8.IsSpace()))
+            if (c9.IsFloor() && !(c6.IsFloor() && c5.IsFloor() && c8.IsFloor()))
             {
                 throw new Exception($"Corner square at ({x+2},{y}) cannot be a space.");
             }
 
-            if (c3.IsSpace() && !(c2.IsSpace() && c5.IsSpace() && c6.IsSpace()))
+            if (c3.IsFloor() && !(c2.IsFloor() && c5.IsFloor() && c6.IsFloor()))
             {
                 throw new Exception($"Corner square at ({x+2},{y+2}) cannot be a space.");
             }
 
-            if (c1.IsSpace() && !(c2.IsSpace() && c5.IsSpace() && c4.IsSpace()))
+            if (c1.IsFloor() && !(c2.IsFloor() && c5.IsFloor() && c4.IsFloor()))
             {
                 throw new Exception($"Corner square at ({x},{y+2}) cannot be a space.");
             }

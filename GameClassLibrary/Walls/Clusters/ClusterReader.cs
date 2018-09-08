@@ -12,7 +12,7 @@ namespace GameClassLibrary.Walls.Clusters
         //              789
 
 		private TileMatrix _wallMatrix;
-        private Func<Tile, bool> _isSpaceFunc;
+        private Func<Tile, bool> _isFloorFunc;
 
         protected int _originX;
 		protected int _originY;
@@ -24,28 +24,28 @@ namespace GameClassLibrary.Walls.Clusters
 		public ClusterReader(
             TileMatrix wallMatrix, 
             int clusterIndexX, int clusterIndexY, 
-            int clusterSide, Func<Tile, bool> isSpaceFunc)
+            int clusterSide, Func<Tile, bool> isFloorFunc)
 		{
 			_wallMatrix = wallMatrix;
 			_originX = clusterIndexX * clusterSide;
 			_originY = clusterIndexY * clusterSide;
 			_endOffset = clusterSide - 1;
 			_innerLength = clusterSide - 2;
-            _isSpaceFunc = isSpaceFunc;
+            _isFloorFunc = isFloorFunc;
         }
 		
 		
 		
 		public bool IsWall(int areaCode)
 		{
-            return !IsSpace(areaCode);
+            return !IsFloor(areaCode);
 		}
 		
 		
 		
-		public bool IsSpace(int areaCode)
+		public bool IsFloor(int areaCode)
 		{
-			return _isSpaceFunc(Test(areaCode));
+			return _isFloorFunc(Test(areaCode));
 		}
 		
 		

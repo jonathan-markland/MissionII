@@ -4,12 +4,12 @@ namespace MissionIIClassLibrary
 {
     public static class MissionIITile
     {
-        public const int SpaceMask = 2;
-        public const int BrickMask = 4;
-        public const int ElectricMask = 8;
+        public const int FloorMask = 2;
+        public const int WallMask = 4;
+        public const int ElectricWallMask = 8;
 
-        public static Tile Space = new Tile { VisualIndex = SpaceMask };
-        public static Tile Brick = new Tile { VisualIndex = BrickMask };
-        public static Tile Electric = new Tile { VisualIndex = ElectricMask };
+        public static Tile Floor = new Tile { VisualIndex = FloorMask };
+        public static Tile Wall = new Tile { VisualIndex = WallMask };
+        public static Tile ElectricWall = new Tile { VisualIndex = ElectricWallMask };
     }
 }

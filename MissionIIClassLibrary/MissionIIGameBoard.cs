@@ -147,7 +147,7 @@ namespace MissionIIClassLibrary
             return Man.SpriteInstance.MoveConsideringWallsOnly(
                 CurrentRoomWallData, Constants.TileWidth, Constants.TileHeight,
                 movementDeltas,
-                TileExtensions.IsSpace);
+                TileExtensions.IsFloor);
         }
 
 
@@ -158,7 +158,7 @@ namespace MissionIIClassLibrary
                 currentExtents, CurrentRoomWallData,
                 Constants.TileWidth,
                 Constants.TileHeight,
-                TileExtensions.IsSpace);
+                TileExtensions.IsFloor);
         }
 
 
@@ -500,7 +500,7 @@ namespace MissionIIClassLibrary
                     }
                     return true;
                 },
-                TileExtensions.IsSpace);
+                TileExtensions.IsFloor);
 
             pointsList.Shuffle(Rng.Generator);
 
@@ -565,7 +565,7 @@ namespace MissionIIClassLibrary
 
             return spriteInstance.MoveConsideringWallsOnly(
                 CurrentRoomWallData, Constants.TileWidth, Constants.TileHeight,
-                movementDeltas, TileExtensions.IsSpace);
+                movementDeltas, TileExtensions.IsFloor);
         }
 
 

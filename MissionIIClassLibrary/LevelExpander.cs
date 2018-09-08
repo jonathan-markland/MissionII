@@ -75,9 +75,9 @@ namespace MissionIIClassLibrary
                         Constants.ClustersVertically,
                         Constants.SourceClusterSide,
                         Constants.DestClusterSide,
-                        TileExtensions.IsSpace,
-                        MissionIITile.Electric,
-                        MissionIITile.Space)
+                        TileExtensions.IsFloor,
+                        MissionIITile.ElectricWall,
+                        MissionIITile.Floor)
                             .GetExpandedWalls());
             }
 
@@ -172,11 +172,11 @@ namespace MissionIIClassLibrary
         {
             while (blockCount > 0)
             {
-                if (   !roomMatrix1.TileAt(point1).IsSpace()
-                    || !roomMatrix2.TileAt(point2).IsSpace())
+                if (   !roomMatrix1.TileAt(point1).IsFloor()
+                    || !roomMatrix2.TileAt(point2).IsFloor())
                 {
-                    roomMatrix1.Write(point1, MissionIITile.Electric);
-                    roomMatrix2.Write(point2, MissionIITile.Electric);
+                    roomMatrix1.Write(point1, MissionIITile.ElectricWall);
+                    roomMatrix2.Write(point2, MissionIITile.ElectricWall);
                 }
                 point1 = point1 + movementDeltas;
                 point2 = point2 + movementDeltas;
@@ -196,7 +196,7 @@ namespace MissionIIClassLibrary
                 {
                     if (SurroundedByWall8(wallMatrix, x, y))
                     {
-                        wallMatrix.Write(x, y, MissionIITile.Brick);
+                        wallMatrix.Write(x, y, MissionIITile.Wall);
                     }
                 }
             }
@@ -207,10 +207,10 @@ namespace MissionIIClassLibrary
         private static bool SurroundedByWall4(WriteableTileMatrix wallMatrix, int x, int y) // TODO: We could be arty and call this instead.
         {
             return
-                   !wallMatrix.TileAt(x, y - 1).IsSpace()
-                && !wallMatrix.TileAt(x, y + 1).IsSpace()
-                && !wallMatrix.TileAt(x - 1, y).IsSpace()
-                && !wallMatrix.TileAt(x + 1, y).IsSpace();
+                   !wallMatrix.TileAt(x, y - 1).IsFloor()
+                && !wallMatrix.TileAt(x, y + 1).IsFloor()
+                && !wallMatrix.TileAt(x - 1, y).IsFloor()
+                && !wallMatrix.TileAt(x + 1, y).IsFloor();
         }
 
 
@@ -218,14 +218,14 @@ namespace MissionIIClassLibrary
         private static bool SurroundedByWall8(WriteableTileMatrix wallMatrix, int x, int y)
         {
             return
-                   !wallMatrix.TileAt(x, y - 1).IsSpace()
-                && !wallMatrix.TileAt(x, y + 1).IsSpace()
-                && !wallMatrix.TileAt(x - 1, y).IsSpace()
-                && !wallMatrix.TileAt(x + 1, y).IsSpace()
-                && !wallMatrix.TileAt(x - 1, y - 1).IsSpace()
-                && !wallMatrix.TileAt(x + 1, y - 1).IsSpace()
-                && !wallMatrix.TileAt(x - 1, y + 1).IsSpace()
-                && !wallMatrix.TileAt(x + 1, y + 1).IsSpace();
+                   !wallMatrix.TileAt(x, y - 1).IsFloor()
+                && !wallMatrix.TileAt(x, y + 1).IsFloor()
+                && !wallMatrix.TileAt(x - 1, y).IsFloor()
+                && !wallMatrix.TileAt(x + 1, y).IsFloor()
+                && !wallMatrix.TileAt(x - 1, y - 1).IsFloor()
+                && !wallMatrix.TileAt(x + 1, y - 1).IsFloor()
+                && !wallMatrix.TileAt(x - 1, y + 1).IsFloor()
+                && !wallMatrix.TileAt(x + 1, y + 1).IsFloor();
         }
 
 
@@ -245,7 +245,7 @@ namespace MissionIIClassLibrary
                 int cy = (y + logicalOffsetY) & 63;
                 for (int x = 0; x < wallMatrix.CountH; x++)
                 {
-                    if ((wallMatrix.TileAt(x, y).IsSpace()) ^ doWalls)
+                    if ((wallMatrix.TileAt(x, y).IsFloor()) ^ doWalls)
                     {
                         int cx = (x + logicalOffsetX) & 63;
                         var greyLevel = Colour.GetGreyLevel(resamplingImageArray[cy * 64 + cx]);

@@ -70,12 +70,12 @@ namespace MissionIIClassLibrary
             };
 
             var resultSprites = new HostSuppliedSprite[16];
-            resultSprites[MissionIITile.SpaceMask] = floorBricks[0];
-            resultSprites[MissionIITile.SpaceMask+1] = floorBricks[1];
-            resultSprites[MissionIITile.BrickMask] = fillerBricks[0];
-            resultSprites[MissionIITile.BrickMask + 1] = fillerBricks[1];
-            resultSprites[MissionIITile.ElectricMask] = outlineBricks[0];
-            resultSprites[MissionIITile.ElectricMask + 1] = outlineBricks[1];
+            resultSprites[MissionIITile.FloorMask] = floorBricks[0];
+            resultSprites[MissionIITile.FloorMask+1] = floorBricks[1];
+            resultSprites[MissionIITile.WallMask] = fillerBricks[0];
+            resultSprites[MissionIITile.WallMask + 1] = fillerBricks[1];
+            resultSprites[MissionIITile.ElectricWallMask] = outlineBricks[0];
+            resultSprites[MissionIITile.ElectricWallMask + 1] = outlineBricks[1];
             return resultSprites;
         }
 
