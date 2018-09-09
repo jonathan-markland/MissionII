@@ -130,7 +130,7 @@ namespace MissionIIClassLibrary
             }
             else
             {
-                MissionIIGameModeSelector.ModeSelector.CurrentMode = new Modes.GameOver(Score);
+                GameClassLibrary.Modes.GameMode.ActiveMode = new Modes.GameOver(Score);
             }
         }
 
@@ -362,7 +362,7 @@ namespace MissionIIClassLibrary
 
             PrepareForNewRoom();
 
-            MissionIIGameModeSelector.ModeSelector.CurrentMode = new Modes.EnteringLevel(this);
+            GameClassLibrary.Modes.GameMode.ActiveMode = new Modes.EnteringLevel(this);
         }
 
 

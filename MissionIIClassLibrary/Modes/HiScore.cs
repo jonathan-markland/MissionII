@@ -82,14 +82,14 @@ namespace MissionIIClassLibrary.Modes
                     {
                         if (!_justEnteredName || _countDown < (Constants.TitleScreenRollCycles * 3 / 4))
                         {
-                            MissionIIGameModeSelector.ModeSelector.CurrentMode = new StartNewGame();
+                            ActiveMode = new StartNewGame();
                         }
                     }
                     --_countDown;
                 }
                 else
                 {
-                    MissionIIGameModeSelector.ModeSelector.CurrentMode = new RotatingInstructions();
+                    ActiveMode = new RotatingInstructions();
                 }
             }
         }

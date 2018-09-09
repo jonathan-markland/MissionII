@@ -42,8 +42,7 @@ namespace MissionIIClassLibrary.Modes
             }
             else
             {
-                MissionIIGameModeSelector.ModeSelector.CurrentMode 
-                    = new GamePlay(_gameBoard);
+                GameClassLibrary.Modes.GameMode.ActiveMode = new GamePlay(_gameBoard);
             }
         }
 

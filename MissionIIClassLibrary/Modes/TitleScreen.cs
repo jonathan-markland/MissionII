@@ -26,7 +26,7 @@ namespace MissionIIClassLibrary.Modes
             if (theKeyStates.Fire)
             {
                 if (_releaseWaiting || _countDown > FireButtonPressEnableTime) return;
-                MissionIIGameModeSelector.ModeSelector.CurrentMode = new StartNewGame();
+                GameClassLibrary.Modes.GameMode.ActiveMode = new StartNewGame();
             }
 
             _releaseWaiting = false;
@@ -37,7 +37,7 @@ namespace MissionIIClassLibrary.Modes
             }
             else
             {
-                MissionIIGameModeSelector.ModeSelector.CurrentMode = new HiScore();
+                GameClassLibrary.Modes.GameMode.ActiveMode = new HiScore();
             }
         }
 

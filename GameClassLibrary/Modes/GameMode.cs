@@ -5,6 +5,11 @@ namespace GameClassLibrary.Modes
 {
     public class GameMode
     {
+        /// <summary>
+        /// The currently active game mode.
+        /// </summary>
+        public static GameMode ActiveMode;
+
         public virtual void AdvanceOneCycle(KeyStates theKeyStates)
         {
             // No base action

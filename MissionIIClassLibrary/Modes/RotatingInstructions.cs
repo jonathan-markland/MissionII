@@ -13,11 +13,11 @@ namespace MissionIIClassLibrary.Modes
         {
             if (theKeyStates.Fire)
             {
-                MissionIIGameModeSelector.ModeSelector.CurrentMode = new StartNewGame();
+                ActiveMode = new StartNewGame();
             }
             else if (_countDown == 0)
             {
-                MissionIIGameModeSelector.ModeSelector.CurrentMode = new TitleScreen();
+                ActiveMode = new TitleScreen();
             }
             else
             {

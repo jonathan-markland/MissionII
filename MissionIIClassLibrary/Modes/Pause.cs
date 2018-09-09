@@ -38,7 +38,7 @@ namespace MissionIIClassLibrary.Modes
             }
             else
             {
-                MissionIIGameModeSelector.ModeSelector.CurrentMode = new Modes.EnteringLevel(_theGameBoard);
+                ActiveMode = new Modes.EnteringLevel(_theGameBoard);
             }
         }
 
@@ -75,7 +75,7 @@ namespace MissionIIClassLibrary.Modes
 
         private void ExitToOriginalMode()
         {
-            MissionIIGameModeSelector.ModeSelector.CurrentMode = _originalMode;
+            GameClassLibrary.Modes.GameMode.ActiveMode = _originalMode;
         }
     }
 }

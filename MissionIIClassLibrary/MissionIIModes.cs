@@ -12,7 +12,7 @@ namespace MissionIIClassLibrary
         {
             if (theKeyStates.Pause)
             {
-                MissionIIGameModeSelector.ModeSelector.CurrentMode = new Modes.Pause(theCurrentModeObject, theGameBoard);
+                GameClassLibrary.Modes.GameMode.ActiveMode = new Modes.Pause(theCurrentModeObject, theGameBoard);
                 MissionIISounds.PauseMode.Play();
                 return true;
             }

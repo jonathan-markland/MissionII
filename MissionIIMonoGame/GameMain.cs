@@ -126,8 +126,7 @@ namespace MissionIIMonoGame
 
             MissionIIClassLibrary.Modes.HiScore.StaticInit();
 
-            MissionIIClassLibrary.MissionIIGameModeSelector.ModeSelector =
-                new MissionIIClassLibrary.Modes.MissionIIGameModes();
+            GameClassLibrary.Modes.GameMode.ActiveMode = new MissionIIClassLibrary.Modes.TitleScreen();
 
             MissionIIClassLibrary.MissionIISprites.Load();
             MissionIIClassLibrary.MissionIIFonts.Load();
@@ -201,7 +200,7 @@ namespace MissionIIMonoGame
             }
             */
             ReadAndStorePlayerInputs();
-            MissionIIClassLibrary.MissionIIGameModeSelector.ModeSelector.CurrentMode.AdvanceOneCycle(_keyStates);
+            GameClassLibrary.Modes.GameMode.ActiveMode.AdvanceOneCycle(_keyStates);
             base.Update(gameTime);
         }
 
@@ -305,7 +304,7 @@ namespace MissionIIMonoGame
                 DepthStencilState.None,
                 RasterizerState.CullCounterClockwise);
 
-            MissionIIClassLibrary.MissionIIGameModeSelector.ModeSelector.CurrentMode.Draw(_monoGameDrawingTarget);
+            GameClassLibrary.Modes.GameMode.ActiveMode.Draw(_monoGameDrawingTarget);
 
             _spriteBatch.End();
 
