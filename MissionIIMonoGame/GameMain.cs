@@ -126,11 +126,11 @@ namespace MissionIIMonoGame
 
             MissionIIClassLibrary.Modes.HiScore.StaticInit();
 
-            GameClassLibrary.Modes.GameMode.ActiveMode = new MissionIIClassLibrary.Modes.TitleScreen();
-
             MissionIIClassLibrary.MissionIISprites.Load();
             MissionIIClassLibrary.MissionIIFonts.Load();
             MissionIIClassLibrary.MissionIISounds.Load();
+
+            GameClassLibrary.Modes.GameMode.ActiveMode = new MissionIIClassLibrary.Modes.TitleScreen();
         }
 
 
