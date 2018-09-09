@@ -3,7 +3,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class EnteringLevel : BaseGameMode
+    public class EnteringLevel : GameMode
     {
         private MissionIIGameBoard _gameBoard;
         private int _countDown = Constants.EnteringLevelScreenCycles;

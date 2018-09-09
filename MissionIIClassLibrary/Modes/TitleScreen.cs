@@ -3,7 +3,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class TitleScreen : BaseGameMode
+    public class TitleScreen : GameMode
     {
         private const int FireButtonPressEnableTime = (Constants.TitleScreenRollCycles * 3) / 4;
         private int _countDown = Constants.TitleScreenRollCycles;

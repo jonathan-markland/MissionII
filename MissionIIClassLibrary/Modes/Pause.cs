@@ -5,15 +5,15 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class Pause : BaseGameMode
+    public class Pause : GameMode
     {
-        private BaseGameMode _originalMode;
+        private GameMode _originalMode;
         private bool _keyReleaseSeen;
         private bool _restartGameOnNextRelease;
         private Controls.AccessCodeAccumulatorControl _accessCodeControl;
         private MissionIIGameBoard _theGameBoard;
 
-        public Pause(BaseGameMode originalMode, MissionIIGameBoard theGameBoard)
+        public Pause(GameMode originalMode, MissionIIGameBoard theGameBoard)
         {
             _theGameBoard = theGameBoard;
             _originalMode = originalMode;

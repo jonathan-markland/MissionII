@@ -7,7 +7,7 @@ namespace MissionIIClassLibrary
         public static bool HandlePause(
             MissionIIGameBoard theGameBoard,
             KeyStates theKeyStates,
-            Modes.BaseGameMode theCurrentModeObject)
+            GameMode theCurrentModeObject)
         {
             if (theKeyStates.Pause)
             {

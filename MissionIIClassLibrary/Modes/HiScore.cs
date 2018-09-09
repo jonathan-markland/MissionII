@@ -3,7 +3,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class HiScore : BaseGameMode
+    public class HiScore : GameMode
     {
         private static GameClassLibrary.Hiscore.HiScoreScreenModel HiScoreTableModel;
         private int _countDown = Constants.TitleScreenRollCycles;

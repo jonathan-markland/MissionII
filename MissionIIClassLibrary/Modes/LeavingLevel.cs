@@ -3,7 +3,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class LeavingLevel : BaseGameMode
+    public class LeavingLevel : GameMode
     {
         private MissionIIGameBoard _gameBoard;
         private int _countDown = Constants.LeavingLevelCycles;

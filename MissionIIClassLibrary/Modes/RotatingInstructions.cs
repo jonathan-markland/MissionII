@@ -3,7 +3,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class RotatingInstructions : BaseGameMode
+    public class RotatingInstructions : GameMode
     {
         private const int ScreenCount = 3;
         private int _countDown = Constants.TitleScreenRollCycles * ScreenCount;

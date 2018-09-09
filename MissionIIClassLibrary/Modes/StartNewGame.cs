@@ -6,7 +6,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class StartNewGame : BaseGameMode
+    public class StartNewGame : GameMode
     {
         public override void AdvanceOneCycle(KeyStates theKeyStates)
         {

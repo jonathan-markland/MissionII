@@ -3,7 +3,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class GameOver : BaseGameMode
+    public class GameOver : GameMode
     {
         private int _countDown = Constants.GameOverMessageCycles;
         private uint _finalScore;

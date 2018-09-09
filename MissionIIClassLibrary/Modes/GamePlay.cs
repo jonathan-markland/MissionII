@@ -3,7 +3,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class GamePlay : BaseGameMode
+    public class GamePlay : GameMode
     {
         private MissionIIGameBoard _gameBoard;
 
