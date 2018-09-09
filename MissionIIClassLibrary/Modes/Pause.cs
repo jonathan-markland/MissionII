@@ -1,5 +1,4 @@
 ﻿
-using System;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
 using GameClassLibrary.Controls;
