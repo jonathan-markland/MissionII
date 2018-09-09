@@ -42,6 +42,7 @@
     <Compile Include="Algorithms\LevelAccessCodes.cs" />
     <Compile Include="Algorithms\UniqueNumberAllocator.cs" />
     <Compile Include="Containers\SuddenlyReplaceableList.cs" />
+    <Compile Include="Controls\AccessCodeAccumulatorControl.cs" />
     <Compile Include="Controls\NameEntryControl.cs" />
     <Compile Include="Graphics\Colour.cs" />
     <Compile Include="Graphics\Font.cs" />

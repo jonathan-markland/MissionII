@@ -3,7 +3,7 @@ using System.Linq;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
 
-namespace MissionIIClassLibrary.Controls
+namespace GameClassLibrary.Controls
 {
     public class AccessCodeAccumulatorControl
     {

@@ -2,6 +2,7 @@
 using System;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
+using GameClassLibrary.Controls;
 
 namespace MissionIIClassLibrary.Modes
 {
@@ -10,7 +11,7 @@ namespace MissionIIClassLibrary.Modes
         private GameMode _originalMode;
         private bool _keyReleaseSeen;
         private bool _restartGameOnNextRelease;
-        private Controls.AccessCodeAccumulatorControl _accessCodeControl;
+        private AccessCodeAccumulatorControl _accessCodeControl;
         private MissionIIGameBoard _theGameBoard;
 
         public Pause(GameMode originalMode, MissionIIGameBoard theGameBoard)
@@ -19,7 +20,7 @@ namespace MissionIIClassLibrary.Modes
             _originalMode = originalMode;
             _keyReleaseSeen = false; // PAUSE key is held at the time this object is created.
             _restartGameOnNextRelease = false;
-            _accessCodeControl = new Controls.AccessCodeAccumulatorControl(
+            _accessCodeControl = new AccessCodeAccumulatorControl(
                 Constants.ScreenWidth / 2,
                 Constants.ScreenHeight - 60,
                 4,
