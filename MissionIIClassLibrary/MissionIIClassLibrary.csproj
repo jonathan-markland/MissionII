@@ -79,7 +79,6 @@
     <Compile Include="Interactibles\LevelExit.cs" />
     <Compile Include="MissionIIModes.cs" />
     <Compile Include="Interactibles\InteractibleObject.cs" />
-    <Compile Include="MissionIIKeyStates.cs" />
     <Compile Include="GameObjects\Man.cs" />
     <Compile Include="Interactibles\Potion.cs" />
     <Compile Include="Droids\HomingDroid.cs" />
