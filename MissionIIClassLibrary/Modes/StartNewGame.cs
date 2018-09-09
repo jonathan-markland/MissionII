@@ -2,7 +2,7 @@
 using System.IO;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
-
+using GameClassLibrary.Modes;
 
 namespace MissionIIClassLibrary.Modes
 {

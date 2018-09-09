@@ -2,6 +2,7 @@
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
 using GameClassLibrary.Controls;
+using GameClassLibrary.Modes;
 
 namespace MissionIIClassLibrary.Modes
 {

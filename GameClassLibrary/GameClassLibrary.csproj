@@ -44,6 +44,7 @@
     <Compile Include="Containers\SuddenlyReplaceableList.cs" />
     <Compile Include="Controls\AccessCodeAccumulatorControl.cs" />
     <Compile Include="Controls\NameEntryControl.cs" />
+    <Compile Include="Modes\GameMode.cs" />
     <Compile Include="Graphics\Colour.cs" />
     <Compile Include="Graphics\Font.cs" />
     <Compile Include="Graphics\HostSuppliedSprite.cs" />
@@ -54,9 +55,9 @@
     <Compile Include="Graphics\SpriteInstance.cs" />
     <Compile Include="Graphics\SpriteTraits.cs" />
     <Compile Include="Graphics\TextAlignment.cs" />
-    <Compile Include="Hiscore\HiScoreScreenControl.cs" />
-    <Compile Include="Hiscore\HiScoreScreenModel.cs" />
-    <Compile Include="Hiscore\HiScoreTableEntryModel.cs" />
+    <Compile Include="Controls\Hiscore\HiScoreScreenControl.cs" />
+    <Compile Include="Controls\Hiscore\HiScoreScreenModel.cs" />
+    <Compile Include="Controls\Hiscore\HiScoreTableEntryModel.cs" />
     <Compile Include="Input\KeyStates.cs" />
     <Compile Include="Math\FoundDirections.cs" />
     <Compile Include="Math\FoundDirectionsException.cs" />

@@ -83,7 +83,6 @@
     <Compile Include="Modes\LeavingLevel.cs" />
     <Compile Include="Modes\Pause.cs" />
     <Compile Include="Modes\StartNewGame.cs" />
-    <Compile Include="GameMode.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="LevelExpander.cs" />
     <Compile Include="LevelFileParser.cs" />

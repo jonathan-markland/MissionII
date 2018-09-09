@@ -1,4 +1,7 @@
-﻿namespace MissionIIClassLibrary.Modes
+﻿
+using GameClassLibrary.Modes;
+
+namespace MissionIIClassLibrary.Modes
 {
     public class MissionIIGameModes
     {

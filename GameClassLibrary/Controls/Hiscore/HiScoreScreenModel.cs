@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GameClassLibrary.Hiscore
+namespace GameClassLibrary.Controls.Hiscore
 {
     public class HiScoreScreenModel
     {

@@ -2,7 +2,7 @@
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
 
-namespace GameClassLibrary.Hiscore
+namespace GameClassLibrary.Controls.Hiscore
 {
     public class HiScoreScreenControl
     {

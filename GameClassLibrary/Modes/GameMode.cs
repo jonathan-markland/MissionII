@@ -1,7 +1,7 @@
 ﻿using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
 
-namespace MissionIIClassLibrary
+namespace GameClassLibrary.Modes
 {
     public class GameMode
     {

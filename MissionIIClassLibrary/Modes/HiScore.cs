@@ -1,15 +1,17 @@
 ﻿using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
+using GameClassLibrary.Controls.Hiscore;
+using GameClassLibrary.Modes;
 
 namespace MissionIIClassLibrary.Modes
 {
     public class HiScore : GameMode
     {
-        private static GameClassLibrary.Hiscore.HiScoreScreenModel HiScoreTableModel;
+        private static HiScoreScreenModel HiScoreTableModel;
         private int _countDown = Constants.TitleScreenRollCycles;
         private bool _enterScoreMode;
         private bool _justEnteredName;
-        private GameClassLibrary.Hiscore.HiScoreScreenControl _hiScoreScreenControl;
+        private HiScoreScreenControl _hiScoreScreenControl;
 
         /// <summary>
         /// Construction must be called once on program start up.
@@ -17,7 +19,7 @@ namespace MissionIIClassLibrary.Modes
         public static void StaticInit()
         {
             HiScoreTableModel =
-                new GameClassLibrary.Hiscore.HiScoreScreenModel(
+                new HiScoreScreenModel(
                     Constants.InitialLowestHiScore,
                     Constants.InitialHiScoresIncrement);
         }
@@ -51,7 +53,7 @@ namespace MissionIIClassLibrary.Modes
 
         private void CreateHiScoreControl()
         {
-            _hiScoreScreenControl = new GameClassLibrary.Hiscore.HiScoreScreenControl(
+            _hiScoreScreenControl = new HiScoreScreenControl(
                 new GameClassLibrary.Math.Rectangle(10, 70, 300, 246-70),// TODO: screen dimension constants!
                 MissionIIFonts.NarrowFont,
                 MissionIISprites.Life,

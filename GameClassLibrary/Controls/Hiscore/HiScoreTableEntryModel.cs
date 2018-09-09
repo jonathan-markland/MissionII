@@ -1,6 +1,6 @@
 ﻿
 
-namespace GameClassLibrary.Hiscore
+namespace GameClassLibrary.Controls.Hiscore
 {
     public class HiScoreTableEntryModel
     {
