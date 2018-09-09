@@ -60,7 +60,7 @@ namespace MissionIIClassLibrary.GameObjects
         {
             if (IsActive)
             {
-                drawingTarget.DrawFirstSprite(_spriteInstance);
+                drawingTarget.DrawFirstSpriteRoomRelative(_spriteInstance);
             }
         }
 

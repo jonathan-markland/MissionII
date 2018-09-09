@@ -222,7 +222,7 @@ namespace MissionIIClassLibrary.GameObjects
         {
             if (_invincibleCountDown == 0 || DrawManDuringInvincibility())
             {
-                drawingTarget.DrawIndexedSprite(SpriteInstance, _imageIndex);
+                drawingTarget.DrawIndexedSpriteRoomRelative(SpriteInstance, _imageIndex);
             }
         }
 

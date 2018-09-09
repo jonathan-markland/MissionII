@@ -13,7 +13,7 @@ namespace MissionIIClassLibrary
                 theSprite);
         }
 
-        public static void DrawFirstSprite(this IDrawingTarget drawingTarget, SpriteInstance theSprite)
+        public static void DrawFirstSpriteRoomRelative(this IDrawingTarget drawingTarget, SpriteInstance theSprite)
         {
             drawingTarget.DrawSprite(
                 Constants.RoomOriginX + theSprite.X, // TODO: Should not need to add origin.
@@ -21,7 +21,7 @@ namespace MissionIIClassLibrary
                 theSprite.Traits.GetHostImageObject(0));
         }
 
-        public static void DrawIndexedSprite(this IDrawingTarget drawingTarget, SpriteInstance theSprite, int spriteIndex)
+        public static void DrawIndexedSpriteRoomRelative(this IDrawingTarget drawingTarget, SpriteInstance theSprite, int spriteIndex)
         {
             drawingTarget.DrawSprite(
                 Constants.RoomOriginX + theSprite.X, // TODO: Should not need to add origin.

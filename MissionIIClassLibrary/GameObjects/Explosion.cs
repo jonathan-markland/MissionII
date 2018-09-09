@@ -42,7 +42,7 @@ namespace MissionIIClassLibrary.GameObjects
 
         public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
         {
-            drawingTarget.DrawIndexedSprite(SpriteInstance, _imageIndex);
+            drawingTarget.DrawIndexedSpriteRoomRelative(SpriteInstance, _imageIndex);
         }
 
         public override Rectangle GetBoundingRectangle()

@@ -29,7 +29,7 @@ namespace MissionIIClassLibrary.Droids
 
         public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
         {
-            drawingTarget.DrawIndexedSprite(SpriteInstance, _imageIndex);
+            drawingTarget.DrawIndexedSpriteRoomRelative(SpriteInstance, _imageIndex);
         }
 
         public override bool YouHaveBeenShot(MissionIIGameBoard theGameBoard, bool shotByMan)

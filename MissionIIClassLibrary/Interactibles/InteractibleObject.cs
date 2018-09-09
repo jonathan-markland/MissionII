@@ -55,7 +55,7 @@ namespace MissionIIClassLibrary.Interactibles
 
         public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
         {
-            drawingTarget.DrawIndexedSprite(Sprite, 0);
+            drawingTarget.DrawIndexedSpriteRoomRelative(Sprite, 0);
         }
 
         public override Rectangle GetBoundingRectangle()
