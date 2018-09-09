@@ -75,7 +75,7 @@ namespace MissionIIClassLibrary.Modes
 
         private void ExitToOriginalMode()
         {
-            GameClassLibrary.Modes.GameMode.ActiveMode = _originalMode;
+            ActiveMode = _originalMode;
         }
     }
 }

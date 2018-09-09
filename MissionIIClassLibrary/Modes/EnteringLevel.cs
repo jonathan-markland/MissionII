@@ -42,7 +42,7 @@ namespace MissionIIClassLibrary.Modes
             }
             else
             {
-                GameClassLibrary.Modes.GameMode.ActiveMode = new GamePlay(_gameBoard);
+                ActiveMode = new GamePlay(_gameBoard);
             }
         }
 

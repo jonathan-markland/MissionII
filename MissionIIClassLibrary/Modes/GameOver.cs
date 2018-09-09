@@ -26,7 +26,7 @@ namespace MissionIIClassLibrary.Modes
             }
             else
             {
-                GameClassLibrary.Modes.GameMode.ActiveMode = new HiScore(_finalScore);
+                ActiveMode = new HiScore(_finalScore);
             }
         }
 
