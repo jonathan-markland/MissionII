@@ -1,5 +1,6 @@
 ﻿using GameClassLibrary.Math;
 using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Interactibles
 {
@@ -30,7 +31,7 @@ namespace MissionIIClassLibrary.Interactibles
             get { return _roomNumber; }
         }
 
-        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, MissionIIKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, KeyStates theKeyStates)
         {
             // No action required.
         }

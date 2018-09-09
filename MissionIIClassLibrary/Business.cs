@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary
 {
@@ -23,7 +24,7 @@ namespace MissionIIClassLibrary
         }
 
 
-        public static int GetDirectionIndex(MissionIIKeyStates keyStates)
+        public static int GetDirectionIndex(KeyStates keyStates)
         {
             // Clockwise numbering
             // TODO:  Implementation biases certain directions when more than 2 keys held.
@@ -46,7 +47,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static MovementDeltas GetMovementDeltas(MissionIIKeyStates keyStates)
+        public static MovementDeltas GetMovementDeltas(KeyStates keyStates)
         {
             return new MovementDeltas(
                 (keyStates.Left ? -1 : 0) + (keyStates.Right ? 1 : 0),

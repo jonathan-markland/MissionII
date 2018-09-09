@@ -1,6 +1,7 @@
 ﻿using System;
-using GameClassLibrary.Graphics;
 using System.Linq;
+using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace GameClassLibrary.Controls
 {
@@ -45,11 +46,16 @@ namespace GameClassLibrary.Controls
             }
         }
 
-        public void AdvanceOneCycle(Hiscore.HiScoreTableKeyStates keyStates)
+        public bool AllReleased(KeyStates keyStates)
+        {
+            return !keyStates.Up && !keyStates.Down && !keyStates.Left && !keyStates.Fire;
+        }
+
+        public void AdvanceOneCycle(KeyStates keyStates)
         {
             ++_cycleCounter;
 
-            if (_waitingForRelease && !keyStates.AllReleased) return;
+            if (_waitingForRelease && !AllReleased(keyStates)) return;
             _waitingForRelease = false;
             _sustainEditModeUntilButtonsReleased = false;
 

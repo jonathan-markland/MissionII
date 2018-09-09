@@ -1,11 +1,12 @@
-﻿
+﻿using GameClassLibrary.Input;
+
 namespace MissionIIClassLibrary
 {
     public static class MissionIIModes
     {
         public static bool HandlePause(
             MissionIIGameBoard theGameBoard,
-            MissionIIKeyStates theKeyStates,
+            KeyStates theKeyStates,
             Modes.BaseGameMode theCurrentModeObject)
         {
             if (theKeyStates.Pause)

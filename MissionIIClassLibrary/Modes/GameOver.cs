@@ -1,4 +1,5 @@
 ﻿using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Modes
 {
@@ -12,7 +13,7 @@ namespace MissionIIClassLibrary.Modes
             _finalScore = finalScore;
         }
 
-        public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
+        public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
             if (_countDown == Constants.GameOverMessageCycles)
             {

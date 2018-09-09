@@ -1,5 +1,6 @@
 ﻿using GameClassLibrary.Math;
 using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Droids
 {
@@ -20,7 +21,7 @@ namespace MissionIIClassLibrary.Droids
             _intelligenceProvider = intelligenceProvider;
         }
 
-        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, MissionIIKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, KeyStates theKeyStates)
         {
             Business.Animate(ref _animationCountdown, ref _imageIndex, AnimationReset, SpriteInstance.Traits.ImageCount);
             _intelligenceProvider.AdvanceOneCycle(theGameBoard, SpriteInstance);

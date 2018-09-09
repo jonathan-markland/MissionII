@@ -1,5 +1,5 @@
 ﻿
-namespace GameClassLibrary
+namespace GameClassLibrary.Input
 {
     public class KeyStates
     {

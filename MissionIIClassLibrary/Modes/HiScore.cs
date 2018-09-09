@@ -1,4 +1,5 @@
 ﻿using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Modes
 {
@@ -57,18 +58,13 @@ namespace MissionIIClassLibrary.Modes
                 HiScoreTableModel);
         }
 
-        public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
+        public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
             if (_enterScoreMode)
             {
                 if (_hiScoreScreenControl.InEditMode)
                 {
-                    var hsKeyStates = new GameClassLibrary.Hiscore.HiScoreTableKeyStates();
-                    hsKeyStates.Down = theKeyStates.Down;
-                    hsKeyStates.Up = theKeyStates.Up;
-                    hsKeyStates.Left = theKeyStates.Left;
-                    hsKeyStates.Fire = theKeyStates.Fire;
-                    _hiScoreScreenControl.AdvanceOneCycle(hsKeyStates);
+                    _hiScoreScreenControl.AdvanceOneCycle(theKeyStates);
                 }
                 else
                 {

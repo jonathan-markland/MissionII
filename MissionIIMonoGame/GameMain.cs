@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Audio;
 using GameClassLibrary.Sound;
+using GameClassLibrary.Input;
 
 namespace MissionIIMonoGame
 {
@@ -24,7 +25,7 @@ namespace MissionIIMonoGame
         private SpriteBatch _spriteBatch;
         private RenderTarget2D _backingScreen;
         private MonoGameDrawingTarget _monoGameDrawingTarget;
-        private MissionIIClassLibrary.MissionIIKeyStates _keyStates;
+        private KeyStates _keyStates;
         private ScalingModes _scalingModes;
         private static object _musicLock = new object();
         private static SoundEffectInstance _soundEffectInstance;
@@ -56,7 +57,7 @@ namespace MissionIIMonoGame
                     return resultColorData.Select(x => x.PackedValue).ToArray();
                 });
 
-            _keyStates = new MissionIIClassLibrary.MissionIIKeyStates();
+            _keyStates = new KeyStates();
             _graphicsDeviceManager = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             _scalingModes = ScalingModes.StretchPreservingAspect;

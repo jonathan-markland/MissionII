@@ -1,6 +1,7 @@
 ﻿
 using System;
 using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Modes
 {
@@ -40,7 +41,7 @@ namespace MissionIIClassLibrary.Modes
             }
         }
 
-        public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
+        public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
             if (!_keyReleaseSeen)
             {

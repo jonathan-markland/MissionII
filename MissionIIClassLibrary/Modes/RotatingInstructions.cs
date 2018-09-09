@@ -1,4 +1,5 @@
 ﻿using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Modes
 {
@@ -7,7 +8,7 @@ namespace MissionIIClassLibrary.Modes
         private const int ScreenCount = 3;
         private int _countDown = Constants.TitleScreenRollCycles * ScreenCount;
 
-        public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
+        public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
             if (theKeyStates.Fire)
             {

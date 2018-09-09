@@ -1,10 +1,11 @@
 ﻿using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary
 {
-    public class GameMode<K>
+    public class GameMode
     {
-        public virtual void AdvanceOneCycle(K theKeyStates)
+        public virtual void AdvanceOneCycle(KeyStates theKeyStates)
         {
             // No base action
         }

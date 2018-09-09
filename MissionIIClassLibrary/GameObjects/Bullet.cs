@@ -1,6 +1,7 @@
 ﻿using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.GameObjects
 {
@@ -17,7 +18,7 @@ namespace MissionIIClassLibrary.GameObjects
             _increasesScore = increasesScore;
         }
 
-        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, MissionIIKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, KeyStates theKeyStates)
         {
             for (int i = 0; i < Constants.BulletCycles; i++)
             {

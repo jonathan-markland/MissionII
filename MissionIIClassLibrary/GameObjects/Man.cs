@@ -3,6 +3,7 @@ using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.GameObjects
 {
@@ -43,7 +44,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, MissionIIKeyStates keyStates)
+        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, KeyStates keyStates)
         {
             if (_isElectrocuting || _isElectrocutedByWalls)
             {
@@ -94,7 +95,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        private void DoWalking(MissionIIGameBoard theGameBoard, MissionIIKeyStates keyStates, int theDirection)
+        private void DoWalking(MissionIIGameBoard theGameBoard, KeyStates keyStates, int theDirection)
         {
             ++_cyclesMoving;
             _facingDirection = theDirection;
@@ -159,7 +160,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        private void FireButtonCheck(MissionIIGameBoard theGameBoard, MissionIIKeyStates keyStates)
+        private void FireButtonCheck(MissionIIGameBoard theGameBoard, KeyStates keyStates)
         {
             if (keyStates.Fire)
             {

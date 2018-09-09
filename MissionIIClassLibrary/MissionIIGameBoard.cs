@@ -5,6 +5,7 @@ using GameClassLibrary.Containers;
 using GameClassLibrary.Algorithms;
 using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary
 {
@@ -86,7 +87,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public void Update(MissionIIKeyStates keyStates)
+        public void Update(KeyStates keyStates)
         {
             ++_cycleCount;
             ObjectsInRoom.ForEachDo(o => { o.AdvanceOneCycle(this, keyStates); });

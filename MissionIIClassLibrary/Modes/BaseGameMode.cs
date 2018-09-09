@@ -1,6 +1,6 @@
 ﻿namespace MissionIIClassLibrary.Modes
 {
-    public class BaseGameMode: GameMode<MissionIIKeyStates>
+    public class BaseGameMode: GameMode
     {
 
     }

@@ -1,12 +1,14 @@
 ﻿
 using System.IO;
 using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
+
 
 namespace MissionIIClassLibrary.Modes
 {
     public class StartNewGame : BaseGameMode
     {
-        public override void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
+        public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
             using (var sr = new StreamReader("Resources\\Levels.txt"))
             {

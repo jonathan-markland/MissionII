@@ -1,5 +1,6 @@
 ﻿
 using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace GameClassLibrary.Hiscore
 {
@@ -46,7 +47,7 @@ namespace GameClassLibrary.Hiscore
             }
         }
 
-        public void AdvanceOneCycle(HiScoreTableKeyStates keyStates)
+        public void AdvanceOneCycle(KeyStates keyStates)
         {
             _nameEntryControl.AdvanceOneCycle(keyStates);
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Controls
 {
@@ -14,7 +15,11 @@ namespace MissionIIClassLibrary.Controls
         private Action _onPlayLetterSound;
         private Font _theFont;
 
-        public AccessCodeAccumulatorControl(int centreX, int centreY, int maxLength, Action<string> onEntryCompleted, Action onPlayLetterSound, Font theFont)
+        public AccessCodeAccumulatorControl(
+            int centreX, int centreY, int maxLength, 
+            Action<string> onEntryCompleted, 
+            Action onPlayLetterSound, 
+            Font theFont)
         {
             _centreX = centreX;
             _centreY = centreY;
@@ -29,7 +34,7 @@ namespace MissionIIClassLibrary.Controls
             _accessCode = String.Empty;
         }
 
-        public void AdvanceOneCycle(MissionIIKeyStates theKeyStates)
+        public void AdvanceOneCycle(KeyStates theKeyStates)
         {
             if (_accessCode.Length == _maxLength)
             {

@@ -1,6 +1,7 @@
 ﻿
 using GameClassLibrary.Math;
 using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.GameObjects
 {
@@ -22,7 +23,7 @@ namespace MissionIIClassLibrary.GameObjects
             get { return _startCountDown == 0; }
         }
 
-        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, MissionIIKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, KeyStates theKeyStates)
         {
             if (_startCountDown > 0)
             {

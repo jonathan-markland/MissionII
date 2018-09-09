@@ -1,5 +1,6 @@
 ﻿using GameClassLibrary.Math;
 using GameClassLibrary.Graphics;
+using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.GameObjects
 {
@@ -21,7 +22,7 @@ namespace MissionIIClassLibrary.GameObjects
             _canBeConsideredForMultiKillBonus = canBeConsideredForBonus;
         }
 
-        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, MissionIIKeyStates theKeyStates)
+        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, KeyStates theKeyStates)
         {
             if (_explosionCountDown == ExplosionCountDownReset)
             {
