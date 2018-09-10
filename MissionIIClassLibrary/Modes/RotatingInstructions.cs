@@ -1,4 +1,7 @@
-﻿using GameClassLibrary.Graphics;
+﻿
+using System.Linq;
+using System.Collections.Generic;
+using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
 using GameClassLibrary.Modes;
 
@@ -6,8 +9,27 @@ namespace MissionIIClassLibrary.Modes
 {
     public class RotatingInstructions : GameMode
     {
-        private const int ScreenCount = 3;
-        private int _countDown = Constants.TitleScreenRollCycles * ScreenCount;
+        private static char[] _pageSeparator = new char[] { '\v' };
+        private static char[] _rowSeparator = new char[] { '\n' };
+
+        private int _countDown;
+        private int _pageVisibleCycles;
+        private List<List<string>> _listOfPages;
+
+
+
+        /// <summary>
+        /// Construct new multi-screen instruction pages.
+        /// </summary>
+        /// <param name="instructionPages">Instruction text using \n between rows, and \v between pages.</param>
+        public RotatingInstructions(string instructionPages, int pageVisibleCycles)
+        {
+            _listOfPages = StringToPages(instructionPages);
+            _pageVisibleCycles = pageVisibleCycles;
+            _countDown = pageVisibleCycles * _listOfPages.Count;
+        }
+
+
 
         public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
@@ -25,36 +47,46 @@ namespace MissionIIClassLibrary.Modes
             }
         }
 
+
+
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
             drawingTarget.DrawSprite(0, 0, MissionIISprites.Background.GetHostImageObject(0));
+
             var theFont = MissionIIFonts.NarrowFont;
-            var cx = Constants.ScreenWidth / 2;
+            var cx = GameClassLibrary.Graphics.Screen.Width / 2;
             var c = TextAlignment.Centre;
-            if (_countDown < Constants.TitleScreenRollCycles * 1)
+
+            var pageIndex = _countDown / _pageVisibleCycles;
+
+            if (pageIndex < _listOfPages.Count)
             {
-                drawingTarget.DrawText(cx,  60, "VERSION BY JONATHAN MARKLAND", theFont, c);
-                drawingTarget.DrawText(cx, 100, "BASED ON AN", theFont, c);
-                drawingTarget.DrawText(cx, 120, "ORIGINAL CONCEPT", theFont, c);
-                drawingTarget.DrawText(cx, 140, "BY MATTHEW BATES", theFont, c);
-                drawingTarget.DrawText(cx, 180, "SOUNDS FROM FREESOUND WEBSITE", theFont, c);
+                var thisPage = _listOfPages[pageIndex];
+                int y = (Screen.Height - thisPage.Count * theFont.Height * 2) / 2;
+                foreach (var msgText in thisPage)
+                {
+                    if (msgText.Length > 0)
+                    {
+                        drawingTarget.DrawText(cx, y, msgText, theFont, c);
+                    }
+                    y += theFont.Height * 2;
+                }
             }
-            else if (_countDown < Constants.TitleScreenRollCycles * 2)
+        }
+
+
+
+        private static List<List<string>> StringToPages(string instructionPages)
+        {
+            var listOfPages = new List<List<string>>();
+            var thePages = instructionPages.Split(_pageSeparator, System.StringSplitOptions.RemoveEmptyEntries);
+            foreach (var page in thePages)
             {
-                drawingTarget.DrawText(cx,  50, "MOVE USING CURSOR KEYS", theFont, c);
-                drawingTarget.DrawText(cx,  70, "Z      FIRE", theFont, c);
-                drawingTarget.DrawText(cx,  90, "P      PAUSE", theFont, c);
-                drawingTarget.DrawText(cx, 110, "OR JOYSTICK OR PAD", theFont, c);
-                drawingTarget.DrawText(cx, 160, "F11 F12   FULL SCREEN TOGGLE", theFont, c);
-                drawingTarget.DrawText(cx, 180, "F2 F3     VIEW SIZE", theFont, c);
+                var theLines = page.Split(_rowSeparator).ToList();
+                listOfPages.Add(theLines);
             }
-            else if (_countDown < Constants.TitleScreenRollCycles * 3)
-            {
-                drawingTarget.DrawText(cx, 100, "COLLECT OBJECTS ON LEVEL", theFont, c);
-                drawingTarget.DrawText(cx, 120, "THEN FIND THE EXIT", theFont, c);
-                drawingTarget.DrawText(cx, 160, "AVOID ELECTROCUTION", theFont, c);
-            }
+            return listOfPages;
         }
     }
 }
