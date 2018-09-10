@@ -1,7 +1,7 @@
 ﻿
 namespace MissionIIClassLibrary.Modes
 {
-    public class GameOver : GameClassLibrary.Modes.GameOver
+    public class GameOver : GameClassLibrary.Modes.PlacardScreen
     {
         public GameOver(uint finalScore)
             : base(

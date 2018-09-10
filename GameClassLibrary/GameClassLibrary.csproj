@@ -68,7 +68,7 @@
     <Compile Include="Math\PositionAndDirection.cs" />
     <Compile Include="Math\Rectangle.cs" />
     <Compile Include="Math\Rng.cs" />
-    <Compile Include="Modes\GameOver.cs" />
+    <Compile Include="Modes\PlacardScreen.cs" />
     <Compile Include="Modes\TitleScreenWithCredit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sound\HostSuppliedSound.cs" />
