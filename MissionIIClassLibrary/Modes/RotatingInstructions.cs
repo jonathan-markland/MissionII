@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using GameClassLibrary.Graphics;
@@ -15,6 +16,10 @@ namespace MissionIIClassLibrary.Modes
         private int _countDown;
         private int _pageVisibleCycles;
         private List<List<string>> _listOfPages;
+        private SpriteTraits _backgroundSprite;
+        private Font _theFont;
+        private Func<GameMode> _getStartGameMode;
+        private Func<GameMode> _getNextModeFunction;
 
 
 
@@ -22,11 +27,20 @@ namespace MissionIIClassLibrary.Modes
         /// Construct new multi-screen instruction pages.
         /// </summary>
         /// <param name="instructionPages">Instruction text using \n between rows, and \v between pages.</param>
-        public RotatingInstructions(string instructionPages, int pageVisibleCycles)
+        public RotatingInstructions(
+            SpriteTraits backgroundSprite,
+            Font theFont,
+            string instructionPages, int pageVisibleCycles,
+            Func<GameMode> getStartGameMode,
+            Func<GameMode> getNextModeFunction)
         {
+            _theFont = theFont;
+            _backgroundSprite = backgroundSprite;
             _listOfPages = StringToPages(instructionPages);
             _pageVisibleCycles = pageVisibleCycles;
             _countDown = pageVisibleCycles * _listOfPages.Count;
+            _getNextModeFunction = getNextModeFunction;
+            _getStartGameMode = getStartGameMode;
         }
 
 
@@ -35,11 +49,11 @@ namespace MissionIIClassLibrary.Modes
         {
             if (theKeyStates.Fire)
             {
-                ActiveMode = new StartNewGame();
+                ActiveMode = _getStartGameMode();
             }
             else if (_countDown == 0)
             {
-                ActiveMode = new TitleScreen();
+                ActiveMode = _getNextModeFunction();
             }
             else
             {
@@ -52,10 +66,10 @@ namespace MissionIIClassLibrary.Modes
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, MissionIISprites.Background.GetHostImageObject(0));
+            drawingTarget.DrawSprite(0, 0, _backgroundSprite.GetHostImageObject(0));
 
-            var theFont = MissionIIFonts.NarrowFont;
-            var cx = GameClassLibrary.Graphics.Screen.Width / 2;
+            var theFont = _theFont;
+            var cx = Screen.Width / 2;
             var c = TextAlignment.Centre;
 
             var pageIndex = _countDown / _pageVisibleCycles;

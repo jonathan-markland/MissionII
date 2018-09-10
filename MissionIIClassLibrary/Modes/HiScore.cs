@@ -90,6 +90,8 @@ namespace MissionIIClassLibrary.Modes
                 else
                 {
                     ActiveMode = new RotatingInstructions(
+                        MissionIISprites.Background,
+                        MissionIIFonts.NarrowFont,
                           "VERSION BY JONATHAN MARKLAND\n"
                         + "BASED ON AN\n"
                         + "ORIGINAL CONCEPT\n"
@@ -106,7 +108,9 @@ namespace MissionIIClassLibrary.Modes
                         + "COLLECT OBJECTS ON LEVEL\n"
                         + "THEN FIND THE EXIT\n"
                         + "AVOID ELECTROCUTION",
-                          Constants.TitleScreenRollCycles
+                          Constants.TitleScreenRollCycles,
+                          () => new StartNewGame(),
+                          () => new TitleScreen()
                         );
                 }
             }
