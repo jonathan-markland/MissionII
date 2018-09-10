@@ -72,6 +72,7 @@
     <Compile Include="Modes\Pause.cs" />
     <Compile Include="Modes\PauseWithChangeLevel.cs" />
     <Compile Include="Modes\PlacardScreen.cs" />
+    <Compile Include="Modes\RotatingInstructions.cs" />
     <Compile Include="Modes\TitleScreenWithCredit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sound\HostSuppliedSound.cs" />

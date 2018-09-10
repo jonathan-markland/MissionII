@@ -1,106 +1,33 @@
 ﻿
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using GameClassLibrary.Graphics;
-using GameClassLibrary.Input;
-using GameClassLibrary.Modes;
-
 namespace MissionIIClassLibrary.Modes
 {
-    public class RotatingInstructions : GameMode
+    public class MissionRotatingInstructions : GameClassLibrary.Modes.RotatingInstructions
     {
-        private static char[] _pageSeparator = new char[] { '\v' };
-        private static char[] _rowSeparator = new char[] { '\n' };
+        public MissionRotatingInstructions()
+            : base(
+                        MissionIISprites.Background,
+                        MissionIIFonts.NarrowFont,
+                          "VERSION BY JONATHAN MARKLAND\n"
+                        + "BASED ON AN\n"
+                        + "ORIGINAL CONCEPT\n"
+                        + "BY MATTHEW BATES\n\n"
+                        + "SOUNDS FROM FREESOUND WEBSITE\v"
 
-        private int _countDown;
-        private int _pageVisibleCycles;
-        private List<List<string>> _listOfPages;
-        private SpriteTraits _backgroundSprite;
-        private Font _theFont;
-        private Func<GameMode> _getStartGameMode;
-        private Func<GameMode> _getNextModeFunction;
+                        + "MOVE USING CURSOR KEYS\n"
+                        + "Z      FIRE\n"
+                        + "P      PAUSE\n"
+                        + "OR JOYSTICK OR PAD\n\n"
+                        + "F11 F12   FULL SCREEN TOGGLE\n"
+                        + "F2 F3     VIEW SIZE\v"
 
-
-
-        /// <summary>
-        /// Construct new multi-screen instruction pages.
-        /// </summary>
-        /// <param name="instructionPages">Instruction text using \n between rows, and \v between pages.</param>
-        public RotatingInstructions(
-            SpriteTraits backgroundSprite,
-            Font theFont,
-            string instructionPages, int pageVisibleCycles,
-            Func<GameMode> getStartGameMode,
-            Func<GameMode> getNextModeFunction)
+                        + "COLLECT OBJECTS ON LEVEL\n"
+                        + "THEN FIND THE EXIT\n"
+                        + "AVOID ELECTROCUTION",
+                          Constants.TitleScreenRollCycles,
+                          () => new StartNewGame(),
+                          () => new TitleScreen() 
+                    )
         {
-            _theFont = theFont;
-            _backgroundSprite = backgroundSprite;
-            _listOfPages = StringToPages(instructionPages);
-            _pageVisibleCycles = pageVisibleCycles;
-            _countDown = pageVisibleCycles * _listOfPages.Count;
-            _getNextModeFunction = getNextModeFunction;
-            _getStartGameMode = getStartGameMode;
-        }
-
-
-
-        public override void AdvanceOneCycle(KeyStates theKeyStates)
-        {
-            if (theKeyStates.Fire)
-            {
-                ActiveMode = _getStartGameMode();
-            }
-            else if (_countDown == 0)
-            {
-                ActiveMode = _getNextModeFunction();
-            }
-            else
-            {
-                --_countDown;
-            }
-        }
-
-
-
-        public override void Draw(IDrawingTarget drawingTarget)
-        {
-            drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, _backgroundSprite.GetHostImageObject(0));
-
-            var theFont = _theFont;
-            var cx = Screen.Width / 2;
-            var c = TextAlignment.Centre;
-
-            var pageIndex = _countDown / _pageVisibleCycles;
-
-            if (pageIndex < _listOfPages.Count)
-            {
-                var thisPage = _listOfPages[pageIndex];
-                int y = (Screen.Height - thisPage.Count * theFont.Height * 2) / 2;
-                foreach (var msgText in thisPage)
-                {
-                    if (msgText.Length > 0)
-                    {
-                        drawingTarget.DrawText(cx, y, msgText, theFont, c);
-                    }
-                    y += theFont.Height * 2;
-                }
-            }
-        }
-
-
-
-        private static List<List<string>> StringToPages(string instructionPages)
-        {
-            var listOfPages = new List<List<string>>();
-            var thePages = instructionPages.Split(_pageSeparator, System.StringSplitOptions.RemoveEmptyEntries);
-            foreach (var page in thePages)
-            {
-                var theLines = page.Split(_rowSeparator).ToList();
-                listOfPages.Add(theLines);
-            }
-            return listOfPages;
         }
     }
 }
