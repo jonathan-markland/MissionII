@@ -39,13 +39,20 @@ namespace GameClassLibrary.Modes
             _originalMode = originalMode;
             _keyReleaseSeen = false; // PAUSE key is taken as held, at the time this object is created.
             _restartGameOnNextRelease = false;
-            _accessCodeControl = new AccessCodeAccumulatorControl(
-                Screen.Width / 2,
-                accessCodeTextTopY,
-                4,
-                OnAccessCodeEntered,
-                addLetterSound,
-                accessCodesFont);
+
+            if (accessCodesFont != null
+                && addLetterSound != null
+                && tryCode != null
+                && canChangeLevel != null)
+            {
+                _accessCodeControl = new AccessCodeAccumulatorControl(
+                    Screen.Width / 2,
+                    accessCodeTextTopY,
+                    4,
+                    OnAccessCodeEntered,
+                    addLetterSound,
+                    accessCodesFont);
+            }
         }
 
 
@@ -58,7 +65,7 @@ namespace GameClassLibrary.Modes
             }
             else
             { 
-                _accessCodeControl.ClearEntry();
+                _accessCodeControl?.ClearEntry();
                 _pauseSound.Play();
             }
         }
@@ -83,7 +90,7 @@ namespace GameClassLibrary.Modes
                 _restartGameOnNextRelease = true;
                 _keyReleaseSeen = false;
             }
-            else if (_canChangeLevel()) // Hint:  Allow pause, but disallow changing to avoid cheating:  eg: Man.IsDead!
+            else if (_accessCodeControl != null && _canChangeLevel()) // Hint:  Allow pause, but disallow changing to avoid cheating:  eg: Man.IsDead!
             {
                 _accessCodeControl.AdvanceOneCycle(theKeyStates);
             }
@@ -95,7 +102,7 @@ namespace GameClassLibrary.Modes
         {
             _originalMode.Draw(drawingTarget);
             drawingTarget.DrawFirstSpriteScreenCentred(_pauseSprite);
-            _accessCodeControl.Draw(drawingTarget);
+            _accessCodeControl?.Draw(drawingTarget);
         }
 
 

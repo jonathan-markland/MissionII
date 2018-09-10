@@ -8,15 +8,31 @@ namespace MissionIIClassLibrary.Modes
         public Pause(GameMode originalMode, MissionIIGameBoard theGameBoard)
             : base(
                   originalMode,
-                  Constants.ScreenHeight - 60,
                   MissionIISprites.Paused,
                   MissionIISounds.PauseMode,
-                  MissionIISounds.ManFiring,
+                  Constants.ScreenHeight - 60,
                   MissionIIFonts.GiantFont,
+                  MissionIISounds.ManFiring,
                   s => theGameBoard.LevelCodeAccepted(s),
                   () => new Modes.EnteringLevel(theGameBoard),
                   () => !theGameBoard.Man.IsDead && !theGameBoard.Man.IsBeingElectrocuted)
         {
         }
     }
+
+    
+    
+    /* A development test of the pause-only facility
+    public class Pause : GameClassLibrary.Modes.Pause
+    {
+         public Pause(GameMode originalMode, MissionIIGameBoard theGameBoard)
+            : base(
+                  originalMode,
+                  MissionIISprites.Paused,
+                  MissionIISounds.PauseMode,
+                  () => new Modes.EnteringLevel(theGameBoard))
+        {
+        }
+
+    }*/
 }
