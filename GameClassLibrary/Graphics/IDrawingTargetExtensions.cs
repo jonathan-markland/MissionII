@@ -56,13 +56,6 @@ namespace GameClassLibrary.Graphics
 
 
 
-        public static int MeasureText(string theText, Font theFont)
-        {
-            return theText.Length * theFont.CharWidth * theFont.ScaleFactorX;
-        }
-
-
-
         public static void DrawText(
             this IDrawingTarget drawingTarget, int x, int topSideY, 
             string theText, Font theFont, TextAlignment textAlignment)
@@ -75,7 +68,7 @@ namespace GameClassLibrary.Graphics
 
             if (textAlignment != TextAlignment.Left)
             {
-                var textWidth = MeasureText(theText, theFont);
+                var textWidth = theFont.WidthOf(theText);
                 if (textAlignment == TextAlignment.Right)
                 {
                     x -= textWidth;

@@ -55,7 +55,7 @@ namespace MissionIIClassLibrary.Modes
         {
             _hiScoreScreenControl = new HiScoreScreenControl(
                 new GameClassLibrary.Math.Rectangle(10, 70, 300, 246-70),// TODO: screen dimension constants!
-                MissionIIFonts.NarrowFont,
+                MissionIIFonts.HiScoreFont,
                 MissionIISprites.Life,
                 HiScoreTableModel);
         }

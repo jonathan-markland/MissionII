@@ -13,6 +13,7 @@ namespace GameClassLibrary.Modes
         private static char[] _rowSeparator = new char[] { '\n' };
 
         private int _countDown;
+        private int _initialCycles;
         private int _pageVisibleCycles;
         private List<List<string>> _listOfPages;
         private SpriteTraits _backgroundSprite;
@@ -29,7 +30,8 @@ namespace GameClassLibrary.Modes
         public RotatingInstructions(
             SpriteTraits backgroundSprite,
             Font theFont,
-            string instructionPages, int pageVisibleCycles,
+            string instructionPages, 
+            int pageVisibleCycles,
             Func<GameMode> getStartGameMode,
             Func<GameMode> getNextModeFunction)
         {
@@ -37,6 +39,7 @@ namespace GameClassLibrary.Modes
             _backgroundSprite = backgroundSprite;
             _listOfPages = StringToPages(instructionPages);
             _pageVisibleCycles = pageVisibleCycles;
+            _initialCycles = pageVisibleCycles * _listOfPages.Count;
             _countDown = pageVisibleCycles * _listOfPages.Count;
             _getNextModeFunction = getNextModeFunction;
             _getStartGameMode = getStartGameMode;
@@ -70,8 +73,7 @@ namespace GameClassLibrary.Modes
             var theFont = _theFont;
             var cx = Screen.Width / 2;
             var c = TextAlignment.Centre;
-
-            var pageIndex = _countDown / _pageVisibleCycles;
+            var pageIndex = (_initialCycles - _countDown) / _pageVisibleCycles;
 
             if (pageIndex < _listOfPages.Count)
             {

@@ -72,7 +72,7 @@ namespace GameClassLibrary.Controls
         {
             drawingTarget.DrawText(x, y, _editString, _theFont, TextAlignment.Left);
 
-            var nameLengthPixels = IDrawingTargetExtensions.MeasureText(_editString, _theFont);
+            var nameLengthPixels = _theFont.WidthOf(_editString);
             if (_addingCharsAllowed && CursorVisible)
             {
                 drawingTarget.DrawFirstSprite(x + nameLengthPixels, y, _cursorSprite);
