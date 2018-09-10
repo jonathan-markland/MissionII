@@ -22,11 +22,11 @@ namespace GameClassLibrary.Modes
 
         public PauseWithChangeLevel(
             GameMode originalMode, 
-            int accessCodeTextTopY,
             SpriteTraits pauseSprite,
             Sound.SoundTraits pauseSound,
-            Sound.SoundTraits addLetterSound,
+            int accessCodeTextTopY,
             Font accessCodesFont,
+            Sound.SoundTraits addLetterSound,
             Func<string, bool> tryCode,
             Func<GameMode> getNextModeFunction,
             Func<bool> canChangeLevel)
