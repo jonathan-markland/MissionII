@@ -24,7 +24,6 @@ namespace MissionIIClassLibrary.Interactibles
             if (carryingEverything)
             {
                 GameClassLibrary.Modes.GameMode.ActiveMode = new Modes.LeavingLevel(theGameBoard);
-                MissionIISounds.LevelExitActivated.Play();
             }
         }
     }

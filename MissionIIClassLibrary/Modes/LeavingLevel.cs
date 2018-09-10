@@ -8,6 +8,7 @@ namespace MissionIIClassLibrary.Modes
     {
         private MissionIIGameBoard _gameBoard;
         private int _countDown = Constants.LeavingLevelCycles;
+        private bool _firstCycle = true;
 
         public LeavingLevel(MissionIIGameBoard gameBoard)
         {
@@ -17,6 +18,13 @@ namespace MissionIIClassLibrary.Modes
         public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
             if (MissionIIModes.HandlePause(_gameBoard, theKeyStates, this)) return;
+
+            if (_firstCycle)
+            {
+                MissionIISounds.LevelExitActivated.Play();
+                _firstCycle = false;
+            }
+
             if (_countDown > 0)
             {
                 --_countDown;
