@@ -16,6 +16,14 @@ namespace GameClassLibrary.Graphics
 
 
 
+        public static void DrawFirstSpriteScreenCentred(
+            this IDrawingTarget drawingTarget, SpriteTraits theSprite)
+        {
+            drawingTarget.DrawFirstSpriteCentred(Screen.Width / 2, Screen.Height / 2, theSprite);
+        }
+
+
+
         public static void DrawFirstSprite(
             this IDrawingTarget drawingTarget, int x, int y, SpriteTraits theSprite)
         {

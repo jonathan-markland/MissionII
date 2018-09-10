@@ -93,6 +93,11 @@ namespace MissionIIMonoGame
 
             _monoGameDrawingTarget = new MonoGameDrawingTarget(_spriteBatch);
 
+            // Screen dimensions:
+
+            GameClassLibrary.Graphics.Screen.Width = MissionIIClassLibrary.Constants.ScreenWidth;
+            GameClassLibrary.Graphics.Screen.Height = MissionIIClassLibrary.Constants.ScreenHeight;
+
             // Connect the library to the host routines to load sprites.
 
             GameClassLibrary.Graphics.SpriteTraits.InitSpriteSupplier((spriteName) => 

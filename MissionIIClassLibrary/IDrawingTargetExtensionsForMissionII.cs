@@ -5,13 +5,6 @@ namespace MissionIIClassLibrary
 {
     public static class IDrawingTargetExtensionsForMissionII
     {
-        public static void DrawFirstSpriteScreenCentred(this IDrawingTarget drawingTarget, SpriteTraits theSprite)
-        {
-            drawingTarget.DrawFirstSpriteCentred(
-                Constants.ScreenWidth / 2,
-                Constants.ScreenHeight / 2,
-                theSprite);
-        }
 
         public static void DrawFirstSpriteRoomRelative(this IDrawingTarget drawingTarget, SpriteInstance theSprite)
         {

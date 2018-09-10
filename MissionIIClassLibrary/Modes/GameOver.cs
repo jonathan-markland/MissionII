@@ -1,39 +1,15 @@
-﻿using GameClassLibrary.Graphics;
-using GameClassLibrary.Input;
-using GameClassLibrary.Modes;
-
+﻿
 namespace MissionIIClassLibrary.Modes
 {
-    public class GameOver : GameMode
+    public class GameOver : GameClassLibrary.Modes.GameOver
     {
-        private int _countDown = Constants.GameOverMessageCycles;
-        private uint _finalScore;
-
         public GameOver(uint finalScore)
+            : base(
+                  Constants.GameOverMessageCycles,
+                  MissionIISprites.GameOver,
+                  MissionIISounds.GameOver,
+                  () => new HiScore(finalScore))
         {
-            _finalScore = finalScore;
-        }
-
-        public override void AdvanceOneCycle(KeyStates theKeyStates)
-        {
-            if (_countDown == Constants.GameOverMessageCycles)
-            {
-                MissionIISounds.GameOver.Play();
-            }
-            if (_countDown > 0)
-            {
-                --_countDown;
-            }
-            else
-            {
-                ActiveMode = new HiScore(_finalScore);
-            }
-        }
-
-        public override void Draw(IDrawingTarget drawingTarget)
-        {
-            drawingTarget.ClearScreen();
-            drawingTarget.DrawFirstSpriteScreenCentred(MissionIISprites.GameOver);
         }
     }
 }
