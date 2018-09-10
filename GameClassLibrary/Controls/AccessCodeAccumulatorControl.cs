@@ -12,20 +12,20 @@ namespace GameClassLibrary.Controls
         private int _centreY;
         private int _maxLength;
         private Action<string> _onEntryCompleted;
-        private Action _onPlayLetterSound;
+        private Sound.SoundTraits _playLetterSound;
         private Font _theFont;
 
         public AccessCodeAccumulatorControl(
             int centreX, int centreY, int maxLength, 
-            Action<string> onEntryCompleted, 
-            Action onPlayLetterSound, 
+            Action<string> onEntryCompleted,
+            Sound.SoundTraits playLetterSound, 
             Font theFont)
         {
             _centreX = centreX;
             _centreY = centreY;
             _maxLength = maxLength;
             _onEntryCompleted = onEntryCompleted;
-            _onPlayLetterSound = onPlayLetterSound;
+            _playLetterSound = playLetterSound;
             _theFont = theFont;
         }
 
@@ -79,7 +79,7 @@ namespace GameClassLibrary.Controls
                 {
                     if (currentString.Length == 0 || currentString.Last() != ch)
                     {
-                        _onPlayLetterSound();
+                        _playLetterSound.Play();
                         return currentString + ch;
                     }
                 }
