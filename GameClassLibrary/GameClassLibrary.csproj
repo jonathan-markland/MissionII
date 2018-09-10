@@ -45,6 +45,7 @@
     <Compile Include="Controls\AccessCodeAccumulatorControl.cs" />
     <Compile Include="Controls\NameEntryControl.cs" />
     <Compile Include="Graphics\Screen.cs" />
+    <Compile Include="Modes\ChangeStageFreeze.cs" />
     <Compile Include="Modes\GameMode.cs" />
     <Compile Include="Graphics\Colour.cs" />
     <Compile Include="Graphics\Font.cs" />

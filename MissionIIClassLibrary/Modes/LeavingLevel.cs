@@ -1,46 +1,25 @@
-﻿using GameClassLibrary.Graphics;
-using GameClassLibrary.Input;
+﻿
 using GameClassLibrary.Modes;
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class LeavingLevel : GameMode
+    public class LeavingLevel : ChangeStageFreeze
     {
-        private MissionIIGameBoard _gameBoard;
-        private int _countDown = Constants.LeavingLevelCycles;
-        private bool _firstCycle = true;
-
-        public LeavingLevel(MissionIIGameBoard gameBoard)
+        public LeavingLevel(MissionIIGameBoard theGameBoard)
+            : base(
+                  Constants.LeavingLevelCycles,
+                  ActiveMode,
+                  MissionIISounds.LevelExitActivated,
+                  () =>
+                  {
+                      var thisLevelNumber = theGameBoard.LevelNumber;
+                      ++thisLevelNumber;
+                      theGameBoard.LevelNumber = thisLevelNumber;
+                      theGameBoard.PrepareForNewLevel();
+                      return ActiveMode; // PrepareForNewLevel() just set this
+                  })
         {
-            _gameBoard = gameBoard;
-        }
-
-        public override void AdvanceOneCycle(KeyStates theKeyStates)
-        {
-            if (MissionIIModes.HandlePause(_gameBoard, theKeyStates, this)) return;
-
-            if (_firstCycle)
-            {
-                MissionIISounds.LevelExitActivated.Play();
-                _firstCycle = false;
-            }
-
-            if (_countDown > 0)
-            {
-                --_countDown;
-            }
-            else
-            {
-                var thisLevelNumber = _gameBoard.LevelNumber;
-                ++thisLevelNumber;
-                _gameBoard.LevelNumber = thisLevelNumber;
-                _gameBoard.PrepareForNewLevel();
-            }
-        }
-
-        public override void Draw(IDrawingTarget drawingTarget)
-        {
-            _gameBoard.DrawBoardToTarget(drawingTarget);
+            // No actions
         }
     }
 }
