@@ -11,7 +11,7 @@ namespace MissionIIClassLibrary.Interactibles
 
         public override int CollectionScore => 0;
 
-        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
             bool carryingEverything = true;
             theGameBoard.ForEachThingWeHaveToFindOnThisLevel(o => 

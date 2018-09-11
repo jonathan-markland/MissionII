@@ -31,12 +31,12 @@ namespace MissionIIClassLibrary.Interactibles
             get { return _roomNumber; }
         }
 
-        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, KeyStates theKeyStates)
+        public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
         {
             // No action required.
         }
 
-        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
             theGameBoard.PlayerInventory.Add(this);
             RemoveThisObject(theGameBoard);
@@ -44,7 +44,7 @@ namespace MissionIIClassLibrary.Interactibles
             MissionIISounds.PickUpObject.Play();
         }
 
-        protected void RemoveThisObject(MissionIIGameBoard theGameBoard)
+        protected void RemoveThisObject(IGameBoard theGameBoard)
         {
             if (_roomNumber != -1)
             {
@@ -63,7 +63,7 @@ namespace MissionIIClassLibrary.Interactibles
             return Sprite.Extents; // Note: applies in every room!
         }
 
-        public override bool YouHaveBeenShot(MissionIIGameBoard theGameBoard, bool shotByMan)
+        public override bool YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
             // This cannot be shot (ignore)
             return false;

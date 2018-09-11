@@ -14,7 +14,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
 
 
-        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, SpriteInstance spriteInstance)
+        public override void AdvanceOneCycle(IGameBoard theGameBoard, SpriteInstance spriteInstance)
         {
             ++_cycleCounter;
             if ((_cycleCounter % Constants.WanderingMineSpeedDivisor) == 0)
@@ -33,7 +33,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
 
 
-        private void DoMovement(MissionIIGameBoard theGameBoard, SpriteInstance spriteInstance)
+        private void DoMovement(IGameBoard theGameBoard, SpriteInstance spriteInstance)
         {
             if (!_movementDeltas.Stationary)
             {
@@ -58,7 +58,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
 
 
-        private void ChooseNewMovement(MissionIIGameBoard theGameBoard, Rectangle currentExtents)
+        private void ChooseNewMovement(IGameBoard theGameBoard, Rectangle currentExtents)
         {
             // TODO: Libraryize this function:  See also SingleMinded.
             // TODO: single-minded movement constants

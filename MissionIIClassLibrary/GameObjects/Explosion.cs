@@ -22,7 +22,7 @@ namespace MissionIIClassLibrary.GameObjects
             _canBeConsideredForMultiKillBonus = canBeConsideredForBonus;
         }
 
-        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, KeyStates theKeyStates)
+        public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
         {
             if (_explosionCountDown == ExplosionCountDownReset)
             {
@@ -50,12 +50,12 @@ namespace MissionIIClassLibrary.GameObjects
             return SpriteInstance.Extents;
         }
 
-        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
             // No action required.
         }
 
-        public override bool YouHaveBeenShot(MissionIIGameBoard theGameBoard, bool shotByMan)
+        public override bool YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
             // no action required
             return false; // ignore this.

@@ -21,7 +21,7 @@ namespace MissionIIClassLibrary.Droids
             _intelligenceProvider = intelligenceProvider;
         }
 
-        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, KeyStates theKeyStates)
+        public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
         {
             Business.Animate(ref _animationCountdown, ref _imageIndex, AnimationReset, SpriteInstance.Traits.ImageCount);
             _intelligenceProvider.AdvanceOneCycle(theGameBoard, SpriteInstance);
@@ -32,7 +32,7 @@ namespace MissionIIClassLibrary.Droids
             drawingTarget.DrawIndexedSpriteRoomRelative(SpriteInstance, _imageIndex);
         }
 
-        public override bool YouHaveBeenShot(MissionIIGameBoard theGameBoard, bool shotByMan)
+        public override bool YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
             // TODO: FUTURE: We assume the explosion dimensions match the droid.  We should centre it about the droid.
             theGameBoard.ObjectsInRoom.Add(
@@ -51,7 +51,7 @@ namespace MissionIIClassLibrary.Droids
             return SpriteInstance.Extents;
         }
 
-        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
             if (!theGameBoard.Man.IsInvincible)
             {

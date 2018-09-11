@@ -9,7 +9,7 @@ namespace MissionIIClassLibrary.Interactibles
         {
         }
 
-        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
             theGameBoard.IncrementLives();
             RemoveThisObject(theGameBoard);

@@ -23,7 +23,7 @@ namespace MissionIIClassLibrary.GameObjects
             get { return _startCountDown == 0; }
         }
 
-        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, KeyStates theKeyStates)
+        public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
         {
             if (_startCountDown > 0)
             {
@@ -51,7 +51,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
             // The ghost kills the man via its AI.  No action needed here.
         }
@@ -64,7 +64,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        public override bool YouHaveBeenShot(MissionIIGameBoard gameBoard, bool shotByMan)
+        public override bool YouHaveBeenShot(IGameBoard gameBoard, bool shotByMan)
         {
             if (shotByMan)
             {

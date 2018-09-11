@@ -9,6 +9,6 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 {
     public abstract class AbstractIntelligenceProvider
     {
-        public abstract void AdvanceOneCycle(MissionIIGameBoard theGameBoard, SpriteInstance spriteInstance);
+        public abstract void AdvanceOneCycle(IGameBoard theGameBoard, SpriteInstance spriteInstance);
     }
 }

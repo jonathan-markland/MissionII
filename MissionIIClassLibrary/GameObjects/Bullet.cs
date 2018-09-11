@@ -18,7 +18,7 @@ namespace MissionIIClassLibrary.GameObjects
             _increasesScore = increasesScore;
         }
 
-        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, KeyStates theKeyStates)
+        public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
         {
             for (int i = 0; i < Constants.BulletCycles; i++)
             {
@@ -60,7 +60,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
             // Not handled here.  Bullets killing man happens in AdvanceOneCycle().
         }
@@ -75,7 +75,7 @@ namespace MissionIIClassLibrary.GameObjects
             return Sprite.Extents;
         }
 
-        public override bool YouHaveBeenShot(MissionIIGameBoard theGameBoard, bool shotByMan)
+        public override bool YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
             // No action -- bullets cannot be shot.
             return false;

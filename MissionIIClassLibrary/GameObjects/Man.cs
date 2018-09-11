@@ -44,7 +44,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        public override void AdvanceOneCycle(MissionIIGameBoard theGameBoard, KeyStates keyStates)
+        public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates keyStates)
         {
             if (_isElectrocuting || _isElectrocutedByWalls)
             {
@@ -95,7 +95,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        private void DoWalking(MissionIIGameBoard theGameBoard, KeyStates keyStates, int theDirection)
+        private void DoWalking(IGameBoard theGameBoard, KeyStates keyStates, int theDirection)
         {
             ++_cyclesMoving;
             _facingDirection = theDirection;
@@ -160,7 +160,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        private void FireButtonCheck(MissionIIGameBoard theGameBoard, KeyStates keyStates)
+        private void FireButtonCheck(IGameBoard theGameBoard, KeyStates keyStates)
         {
             if (keyStates.Fire)
             {
@@ -177,7 +177,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        private void DeadHandling(MissionIIGameBoard theGameBoard)
+        private void DeadHandling(IGameBoard theGameBoard)
         {
             System.Diagnostics.Debug.Assert(_isDead);
             if (_whileDeadCount > 0)
@@ -264,7 +264,7 @@ namespace MissionIIClassLibrary.GameObjects
             get { return _isDead; }
         }
 
-        private void RoomUp(MissionIIGameBoard theGameBoard)
+        private void RoomUp(IGameBoard theGameBoard)
         {
             MoveRooms(
                 theGameBoard,
@@ -273,7 +273,7 @@ namespace MissionIIClassLibrary.GameObjects
                 +1, -SpriteInstance.Traits.Height);
         }
 
-        private void RoomDown(MissionIIGameBoard theGameBoard)
+        private void RoomDown(IGameBoard theGameBoard)
         {
             MoveRooms(
                 theGameBoard,
@@ -282,7 +282,7 @@ namespace MissionIIClassLibrary.GameObjects
                 -1, +SpriteInstance.Traits.Height);
         }
 
-        private void RoomLeft(MissionIIGameBoard theGameBoard)
+        private void RoomLeft(IGameBoard theGameBoard)
         {
             MoveRooms(
                 theGameBoard,
@@ -291,7 +291,7 @@ namespace MissionIIClassLibrary.GameObjects
                 0, 0);
         }
 
-        private void RoomRight(MissionIIGameBoard theGameBoard)
+        private void RoomRight(IGameBoard theGameBoard)
         {
             MoveRooms(
                 theGameBoard,
@@ -301,7 +301,7 @@ namespace MissionIIClassLibrary.GameObjects
         }
 
         private void MoveRooms(
-            MissionIIGameBoard theGameBoard, 
+            IGameBoard theGameBoard, 
             int roomNumberDelta, 
             int deltaRoomWidth, int deltaSpriteWidth, 
             int deltaRoomHeight, int deltaSpriteHeight)
@@ -327,12 +327,12 @@ namespace MissionIIClassLibrary.GameObjects
             return SpriteInstance.Extents;
         }
 
-        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
             // No action for self-intersection.
         }
 
-        public override bool YouHaveBeenShot(MissionIIGameBoard theGameBoard, bool shotByMan)
+        public override bool YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
             if (!IsInvincible)
             {

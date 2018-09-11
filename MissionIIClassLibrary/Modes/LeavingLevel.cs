@@ -5,7 +5,7 @@ namespace MissionIIClassLibrary.Modes
 {
     public class LeavingLevel : ChangeStageFreeze
     {
-        public LeavingLevel(MissionIIGameBoard theGameBoard)
+        public LeavingLevel(IGameBoard theGameBoard)
             : base(
                   Constants.LeavingLevelCycles,
                   ActiveMode,

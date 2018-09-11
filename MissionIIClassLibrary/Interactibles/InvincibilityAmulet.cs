@@ -14,7 +14,7 @@ namespace MissionIIClassLibrary.Interactibles
         {
         }
 
-        public override void ManWalkedIntoYou(MissionIIGameBoard theGameBoard)
+        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
             theGameBoard.Man.GainInvincibility();
             RemoveThisObject(theGameBoard);
