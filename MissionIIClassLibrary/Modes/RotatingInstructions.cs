@@ -14,11 +14,11 @@ namespace MissionIIClassLibrary.Modes
                         + "SOUNDS FROM FREESOUND WEBSITE\v"
 
                         + "MOVE USING CURSOR KEYS\n"
-                        + "Z      FIRE\n"
+                        + "Z      FIRE \n"
                         + "P      PAUSE\n"
                         + "OR JOYSTICK OR PAD\n\n"
                         + "F11 F12   FULL SCREEN TOGGLE\n"
-                        + "F2 F3     VIEW SIZE\v"
+                        + "F2 F3     VIEW SIZE         \v"
 
                         + "COLLECT OBJECTS ON LEVEL\n"
                         + "THEN FIND THE EXIT\n"
