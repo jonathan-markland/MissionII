@@ -53,7 +53,7 @@ namespace MissionIIClassLibrary.Interactibles
             }
         }
 
-        public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
+        public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawIndexedSpriteRoomRelative(Sprite, 0);
         }

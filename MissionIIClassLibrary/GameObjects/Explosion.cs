@@ -40,7 +40,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
+        public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawIndexedSpriteRoomRelative(SpriteInstance, _imageIndex);
         }

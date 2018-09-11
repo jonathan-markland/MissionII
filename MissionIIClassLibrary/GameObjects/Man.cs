@@ -218,7 +218,7 @@ namespace MissionIIClassLibrary.GameObjects
             _cyclesMoving = 0;
         }
 
-        public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
+        public override void Draw(IDrawingTarget drawingTarget)
         {
             if (_invincibleCountDown == 0 || DrawManDuringInvincibility())
             {

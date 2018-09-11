@@ -65,7 +65,7 @@ namespace MissionIIClassLibrary.GameObjects
             // Not handled here.  Bullets killing man happens in AdvanceOneCycle().
         }
 
-        public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
+        public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawIndexedSpriteRoomRelative(Sprite, 0);
         }

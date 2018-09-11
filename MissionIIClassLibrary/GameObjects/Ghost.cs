@@ -56,7 +56,7 @@ namespace MissionIIClassLibrary.GameObjects
             // The ghost kills the man via its AI.  No action needed here.
         }
 
-        public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
+        public override void Draw(IDrawingTarget drawingTarget)
         {
             if (IsActive)
             {

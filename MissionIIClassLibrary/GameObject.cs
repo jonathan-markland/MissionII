@@ -8,7 +8,7 @@ namespace MissionIIClassLibrary
     public abstract class GameObject<T>
     {
         public abstract void AdvanceOneCycle(T theGameBoard, KeyStates theKeyStates);
-        public abstract void Draw(T theGameBoard, IDrawingTarget drawingTarget);
+        public abstract void Draw(IDrawingTarget drawingTarget);
         public abstract Rectangle GetBoundingRectangle();
         public abstract void ManWalkedIntoYou(T theGameBoard);
         public abstract bool YouHaveBeenShot(T theGameBoard, bool shotByMan);

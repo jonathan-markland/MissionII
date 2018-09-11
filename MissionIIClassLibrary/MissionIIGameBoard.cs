@@ -676,7 +676,7 @@ namespace MissionIIClassLibrary
 
             // Draw objects in the room:
 
-            ObjectsInRoom.ForEachDo(o => { o.Draw(this, drawingTarget); });
+            ObjectsInRoom.ForEachDo(o => { o.Draw(drawingTarget); });
 
             // Lives:
 

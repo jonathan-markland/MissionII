@@ -12,6 +12,11 @@ Sep 2018
     just to be an array of SpriteInstance, and we don't want GetStyleDelta():  pre-calculate.
 
 
+[ ] float model-space
+[ ] class GameObject<T> should NOT mention the game board anywhere
+[ ] 
+
+
 
 Release 1
 ---------

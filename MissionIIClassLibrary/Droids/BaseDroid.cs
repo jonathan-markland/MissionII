@@ -27,7 +27,7 @@ namespace MissionIIClassLibrary.Droids
             _intelligenceProvider.AdvanceOneCycle(theGameBoard, SpriteInstance);
         }
 
-        public override void Draw(MissionIIGameBoard theGameBoard, IDrawingTarget drawingTarget)
+        public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawIndexedSpriteRoomRelative(SpriteInstance, _imageIndex);
         }
