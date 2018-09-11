@@ -69,6 +69,7 @@
     <Compile Include="Math\PositionAndDirection.cs" />
     <Compile Include="Math\Rectangle.cs" />
     <Compile Include="Math\Rng.cs" />
+    <Compile Include="Modes\HiScore.cs" />
     <Compile Include="Modes\Pause.cs" />
     <Compile Include="Modes\PauseWithChangeLevel.cs" />
     <Compile Include="Modes\PlacardScreen.cs" />

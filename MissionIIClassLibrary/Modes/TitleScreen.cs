@@ -11,7 +11,7 @@ namespace MissionIIClassLibrary.Modes
                   MissionIIFonts.NarrowFont,
                   "BY JONATHAN MARKLAND",
                   () => new StartNewGame(),
-                  () => new HiScore())
+                  () => new HiScore(0))
         {
         }
     }

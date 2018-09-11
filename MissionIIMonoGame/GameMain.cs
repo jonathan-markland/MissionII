@@ -129,7 +129,9 @@ namespace MissionIIMonoGame
 
             // Now that the above is done, we can load everything:
 
-            MissionIIClassLibrary.Modes.HiScore.StaticInit();
+            MissionIIClassLibrary.Modes.HiScore.StaticInit(
+                MissionIIClassLibrary.Constants.InitialLowestHiScore,
+                MissionIIClassLibrary.Constants.InitialHiScoresIncrement);
 
             MissionIIClassLibrary.MissionIISprites.Load();
             MissionIIClassLibrary.MissionIIFonts.Load();
