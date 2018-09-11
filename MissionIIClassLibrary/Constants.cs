@@ -4,7 +4,6 @@
     {
         #region General
         public const int StartLevelNumber = 1;
-        public const int InitialScore = 0; // intended for development
         public const int FirstLevelWithAccessCode = 2;
         public const int LastLevelWithAccessCode = 8;
         #endregion
@@ -79,6 +78,7 @@
         #endregion
 
         #region Scoring
+        public const int InitialScore = 0; // intended for development
         public const int MultiKillWithSingleBulletBonusScore = 250;
         public const int RoomClearingBonusScore = 250;
         public const int WanderingDroidKillScore = 60;

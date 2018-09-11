@@ -22,10 +22,10 @@ namespace GameClassLibrary.Modes
         public ChangeStageFreeze(
             int freezeCycles, 
             GameMode previousMode,
-            Sound.SoundTraits freezeSound,
+            Sound.SoundTraits optionalFreezeSound,
             Func<GameMode> getNextModeFunction)
         {
-            _freezeSound = freezeSound;
+            _freezeSound = optionalFreezeSound;
             _countDown = freezeCycles;
             _previousMode = previousMode;
             _getNextModeFunction = getNextModeFunction;
@@ -37,7 +37,7 @@ namespace GameClassLibrary.Modes
         {
             if (_firstCycle)
             {
-                _freezeSound.Play();
+                _freezeSound?.Play();
                 _firstCycle = false;
             }
 

@@ -10,7 +10,6 @@ namespace MissionIIClassLibrary.Modes
         private static HiScoreScreenModel HiScoreTableModel;
         private int _countDown = Constants.TitleScreenRollCycles;
         private bool _enterScoreMode;
-        private bool _justEnteredName;
         private HiScoreScreenControl _hiScoreScreenControl;
 
         /// <summary>
@@ -31,7 +30,6 @@ namespace MissionIIClassLibrary.Modes
         {
             CreateHiScoreControl();
             _enterScoreMode = false;
-            _justEnteredName = false;
         }
 
         /// <summary>
@@ -70,8 +68,11 @@ namespace MissionIIClassLibrary.Modes
                 }
                 else
                 {
-                    _enterScoreMode = false;
-                    _justEnteredName = true;
+                    ActiveMode = new GameClassLibrary.Modes.ChangeStageFreeze(
+                        Constants.TitleScreenRollCycles / 2,
+                        this,
+                        null,
+                        () => new TitleScreen());
                 }
             }
             else // show
@@ -80,7 +81,7 @@ namespace MissionIIClassLibrary.Modes
                 {
                     if (theKeyStates.Fire)
                     {
-                        if (!_justEnteredName || _countDown < (Constants.TitleScreenRollCycles * 3 / 4))
+                        if (_countDown < (Constants.TitleScreenRollCycles * 3 / 4))
                         {
                             ActiveMode = new StartNewGame();
                         }
