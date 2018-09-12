@@ -8,8 +8,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
         {
             for (int i = 0; i < Constants.GhostMovementCycles; i++)
             {
-                var moveDeltas = Business.GetMovementDeltasToHeadTowards(
-                    spriteInstance,
+                var moveDeltas = spriteInstance.GetMovementDeltasToHeadTowards(
                     theGameBoard.ManSpriteInstance());
 
                 spriteInstance.MoveBy(moveDeltas);

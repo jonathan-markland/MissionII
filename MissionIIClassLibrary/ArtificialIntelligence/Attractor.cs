@@ -13,8 +13,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
             _operationEnable = !_operationEnable;  // ie: operate only ever other cycle
             if (_operationEnable)
             {
-                var moveDeltas = Business.GetMovementDeltasToHeadTowards(
-                    spriteInstance, 
+                var moveDeltas = spriteInstance.GetMovementDeltasToHeadTowards(
                     theGameBoard.ManSpriteInstance());
 
                 // We must separate horizontal and vertical movement in order to avoid

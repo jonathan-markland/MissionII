@@ -1,10 +1,13 @@
 ﻿
+using System;
+using GameClassLibrary.Math;
+
 namespace MissionIIClassLibrary.Droids
 {
     public class WanderingDroid : BaseDroid
     {
-        public WanderingDroid()
-            : base(MissionIISprites.Monster2, new ArtificialIntelligence.SingleMinded())
+        public WanderingDroid(Func<Rectangle, FoundDirections> freeDirectionFinder)
+            : base(MissionIISprites.Monster2, new ArtificialIntelligence.SingleMinded(freeDirectionFinder))
         {
         }
 

@@ -53,7 +53,7 @@ namespace MissionIIClassLibrary.GameObjects
             {
                 FireButtonCheck(theGameBoard, keyStates);
 
-                int theDirection = Business.GetDirectionIndex(keyStates);
+                int theDirection = keyStates.ToDirectionIndex();
                 if (theDirection != -1)
                 {
                     DoWalking(theGameBoard, keyStates, theDirection);
@@ -100,7 +100,7 @@ namespace MissionIIClassLibrary.GameObjects
             _facingDirection = theDirection;
             SpriteInstance.Traits = MissionIISprites.ManWalking[theDirection];
             AdvanceAnimation();
-            var movementDeltas = Business.GetMovementDeltas(keyStates);
+            var movementDeltas = keyStates.ToMovementDeltas();
             var hitResult = theGameBoard.MoveManOnePixel(movementDeltas);
 
             if (!movementDeltas.Stationary)

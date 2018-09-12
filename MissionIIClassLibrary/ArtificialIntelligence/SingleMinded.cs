@@ -1,4 +1,5 @@
 ﻿
+using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
@@ -11,6 +12,14 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
         private int _cycleCounter = 0;
         private int _facingDirection = 0;
         private MovementDeltas _movementDeltas = new MovementDeltas(0, 0);
+        private Func<Rectangle, FoundDirections> _freeDirectionFinder;
+
+
+
+        public SingleMinded(Func<Rectangle, FoundDirections> freeDirectionFinder)
+        {
+            _freeDirectionFinder = freeDirectionFinder;
+        }
 
 
 
@@ -26,7 +35,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                 }
                 else
                 {
-                    ChooseNewMovement(theGameBoard, spriteInstance.Extents);
+                    ChooseNewMovement(spriteInstance.Extents);
                 }
             }
         }
@@ -58,11 +67,10 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
 
 
-        private void ChooseNewMovement(IGameBoard theGameBoard, Rectangle currentExtents)
+        private void ChooseNewMovement(Rectangle currentExtents)
         {
-            // TODO: single-minded movement constants
             var theRng = Rng.Generator;
-            var freeDirections = theGameBoard.GetFreeDirections(currentExtents);
+            var freeDirections = _freeDirectionFinder(currentExtents);
             if (freeDirections.Count == 0)
             {
                 // Can't move.

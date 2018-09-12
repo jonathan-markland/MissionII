@@ -185,7 +185,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public FoundDirections GetFreeDirections(Rectangle currentExtents)
+        private FoundDirections GetFreeDirections(Rectangle currentExtents)
         {
             return DirectionFinder.GetFreeDirections(
                 currentExtents, CurrentRoomTileMatrix,
@@ -357,7 +357,7 @@ namespace MissionIIClassLibrary
                 {
                     if (j < theThreshold1)
                     {
-                        objectsList.Add(new Droids.WanderingDroid());
+                        objectsList.Add(new Droids.WanderingDroid(GetFreeDirections));
                     }
                     else if (j < theThreshold2)
                     {
@@ -382,7 +382,7 @@ namespace MissionIIClassLibrary
                     }
                     else if (j < theThreshold2)
                     {
-                        objectsList.Add(new Droids.WanderingDroid());
+                        objectsList.Add(new Droids.WanderingDroid(GetFreeDirections));
                     }
                     else
                     {

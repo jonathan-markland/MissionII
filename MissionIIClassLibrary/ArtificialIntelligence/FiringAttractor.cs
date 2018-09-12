@@ -14,8 +14,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
             if (_cycleCounter % Constants.FiringAttractorSpeedDivisor == 0)
             {
-                var moveDeltas = Business.GetMovementDeltasToHeadTowards(
-                    spriteInstance,
+                var moveDeltas = spriteInstance.GetMovementDeltasToHeadTowards(
                     theGameBoard.ManSpriteInstance());
 
                 // We must separate horizontal and vertical movement in order to avoid

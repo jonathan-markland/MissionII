@@ -11,10 +11,6 @@ namespace MissionIIClassLibrary
     {
         TileMatrix GetTileMatrix();
 
-        FoundDirections GetFreeDirections(Rectangle currentExtents);
-        // Doable as extension except needs IsFloor predicate specific to game.  But users of
-        // this are AI that could be re-usable.  TileMatrix could know IsFloor predicate?
-
         void Add(GameObject o);
         void Remove(GameObject o);
         void ForEachObjectInPlayDo<A>(Action<A> theAction) where A : class;
