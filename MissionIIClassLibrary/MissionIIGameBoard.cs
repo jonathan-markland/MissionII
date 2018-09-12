@@ -69,7 +69,7 @@ namespace MissionIIClassLibrary
 
         public bool LevelCodeAccepted(string accessCode)
         {
-            for (int i=Constants.FirstLevelWithAccessCode; i<Constants.LastLevelWithAccessCode; i++)
+            for (int i = Constants.FirstLevelWithAccessCode; i < Constants.LastLevelWithAccessCode; i++)
             {
                 if (accessCode == GameClassLibrary.Algorithms.LevelAccessCodes.GetForLevel(i))
                 {
@@ -103,18 +103,6 @@ namespace MissionIIClassLibrary
         public bool PlayerInventoryContains(InteractibleObject o)
         {
             return PlayerInventory.Contains(o);
-        }
-
-
-
-        public GameClassLibrary.Math.Point GetCornerFurthestAwayFromMan()
-        {
-            var cx = Constants.ScreenWidth / 2;
-            var cy = Constants.ScreenHeight / 2;
-            var manCentre = Man.GetBoundingRectangle().Centre;
-            var x = manCentre.X < cx ? Constants.ScreenWidth : 0;
-            var y = manCentre.Y < cy ? Constants.ScreenHeight : 0;
-            return new Point(x, y);
         }
 
 
@@ -281,39 +269,6 @@ namespace MissionIIClassLibrary
         }
 
 
-
-        public uint KillThingsIfShotAndGetHitCount(GameObjects.Bullet theBullet)
-        {
-            uint hitCount = 0;
-            
-            ObjectsInRoom.ForEach<MissionIIGameObject>(o =>
-            {
-                if (o.GetBoundingRectangle().Intersects(theBullet.GetBoundingRectangle()))
-                {
-                    if (o.YouHaveBeenShot(this, theBullet.IncreasesScore))
-                    {
-                        if (theBullet.IncreasesScore) // TODO: Code not quite the same as before.  Score increment to move into target classes.
-                        {
-                            // Basic scoring
-                            var thisDroidKillScore = o.KillScore;
-                            PlayerIncrementScore(thisDroidKillScore);
-
-                            // Bonus scoring for multiples.
-                            var n = CountExplosionsThatCanBeUsedForBonusesInRoom;
-                            if (n >= Constants.DroidCountFoMultiKillBonus)
-                            {
-                                PlayerIncrementScore(thisDroidKillScore * n);
-                                MissionIISounds.Bonus.Play();
-                                MarkAllExplosionsAsUsedForBonusPurposes();
-                            }
-                        }
-                        ++hitCount;
-                    }
-                }
-            });
-
-            return hitCount;
-        }
 
 
 
@@ -630,33 +585,6 @@ namespace MissionIIClassLibrary
             return foundDroids;
         }
 
-
-
-        public int CountExplosionsThatCanBeUsedForBonusesInRoom
-        {
-            get
-            {
-                int n = 0;
-                ObjectsInRoom.ForEach<GameObjects.Explosion>(theExplosion =>
-                {
-                    if (theExplosion.CanBeConsideredForMultiKillBonus)
-                    {
-                        ++n;
-                    }
-                });
-                return n;
-            }
-        }
-
-
-
-        public void MarkAllExplosionsAsUsedForBonusPurposes()
-        {
-            ObjectsInRoom.ForEach<GameObjects.Explosion>(theExplosion =>
-            {
-                theExplosion.MarkAsUsedForBonus();
-            });
-        }
 
 
         public void ForEachThingWeHaveToFindOnThisLevel(Action<Interactibles.InteractibleObject> theAction)

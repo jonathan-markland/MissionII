@@ -32,18 +32,17 @@ namespace MissionIIClassLibrary.Droids
             drawingTarget.DrawIndexedSpriteRoomRelative(SpriteInstance, _imageIndex);
         }
 
-        public override bool YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
+        public override ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
             // TODO: FUTURE: We assume the explosion dimensions match the droid.  We should centre it about the droid.
             theGameBoard.Add(
                 new GameObjects.Explosion(
                     SpriteInstance.X,
                     SpriteInstance.Y,
-                    MissionIISprites.Explosion,
-                    shotByMan));
+                    MissionIISprites.Explosion));
 
             theGameBoard.Remove(this);
-            return true;
+            return new ShotStruct { Affirmed = true, ScoreIncrease = KillScore };
         }
 
         public override Rectangle GetBoundingRectangle()

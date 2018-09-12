@@ -12,14 +12,12 @@ namespace MissionIIClassLibrary.GameObjects
         private const int AnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
         private const int ExplosionCountDownReset = 30; // TODO: Put constant elsewhere because we don't know the units
         private int _explosionCountDown = ExplosionCountDownReset;
-        private bool _canBeConsideredForMultiKillBonus;
 
-        public Explosion(int roomX, int roomY, SpriteTraits explosionKind, bool canBeConsideredForBonus)
+        public Explosion(int roomX, int roomY, SpriteTraits explosionKind)
         {
             SpriteInstance.X = roomX;
             SpriteInstance.Y = roomY;
             SpriteInstance.Traits = explosionKind;
-            _canBeConsideredForMultiKillBonus = canBeConsideredForBonus;
         }
 
         public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
@@ -55,10 +53,10 @@ namespace MissionIIClassLibrary.GameObjects
             // No action required.
         }
 
-        public override bool YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
+        public override ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
             // no action required
-            return false; // ignore this.
+            return new ShotStruct { Affirmed = false }; // ignore this.
         }
 
         public override Point TopLeftPosition
@@ -68,15 +66,5 @@ namespace MissionIIClassLibrary.GameObjects
         }
 
         public override bool CanBeOverlapped { get { return false; } }
-
-        public void MarkAsUsedForBonus()
-        {
-            _canBeConsideredForMultiKillBonus = false;
-        }
-
-        public bool CanBeConsideredForMultiKillBonus
-        {
-            get { return _canBeConsideredForMultiKillBonus; }
-        }
     }
 }

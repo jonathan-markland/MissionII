@@ -34,7 +34,6 @@
         #endregion
 
         #region Droids
-        public const int DroidCountFoMultiKillBonus = 3;
         public const int IdealDroidCountPerRoom = 10;
         public const int SingleMindedFiringProbabilityPercent = 20;
         public const int AttractorFiringProbabilityPercent = 40;

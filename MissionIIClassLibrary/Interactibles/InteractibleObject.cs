@@ -63,10 +63,10 @@ namespace MissionIIClassLibrary.Interactibles
             return Sprite.Extents; // Note: applies in every room!
         }
 
-        public override bool YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
+        public override ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
             // This cannot be shot (ignore)
-            return false;
+            return new ShotStruct { Affirmed = false, ScoreIncrease = 0 };
         }
 
         public override Point TopLeftPosition

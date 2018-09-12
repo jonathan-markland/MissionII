@@ -40,14 +40,18 @@ namespace MissionIIClassLibrary.GameObjects
                     Sprite.X = proposedX;
                     Sprite.Y = proposedY;
 
-                    var hitCount = theGameBoard.KillThingsIfShotAndGetHitCount(this);
-                    if (hitCount > 0)
+                    var bulletResult = theGameBoard.KillThingsIfShotAndGetHitCount(this);
+                    if (bulletResult.HitCount > 0)
                     {
                         theGameBoard.Remove(this);
-                        if (_increasesScore && hitCount > 1)
+                        if (_increasesScore)
                         {
-                            theGameBoard.PlayerIncrementScore(Constants.MultiKillWithSingleBulletBonusScore);
-                            MissionIISounds.DuoBonus.Play();
+                            if (bulletResult.HitCount > 1)
+                            {
+                                theGameBoard.PlayerIncrementScore(Constants.MultiKillWithSingleBulletBonusScore);
+                                MissionIISounds.DuoBonus.Play();
+                            }
+                            theGameBoard.PlayerIncrementScore(bulletResult.TotalScoreIncrease);
                         }
                         break;
                     }
@@ -75,10 +79,10 @@ namespace MissionIIClassLibrary.GameObjects
             return Sprite.Extents;
         }
 
-        public override bool YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
+        public override ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
             // No action -- bullets cannot be shot.
-            return false;
+            return new ShotStruct { Affirmed = false };
         }
 
         public bool IncreasesScore

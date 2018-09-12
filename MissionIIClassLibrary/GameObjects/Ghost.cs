@@ -64,7 +64,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        public override bool YouHaveBeenShot(IGameBoard gameBoard, bool shotByMan)
+        public override ShotStruct YouHaveBeenShot(IGameBoard gameBoard, bool shotByMan)
         {
             if (shotByMan)
             {
@@ -72,9 +72,9 @@ namespace MissionIIClassLibrary.GameObjects
                 _spriteInstance.Traits = MissionIISprites.GhostStunned;
                 MissionIISounds.StunGhost.Play();
             }
-            return true;
+            return new ShotStruct { Affirmed = true, ScoreIncrease = 0 };
         }
-    
+
         public override Rectangle GetBoundingRectangle()
         {
             if (IsActive)

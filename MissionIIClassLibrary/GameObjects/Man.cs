@@ -333,13 +333,13 @@ namespace MissionIIClassLibrary.GameObjects
             // No action for self-intersection.
         }
 
-        public override bool YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
+        public override ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
             if (!IsInvincible)
             {
                 Die(); // No electrocution animation desired here.
             }
-            return true;
+            return new ShotStruct { Affirmed = true, ScoreIncrease = 0 };
         }
 
         public override Point TopLeftPosition
