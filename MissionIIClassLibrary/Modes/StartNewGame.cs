@@ -27,7 +27,7 @@ namespace MissionIIClassLibrary.Modes
                 var loadedWorld = new WorldWallData { Levels = expandedLevelsList };
                 var gameBoard = new MissionIIClassLibrary.MissionIIGameBoard(loadedWorld);
 
-                gameBoard.PrepareForNewLevel();
+                gameBoard.PrepareForNewLevel(1);
             }
         }
 

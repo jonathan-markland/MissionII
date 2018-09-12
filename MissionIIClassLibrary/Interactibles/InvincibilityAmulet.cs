@@ -16,7 +16,7 @@ namespace MissionIIClassLibrary.Interactibles
 
         public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
-            theGameBoard.Man.GainInvincibility();
+            theGameBoard.ManGainInvincibility();
             RemoveThisObject(theGameBoard);
             MissionIISounds.InvincibilityAmuletSound.Play();
         }

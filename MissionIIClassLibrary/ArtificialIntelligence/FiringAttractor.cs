@@ -16,7 +16,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
             {
                 var moveDeltas = Business.GetMovementDeltasToHeadTowards(
                     spriteInstance,
-                    theGameBoard.Man.SpriteInstance);
+                    theGameBoard.ManSpriteInstance());
 
                 // We must separate horizontal and vertical movement in order to avoid
                 // things getting 'stuck' on walls because they can't move horizontally

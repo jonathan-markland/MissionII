@@ -26,9 +26,9 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                 var hitResult = theGameBoard.MoveAdversaryOnePixel(spriteInstance, _movementDeltas);  // TODO: differentiate walls/other droids
                 if (hitResult != CollisionDetection.WallHitTestResult.NothingHit)
                 {
-                    if (spriteInstance.Extents.Intersects(theGameBoard.Man.GetBoundingRectangle().Inflate(5)))
+                    if (spriteInstance.Extents.Intersects(theGameBoard.ManSpriteInstance().Extents.Inflate(5)))
                     {
-                        theGameBoard.Man.Electrocute(ElectrocutionMethod.ByDroid);
+                        theGameBoard.Electrocute(ElectrocutionMethod.ByDroid);
                     }
                     else
                     {

@@ -10,11 +10,11 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
             {
                 var moveDeltas = Business.GetMovementDeltasToHeadTowards(
                     spriteInstance,
-                    theGameBoard.Man.SpriteInstance);
+                    theGameBoard.ManSpriteInstance());
 
                 spriteInstance.MoveBy(moveDeltas);
 
-                if (spriteInstance.Intersects(theGameBoard.Man.SpriteInstance))
+                if (spriteInstance.Intersects(theGameBoard.ManSpriteInstance()))
                 {
                     KillMan(theGameBoard);
                 }
@@ -25,7 +25,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
         private void KillMan(IGameBoard theGameBoard)
         {
-            theGameBoard.Man.Electrocute(ElectrocutionMethod.ByDroid);
+            theGameBoard.Electrocute(ElectrocutionMethod.ByDroid);
         }
 
     }

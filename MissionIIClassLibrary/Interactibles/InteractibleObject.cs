@@ -38,7 +38,7 @@ namespace MissionIIClassLibrary.Interactibles
 
         public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
-            theGameBoard.PlayerInventory.Add(this);
+            theGameBoard.AddToPlayerInventory(this);
             RemoveThisObject(theGameBoard);
             theGameBoard.IncrementScore(CollectionScore);
             MissionIISounds.PickUpObject.Play();
@@ -49,7 +49,7 @@ namespace MissionIIClassLibrary.Interactibles
             if (_roomNumber != -1)
             {
                 _roomNumber = -1; // so will not be added to ObjectsInRoom container again.
-                theGameBoard.ObjectsToRemove.Add(this);
+                theGameBoard.Remove(this);
             }
         }
 

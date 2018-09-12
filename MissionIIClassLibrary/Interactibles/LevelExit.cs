@@ -16,7 +16,7 @@ namespace MissionIIClassLibrary.Interactibles
             bool carryingEverything = true;
             theGameBoard.ForEachThingWeHaveToFindOnThisLevel(o => 
             {
-                if (!theGameBoard.PlayerInventory.Contains(o))
+                if (!theGameBoard.PlayerInventoryContains(o))
                 {
                     carryingEverything = false;
                 }

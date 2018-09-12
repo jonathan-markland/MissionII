@@ -35,14 +35,14 @@ namespace MissionIIClassLibrary.Droids
         public override bool YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
             // TODO: FUTURE: We assume the explosion dimensions match the droid.  We should centre it about the droid.
-            theGameBoard.ObjectsInRoom.Add(
+            theGameBoard.Add(
                 new GameObjects.Explosion(
                     SpriteInstance.X,
                     SpriteInstance.Y,
                     MissionIISprites.Explosion,
                     shotByMan));
 
-            theGameBoard.ObjectsToRemove.Add(this);
+            theGameBoard.Remove(this);
             return true;
         }
 
@@ -53,9 +53,9 @@ namespace MissionIIClassLibrary.Droids
 
         public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
-            if (!theGameBoard.Man.IsInvincible)
+            if (!theGameBoard.ManIsInvincible())
             {
-                theGameBoard.Man.Electrocute(ElectrocutionMethod.ByDroid);
+                theGameBoard.Electrocute(ElectrocutionMethod.ByDroid);
             }
             else
             {

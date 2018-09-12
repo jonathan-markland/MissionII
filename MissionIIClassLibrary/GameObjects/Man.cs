@@ -1,5 +1,4 @@
 ﻿
-using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
@@ -136,7 +135,7 @@ namespace MissionIIClassLibrary.GameObjects
                 // Collision between man and room objects?
 
                 var manRectangle = GetBoundingRectangle();
-                theGameBoard.ObjectsInRoom.ForEachDo(roomObject =>
+                theGameBoard.ForEachObjectInPlayDo(roomObject =>
                 {
                     if (!_isDead && manRectangle.Intersects(roomObject.GetBoundingRectangle()))
                     {
@@ -166,7 +165,8 @@ namespace MissionIIClassLibrary.GameObjects
             {
                 if (!_awaitingFireRelease)
                 {
-                    theGameBoard.StartBullet(SpriteInstance, _facingDirection, true);
+                    theGameBoard.StartBullet(SpriteInstance, MovementDeltas.ConvertFromFacingDirection(_facingDirection) // TODO
+                        , true);
                     _awaitingFireRelease = true; // require press-release sequence for firing bullets.
                 }
             }
@@ -308,13 +308,14 @@ namespace MissionIIClassLibrary.GameObjects
         {
             theGameBoard.MoveRoomNumberByDelta(roomNumberDelta);
             // Note: We sort of assume all the rooms are the same size!  (Which they are!)
-            var roomWidth = theGameBoard.CurrentRoomTileMatrix.CountH * Constants.TileWidth; // TODO: Not ideal having these possibly repeated calculations.
-            var roomHeight = theGameBoard.CurrentRoomTileMatrix.CountV * Constants.TileHeight; // TODO: Not ideal having these possibly repeated calculations.
+            var theMatrix = theGameBoard.GetTileMatrix();
+            var roomWidth = theMatrix.CountH * Constants.TileWidth; // TODO: Not ideal having these possibly repeated calculations.
+            var roomHeight = theMatrix.CountV * Constants.TileHeight; // TODO: Not ideal having these possibly repeated calculations.
             SpriteInstance.X += roomWidth * deltaRoomWidth;
             SpriteInstance.X += deltaSpriteWidth;
             SpriteInstance.Y += roomHeight * deltaRoomHeight;
             SpriteInstance.Y += deltaSpriteHeight;
-            if (! theGameBoard.DroidsExistInRoom)
+            if (! theGameBoard.DroidsExistInRoom())
             {
                 theGameBoard.IncrementScore(Constants.RoomClearingBonusScore);
                 MissionIISounds.Bonus.Play();
@@ -322,7 +323,7 @@ namespace MissionIIClassLibrary.GameObjects
             theGameBoard.PrepareForNewRoom();
         }
 
-        public override Rectangle GetBoundingRectangle()
+        public override Rectangle GetBoundingRectangle() // TODO: Dont have this just get from the sprite
         {
             return SpriteInstance.Extents;
         }

@@ -12,10 +12,9 @@ namespace MissionIIClassLibrary.Modes
                   MissionIISounds.LevelExitActivated,
                   () =>
                   {
-                      var thisLevelNumber = theGameBoard.LevelNumber;
+                      var thisLevelNumber = theGameBoard.GetLevelNumber();
                       ++thisLevelNumber;
-                      theGameBoard.LevelNumber = thisLevelNumber;
-                      theGameBoard.PrepareForNewLevel();
+                      theGameBoard.PrepareForNewLevel(thisLevelNumber);
                       return ActiveMode; // PrepareForNewLevel() just set this
                   })
         {

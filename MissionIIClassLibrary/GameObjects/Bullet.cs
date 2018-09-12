@@ -26,7 +26,7 @@ namespace MissionIIClassLibrary.GameObjects
                 var proposedY = Sprite.Y + BulletDirection.dy;
 
                 var hitResult = CollisionDetection.HitsWalls(
-                    theGameBoard.CurrentRoomTileMatrix,
+                    theGameBoard.GetTileMatrix(),
                     Constants.TileWidth,
                     Constants.TileHeight,
                     proposedX,
@@ -43,7 +43,7 @@ namespace MissionIIClassLibrary.GameObjects
                     var hitCount = theGameBoard.KillThingsIfShotAndGetHitCount(this);
                     if (hitCount > 0)
                     {
-                        theGameBoard.ObjectsToRemove.Add(this);
+                        theGameBoard.Remove(this);
                         if (_increasesScore && hitCount > 1)
                         {
                             theGameBoard.IncrementScore(Constants.MultiKillWithSingleBulletBonusScore);
@@ -54,7 +54,7 @@ namespace MissionIIClassLibrary.GameObjects
                 }
                 else // Bullet hit wall or went outside room.
                 {
-                    theGameBoard.ObjectsToRemove.Add(this);
+                    theGameBoard.Remove(this);
                     break;
                 }
             }

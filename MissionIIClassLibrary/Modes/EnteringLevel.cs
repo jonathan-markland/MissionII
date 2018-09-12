@@ -15,7 +15,7 @@ namespace MissionIIClassLibrary.Modes
             _gameBoard = theGameBoard;
             if (ThisLevelHasAccessCode)
             {
-                _levelAccessCode = GameClassLibrary.Algorithms.LevelAccessCodes.GetForLevel(_gameBoard.LevelNumber);
+                _levelAccessCode = GameClassLibrary.Algorithms.LevelAccessCodes.GetForLevel(_gameBoard.GetLevelNumber());
             }
         }
 
@@ -23,7 +23,7 @@ namespace MissionIIClassLibrary.Modes
         {
             get
             {
-                var l = _gameBoard.LevelNumber;
+                var l = _gameBoard.GetLevelNumber();
                 return (l >= Constants.FirstLevelWithAccessCode && l <= Constants.LastLevelWithAccessCode);
             }
         }
@@ -53,7 +53,7 @@ namespace MissionIIClassLibrary.Modes
 
             var cx = Constants.ScreenWidth / 2;
 
-            drawingTarget.DrawText(cx, 40, "LEVEL " + _gameBoard.LevelNumber, MissionIIFonts.GiantFont, TextAlignment.Centre);
+            drawingTarget.DrawText(cx, 40, "LEVEL " + _gameBoard.GetLevelNumber(), MissionIIFonts.GiantFont, TextAlignment.Centre);
 
             if (ThisLevelHasAccessCode)
             {

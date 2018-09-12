@@ -45,7 +45,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                     if (!_movementDeltas.Stationary
                         && Rng.Generator.Next(100) < Constants.SingleMindedFiringProbabilityPercent)
                     {
-                        theGameBoard.StartBullet(spriteInstance, _facingDirection, false);
+                        theGameBoard.StartBullet(spriteInstance, MovementDeltas.ConvertFromFacingDirection(_facingDirection), false);
                     }
                 }
 

@@ -42,10 +42,10 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
                 // TODO: Check proximity to man, and detonate killing man.
 
-                var detonationRectangle = theGameBoard.Man.GetBoundingRectangle().Inflate(5); // TODO: constant
+                var detonationRectangle = theGameBoard.ManSpriteInstance().Extents.Inflate(5); // TODO: constant
                 if (spriteInstance.Intersects(detonationRectangle))
                 {
-                    theGameBoard.Man.Electrocute(ElectrocutionMethod.ByDroid);
+                    theGameBoard.Electrocute(ElectrocutionMethod.ByDroid);
                     // TODO: Droid should detonate, but AI classes have no reference to the droid object!  Fix that.
                 }
 

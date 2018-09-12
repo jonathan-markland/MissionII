@@ -35,7 +35,7 @@ namespace MissionIIClassLibrary.GameObjects
                 --_explosionCountDown;
                 if (_explosionCountDown == 0)
                 {
-                    theGameBoard.ObjectsToRemove.Add(this);  // It gets removed by the framework when we add it to this list.
+                    theGameBoard.Remove(this);  // It gets removed by the framework when we add it to this list.
                 }
             }
         }

@@ -6,10 +6,11 @@ using GameClassLibrary.Algorithms;
 using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
+using MissionIIClassLibrary.Interactibles;
 
 namespace MissionIIClassLibrary
 {
-    public class MissionIIGameBoard
+    public class MissionIIGameBoard : IGameBoard
     {
         // The Game Board class is where things have started out, before being refactored out
         // to other classes.  TODO: There is still more that can be done here.  Might also 
@@ -32,12 +33,19 @@ namespace MissionIIClassLibrary
 
 
 
-        public int LevelNumber;
+        private int LevelNumber;
         public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
         public TileMatrix CurrentRoomTileMatrix;
         public GameObjects.Man Man = new GameObjects.Man();
         public SuddenlyReplaceableList<BaseGameObject> ObjectsInRoom = new SuddenlyReplaceableList<BaseGameObject>();
         public List<BaseGameObject> ObjectsToRemove = new List<BaseGameObject>();
+
+
+
+        public int GetLevelNumber()
+        {
+            return LevelNumber;
+        }
 
 
 
@@ -65,12 +73,36 @@ namespace MissionIIClassLibrary
             {
                 if (accessCode == GameClassLibrary.Algorithms.LevelAccessCodes.GetForLevel(i))
                 {
-                    LevelNumber = i;
-                    PrepareForNewLevel();
+                    PrepareForNewLevel(i);
                     return true;
                 }
             }
             return false;
+        }
+
+        public void ManGainInvincibility()
+        {
+            Man.GainInvincibility();
+        }
+
+        public bool ManIsInvincible()
+        {
+            return Man.IsInvincible;
+        }
+
+        public SpriteInstance ManSpriteInstance()
+        {
+            return Man.SpriteInstance;
+        }
+
+        public void Electrocute(ElectrocutionMethod electrocutionMethod)
+        {
+            Man.Electrocute(electrocutionMethod);
+        }
+
+        public bool PlayerInventoryContains(InteractibleObject o)
+        {
+            return PlayerInventory.Contains(o);
         }
 
 
@@ -97,6 +129,20 @@ namespace MissionIIClassLibrary
 
 
 
+        public TileMatrix GetTileMatrix()
+        {
+            return CurrentRoomTileMatrix;
+        }
+
+
+
+        public void ForEachObjectInPlayDo(Action<GameObject> theAction)
+        {
+            ObjectsInRoom.ForEachDo(theAction);
+        }
+
+
+
         public void IncrementScore(int scoreDelta)
         {
             var thresholdBefore = Score / Constants.ExtraLifeScoreMultiple;
@@ -104,13 +150,13 @@ namespace MissionIIClassLibrary
             var thresholdAfter = Score / Constants.ExtraLifeScoreMultiple;
             if (thresholdBefore < thresholdAfter)
             {
-                IncrementLives();
+                GainLife();
             }
         }
 
 
 
-        public void IncrementLives()
+        public void GainLife()
         {
             if (Lives < Constants.MaxLives)
             {
@@ -163,17 +209,6 @@ namespace MissionIIClassLibrary
                 Constants.TileWidth,
                 Constants.TileHeight,
                 TileExtensions.IsFloor);
-        }
-
-
-
-        public void StartBullet(
-            SpriteInstance sourceSprite,
-            int facingDirection,
-            bool increasesScore)
-        {
-            StartBullet(
-                sourceSprite, MovementDeltas.ConvertFromFacingDirection(facingDirection), increasesScore);
         }
 
 
@@ -282,9 +317,9 @@ namespace MissionIIClassLibrary
 
 
 
-        public void PrepareForNewLevel()
+        public void PrepareForNewLevel(int newLevelNumber)
         {
-            // The LevelNumber is already set.
+            LevelNumber = newLevelNumber;
 
             // Determine this level object:
             var levelIndex = (LevelNumber - 1) % TheWorldWallData.Levels.Count;
@@ -585,17 +620,14 @@ namespace MissionIIClassLibrary
         /// <summary>
         /// Returns true if any droids exist in the room.
         /// </summary>
-        public bool DroidsExistInRoom
+        public bool DroidsExistInRoom()
         {
-            get
+            bool foundDroids = false;
+            ObjectsInRoom.ForEach<Droids.BaseDroid>(o => 
             {
-                bool foundDroids = false;
-                ObjectsInRoom.ForEach<Droids.BaseDroid>(o => 
-                {
-                    foundDroids = true;   // TODO: Library issue:  It's not optimal that we can't break the ForEach.
-                });
-                return foundDroids;
-            }
+                foundDroids = true;   // TODO: Library issue:  It's not optimal that we can't break the ForEach.
+            });
+            return foundDroids;
         }
 
 
@@ -697,6 +729,23 @@ namespace MissionIIClassLibrary
                 drawingTarget.DrawFirstSprite(x, y, spriteTraits);
                 x -= Constants.InventoryItemSpacing;
             }
+        }
+
+
+
+        public void AddToPlayerInventory(InteractibleObject o)
+        {
+            PlayerInventory.Add(o);
+        }
+
+        public void Add(GameObject o)
+        {
+            ObjectsInRoom.Add((BaseGameObject) o);  // TODO: for now
+        }
+
+        public void Remove(GameObject o)
+        {
+            ObjectsToRemove.Add((BaseGameObject) o);  // TODO: for now
         }
     }
 }
