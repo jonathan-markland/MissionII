@@ -13,7 +13,6 @@ namespace GameClassLibrary.Graphics
         public static CollisionDetection.WallHitTestResult MoveConsideringWallsOnly(
             this SpriteInstance spriteInstance,
             TileMatrix wallMatrix,
-            int tileWidth, int tileHeight,
             MovementDeltas movementDeltas,
             Func<Tile, bool> isFloorFunc)
         {
@@ -23,7 +22,7 @@ namespace GameClassLibrary.Graphics
             // First consider both X and Y deltas directly:
 
             var hitResult = CollisionDetection.HitsWalls(
-                wallMatrix, tileWidth, tileHeight,
+                wallMatrix,
                 proposedX, proposedY,
                 spriteInstance.Traits.Width,
                 spriteInstance.Traits.Height,

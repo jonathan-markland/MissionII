@@ -113,10 +113,12 @@ namespace GameClassLibrary.Graphics
         public static void DrawTileMatrix(   // TODO: Should this allow huge tile arrays, thus require iterating over a portion only?
             this IDrawingTarget drawingTarget,
             int leftX, int topY, 
-            int tileWidth, int tileHeight,   // TODO: Should these go in the TileMatrix ?
             Walls.TileMatrix tileMatrix,
             HostSuppliedSprite[] hostSpritesFortiles)
         {
+            var tileWidth = tileMatrix.TileWidth;
+            var tileHeight = tileMatrix.TileHeight;
+
             for (int y = 0; y < tileMatrix.CountV; y++)
             {
                 int a = leftX;

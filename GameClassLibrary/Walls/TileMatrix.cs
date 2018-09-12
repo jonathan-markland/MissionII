@@ -14,12 +14,14 @@ namespace GameClassLibrary.Walls
 
 
 
-        public TileMatrix(int tileCountH, int tileCountV)
+        public TileMatrix(int tileCountH, int tileCountV, int tileWidth, int tileHeight)
         {
             var n = tileCountH * tileCountV;
             _theTiles = new Tile[n];
             _countH = tileCountH;
             _countV = tileCountV;
+            TileWidth = tileWidth;
+            TileHeight = tileHeight;
         }
 
 
@@ -32,6 +34,12 @@ namespace GameClassLibrary.Walls
         /// The number of tiles vertically.
         /// </summary>
         public int CountV { get { return _countV; } }
+
+        public int TileWidth { get; private set; }
+        public int TileHeight { get; private set; }
+
+        public int TotalWidth  { get { return TileWidth * CountH;} }
+        public int TotalHeight { get { return TileHeight * CountV; } }
 
         /// <summary>
         /// Query if the matrix has no size.

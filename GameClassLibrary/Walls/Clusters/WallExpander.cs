@@ -59,7 +59,9 @@ namespace GameClassLibrary.Walls.Clusters
 
             var destMatrix = new WriteableTileMatrix(
                 _clustersHorizontally * _destClusterSide,
-                _clustersVertically * _destClusterSide);
+                _clustersVertically * _destClusterSide,
+                _sourceMatrix.TileWidth,
+                _sourceMatrix.TileHeight);
 
             _destMatrix = destMatrix;
 

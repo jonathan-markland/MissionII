@@ -16,15 +16,13 @@ namespace GameClassLibrary.Walls
         /// <param name="lambdaFunc">Callback function passed top left (x,y) of locations found.</param>
         public static void ForEachEmptyCell(
                         TileMatrix wallData,
-                        int tileWidth,
-                        int tileHeight,
                         int tallestWidth,
                         int tallestHeight,
                         Func<int,int,bool> lambdaFunc,
                         Func<Tile, bool> isFloor)
         {
-            var roomWidth = wallData.CountH * tileWidth; // TODO: Not ideal having these possibly repeated calculations.
-            var roomHeight = wallData.CountV * tileHeight; // TODO: Not ideal having these possibly repeated calculations.
+            var roomWidth = wallData.TotalWidth;
+            var roomHeight = wallData.TotalHeight;
 
             var countHorz = (int)roomWidth / tallestWidth;
             var countVert = (int)roomHeight / tallestHeight;
@@ -40,7 +38,7 @@ namespace GameClassLibrary.Walls
                 while (countHorz > 0)
                 {
                     if (CollisionDetection.HitsWalls(
-                        wallData, tileWidth, tileHeight, x, y, 
+                        wallData, x, y, 
                         tallestWidth, tallestHeight, isFloor) == CollisionDetection.WallHitTestResult.NothingHit)
                     {
                         if (!lambdaFunc(x, y)) return;

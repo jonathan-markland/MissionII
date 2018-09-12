@@ -17,8 +17,6 @@ namespace GameClassLibrary.Walls
 
         public static WallHitTestResult HitsWalls(
             TileMatrix wallData,
-            int tileWidth,
-            int tileHeight,
             int objectX,
             int objectY,
             int objectWidth,
@@ -27,8 +25,11 @@ namespace GameClassLibrary.Walls
         {
             if (wallData.Empty) return WallHitTestResult.HitWall; // Required.
 
-            var roomWidth = wallData.CountH * tileWidth; // TODO: Not ideal having these possibly repeated calculations.
-            var roomHeight = wallData.CountV * tileHeight; // TODO: Not ideal having these possibly repeated calculations.
+            var tileWidth = wallData.TileWidth;
+            var tileHeight = wallData.TileHeight;
+
+            var roomWidth = wallData.TotalWidth;
+            var roomHeight = wallData.TotalHeight;
 
             // Non-inclusive bottom right corner of object:
             var objectX2 = objectX + objectWidth;

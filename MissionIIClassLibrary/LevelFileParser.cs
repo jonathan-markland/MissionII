@@ -121,7 +121,11 @@ namespace MissionIIClassLibrary
 
             for (int roomX = 0; roomX < Constants.RoomsHorizontally; ++roomX)
             {
-                var m = new WriteableTileMatrix(Constants.SourceFileRoomCharsHorizontally, Constants.SourceFileCharsVertically);
+                var m = new WriteableTileMatrix(
+                    Constants.SourceFileRoomCharsHorizontally, 
+                    Constants.SourceFileCharsVertically,
+                    Constants.TileWidth,
+                    Constants.TileHeight);
                 rowOfWallMatrices.Add(m);
                 rowOfRooms.Add(new Room(roomX + 1, roomY, m));
             }

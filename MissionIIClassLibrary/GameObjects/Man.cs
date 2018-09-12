@@ -309,8 +309,8 @@ namespace MissionIIClassLibrary.GameObjects
             theGameBoard.MoveRoomNumberByDelta(roomNumberDelta);
             // Note: We sort of assume all the rooms are the same size!  (Which they are!)
             var theMatrix = theGameBoard.GetTileMatrix();
-            var roomWidth = theMatrix.CountH * Constants.TileWidth; // TODO: Not ideal having these possibly repeated calculations.
-            var roomHeight = theMatrix.CountV * Constants.TileHeight; // TODO: Not ideal having these possibly repeated calculations.
+            var roomWidth = theMatrix.TotalWidth;
+            var roomHeight = theMatrix.TotalHeight;
             SpriteInstance.X += roomWidth * deltaRoomWidth;
             SpriteInstance.X += deltaSpriteWidth;
             SpriteInstance.Y += roomHeight * deltaRoomHeight;

@@ -178,7 +178,7 @@ namespace MissionIIClassLibrary
         public CollisionDetection.WallHitTestResult MoveManOnePixel(MovementDeltas movementDeltas)
         {
             return Man.SpriteInstance.MoveConsideringWallsOnly(
-                CurrentRoomTileMatrix, Constants.TileWidth, Constants.TileHeight,
+                CurrentRoomTileMatrix,
                 movementDeltas,
                 TileExtensions.IsFloor);
         }
@@ -189,8 +189,6 @@ namespace MissionIIClassLibrary
         {
             return DirectionFinder.GetFreeDirections(
                 currentExtents, CurrentRoomTileMatrix,
-                Constants.TileWidth,
-                Constants.TileHeight,
                 TileExtensions.IsFloor);
         }
 
@@ -413,8 +411,6 @@ namespace MissionIIClassLibrary
 
             PositionFinder.ForEachEmptyCell(
                 CurrentRoomTileMatrix,
-                Constants.TileWidth,
-                Constants.TileHeight,
                 posnWidth,
                 posnHeight,
                 (x, y) =>
@@ -489,7 +485,7 @@ namespace MissionIIClassLibrary
             }
 
             return spriteInstance.MoveConsideringWallsOnly(
-                CurrentRoomTileMatrix, Constants.TileWidth, Constants.TileHeight,
+                CurrentRoomTileMatrix, 
                 movementDeltas, TileExtensions.IsFloor);
         }
 
@@ -557,8 +553,6 @@ namespace MissionIIClassLibrary
                 drawingTarget.DrawTileMatrix(
                     Constants.RoomOriginX, // TODO: Should not need to use origin.
                     Constants.RoomOriginY, // TODO: Should not need to use origin.
-                    Constants.TileWidth,
-                    Constants.TileHeight,
                     CurrentRoomTileMatrix,
                     (_cycleCount & 32) == 0 ? _electrocutionBackgroundSprites : _normalBackgroundSprites);
             }

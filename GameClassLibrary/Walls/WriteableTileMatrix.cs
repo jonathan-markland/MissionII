@@ -5,8 +5,8 @@ namespace GameClassLibrary.Walls
 {
     public class WriteableTileMatrix : TileMatrix
     {
-        public WriteableTileMatrix(int tileCountH, int tileCountV)
-            : base(tileCountH, tileCountV)
+        public WriteableTileMatrix(int tileCountH, int tileCountV, int tileWidth, int tileHeight)
+            : base(tileCountH, tileCountV, tileWidth, tileHeight)
         {
         }
 

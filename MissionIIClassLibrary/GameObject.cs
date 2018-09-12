@@ -10,7 +10,7 @@ namespace MissionIIClassLibrary
     public interface IGameBoard
     {
         TileMatrix GetTileMatrix();
-        // Can this know the tile dimensions?
+
         FoundDirections GetFreeDirections(Rectangle currentExtents);
         // Doable as extension except needs IsFloor predicate specific to game.  But users of
         // this are AI that could be re-usable.  TileMatrix could know IsFloor predicate?
