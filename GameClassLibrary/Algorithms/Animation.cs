@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using GameClassLibrary.Math;
-using GameClassLibrary.Walls;
-using GameClassLibrary.Graphics;
-using GameClassLibrary.Input;
-
-namespace MissionIIClassLibrary
+﻿
+namespace GameClassLibrary.Algorithms
 {
-    public static class Business
+    public static class Animation
     {
         public static void Animate(ref int animationCountdown, ref int imageIndex, int animationCountdownReset, int maxImageCount)
         {

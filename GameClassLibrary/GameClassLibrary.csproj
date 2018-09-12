@@ -37,6 +37,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Algorithms\Animation.cs" />
     <Compile Include="Algorithms\IListExtensions.cs" />
     <Compile Include="Algorithms\IncrementingNumberAllocator.cs" />
     <Compile Include="Algorithms\LevelAccessCodes.cs" />

@@ -54,7 +54,6 @@
     <Compile Include="MissionIISounds.cs" />
     <Compile Include="Droids\WanderingDroid.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
-    <Compile Include="Business.cs" />
     <Compile Include="Droids\BaseDroid.cs" />
     <Compile Include="GameObjects\Explosion.cs" />
     <Compile Include="MissionIIGameBoard.cs" />

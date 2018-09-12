@@ -192,7 +192,8 @@ namespace MissionIIClassLibrary.GameObjects
 
         private void AdvanceAnimation()
         {
-            Business.Animate(ref _animationCountdown, ref _imageIndex, WalkingAnimationReset, SpriteInstance.Traits.ImageCount);
+            GameClassLibrary.Algorithms.Animation.Animate(
+                ref _animationCountdown, ref _imageIndex, WalkingAnimationReset, SpriteInstance.Traits.ImageCount);
         }
 
         public void Electrocute(ElectrocutionMethod electrocutionMethod)

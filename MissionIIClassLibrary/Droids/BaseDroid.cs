@@ -23,7 +23,8 @@ namespace MissionIIClassLibrary.Droids
 
         public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
         {
-            Business.Animate(ref _animationCountdown, ref _imageIndex, AnimationReset, SpriteInstance.Traits.ImageCount);
+            GameClassLibrary.Algorithms.Animation.Animate(
+                ref _animationCountdown, ref _imageIndex, AnimationReset, SpriteInstance.Traits.ImageCount);
             _intelligenceProvider.AdvanceOneCycle(theGameBoard, SpriteInstance);
         }
 
