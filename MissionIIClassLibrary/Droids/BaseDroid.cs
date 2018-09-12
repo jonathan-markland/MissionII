@@ -4,7 +4,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Droids
 {
-    public class BaseDroid : BaseGameObject
+    public class BaseDroid : MissionIIGameObject
     {
         public SpriteInstance SpriteInstance = new SpriteInstance(); // TODO: private?
         private int _imageIndex = 0;

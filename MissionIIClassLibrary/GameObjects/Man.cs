@@ -6,7 +6,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.GameObjects
 {
-    public class Man : BaseGameObject
+    public class Man : MissionIIGameObject
     {
         public SpriteInstance SpriteInstance = new SpriteInstance();
         private bool _debugInvulnerable = false;
@@ -135,7 +135,7 @@ namespace MissionIIClassLibrary.GameObjects
                 // Collision between man and room objects?
 
                 var manRectangle = GetBoundingRectangle();
-                theGameBoard.ForEachObjectInPlayDo(roomObject =>
+                theGameBoard.ForEachObjectInPlayDo<GameObject>(roomObject =>
                 {
                     if (!_isDead && manRectangle.Intersects(roomObject.GetBoundingRectangle()))
                     {
@@ -186,7 +186,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
             else
             {
-                theGameBoard.LoseLife();
+                theGameBoard.PlayerLoseLife();
             }
         }
 
@@ -317,7 +317,7 @@ namespace MissionIIClassLibrary.GameObjects
             SpriteInstance.Y += deltaSpriteHeight;
             if (! theGameBoard.DroidsExistInRoom())
             {
-                theGameBoard.IncrementScore(Constants.RoomClearingBonusScore);
+                theGameBoard.PlayerIncrementScore(Constants.RoomClearingBonusScore);
                 MissionIISounds.Bonus.Play();
             }
             theGameBoard.PrepareForNewRoom();

@@ -11,12 +11,17 @@ namespace MissionIIClassLibrary
     {
         void Add(GameObject o);
         void Remove(GameObject o);
-        void ForEachObjectInPlayDo(Action<GameObject> theAction);
+        void ForEachObjectInPlayDo<A>(Action<A> theAction) where A : class;
 
         void AddToPlayerInventory(Interactibles.InteractibleObject o);
-        void IncrementScore(int deltaAmount);
-        void GainLife();
-        void LoseLife();
+        bool PlayerInventoryContains(Interactibles.InteractibleObject o);
+        void PlayerIncrementScore(int deltaAmount);
+        void PlayerGainLife();
+        void PlayerLoseLife();
+        // Missing drop from inventory
+        // Missing multi-player
+
+        void PrepareForNewLevel(int newLevelNumber);
         int GetLevelNumber();
 
         TileMatrix GetTileMatrix();
@@ -27,16 +32,30 @@ namespace MissionIIClassLibrary
         void StartBullet(SpriteInstance sourceSprite, MovementDeltas bulletDirection, bool increasesScore);
         void MoveRoomNumberByDelta(int roomNumberDelta);
         void PrepareForNewRoom();
-        void PrepareForNewLevel(int newLevelNumber);
         uint KillThingsIfShotAndGetHitCount(GameObjects.Bullet theBullet);
-        bool DroidsExistInRoom();
         void ForEachThingWeHaveToFindOnThisLevel(Action<Interactibles.InteractibleObject> theAction);
         GameClassLibrary.Math.Point GetCornerFurthestAwayFromMan();
-        bool PlayerInventoryContains(Interactibles.InteractibleObject o);
         SpriteInstance ManSpriteInstance();
         void Electrocute(ElectrocutionMethod electrocutionMethod);
         bool ManIsInvincible();
         void ManGainInvincibility();
+    }
+
+    public static class IGameBoardExtensionsForMissionII
+    {
+        /// <summary>
+        /// Returns true if any droids exist in the room.
+        /// </summary>
+        public static bool DroidsExistInRoom(this IGameBoard gameBoard)
+        {
+            bool foundDroids = false;
+            gameBoard.ForEachObjectInPlayDo<Droids.BaseDroid>(o =>
+            {
+                foundDroids = true;   // TODO: Library issue:  It's not optimal that we can't break the ForEach.
+            });
+            return foundDroids;
+        }
+
     }
 
     public abstract class GameObject

@@ -5,7 +5,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.GameObjects
 {
-    public class Bullet : BaseGameObject
+    public class Bullet : MissionIIGameObject
     {
         public SpriteInstance Sprite;
         public MovementDeltas BulletDirection;
@@ -46,7 +46,7 @@ namespace MissionIIClassLibrary.GameObjects
                         theGameBoard.Remove(this);
                         if (_increasesScore && hitCount > 1)
                         {
-                            theGameBoard.IncrementScore(Constants.MultiKillWithSingleBulletBonusScore);
+                            theGameBoard.PlayerIncrementScore(Constants.MultiKillWithSingleBulletBonusScore);
                             MissionIISounds.DuoBonus.Play();
                         }
                         break;

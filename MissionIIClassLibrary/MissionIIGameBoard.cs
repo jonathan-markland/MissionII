@@ -37,8 +37,8 @@ namespace MissionIIClassLibrary
         public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
         public TileMatrix CurrentRoomTileMatrix;
         public GameObjects.Man Man = new GameObjects.Man();
-        public SuddenlyReplaceableList<BaseGameObject> ObjectsInRoom = new SuddenlyReplaceableList<BaseGameObject>();
-        public List<BaseGameObject> ObjectsToRemove = new List<BaseGameObject>();
+        public SuddenlyReplaceableList<MissionIIGameObject> ObjectsInRoom = new SuddenlyReplaceableList<MissionIIGameObject>();
+        public List<MissionIIGameObject> ObjectsToRemove = new List<MissionIIGameObject>();
 
 
 
@@ -122,7 +122,7 @@ namespace MissionIIClassLibrary
         public void Update(KeyStates keyStates)
         {
             ++_cycleCount;
-            ObjectsInRoom.ForEachDo(o => { o.AdvanceOneCycle(this, keyStates); });
+            ObjectsInRoom.ForEach<GameObject>(o => { o.AdvanceOneCycle(this, keyStates); });
             ObjectsInRoom.RemoveThese(ObjectsToRemove);
             ObjectsToRemove.Clear();
         }
@@ -136,27 +136,27 @@ namespace MissionIIClassLibrary
 
 
 
-        public void ForEachObjectInPlayDo(Action<GameObject> theAction)
+        public void ForEachObjectInPlayDo<A>(Action<A> theAction) where A : class
         {
-            ObjectsInRoom.ForEachDo(theAction);
+            ObjectsInRoom.ForEach(theAction);
         }
 
 
 
-        public void IncrementScore(int scoreDelta)
+        public void PlayerIncrementScore(int scoreDelta)
         {
             var thresholdBefore = Score / Constants.ExtraLifeScoreMultiple;
             Score = (uint)(Score + scoreDelta);
             var thresholdAfter = Score / Constants.ExtraLifeScoreMultiple;
             if (thresholdBefore < thresholdAfter)
             {
-                GainLife();
+                PlayerGainLife();
             }
         }
 
 
 
-        public void GainLife()
+        public void PlayerGainLife()
         {
             if (Lives < Constants.MaxLives)
             {
@@ -167,7 +167,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public void LoseLife()
+        public void PlayerLoseLife()
         {
             if (Lives > 0)
             {
@@ -182,7 +182,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public void IncludeIfInCurrentRoom(Interactibles.InteractibleObject theObject, List<BaseGameObject> targetList)
+        public void IncludeIfInCurrentRoom(Interactibles.InteractibleObject theObject, List<MissionIIGameObject> targetList)
         {
             if (theObject.RoomNumber == RoomNumber)
             {
@@ -286,7 +286,7 @@ namespace MissionIIClassLibrary
         {
             uint hitCount = 0;
             
-            ObjectsInRoom.ForEachDo(o =>
+            ObjectsInRoom.ForEach<MissionIIGameObject>(o =>
             {
                 if (o.GetBoundingRectangle().Intersects(theBullet.GetBoundingRectangle()))
                 {
@@ -296,13 +296,13 @@ namespace MissionIIClassLibrary
                         {
                             // Basic scoring
                             var thisDroidKillScore = o.KillScore;
-                            IncrementScore(thisDroidKillScore);
+                            PlayerIncrementScore(thisDroidKillScore);
 
                             // Bonus scoring for multiples.
                             var n = CountExplosionsThatCanBeUsedForBonusesInRoom;
                             if (n >= Constants.DroidCountFoMultiKillBonus)
                             {
-                                IncrementScore(thisDroidKillScore * n);
+                                PlayerIncrementScore(thisDroidKillScore * n);
                                 MissionIISounds.Bonus.Play();
                                 MarkAllExplosionsAsUsedForBonusPurposes();
                             }
@@ -427,7 +427,7 @@ namespace MissionIIClassLibrary
 
             CurrentRoomTileMatrix = thisRoom.WallData;
 
-            var objectsList = new List<BaseGameObject>();
+            var objectsList = new List<MissionIIGameObject>();
 
             ObjectsToRemove.Clear();
 
@@ -583,7 +583,7 @@ namespace MissionIIClassLibrary
                 spriteInstance.Traits.Height);
 
             var hitResult = CollisionDetection.WallHitTestResult.NothingHit;
-            ObjectsInRoom.ForEachDo(theObject =>
+            ObjectsInRoom.ForEach<GameObject>(theObject =>
             {
                 if (hitResult == CollisionDetection.WallHitTestResult.NothingHit
                     && theObject.CanBeOverlapped)
@@ -708,7 +708,7 @@ namespace MissionIIClassLibrary
 
             // Draw objects in the room:
 
-            ObjectsInRoom.ForEachDo(o => { o.Draw(drawingTarget); });
+            ObjectsInRoom.ForEach<GameObject>(o => { o.Draw(drawingTarget); });
 
             // Lives:
 
@@ -740,12 +740,12 @@ namespace MissionIIClassLibrary
 
         public void Add(GameObject o)
         {
-            ObjectsInRoom.Add((BaseGameObject) o);  // TODO: for now
+            ObjectsInRoom.Add((MissionIIGameObject) o);  // TODO: for now
         }
 
         public void Remove(GameObject o)
         {
-            ObjectsToRemove.Add((BaseGameObject) o);  // TODO: for now
+            ObjectsToRemove.Add((MissionIIGameObject) o);  // TODO: for now
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace MissionIIClassLibrary
 {
-    public abstract class BaseGameObject : GameObject
+    public abstract class MissionIIGameObject : GameObject
     {
         public virtual int KillScore { get { return 0; } }
     }

@@ -47,7 +47,7 @@ namespace GameClassLibrary.Containers
             newList.AddRange(newItems);
             _theList = newList;
         }
-
+        /*
         /// <summary>
         /// For each item in the list, do the action.
         /// </summary>
@@ -64,7 +64,7 @@ namespace GameClassLibrary.Containers
                 if (!object.ReferenceEquals(_theList, addressOfOriginalList)) break; // abort because client replaced list during iteration.
             }
         }
-
+        */
         /// <summary>
         /// For each item in the list of the given class A, do the action.
         /// </summary>

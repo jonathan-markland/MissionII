@@ -11,7 +11,7 @@ namespace MissionIIClassLibrary.Interactibles
 
         public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
-            theGameBoard.GainLife();
+            theGameBoard.PlayerGainLife();
             RemoveThisObject(theGameBoard);
         }
 

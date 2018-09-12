@@ -4,7 +4,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Interactibles
 {
-    public abstract class InteractibleObject : BaseGameObject
+    public abstract class InteractibleObject : MissionIIGameObject
     {
         private SpriteInstance Sprite;
         private int _roomNumber;
@@ -40,7 +40,7 @@ namespace MissionIIClassLibrary.Interactibles
         {
             theGameBoard.AddToPlayerInventory(this);
             RemoveThisObject(theGameBoard);
-            theGameBoard.IncrementScore(CollectionScore);
+            theGameBoard.PlayerIncrementScore(CollectionScore);
             MissionIISounds.PickUpObject.Play();
         }
 
