@@ -95,11 +95,6 @@ namespace MissionIIClassLibrary
             return Man.SpriteInstance;
         }
 
-        public void Electrocute(ElectrocutionMethod electrocutionMethod)
-        {
-            Man.Electrocute(electrocutionMethod);
-        }
-
         public bool PlayerInventoryContains(InteractibleObject o)
         {
             return PlayerInventory.Contains(o);
@@ -201,72 +196,6 @@ namespace MissionIIClassLibrary
 
 
 
-        public void StartBullet(
-            SpriteInstance sourceSprite,
-            MovementDeltas bulletDirection,
-            bool increasesScore)
-        {
-            // TODO: Separate out a bit for unit testing?
-
-            if (increasesScore)
-            {
-                MissionIISounds.ManFiring.Play();
-            }
-            else
-            {
-                MissionIISounds.DroidFiring.Play();
-            }
-
-            var theBulletTraits = MissionIISprites.Bullet;
-            var bulletWidth = theBulletTraits.Width;
-            var bulletHeight = theBulletTraits.Height;
-
-            int x, y;
-
-            if (bulletDirection.dx < 0)
-            {
-                x = (sourceSprite.X - bulletWidth) - Constants.BulletSpacing;
-            }
-            else if (bulletDirection.dx > 0)
-            {
-                x = sourceSprite.X + sourceSprite.Traits.Width + Constants.BulletSpacing;
-            }
-            else // (bulletDirection.dx == 0)
-            {
-                x = sourceSprite.X + ((sourceSprite.Traits.Width - bulletWidth) / 2);
-            }
-
-            if (bulletDirection.dy < 0)
-            {
-                y = (sourceSprite.Y - bulletHeight) - Constants.BulletSpacing;
-            }
-            else if (bulletDirection.dy > 0)
-            {
-                y = sourceSprite.Y + sourceSprite.Traits.Height + Constants.BulletSpacing;
-            }
-            else // (bulletDirection.dy == 0)
-            {
-                y = sourceSprite.Y + ((sourceSprite.Traits.Height - bulletHeight) / 2);
-            }
-
-            if (bulletDirection.dx == 0 && bulletDirection.dy == 0)
-            {
-                return;  // Cannot ascertain a direction away from the source sprite, so do nothing.
-            }
-
-            ObjectsInRoom.Add(
-                new GameObjects.Bullet
-                (
-                    new SpriteInstance
-                    {
-                        X = x,
-                        Y = y,
-                        Traits = theBulletTraits
-                    }
-                    , bulletDirection
-                    , increasesScore
-                ));
-        }
 
 
 

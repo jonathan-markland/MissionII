@@ -9,6 +9,12 @@ namespace MissionIIClassLibrary
 {
     public interface IGameBoard
     {
+        TileMatrix GetTileMatrix();
+        // Can this know the tile dimensions?
+        FoundDirections GetFreeDirections(Rectangle currentExtents);
+        // Doable as extension except needs IsFloor predicate specific to game.  But users of
+        // this are AI that could be re-usable.  TileMatrix could know IsFloor predicate?
+
         void Add(GameObject o);
         void Remove(GameObject o);
         void ForEachObjectInPlayDo<A>(Action<A> theAction) where A : class;
@@ -25,23 +31,14 @@ namespace MissionIIClassLibrary
         void PrepareForNewLevel(int newLevelNumber);
         int GetLevelNumber();
 
-        TileMatrix GetTileMatrix();
-        // Can this know the tile dimensions?
-
-        FoundDirections GetFreeDirections(Rectangle currentExtents);
-        // Doable as extension except needs IsFloor predicate specific to game.  But users of
-        // this are AI that could be re-usable.  TileMatrix could know IsFloor predicate?
-
         CollisionDetection.WallHitTestResult MoveManOnePixel(MovementDeltas movementDeltas);
 
         CollisionDetection.WallHitTestResult MoveAdversaryOnePixel(SpriteInstance spriteInstance, MovementDeltas movementDeltas);
         // THe base class for adversaries would need to be in the library.
 
-        void StartBullet(SpriteInstance sourceSprite, MovementDeltas bulletDirection, bool increasesScore);
         void MoveRoomNumberByDelta(int roomNumberDelta);
         void PrepareForNewRoom();
         void ForEachThingWeHaveToFindOnThisLevel(Action<Interactibles.InteractibleObject> theAction);
-        void Electrocute(ElectrocutionMethod electrocutionMethod);
         bool ManIsInvincible();
         void ManGainInvincibility();
     }
@@ -50,6 +47,13 @@ namespace MissionIIClassLibrary
 
     public static class IGameBoardExtensionsForMissionII
     {
+        public static void Electrocute(this IGameBoard gameBoard, ElectrocutionMethod electrocutionMethod)
+        {
+            ((MissionIIGameBoard)gameBoard).Man.Electrocute(electrocutionMethod);
+        }
+
+
+
         /// <summary>
         /// Returns true if any droids exist in the room.
         /// </summary>
@@ -109,6 +113,76 @@ namespace MissionIIClassLibrary
             });
 
             return new BulletResult { HitCount = hitCount, TotalScoreIncrease = scoreDelta };
+        }
+
+
+
+        public static void StartBullet(
+            this IGameBoard gameBoard,
+            SpriteInstance sourceSprite,
+            MovementDeltas bulletDirection,
+            bool increasesScore)
+        {
+            // TODO: Separate out a bit for unit testing?
+
+            if (increasesScore)
+            {
+                MissionIISounds.ManFiring.Play();
+            }
+            else
+            {
+                MissionIISounds.DroidFiring.Play();
+            }
+
+            var theBulletTraits = MissionIISprites.Bullet;
+            var bulletWidth = theBulletTraits.Width;
+            var bulletHeight = theBulletTraits.Height;
+
+            int x, y;
+
+            if (bulletDirection.dx < 0)
+            {
+                x = (sourceSprite.X - bulletWidth) - Constants.BulletSpacing;
+            }
+            else if (bulletDirection.dx > 0)
+            {
+                x = sourceSprite.X + sourceSprite.Traits.Width + Constants.BulletSpacing;
+            }
+            else // (bulletDirection.dx == 0)
+            {
+                x = sourceSprite.X + ((sourceSprite.Traits.Width - bulletWidth) / 2);
+            }
+
+            if (bulletDirection.dy < 0)
+            {
+                y = (sourceSprite.Y - bulletHeight) - Constants.BulletSpacing;
+            }
+            else if (bulletDirection.dy > 0)
+            {
+                y = sourceSprite.Y + sourceSprite.Traits.Height + Constants.BulletSpacing;
+            }
+            else // (bulletDirection.dy == 0)
+            {
+                y = sourceSprite.Y + ((sourceSprite.Traits.Height - bulletHeight) / 2);
+            }
+
+            if (bulletDirection.dx == 0 && bulletDirection.dy == 0)
+            {
+                return;  // Cannot ascertain a direction away from the source sprite, so do nothing.
+            }
+
+            gameBoard.Add(
+                new GameObjects.Bullet
+                (
+                    new SpriteInstance
+                    {
+                        X = x,
+                        Y = y,
+                        Traits = theBulletTraits
+                    }
+                    , bulletDirection
+                    , increasesScore
+                ));
         }
 
     }
