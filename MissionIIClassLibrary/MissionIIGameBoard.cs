@@ -90,9 +90,9 @@ namespace MissionIIClassLibrary
             return Man.IsInvincible;
         }
 
-        public SpriteInstance ManSpriteInstance()
+        public GameObject GetMan()
         {
-            return Man.SpriteInstance;
+            return Man;
         }
 
         public bool PlayerInventoryContains(InteractibleObject o)
@@ -177,7 +177,7 @@ namespace MissionIIClassLibrary
 
         public CollisionDetection.WallHitTestResult MoveManOnePixel(MovementDeltas movementDeltas)
         {
-            return Man.SpriteInstance.MoveConsideringWallsOnly(
+            return Man.MoveConsideringWallsOnly(
                 CurrentRoomTileMatrix,
                 movementDeltas,
                 TileExtensions.IsFloor);
@@ -450,17 +450,18 @@ namespace MissionIIClassLibrary
 
 
         public CollisionDetection.WallHitTestResult MoveAdversaryOnePixel(
-            SpriteInstance spriteInstance,
+            GameObject adversaryObject,
             MovementDeltas movementDeltas)
         {
-            var oldX = spriteInstance.X;
-            var oldY = spriteInstance.Y;
+            var r = adversaryObject.GetBoundingRectangle();
+            var oldX = r.Left;
+            var oldY = r.Top;
 
             var myNewRectangle = new Rectangle(
                 oldX + movementDeltas.dx,
                 oldY + movementDeltas.dy,
-                spriteInstance.Traits.Width,
-                spriteInstance.Traits.Height);
+                r.Width,
+                r.Height);
 
             var hitResult = CollisionDetection.WallHitTestResult.NothingHit;
             ObjectsInRoom.ForEach<GameObject>(theObject =>
@@ -484,7 +485,7 @@ namespace MissionIIClassLibrary
                 return hitResult;
             }
 
-            return spriteInstance.MoveConsideringWallsOnly(
+            return adversaryObject.MoveConsideringWallsOnly(
                 CurrentRoomTileMatrix, 
                 movementDeltas, TileExtensions.IsFloor);
         }

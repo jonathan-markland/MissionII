@@ -23,7 +23,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
 
 
-        public override void AdvanceOneCycle(IGameBoard theGameBoard, SpriteInstance spriteInstance)
+        public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
             ++_cycleCounter;
 
@@ -32,30 +32,32 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                 if (_countDown > 0)
                 {
                     --_countDown;
-                    DoMovement(theGameBoard, spriteInstance);
+                    DoMovement(theGameBoard, gameObject);
                 }
                 else
                 {
-                    ChooseNewMovement(spriteInstance.Extents);
+                    ChooseNewMovement(gameObject.GetBoundingRectangle());
                 }
             }
         }
 
 
 
-        private void DoMovement(IGameBoard theGameBoard, SpriteInstance spriteInstance)
+        private void DoMovement(IGameBoard theGameBoard, GameObject gameObject)
         {
             if (!_movementDeltas.Stationary)
             {
-                var hitResult = theGameBoard.MoveAdversaryOnePixel( 
-                    spriteInstance, _movementDeltas);
+                var hitResult = theGameBoard.MoveAdversaryOnePixel(
+                    gameObject, _movementDeltas);
 
                 if ((_cycleCounter & Constants.SingleMindedFiringCyclesAndMask) == 0) // TODO: firing time constant
                 {
                     if (!_movementDeltas.Stationary
                         && Rng.Generator.Next(100) < Constants.SingleMindedFiringProbabilityPercent)
                     {
-                        theGameBoard.StartBullet(spriteInstance, MovementDeltas.ConvertFromFacingDirection(_facingDirection), false);
+                        theGameBoard.StartBullet(
+                            gameObject.GetBoundingRectangle(), 
+                            MovementDeltas.ConvertFromFacingDirection(_facingDirection), false);
                     }
                 }
 

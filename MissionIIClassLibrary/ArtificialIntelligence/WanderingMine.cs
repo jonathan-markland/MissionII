@@ -23,7 +23,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
 
 
-        public override void AdvanceOneCycle(IGameBoard theGameBoard, SpriteInstance spriteInstance)
+        public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
             ++_cycleCounter;
             if ((_cycleCounter % Constants.WanderingMineSpeedDivisor) == 0)
@@ -31,28 +31,28 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                 if (_countDown > 0)
                 {
                     --_countDown;
-                    DoMovement(theGameBoard, spriteInstance);
+                    DoMovement(theGameBoard, gameObject);
                 }
                 else
                 {
-                    ChooseNewMovement(spriteInstance.Extents);
+                    ChooseNewMovement(gameObject.GetBoundingRectangle());
                 }
             }
         }
 
 
 
-        private void DoMovement(IGameBoard theGameBoard, SpriteInstance spriteInstance)
+        private void DoMovement(IGameBoard theGameBoard, GameObject gameObject)
         {
             if (!_movementDeltas.Stationary)
             {
                 var hitResult = theGameBoard.MoveAdversaryOnePixel(
-                    spriteInstance, _movementDeltas);
+                    gameObject, _movementDeltas);
 
                 // TODO: Check proximity to man, and detonate killing man.
 
-                var detonationRectangle = theGameBoard.ManSpriteInstance().Extents.Inflate(5); // TODO: constant
-                if (spriteInstance.Intersects(detonationRectangle))
+                var detonationRectangle = theGameBoard.GetMan().GetBoundingRectangle().Inflate(5); // TODO: constant
+                if (gameObject.GetBoundingRectangle().Intersects(detonationRectangle))
                 {
                     theGameBoard.Electrocute(ElectrocutionMethod.ByDroid);
                     // TODO: Droid should detonate, but AI classes have no reference to the droid object!  Fix that.

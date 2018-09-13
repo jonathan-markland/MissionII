@@ -10,13 +10,13 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
 
 
-        public override void AdvanceOneCycle(IGameBoard theGameBoard, SpriteInstance spriteInstance)
+        public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
             _operationEnable = !_operationEnable;  // ie: operate only ever other cycle
             if (_operationEnable)
             {
-                var moveDeltas = spriteInstance.GetMovementDeltasToHeadTowards(
-                    theGameBoard.ManSpriteInstance());
+                var moveDeltas = gameObject.GetMovementDeltasToHeadTowards(
+                    theGameBoard.GetMan());
 
                 // We must separate horizontal and vertical movement in order to avoid
                 // things getting 'stuck' on walls because they can't move horizontally
@@ -25,11 +25,11 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                 // sticking problem.
 
                 theGameBoard.MoveAdversaryOnePixel(
-                    spriteInstance,
+                    gameObject,
                     new MovementDeltas(moveDeltas.dx, 0));
 
                 theGameBoard.MoveAdversaryOnePixel(
-                    spriteInstance,
+                    gameObject,
                     new MovementDeltas(0, moveDeltas.dy));
             }
         }

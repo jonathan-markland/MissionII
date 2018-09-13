@@ -30,7 +30,7 @@ namespace MissionIIClassLibrary.Droids
             GameClassLibrary.Algorithms.Animation.Animate(
                 ref _animationCountdown, ref _imageIndex, AnimationReset, SpriteInstance.Traits.ImageCount);
 
-            _intelligenceProvider.AdvanceOneCycle(theGameBoard, SpriteInstance);
+            _intelligenceProvider.AdvanceOneCycle(theGameBoard, this);
         }
 
 

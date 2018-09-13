@@ -4,16 +4,16 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 {
     public class Swoop : AbstractIntelligenceProvider
     {
-        public override void AdvanceOneCycle(IGameBoard theGameBoard, SpriteInstance spriteInstance)
+        public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
             for (int i = 0; i < Constants.GhostMovementCycles; i++)
             {
-                var moveDeltas = spriteInstance.GetMovementDeltasToHeadTowards(
-                    theGameBoard.ManSpriteInstance());
+                var moveDeltas = gameObject.GetMovementDeltasToHeadTowards(
+                    theGameBoard.GetMan());
 
-                spriteInstance.MoveBy(moveDeltas);
+                gameObject.MoveBy(moveDeltas);
 
-                if (spriteInstance.Intersects(theGameBoard.ManSpriteInstance()))
+                if (gameObject.Intersects(theGameBoard.GetMan()))
                 {
                     KillMan(theGameBoard);
                 }

@@ -47,7 +47,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
             else
             {
-                _intelligenceProvider.AdvanceOneCycle(theGameBoard, _spriteInstance);
+                _intelligenceProvider.AdvanceOneCycle(theGameBoard, this);
             }
         }
 

@@ -10,14 +10,14 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
 
 
-        public override void AdvanceOneCycle(IGameBoard theGameBoard, SpriteInstance spriteInstance)
+        public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
             ++_cycleCounter;
 
             if (_cycleCounter % Constants.FiringAttractorSpeedDivisor == 0)
             {
-                var moveDeltas = spriteInstance.GetMovementDeltasToHeadTowards(
-                    theGameBoard.ManSpriteInstance());
+                var moveDeltas = gameObject.GetMovementDeltasToHeadTowards(
+                    theGameBoard.GetMan());
 
                 // We must separate horizontal and vertical movement in order to avoid
                 // things getting 'stuck' on walls because they can't move horizontally
@@ -26,11 +26,11 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                 // sticking problem.
 
                 theGameBoard.MoveAdversaryOnePixel(
-                    spriteInstance,
+                    gameObject,
                     new MovementDeltas(moveDeltas.dx, 0));
 
                 theGameBoard.MoveAdversaryOnePixel(
-                    spriteInstance,
+                    gameObject,
                     new MovementDeltas(0, moveDeltas.dy));
 
                 if ((_cycleCounter & Constants.FiringAttractorFiringCyclesAndMask) == 0)
@@ -38,7 +38,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                     if (!moveDeltas.Stationary
                         && Rng.Generator.Next(100) < Constants.AttractorFiringProbabilityPercent)
                     {
-                        theGameBoard.StartBullet(spriteInstance, moveDeltas, false);
+                        theGameBoard.StartBullet(gameObject.GetBoundingRectangle(), moveDeltas, false);
                     }
                 }
             }

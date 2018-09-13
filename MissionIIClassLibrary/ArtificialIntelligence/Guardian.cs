@@ -13,7 +13,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
 
 
-        public override void AdvanceOneCycle(IGameBoard theGameBoard, SpriteInstance spriteInstance)
+        public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
             ++_cycleCounter;
 
@@ -24,10 +24,11 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
             }
             else
             {
-                var hitResult = theGameBoard.MoveAdversaryOnePixel(spriteInstance, _movementDeltas);  // TODO: differentiate walls/other droids
+                var hitResult = theGameBoard.MoveAdversaryOnePixel(gameObject, _movementDeltas);  // TODO: differentiate walls/other droids
                 if (hitResult != CollisionDetection.WallHitTestResult.NothingHit)
                 {
-                    if (spriteInstance.Extents.Intersects(theGameBoard.ManSpriteInstance().Extents.Inflate(5)))
+                    if (gameObject.GetBoundingRectangle().Intersects(
+                        theGameBoard.GetMan().GetBoundingRectangle().Inflate(5)))
                     {
                         theGameBoard.Electrocute(ElectrocutionMethod.ByDroid);
                     }

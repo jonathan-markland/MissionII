@@ -7,7 +7,7 @@ using GameClassLibrary.Walls;
 
 namespace MissionIIClassLibrary
 {
-    public interface IGameBoard
+    public interface IGameBoard // TODO: Distill OUT of here MissionII specific stuff, before moving to library.
     {
         TileMatrix GetTileMatrix();
 
@@ -15,7 +15,7 @@ namespace MissionIIClassLibrary
         void Remove(GameObject o);
         void ForEachObjectInPlayDo<A>(Action<A> theAction) where A : class;
 
-        SpriteInstance ManSpriteInstance();
+        GameObject GetMan();
         void AddToPlayerInventory(Interactibles.InteractibleObject o);
         bool PlayerInventoryContains(Interactibles.InteractibleObject o);
         void PlayerIncrementScore(int deltaAmount);
@@ -29,7 +29,7 @@ namespace MissionIIClassLibrary
 
         CollisionDetection.WallHitTestResult MoveManOnePixel(MovementDeltas movementDeltas);
 
-        CollisionDetection.WallHitTestResult MoveAdversaryOnePixel(SpriteInstance spriteInstance, MovementDeltas movementDeltas);
+        CollisionDetection.WallHitTestResult MoveAdversaryOnePixel(GameObject adversaryObject, MovementDeltas movementDeltas);
         // THe base class for adversaries would need to be in the library.
 
         void MoveRoomNumberByDelta(int roomNumberDelta);
@@ -69,7 +69,7 @@ namespace MissionIIClassLibrary
         {
             var cx = Constants.ScreenWidth / 2;
             var cy = Constants.ScreenHeight / 2;
-            var manCentre = gameBoard.ManSpriteInstance().Centre;
+            var manCentre = gameBoard.GetMan().GetBoundingRectangle().Centre;
             var x = manCentre.X < cx ? Constants.ScreenWidth : 0;
             var y = manCentre.Y < cy ? Constants.ScreenHeight : 0;
             return new Point(x, y);
@@ -115,11 +115,13 @@ namespace MissionIIClassLibrary
 
         public static void StartBullet(
             this IGameBoard gameBoard,
-            SpriteInstance sourceSprite,
+            Rectangle gameObjectextentsRectangle,
             MovementDeltas bulletDirection,
             bool increasesScore)
         {
             // TODO: Separate out a bit for unit testing?
+
+            var r = gameObjectextentsRectangle; // convenience!
 
             if (increasesScore)
             {
@@ -138,28 +140,28 @@ namespace MissionIIClassLibrary
 
             if (bulletDirection.dx < 0)
             {
-                x = (sourceSprite.X - bulletWidth) - Constants.BulletSpacing;
+                x = (r.Left - bulletWidth) - Constants.BulletSpacing;
             }
             else if (bulletDirection.dx > 0)
             {
-                x = sourceSprite.X + sourceSprite.Traits.Width + Constants.BulletSpacing;
+                x = r.Left + r.Width + Constants.BulletSpacing;
             }
             else // (bulletDirection.dx == 0)
             {
-                x = sourceSprite.X + ((sourceSprite.Traits.Width - bulletWidth) / 2);
+                x = r.Left + ((r.Width - bulletWidth) / 2);
             }
 
             if (bulletDirection.dy < 0)
             {
-                y = (sourceSprite.Y - bulletHeight) - Constants.BulletSpacing;
+                y = (r.Top - bulletHeight) - Constants.BulletSpacing;
             }
             else if (bulletDirection.dy > 0)
             {
-                y = sourceSprite.Y + sourceSprite.Traits.Height + Constants.BulletSpacing;
+                y = r.Top + r.Height + Constants.BulletSpacing;
             }
             else // (bulletDirection.dy == 0)
             {
-                y = sourceSprite.Y + ((sourceSprite.Traits.Height - bulletHeight) / 2);
+                y = r.Top + ((r.Height - bulletHeight) / 2);
             }
 
             if (bulletDirection.dx == 0 && bulletDirection.dy == 0)
@@ -191,15 +193,84 @@ namespace MissionIIClassLibrary
     }
 
 
-    public abstract class GameObject
+    public static class GameObjectExtensions // TODO: move back into the librarry
     {
-        public abstract void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates);
-        public abstract void Draw(IDrawingTarget drawingTarget);
+        public static void MoveBy(this GameObject gameObject, MovementDeltas movementDeltas)
+        {
+            var p = gameObject.TopLeftPosition;
+            gameObject.TopLeftPosition = new Point(p.X + movementDeltas.dx, p.Y + movementDeltas.dy);
+        }
+
+        public static bool Intersects(this GameObject gameObject, GameObject otherObject)
+        {
+            return gameObject.GetBoundingRectangle().Intersects(otherObject.GetBoundingRectangle());
+        }
+
+        /// <summary>
+        /// It is advised that the movement is by ONE pixel at a time.
+        /// </summary>
+        public static CollisionDetection.WallHitTestResult MoveConsideringWallsOnly(
+            this GameObject gameObject,
+            TileMatrix wallMatrix,
+            MovementDeltas movementDeltas,
+            Func<Tile, bool> isFloorFunc)
+        {
+            var r = gameObject.GetBoundingRectangle();
+            var proposedX = r.Left + movementDeltas.dx;
+            var proposedY = r.Top + movementDeltas.dy;
+
+            // First consider both X and Y deltas directly:
+
+            var hitResult = CollisionDetection.HitsWalls(
+                wallMatrix,
+                proposedX, proposedY,
+                r.Width,
+                r.Height,
+                isFloorFunc);
+
+            if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
+            {
+                gameObject.TopLeftPosition = new Point(proposedX, proposedY);
+            }
+
+            return hitResult;
+        }
+
+
+
+        public static MovementDeltas GetMovementDeltasToHeadTowards(
+            this GameObject aggressorSprite,
+            GameObject targetSprite)
+        {
+            var targetCentre = targetSprite.GetBoundingRectangle().Centre;
+            var aggressorCentre = aggressorSprite.GetBoundingRectangle().Centre;
+
+            int dx = 0;
+            if (targetCentre.X < aggressorCentre.X) dx = -1;
+            if (targetCentre.X > aggressorCentre.X) dx = 1;
+
+            int dy = 0;
+            if (targetCentre.Y < aggressorCentre.Y) dy = -1;
+            if (targetCentre.Y > aggressorCentre.Y) dy = 1;
+
+            return new MovementDeltas(dx, dy);
+        }
+    }
+
+
+
+    public abstract class GameObject // TODO: Move into library AFTER IGameBoard is distilled
+    {
+        // Note - We avoid restricting a GameObject to be a *single* SpriteInstance.
+
+            // TODO: Can these be abstract properties?
         public abstract Rectangle GetBoundingRectangle();
-        public abstract void ManWalkedIntoYou(IGameBoard theGameBoard);
-        public abstract ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan);
         public abstract Point TopLeftPosition { get; set; }
         public abstract bool CanBeOverlapped { get; }
+        public abstract void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates);
+        public abstract void Draw(IDrawingTarget drawingTarget);
+        public abstract void ManWalkedIntoYou(IGameBoard theGameBoard);
+        public abstract ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan);
         public virtual int KillScore { get { return 0; } }
     }
 }
