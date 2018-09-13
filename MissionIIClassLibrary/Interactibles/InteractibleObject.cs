@@ -4,7 +4,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Interactibles
 {
-    public abstract class InteractibleObject : MissionIIGameObject
+    public abstract class InteractibleObject : GameObject
     {
         private SpriteInstance Sprite;
         private int _roomNumber;

@@ -5,7 +5,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.GameObjects
 {
-    public class Bullet : MissionIIGameObject
+    public class Bullet : GameObject
     {
         public SpriteInstance Sprite;
         public MovementDeltas BulletDirection;

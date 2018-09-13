@@ -4,7 +4,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.GameObjects
 {
-    public class Explosion : MissionIIGameObject
+    public class Explosion : GameObject
     {
         public SpriteInstance SpriteInstance = new SpriteInstance();
         private int _imageIndex = 0;

@@ -92,7 +92,7 @@ namespace MissionIIClassLibrary
             int scoreDelta = 0;
             uint hitCount = 0;
 
-            gameBoard.ForEachObjectInPlayDo<MissionIIGameObject>(o =>
+            gameBoard.ForEachObjectInPlayDo<GameObject>(o =>
             {
                 if (o.GetBoundingRectangle().Intersects(theBullet.GetBoundingRectangle()))
                 {
@@ -200,5 +200,6 @@ namespace MissionIIClassLibrary
         public abstract ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan);
         public abstract Point TopLeftPosition { get; set; }
         public abstract bool CanBeOverlapped { get; }
+        public virtual int KillScore { get { return 0; } }
     }
 }

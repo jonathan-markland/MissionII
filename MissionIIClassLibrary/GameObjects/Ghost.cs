@@ -5,7 +5,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.GameObjects
 {
-    public class Ghost : MissionIIGameObject
+    public class Ghost : GameObject
     {
         private int _stunCountDown = 0;
         private int _startCountDown = Constants.GhostStartCycles;

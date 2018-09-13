@@ -60,7 +60,6 @@
     <Compile Include="MissionIITile.cs" />
     <Compile Include="Modes\EnteringLevel.cs" />
     <Compile Include="Modes\HiScore.cs" />
-    <Compile Include="MissionIIGameObject.cs" />
     <Compile Include="GameObjects\Ghost.cs" />
     <Compile Include="Droids\DestroyerDroid.cs" />
     <Compile Include="ElectrocutionMethod.cs" />

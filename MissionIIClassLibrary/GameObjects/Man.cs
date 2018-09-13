@@ -6,7 +6,7 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.GameObjects
 {
-    public class Man : MissionIIGameObject
+    public class Man : GameObject
     {
         public SpriteInstance SpriteInstance = new SpriteInstance();
         private bool _debugInvulnerable = false;

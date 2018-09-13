@@ -37,8 +37,8 @@ namespace MissionIIClassLibrary
         public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
         public TileMatrix CurrentRoomTileMatrix;
         public GameObjects.Man Man = new GameObjects.Man();
-        public SuddenlyReplaceableList<MissionIIGameObject> ObjectsInRoom = new SuddenlyReplaceableList<MissionIIGameObject>();
-        public List<MissionIIGameObject> ObjectsToRemove = new List<MissionIIGameObject>();
+        public SuddenlyReplaceableList<GameObject> ObjectsInRoom = new SuddenlyReplaceableList<GameObject>();
+        public List<GameObject> ObjectsToRemove = new List<GameObject>();
 
 
 
@@ -165,7 +165,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public void IncludeIfInCurrentRoom(Interactibles.InteractibleObject theObject, List<MissionIIGameObject> targetList)
+        public void IncludeIfInCurrentRoom(Interactibles.InteractibleObject theObject, List<GameObject> targetList)
         {
             if (theObject.RoomNumber == RoomNumber)
             {
@@ -309,7 +309,7 @@ namespace MissionIIClassLibrary
 
             CurrentRoomTileMatrix = thisRoom.WallData;
 
-            var objectsList = new List<MissionIIGameObject>();
+            var objectsList = new List<GameObject>();
 
             ObjectsToRemove.Clear();
 
@@ -591,12 +591,12 @@ namespace MissionIIClassLibrary
 
         public void Add(GameObject o)
         {
-            ObjectsInRoom.Add((MissionIIGameObject) o);  // TODO: for now
+            ObjectsInRoom.Add(o);
         }
 
         public void Remove(GameObject o)
         {
-            ObjectsToRemove.Add((MissionIIGameObject) o);  // TODO: for now
+            ObjectsToRemove.Add(o);
         }
     }
 }
