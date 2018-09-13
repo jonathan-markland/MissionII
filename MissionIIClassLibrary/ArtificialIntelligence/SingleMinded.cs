@@ -26,6 +26,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
         public override void AdvanceOneCycle(IGameBoard theGameBoard, SpriteInstance spriteInstance)
         {
             ++_cycleCounter;
+
             if ((_cycleCounter % Constants.SingleMindedSpeedDivisor) == 0)
             {
                 if (_countDown > 0)

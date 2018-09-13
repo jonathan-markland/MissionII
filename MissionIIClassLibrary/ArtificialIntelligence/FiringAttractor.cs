@@ -8,6 +8,8 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
     {
         private uint _cycleCounter = 0;
 
+
+
         public override void AdvanceOneCycle(IGameBoard theGameBoard, SpriteInstance spriteInstance)
         {
             ++_cycleCounter;

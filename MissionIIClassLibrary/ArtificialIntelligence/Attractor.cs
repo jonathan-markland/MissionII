@@ -8,6 +8,8 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
     {
         private bool _operationEnable = false;
 
+
+
         public override void AdvanceOneCycle(IGameBoard theGameBoard, SpriteInstance spriteInstance)
         {
             _operationEnable = !_operationEnable;  // ie: operate only ever other cycle

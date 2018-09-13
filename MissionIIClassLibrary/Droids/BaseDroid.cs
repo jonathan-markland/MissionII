@@ -6,11 +6,13 @@ namespace MissionIIClassLibrary.Droids
 {
     public class BaseDroid : MissionIIGameObject
     {
-        public SpriteInstance SpriteInstance = new SpriteInstance(); // TODO: private?
+        private SpriteInstance SpriteInstance = new SpriteInstance();
         private int _imageIndex = 0;
         private int _animationCountdown = AnimationReset;
         private const int AnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
         private ArtificialIntelligence.AbstractIntelligenceProvider _intelligenceProvider;
+
+
 
         public BaseDroid(
             SpriteTraits spriteTraits, 
@@ -21,17 +23,24 @@ namespace MissionIIClassLibrary.Droids
             _intelligenceProvider = intelligenceProvider;
         }
 
+
+
         public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
         {
             GameClassLibrary.Algorithms.Animation.Animate(
                 ref _animationCountdown, ref _imageIndex, AnimationReset, SpriteInstance.Traits.ImageCount);
+
             _intelligenceProvider.AdvanceOneCycle(theGameBoard, SpriteInstance);
         }
+
+
 
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawIndexedSpriteRoomRelative(SpriteInstance, _imageIndex);
         }
+
+
 
         public override ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
@@ -43,13 +52,18 @@ namespace MissionIIClassLibrary.Droids
                     MissionIISprites.Explosion));
 
             theGameBoard.Remove(this);
+
             return new ShotStruct { Affirmed = true, ScoreIncrease = KillScore };
         }
+
+
 
         public override Rectangle GetBoundingRectangle()
         {
             return SpriteInstance.Extents;
         }
+
+
 
         public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
@@ -63,11 +77,15 @@ namespace MissionIIClassLibrary.Droids
             }
         }
 
+
+
         public override Point TopLeftPosition
         {
             get { return SpriteInstance.TopLeftPosition; }
             set { SpriteInstance.TopLeftPosition = value; }
         }
+
+
 
         public override bool CanBeOverlapped { get { return true; } }
     }

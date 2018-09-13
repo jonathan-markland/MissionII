@@ -12,6 +12,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
         private MovementDeltas _movementDeltas = new MovementDeltas(0, 0);
 
 
+
         public override void AdvanceOneCycle(IGameBoard theGameBoard, SpriteInstance spriteInstance)
         {
             ++_cycleCounter;
