@@ -30,6 +30,7 @@ namespace MissionIIClassLibrary
         private WorldWallData TheWorldWallData;
         private int RoomNumber; // one-based
         private uint _cycleCount;
+        private MissionIIClassLibrary.GameObjects.BulletTraits WhiteBulletTraits;
 
 
 
@@ -56,6 +57,13 @@ namespace MissionIIClassLibrary
             Lives = Constants.InitialLives;
             LevelNumber = Constants.StartLevelNumber;
             _cycleCount = 0;
+            WhiteBulletTraits = new GameObjects.BulletTraits
+            {
+                AdversaryFiring = MissionIISounds.DroidFiring,
+                ManFiring = MissionIISounds.ManFiring,
+                BulletSpriteTraits = MissionIISprites.Bullet,
+                DuoBonus = MissionIISounds.DuoBonus
+            };
         }
 
 
@@ -357,7 +365,7 @@ namespace MissionIIClassLibrary
                 {
                     if (j < theThreshold1)
                     {
-                        objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary));
+                        objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary, StartBullet));
                     }
                     else if (j < theThreshold2)
                     {
@@ -378,11 +386,11 @@ namespace MissionIIClassLibrary
                 {
                     if (j < theThreshold1)
                     {
-                        objectsList.Add(new Droids.DestroyerDroid(DestroyManByAdversary));
+                        objectsList.Add(new Droids.DestroyerDroid(DestroyManByAdversary, StartBullet));
                     }
                     else if (j < theThreshold2)
                     {
-                        objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary));
+                        objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary, StartBullet));
                     }
                     else
                     {
@@ -445,6 +453,63 @@ namespace MissionIIClassLibrary
             objectsList.Add(Man);
 
             ObjectsInRoom.ReplaceWith(objectsList);
+        }
+
+
+
+        public void StartBullet(
+            Rectangle gameObjectextentsRectangle,
+            MovementDeltas bulletDirection,
+            bool increasesScore)
+        {
+            // TODO: Separate out a bit for unit testing?
+
+            var r = gameObjectextentsRectangle; // convenience!
+
+            var theBulletTraits = WhiteBulletTraits.BulletSpriteTraits;
+            var bulletWidth = theBulletTraits.Width;
+            var bulletHeight = theBulletTraits.Height;
+
+            int x, y;
+
+            if (bulletDirection.dx < 0)
+            {
+                x = (r.Left - bulletWidth) - Constants.BulletSpacing;
+            }
+            else if (bulletDirection.dx > 0)
+            {
+                x = r.Left + r.Width + Constants.BulletSpacing;
+            }
+            else // (bulletDirection.dx == 0)
+            {
+                x = r.Left + ((r.Width - bulletWidth) / 2);
+            }
+
+            if (bulletDirection.dy < 0)
+            {
+                y = (r.Top - bulletHeight) - Constants.BulletSpacing;
+            }
+            else if (bulletDirection.dy > 0)
+            {
+                y = r.Top + r.Height + Constants.BulletSpacing;
+            }
+            else // (bulletDirection.dy == 0)
+            {
+                y = r.Top + ((r.Height - bulletHeight) / 2);
+            }
+
+            if (bulletDirection.dx == 0 && bulletDirection.dy == 0)
+            {
+                return;  // Cannot ascertain a direction away from the source sprite, so do nothing.
+            }
+
+            Add(
+                new GameObjects.Bullet(
+                    WhiteBulletTraits, x, y
+                    , bulletDirection
+                    , increasesScore
+                    , TileExtensions.IsFloor
+                ));
         }
 
 

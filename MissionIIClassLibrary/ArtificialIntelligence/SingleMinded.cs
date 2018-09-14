@@ -12,11 +12,15 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
         private int _facingDirection = 0;
         private MovementDeltas _movementDeltas = new MovementDeltas(0, 0);
         private Func<Rectangle, FoundDirections> _freeDirectionFinder;
+        private Action<Rectangle, MovementDeltas, bool> _fireBullet;
 
 
 
-        public SingleMinded(Func<Rectangle, FoundDirections> freeDirectionFinder)
+        public SingleMinded(
+            Func<Rectangle, FoundDirections> freeDirectionFinder,
+            Action<Rectangle, MovementDeltas, bool> fireBullet)
         {
+            _fireBullet = fireBullet;
             _freeDirectionFinder = freeDirectionFinder;
         }
 
@@ -54,7 +58,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                     if (!_movementDeltas.Stationary
                         && Rng.Generator.Next(100) < Constants.SingleMindedFiringProbabilityPercent)
                     {
-                        theGameBoard.StartBullet(
+                        _fireBullet(
                             gameObject.GetBoundingRectangle(), 
                             MovementDeltas.ConvertFromFacingDirection(_facingDirection), false);
                     }

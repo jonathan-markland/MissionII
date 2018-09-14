@@ -165,7 +165,7 @@ namespace MissionIIClassLibrary.GameObjects
             {
                 if (!_awaitingFireRelease)
                 {
-                    theGameBoard.StartBullet(
+                    ((MissionIIGameBoard)theGameBoard).StartBullet(
                         SpriteInstance.Extents, 
                         MovementDeltas.ConvertFromFacingDirection(_facingDirection) // TODO
                         , true);

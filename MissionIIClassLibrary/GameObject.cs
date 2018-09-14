@@ -74,21 +74,22 @@ namespace MissionIIClassLibrary
 
 
 
-        public static BulletResult KillThingsIfShotAndGetHitCount(
+        public static BulletResult KillThingsInRectangle(
             this IGameBoard gameBoard,
-            GameObjects.Bullet theBullet)
+            Rectangle bulletRectangle,
+            bool increasesScore)
         {
             int scoreDelta = 0;
             uint hitCount = 0;
 
             gameBoard.ForEachObjectInPlayDo<GameObject>(o =>
             {
-                if (o.GetBoundingRectangle().Intersects(theBullet.GetBoundingRectangle()))
+                if (o.GetBoundingRectangle().Intersects(bulletRectangle))
                 {
-                    var shotResult = o.YouHaveBeenShot(gameBoard, theBullet.IncreasesScore);
+                    var shotResult = o.YouHaveBeenShot(gameBoard, increasesScore);
                     if (shotResult.Affirmed)
                     {
-                        if (theBullet.IncreasesScore)
+                        if (increasesScore)
                         {
                             scoreDelta += shotResult.ScoreIncrease;
                         }
@@ -99,80 +100,8 @@ namespace MissionIIClassLibrary
 
             return new BulletResult { HitCount = hitCount, TotalScoreIncrease = scoreDelta };
         }
-
-
-
-        public static void StartBullet(
-            this IGameBoard gameBoard,
-            Rectangle gameObjectextentsRectangle,
-            MovementDeltas bulletDirection,
-            bool increasesScore)
-        {
-            // TODO: Separate out a bit for unit testing?
-
-            var r = gameObjectextentsRectangle; // convenience!
-
-            if (increasesScore)
-            {
-                MissionIISounds.ManFiring.Play();
-            }
-            else
-            {
-                MissionIISounds.DroidFiring.Play();
-            }
-
-            var theBulletTraits = MissionIISprites.Bullet;
-            var bulletWidth = theBulletTraits.Width;
-            var bulletHeight = theBulletTraits.Height;
-
-            int x, y;
-
-            if (bulletDirection.dx < 0)
-            {
-                x = (r.Left - bulletWidth) - Constants.BulletSpacing;
-            }
-            else if (bulletDirection.dx > 0)
-            {
-                x = r.Left + r.Width + Constants.BulletSpacing;
-            }
-            else // (bulletDirection.dx == 0)
-            {
-                x = r.Left + ((r.Width - bulletWidth) / 2);
-            }
-
-            if (bulletDirection.dy < 0)
-            {
-                y = (r.Top - bulletHeight) - Constants.BulletSpacing;
-            }
-            else if (bulletDirection.dy > 0)
-            {
-                y = r.Top + r.Height + Constants.BulletSpacing;
-            }
-            else // (bulletDirection.dy == 0)
-            {
-                y = r.Top + ((r.Height - bulletHeight) / 2);
-            }
-
-            if (bulletDirection.dx == 0 && bulletDirection.dy == 0)
-            {
-                return;  // Cannot ascertain a direction away from the source sprite, so do nothing.
-            }
-
-            gameBoard.Add(
-                new GameObjects.Bullet
-                (
-                    new SpriteInstance
-                    {
-                        X = x,
-                        Y = y,
-                        Traits = theBulletTraits
-                    }
-                    , bulletDirection
-                    , increasesScore
-                ));
-        }
-
     }
+
 
 
     public struct ShotStruct

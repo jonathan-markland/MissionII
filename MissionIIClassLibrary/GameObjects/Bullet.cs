@@ -1,44 +1,79 @@
-﻿using GameClassLibrary.Math;
+﻿
+using System;
+using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.GameObjects
 {
+    public class BulletTraits
+    {
+        public GameClassLibrary.Sound.SoundTraits ManFiring;
+        public GameClassLibrary.Sound.SoundTraits AdversaryFiring;
+        public GameClassLibrary.Sound.SoundTraits DuoBonus;
+        public SpriteTraits BulletSpriteTraits;
+    }
+
+
+
     public class Bullet : GameObject
     {
-        public SpriteInstance Sprite;
-        public MovementDeltas BulletDirection;
-        public bool _increasesScore;
+        private BulletTraits _bulletTraits;
+        private SpriteInstance _spriteInstance;
+        private MovementDeltas BulletDirection;
+        private bool _increasesScore;
+        private bool _firingSoundDone;
+        private Func<Tile, bool> _isFloor;
 
-        public Bullet(SpriteInstance theSprite, MovementDeltas bulletDirection, bool increasesScore)
+
+
+        public Bullet(BulletTraits bulletTraits, int x, int y, MovementDeltas bulletDirection, bool increasesScore, Func<Tile, bool> isFloor)
         {
-            Sprite = theSprite;
+            _firingSoundDone = false;
+            _bulletTraits = bulletTraits;
+            _spriteInstance = new SpriteInstance { X=x, Y=y, Traits = bulletTraits.BulletSpriteTraits };
             BulletDirection = bulletDirection;
             _increasesScore = increasesScore;
+            _isFloor = isFloor;
         }
+
+
 
         public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
         {
+            if (!_firingSoundDone)
+            {
+                if (_increasesScore)
+                {
+                    _bulletTraits.ManFiring.Play();
+                }
+                else
+                {
+                    _bulletTraits.AdversaryFiring.Play();
+                }
+                _firingSoundDone = true;
+            }
+
             for (int i = 0; i < Constants.BulletCycles; i++)
             {
-                var proposedX = Sprite.X + BulletDirection.dx;
-                var proposedY = Sprite.Y + BulletDirection.dy;
+                var proposedX = _spriteInstance.X + BulletDirection.dx;
+                var proposedY = _spriteInstance.Y + BulletDirection.dy;
 
                 var hitResult = CollisionDetection.HitsWalls(
                     theGameBoard.GetTileMatrix(),
                     proposedX,
                     proposedY,
-                    Sprite.Traits.Width,
-                    Sprite.Traits.Height,
-                    TileExtensions.IsFloor);
+                    _spriteInstance.Traits.Width,
+                    _spriteInstance.Traits.Height,
+                    _isFloor);
 
                 if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
                 {
-                    Sprite.X = proposedX;
-                    Sprite.Y = proposedY;
+                    _spriteInstance.X = proposedX;
+                    _spriteInstance.Y = proposedY;
 
-                    var bulletResult = theGameBoard.KillThingsIfShotAndGetHitCount(this);
+                    var bulletResult = theGameBoard.KillThingsInRectangle(GetBoundingRectangle(), IncreasesScore);
                     if (bulletResult.HitCount > 0)
                     {
                         theGameBoard.Remove(this);
@@ -47,7 +82,7 @@ namespace MissionIIClassLibrary.GameObjects
                             if (bulletResult.HitCount > 1)
                             {
                                 theGameBoard.PlayerIncrementScore(Constants.MultiKillWithSingleBulletBonusScore);
-                                MissionIISounds.DuoBonus.Play();
+                                _bulletTraits.DuoBonus.Play();
                             }
                             theGameBoard.PlayerIncrementScore(bulletResult.TotalScoreIncrease);
                         }
@@ -62,20 +97,28 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
+
+
         public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
             // Not handled here.  Bullets killing man happens in AdvanceOneCycle().
         }
 
+
+
         public override void Draw(IDrawingTarget drawingTarget)
         {
-            drawingTarget.DrawIndexedSpriteRoomRelative(Sprite, 0);
+            drawingTarget.DrawIndexedSpriteRoomRelative(_spriteInstance, 0);
         }
+
+
 
         public override Rectangle GetBoundingRectangle()
         {
-            return Sprite.Extents;
+            return _spriteInstance.Extents;
         }
+
+
 
         public override ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
@@ -83,17 +126,26 @@ namespace MissionIIClassLibrary.GameObjects
             return new ShotStruct { Affirmed = false };
         }
 
+
+
         public bool IncreasesScore
         {
             get { return _increasesScore; }
         }
 
+
+
         public override Point TopLeftPosition
         {
-            get { return Sprite.TopLeftPosition; }
-            set { Sprite.TopLeftPosition = value; }
+            get { return _spriteInstance.TopLeftPosition; }
+            set { _spriteInstance.TopLeftPosition = value; }
         }
 
-        public override bool CanBeOverlapped { get { return false; } }
+
+
+        public override bool CanBeOverlapped
+        {
+            get { return false; }
+        }
     }
 }

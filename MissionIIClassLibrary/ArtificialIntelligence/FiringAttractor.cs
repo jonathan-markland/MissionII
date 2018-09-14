@@ -1,4 +1,5 @@
 ﻿
+using System;
 using GameClassLibrary.Math;
 
 namespace MissionIIClassLibrary.ArtificialIntelligence
@@ -6,6 +7,14 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
     public class FiringAttractor : AbstractIntelligenceProvider
     {
         private uint _cycleCounter = 0;
+        private Action<Rectangle, MovementDeltas, bool> _fireBullet;
+
+
+
+        public FiringAttractor(Action<Rectangle, MovementDeltas, bool> fireBullet)
+        {
+            _fireBullet = fireBullet;
+        }
 
 
 
@@ -37,7 +46,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                     if (!moveDeltas.Stationary
                         && Rng.Generator.Next(100) < Constants.AttractorFiringProbabilityPercent)
                     {
-                        theGameBoard.StartBullet(gameObject.GetBoundingRectangle(), moveDeltas, false);
+                        _fireBullet(gameObject.GetBoundingRectangle(), moveDeltas, false);
                     }
                 }
             }
