@@ -49,6 +49,7 @@
     <Compile Include="Droids\WanderingMineDroid.cs" />
     <Compile Include="IDrawingTargetExtensionsForMissionII.cs" />
     <Compile Include="Interactibles\InvincibilityAmulet.cs" />
+    <Compile Include="Interactibles\MissionIIInteractibleObject.cs" />
     <Compile Include="Level.cs" />
     <Compile Include="MissionIIFonts.cs" />
     <Compile Include="MissionIISounds.cs" />

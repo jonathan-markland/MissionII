@@ -6,8 +6,8 @@ namespace MissionIIClassLibrary.Droids
 {
     public class WanderingMineDroid : BaseDroid  // Didn't make it into final release
     {
-        public WanderingMineDroid(Func<Rectangle, FoundDirections> freeDirectionFinder)
-            : base(MissionIISprites.Monster5, new ArtificialIntelligence.WanderingMine(freeDirectionFinder))
+        public WanderingMineDroid(Func<Rectangle, FoundDirections> freeDirectionFinder, Action manDestroyAction)
+            : base(MissionIISprites.Monster5, MissionIISprites.Explosion, new ArtificialIntelligence.WanderingMine(freeDirectionFinder), manDestroyAction)
         {
         }
 

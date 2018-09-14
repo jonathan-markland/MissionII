@@ -1,4 +1,6 @@
-﻿using GameClassLibrary.Math;
+﻿
+using System;
+using GameClassLibrary.Math;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
 
@@ -6,21 +8,27 @@ namespace MissionIIClassLibrary.Droids
 {
     public class BaseDroid : GameObject
     {
-        private SpriteInstance SpriteInstance = new SpriteInstance();
+        private SpriteInstance _spriteInstance = new SpriteInstance();
+        private SpriteTraits _explosionSpriteTraits;
         private int _imageIndex = 0;
         private int _animationCountdown = AnimationReset;
         private const int AnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
         private ArtificialIntelligence.AbstractIntelligenceProvider _intelligenceProvider;
+        private Action _manDestroyAction;
 
 
 
         public BaseDroid(
             SpriteTraits spriteTraits, 
-            ArtificialIntelligence.AbstractIntelligenceProvider intelligenceProvider)
+            SpriteTraits explosionSpriteTraits,
+            ArtificialIntelligence.AbstractIntelligenceProvider intelligenceProvider,
+            Action manDestroyAction)
         {
             System.Diagnostics.Debug.Assert(spriteTraits != null);
-            SpriteInstance.Traits = spriteTraits;
+            _spriteInstance.Traits = spriteTraits;
+            _explosionSpriteTraits = explosionSpriteTraits;
             _intelligenceProvider = intelligenceProvider;
+            _manDestroyAction = manDestroyAction;
         }
 
 
@@ -28,7 +36,7 @@ namespace MissionIIClassLibrary.Droids
         public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
         {
             GameClassLibrary.Algorithms.Animation.Animate(
-                ref _animationCountdown, ref _imageIndex, AnimationReset, SpriteInstance.Traits.ImageCount);
+                ref _animationCountdown, ref _imageIndex, AnimationReset, _spriteInstance.Traits.ImageCount);
 
             _intelligenceProvider.AdvanceOneCycle(theGameBoard, this);
         }
@@ -37,7 +45,7 @@ namespace MissionIIClassLibrary.Droids
 
         public override void Draw(IDrawingTarget drawingTarget)
         {
-            drawingTarget.DrawIndexedSpriteRoomRelative(SpriteInstance, _imageIndex);
+            drawingTarget.DrawIndexedSpriteRoomRelative(_spriteInstance, _imageIndex);
         }
 
 
@@ -47,9 +55,9 @@ namespace MissionIIClassLibrary.Droids
             // TODO: FUTURE: We assume the explosion dimensions match the droid.  We should centre it about the droid.
             theGameBoard.Add(
                 new GameObjects.Explosion(
-                    SpriteInstance.X,
-                    SpriteInstance.Y,
-                    MissionIISprites.Explosion));
+                    _spriteInstance.X,
+                    _spriteInstance.Y,
+                    _explosionSpriteTraits));
 
             theGameBoard.Remove(this);
 
@@ -60,7 +68,7 @@ namespace MissionIIClassLibrary.Droids
 
         public override Rectangle GetBoundingRectangle()
         {
-            return SpriteInstance.Extents;
+            return _spriteInstance.Extents;
         }
 
 
@@ -69,7 +77,7 @@ namespace MissionIIClassLibrary.Droids
         {
             if (!theGameBoard.ManIsInvincible())
             {
-                theGameBoard.Electrocute(ElectrocutionMethod.ByDroid);
+                _manDestroyAction();
             }
             else
             {
@@ -81,8 +89,8 @@ namespace MissionIIClassLibrary.Droids
 
         public override Point TopLeftPosition
         {
-            get { return SpriteInstance.TopLeftPosition; }
-            set { SpriteInstance.TopLeftPosition = value; }
+            get { return _spriteInstance.TopLeftPosition; }
+            set { _spriteInstance.TopLeftPosition = value; }
         }
 
 

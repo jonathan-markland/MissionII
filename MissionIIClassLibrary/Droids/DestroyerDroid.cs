@@ -1,10 +1,12 @@
 ﻿
+using System;
+
 namespace MissionIIClassLibrary.Droids
 {
     public class DestroyerDroid : BaseDroid
     {
-        public DestroyerDroid()
-            : base(MissionIISprites.Monster3, new ArtificialIntelligence.FiringAttractor())
+        public DestroyerDroid(Action manDestroyAction)
+            : base(MissionIISprites.Monster3, MissionIISprites.Explosion, new ArtificialIntelligence.FiringAttractor(), manDestroyAction)
         {
         }
 

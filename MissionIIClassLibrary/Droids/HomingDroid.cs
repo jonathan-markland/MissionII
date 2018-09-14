@@ -1,10 +1,12 @@
 ﻿
+using System;
+
 namespace MissionIIClassLibrary.Droids
 {
     public class HomingDroid : BaseDroid
     {
-        public HomingDroid()
-            : base(MissionIISprites.Monster1, new ArtificialIntelligence.Attractor())
+        public HomingDroid(Action manDestroyAction)
+            : base(MissionIISprites.Monster1, MissionIISprites.Explosion, new ArtificialIntelligence.Attractor(), manDestroyAction)
         {
         }
 
