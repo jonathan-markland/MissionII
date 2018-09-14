@@ -15,6 +15,7 @@ namespace MissionIIClassLibrary.Interactibles
             theGameBoard.ManGainInvincibility();
             theGameBoard.Remove(this);
             MissionIISounds.InvincibilityAmuletSound.Play();
+            MarkCollected();
         }
 
         public override int CollectionScore => Constants.InvincibilityAmuletScore;

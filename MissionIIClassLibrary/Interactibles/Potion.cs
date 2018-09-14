@@ -13,6 +13,7 @@ namespace MissionIIClassLibrary.Interactibles
         {
             theGameBoard.PlayerGainLife();
             theGameBoard.Remove(this);
+            base.MarkCollected();
         }
 
         public override int CollectionScore => 0;

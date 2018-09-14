@@ -6,7 +6,7 @@ namespace MissionIIClassLibrary.Interactibles
     public class MissionIIInteractibleObject : InteractibleObject
     {
         private SpriteInstance Sprite;
-        private int _roomNumber;
+        protected int _roomNumber;
 
         public MissionIIInteractibleObject(SpriteInstance spriteInstance, int roomNumber)
         {
@@ -30,6 +30,11 @@ namespace MissionIIClassLibrary.Interactibles
             get { return _roomNumber; }
         }
 
+        protected void MarkCollected()
+        {
+            _roomNumber = -1; // so will not be added to ObjectsInRoom container again.
+        }
+
         public override Rectangle GetBoundingRectangle()
         {
             return Sprite.Extents; // Note: applies in every room!
@@ -37,7 +42,7 @@ namespace MissionIIClassLibrary.Interactibles
 
         public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
-            _roomNumber = -1; // so will not be added to ObjectsInRoom container again.
+            MarkCollected();
             base.ManWalkedIntoYou(theGameBoard);
             MissionIISounds.PickUpObject.Play();
         }
