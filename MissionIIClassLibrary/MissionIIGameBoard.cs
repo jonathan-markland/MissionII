@@ -8,7 +8,6 @@ using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
 using GameClassLibrary.GameBoard;
 using GameClassLibrary.GameObjects;
-using GameClassLibrary.ArtificialIntelligence;
 using MissionIIClassLibrary.Interactibles;
 
 namespace MissionIIClassLibrary
@@ -46,14 +45,6 @@ namespace MissionIIClassLibrary
 
 
 
-        public int GetLevelNumber()
-        {
-            return LevelNumber;
-        }
-
-
-
-
         public MissionIIGameBoard(WorldWallData worldWallData)
         {
             TheWorldWallData = worldWallData;
@@ -68,6 +59,14 @@ namespace MissionIIClassLibrary
                 DuoBonus = MissionIISounds.DuoBonus
             };
         }
+
+
+
+        public int GetLevelNumber()
+        {
+            return LevelNumber;
+        }
+
 
 
 

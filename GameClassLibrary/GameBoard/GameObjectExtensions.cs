@@ -7,6 +7,9 @@ namespace GameClassLibrary.GameBoard
 {
     public static class GameObjectExtensions
     {
+        /// <summary>
+        /// Move this game object by the movement delta.
+        /// </summary>
         public static void MoveBy(this GameObject gameObject, MovementDeltas movementDeltas)
         {
             var p = gameObject.TopLeftPosition;
@@ -15,6 +18,9 @@ namespace GameClassLibrary.GameBoard
 
 
 
+        /// <summary>
+        /// Find if this game object intersects the other.
+        /// </summary>
         public static bool Intersects(this GameObject gameObject, GameObject otherObject)
         {
             return gameObject.GetBoundingRectangle().Intersects(otherObject.GetBoundingRectangle());
@@ -54,6 +60,9 @@ namespace GameClassLibrary.GameBoard
 
 
 
+        /// <summary>
+        /// Obtain movement deltas necessary to head towards another object.
+        /// </summary>
         public static MovementDeltas GetMovementDeltasToHeadTowards(
             this GameObject aggressorSprite,
             GameObject targetSprite)

@@ -14,7 +14,7 @@ namespace MissionIIClassLibrary.Droids
     {
         private SpriteInstance _spriteInstance = new SpriteInstance();
         private SpriteTraits _explosionSpriteTraits;
-        SoundTraits _explosionSound;
+        private SoundTraits _explosionSound;
         private int _imageIndex = 0;
         private int _animationCountdown = AnimationReset;
         private const int AnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
