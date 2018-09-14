@@ -7,16 +7,6 @@ using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.GameObjects
 {
-    public class BulletTraits
-    {
-        public GameClassLibrary.Sound.SoundTraits ManFiring;
-        public GameClassLibrary.Sound.SoundTraits AdversaryFiring;
-        public GameClassLibrary.Sound.SoundTraits DuoBonus;
-        public SpriteTraits BulletSpriteTraits;
-    }
-
-
-
     public class Bullet : GameObject
     {
         private BulletTraits _bulletTraits;
@@ -28,8 +18,52 @@ namespace MissionIIClassLibrary.GameObjects
 
 
 
-        public Bullet(BulletTraits bulletTraits, int x, int y, MovementDeltas bulletDirection, bool increasesScore, Func<Tile, bool> isFloor)
+        public Bullet(
+            BulletTraits bulletTraits,
+            Rectangle gameObjectextentsRectangle,
+            MovementDeltas bulletDirection, 
+            bool increasesScore, 
+            Func<Tile, bool> isFloor)
         {
+            var r = gameObjectextentsRectangle; // convenience
+            var spriteTraits = bulletTraits.BulletSpriteTraits;
+            var bulletWidth = spriteTraits.Width;
+            var bulletHeight = spriteTraits.Height;
+
+            int x, y;
+
+            if (bulletDirection.dx < 0)
+            {
+                x = (r.Left - bulletWidth) - Constants.BulletSpacing;
+            }
+            else if (bulletDirection.dx > 0)
+            {
+                x = r.Left + r.Width + Constants.BulletSpacing;
+            }
+            else // (bulletDirection.dx == 0)
+            {
+                x = r.Left + ((r.Width - bulletWidth) / 2);
+            }
+
+            if (bulletDirection.dy < 0)
+            {
+                y = (r.Top - bulletHeight) - Constants.BulletSpacing;
+            }
+            else if (bulletDirection.dy > 0)
+            {
+                y = r.Top + r.Height + Constants.BulletSpacing;
+            }
+            else // (bulletDirection.dy == 0)
+            {
+                y = r.Top + ((r.Height - bulletHeight) / 2);
+            }
+
+            // if (bulletDirection.dx == 0 && bulletDirection.dy == 0)
+            // {
+            //     return;  // Cannot ascertain a direction away from the source sprite, so do nothing.
+            // }
+
+
             _firingSoundDone = false;
             _bulletTraits = bulletTraits;
             _spriteInstance = new SpriteInstance { X=x, Y=y, Traits = bulletTraits.BulletSpriteTraits };

@@ -47,6 +47,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Droids\GuardianDroid.cs" />
     <Compile Include="Droids\WanderingMineDroid.cs" />
+    <Compile Include="GameObjects\BulletTraits.cs" />
     <Compile Include="IDrawingTargetExtensionsForMissionII.cs" />
     <Compile Include="Interactibles\InvincibilityAmulet.cs" />
     <Compile Include="Interactibles\MissionIIInteractibleObject.cs" />

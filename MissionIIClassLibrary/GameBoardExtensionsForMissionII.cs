@@ -1,0 +1,69 @@
+﻿using GameClassLibrary.Math;
+
+namespace MissionIIClassLibrary
+{
+    public static class GameBoardExtensionsForMissionII
+    {
+        /// <summary>
+        /// Returns true if any droids exist in the room.
+        /// </summary>
+        public static bool DroidsExistInRoom(this IGameBoard gameBoard)
+        {
+            bool foundDroids = false;
+            gameBoard.ForEachObjectInPlayDo<Droids.BaseDroid>(o =>
+            {
+                foundDroids = true;   // TODO: Library issue:  It's not optimal that we can't break the ForEach.
+            });
+            return foundDroids;
+        }
+
+
+
+        public static GameClassLibrary.Math.Point GetCornerFurthestAwayFromMan(this IGameBoard gameBoard)
+        {
+            var cx = Constants.ScreenWidth / 2;
+            var cy = Constants.ScreenHeight / 2;
+            var manCentre = gameBoard.GetMan().GetBoundingRectangle().Centre;
+            var x = manCentre.X < cx ? Constants.ScreenWidth : 0;
+            var y = manCentre.Y < cy ? Constants.ScreenHeight : 0;
+            return new Point(x, y);
+        }
+
+
+
+        public struct BulletResult
+        {
+            public uint HitCount;
+            public int TotalScoreIncrease;
+        }
+
+
+
+        public static BulletResult KillThingsInRectangle(
+            this IGameBoard gameBoard,
+            Rectangle bulletRectangle,
+            bool increasesScore)
+        {
+            int scoreDelta = 0;
+            uint hitCount = 0;
+
+            gameBoard.ForEachObjectInPlayDo<GameObject>(o =>
+            {
+                if (o.GetBoundingRectangle().Intersects(bulletRectangle))
+                {
+                    var shotResult = o.YouHaveBeenShot(gameBoard, increasesScore);
+                    if (shotResult.Affirmed)
+                    {
+                        if (increasesScore)
+                        {
+                            scoreDelta += shotResult.ScoreIncrease;
+                        }
+                        ++hitCount;
+                    }
+                }
+            });
+
+            return new BulletResult { HitCount = hitCount, TotalScoreIncrease = scoreDelta };
+        }
+    }
+}

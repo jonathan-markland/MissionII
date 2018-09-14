@@ -1,0 +1,35 @@
+﻿
+using System;
+using GameClassLibrary.Math;
+using GameClassLibrary.Walls;
+
+namespace MissionIIClassLibrary
+{
+    public interface IGameBoard
+    {
+        void PrepareForNewLevel(int newLevelNumber);
+        int GetLevelNumber();
+
+        TileMatrix GetTileMatrix();
+
+        void Add(GameObject o);
+        void Remove(GameObject o);
+        void ForEachObjectInPlayDo<A>(Action<A> theAction) where A : class;
+
+        GameObject GetMan(); // TODO: inconsistent terms Man vs. Player in this section:
+        void AddToPlayerInventory(Interactibles.InteractibleObject o);
+        bool PlayerInventoryContains(Interactibles.InteractibleObject o);
+        void PlayerIncrementScore(int deltaAmount);
+        void PlayerGainLife();
+        void PlayerLoseLife();
+        bool ManIsInvincible();
+        void ManGainInvincibility();
+        // Missing drop from inventory
+        // Missing multi-player
+
+        CollisionDetection.WallHitTestResult MoveManOnePixel(MovementDeltas movementDeltas);
+
+        CollisionDetection.WallHitTestResult MoveAdversaryOnePixel(GameObject adversaryObject, MovementDeltas movementDeltas);
+        // THe base class for adversaries would need to be in the library.
+    }
+}
