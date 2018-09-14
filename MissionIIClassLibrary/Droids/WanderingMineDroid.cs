@@ -9,7 +9,8 @@ namespace MissionIIClassLibrary.Droids
         public WanderingMineDroid(Func<Rectangle, FoundDirections> freeDirectionFinder, Action manDestroyAction)
             : base(
                   MissionIISprites.Monster5, 
-                  MissionIISprites.Explosion, 
+                  MissionIISprites.Explosion,
+                  MissionIISounds.Explosion,
                   new ArtificialIntelligence.WanderingMine(freeDirectionFinder, manDestroyAction), 
                   manDestroyAction)
         {

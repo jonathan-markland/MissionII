@@ -8,7 +8,8 @@ namespace MissionIIClassLibrary.Droids
         public GuardianDroid(Action manDestroyAction)
             : base(
                   MissionIISprites.Monster4, 
-                  MissionIISprites.Explosion, 
+                  MissionIISprites.Explosion,
+                  MissionIISounds.Explosion,
                   new ArtificialIntelligence.Guardian(manDestroyAction), 
                   manDestroyAction)
         {

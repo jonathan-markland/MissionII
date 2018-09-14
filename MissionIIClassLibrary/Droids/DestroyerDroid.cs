@@ -8,7 +8,8 @@ namespace MissionIIClassLibrary.Droids
         public DestroyerDroid(Action manDestroyAction)
             : base(
                   MissionIISprites.Monster3, 
-                  MissionIISprites.Explosion, 
+                  MissionIISprites.Explosion,
+                  MissionIISounds.Explosion,
                   new ArtificialIntelligence.FiringAttractor(), 
                   manDestroyAction)
         {

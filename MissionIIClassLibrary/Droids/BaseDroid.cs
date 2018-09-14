@@ -1,8 +1,9 @@
 ﻿
 using System;
 using GameClassLibrary.Math;
-using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
+using GameClassLibrary.Graphics;
+using GameClassLibrary.Sound;
 
 namespace MissionIIClassLibrary.Droids
 {
@@ -10,6 +11,7 @@ namespace MissionIIClassLibrary.Droids
     {
         private SpriteInstance _spriteInstance = new SpriteInstance();
         private SpriteTraits _explosionSpriteTraits;
+        SoundTraits _explosionSound;
         private int _imageIndex = 0;
         private int _animationCountdown = AnimationReset;
         private const int AnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
@@ -21,12 +23,14 @@ namespace MissionIIClassLibrary.Droids
         public BaseDroid(
             SpriteTraits spriteTraits, 
             SpriteTraits explosionSpriteTraits,
+            SoundTraits explosionSound,
             ArtificialIntelligence.AbstractIntelligenceProvider intelligenceProvider,
             Action manDestroyAction)
         {
             System.Diagnostics.Debug.Assert(spriteTraits != null);
             _spriteInstance.Traits = spriteTraits;
             _explosionSpriteTraits = explosionSpriteTraits;
+            _explosionSound = explosionSound;
             _intelligenceProvider = intelligenceProvider;
             _manDestroyAction = manDestroyAction;
         }
@@ -57,7 +61,8 @@ namespace MissionIIClassLibrary.Droids
                 new GameObjects.Explosion(
                     _spriteInstance.X,
                     _spriteInstance.Y,
-                    _explosionSpriteTraits));
+                    _explosionSpriteTraits,
+                    _explosionSound));
 
             theGameBoard.Remove(this);
 

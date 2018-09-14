@@ -9,6 +9,7 @@ namespace MissionIIClassLibrary.Droids
             : base(
                   MissionIISprites.Monster1, 
                   MissionIISprites.Explosion, 
+                  MissionIISounds.Explosion,
                   new ArtificialIntelligence.Attractor(), 
                   manDestroyAction)
         {
