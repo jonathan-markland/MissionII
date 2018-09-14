@@ -1,4 +1,5 @@
 ﻿
+using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
@@ -12,9 +13,9 @@ namespace MissionIIClassLibrary.GameObjects
         private SpriteInstance _spriteInstance;
         private ArtificialIntelligence.AbstractIntelligenceProvider _intelligenceProvider;
 
-        public Ghost()
+        public Ghost(Action manDestroyAction)
         {
-            _intelligenceProvider = new ArtificialIntelligence.Swoop();
+            _intelligenceProvider = new ArtificialIntelligence.Swoop(manDestroyAction);
             _spriteInstance = new SpriteInstance();
         }
 

@@ -340,11 +340,11 @@ namespace MissionIIClassLibrary
                 {
                     if (j < theThreshold)
                     {
-                        objectsList.Add(new Droids.HomingDroid(DestroyManByDroid));
+                        objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary));
                     }
                     else 
                     {
-                        objectsList.Add(new Droids.HomingDroid(DestroyManByDroid)); // Not decided yet:  WanderingMineDroid());
+                        objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary)); // Not decided yet:  WanderingMineDroid());
                     }
                 }
             }
@@ -357,15 +357,15 @@ namespace MissionIIClassLibrary
                 {
                     if (j < theThreshold1)
                     {
-                        objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByDroid));
+                        objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary));
                     }
                     else if (j < theThreshold2)
                     {
-                        objectsList.Add(new Droids.HomingDroid(DestroyManByDroid)); // Not decided yet:  WanderingMineDroid());
+                        objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary)); // Not decided yet:  WanderingMineDroid());
                     }
                     else
                     {
-                        objectsList.Add(new Droids.HomingDroid(DestroyManByDroid));
+                        objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary));
                     }
                 }
             }
@@ -378,15 +378,15 @@ namespace MissionIIClassLibrary
                 {
                     if (j < theThreshold1)
                     {
-                        objectsList.Add(new Droids.DestroyerDroid(DestroyManByDroid));
+                        objectsList.Add(new Droids.DestroyerDroid(DestroyManByAdversary));
                     }
                     else if (j < theThreshold2)
                     {
-                        objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByDroid));
+                        objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary));
                     }
                     else
                     {
-                        objectsList.Add(new Droids.HomingDroid(DestroyManByDroid));
+                        objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary));
                     }
                 }
             }
@@ -441,7 +441,7 @@ namespace MissionIIClassLibrary
 
             // Add other objects to the list, that don't require the positioner:
 
-            objectsList.Add(new GameObjects.Ghost());
+            objectsList.Add(new GameObjects.Ghost(DestroyManByAdversary));
             objectsList.Add(Man);
 
             ObjectsInRoom.ReplaceWith(objectsList);
@@ -449,7 +449,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private void DestroyManByDroid()
+        private void DestroyManByAdversary()
         {
             Man.Electrocute(ElectrocutionMethod.ByDroid);
         }

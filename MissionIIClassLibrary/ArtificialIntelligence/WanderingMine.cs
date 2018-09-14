@@ -2,7 +2,6 @@
 using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
-using GameClassLibrary.Graphics;
 
 namespace MissionIIClassLibrary.ArtificialIntelligence
 {
@@ -13,11 +12,13 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
         private int _facingDirection = 0;
         private MovementDeltas _movementDeltas = new MovementDeltas(0, 0);
         private Func<Rectangle, FoundDirections> _freeDirectionFinder;
+        private Action _manDestroyAction;
 
 
 
-        public WanderingMine(Func<Rectangle, FoundDirections> freeDirectionFinder)
+        public WanderingMine(Func<Rectangle, FoundDirections> freeDirectionFinder, Action manDestroyAction)
         {
+            _manDestroyAction = manDestroyAction;
             _freeDirectionFinder = freeDirectionFinder;
         }
 
@@ -54,7 +55,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                 var detonationRectangle = theGameBoard.GetMan().GetBoundingRectangle().Inflate(5); // TODO: constant
                 if (gameObject.GetBoundingRectangle().Intersects(detonationRectangle))
                 {
-                    theGameBoard.Electrocute(ElectrocutionMethod.ByDroid);
+                    _manDestroyAction();
                     // TODO: Droid (the gameObject) should detonate 
                 }
 

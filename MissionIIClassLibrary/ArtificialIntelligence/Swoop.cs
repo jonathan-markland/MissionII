@@ -1,9 +1,21 @@
-﻿using GameClassLibrary.Graphics;
+﻿
+using System;
 
 namespace MissionIIClassLibrary.ArtificialIntelligence
 {
     public class Swoop : AbstractIntelligenceProvider
     {
+        private Action _manDestroyAction;
+
+
+
+        public Swoop(Action manDestroyAction)
+        {
+            _manDestroyAction = manDestroyAction;
+        }
+
+
+
         public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
             for (int i = 0; i < Constants.GhostMovementCycles; i++)
@@ -15,17 +27,9 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
 
                 if (gameObject.Intersects(theGameBoard.GetMan()))
                 {
-                    KillMan(theGameBoard);
+                    _manDestroyAction();
                 }
             }
         }
-
-        
-
-        private void KillMan(IGameBoard theGameBoard)
-        {
-            theGameBoard.Electrocute(ElectrocutionMethod.ByDroid);
-        }
-
     }
 }

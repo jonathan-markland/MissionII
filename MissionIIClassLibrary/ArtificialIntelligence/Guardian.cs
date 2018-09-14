@@ -1,7 +1,7 @@
 ﻿
+using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
-using GameClassLibrary.Graphics;
 
 namespace MissionIIClassLibrary.ArtificialIntelligence
 {
@@ -10,7 +10,14 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
         private int _cycleCounter;
         private int _facingDirection = 0;
         private MovementDeltas _movementDeltas = new MovementDeltas(0, 0);
+        private Action _manDestroyAction;
 
+
+
+        public Guardian(Action manDestroyAction)
+        {
+            _manDestroyAction = manDestroyAction;
+        }
 
 
         public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
@@ -30,7 +37,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                     if (gameObject.GetBoundingRectangle().Intersects(
                         theGameBoard.GetMan().GetBoundingRectangle().Inflate(5)))
                     {
-                        theGameBoard.Electrocute(ElectrocutionMethod.ByDroid);
+                        _manDestroyAction();
                     }
                     else
                     {
