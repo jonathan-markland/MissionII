@@ -3,6 +3,8 @@ using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
+using GameClassLibrary.GameBoard;
+using GameClassLibrary.ArtificialIntelligence;
 
 namespace MissionIIClassLibrary.GameObjects
 {
@@ -11,11 +13,11 @@ namespace MissionIIClassLibrary.GameObjects
         private int _stunCountDown = 0;
         private int _startCountDown = Constants.GhostStartCycles;
         private SpriteInstance _spriteInstance;
-        private ArtificialIntelligence.AbstractIntelligenceProvider _intelligenceProvider;
+        private AbstractIntelligenceProvider _intelligenceProvider;
 
         public Ghost(Action manDestroyAction)
         {
-            _intelligenceProvider = new ArtificialIntelligence.Swoop(manDestroyAction);
+            _intelligenceProvider = new Swoop(manDestroyAction);
             _spriteInstance = new SpriteInstance();
         }
 
@@ -61,7 +63,7 @@ namespace MissionIIClassLibrary.GameObjects
         {
             if (IsActive)
             {
-                drawingTarget.DrawFirstSpriteRoomRelative(_spriteInstance);
+                drawingTarget.DrawFirstSprite(_spriteInstance);
             }
         }
 

@@ -3,7 +3,7 @@ using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
 
-namespace MissionIIClassLibrary
+namespace GameClassLibrary.GameBoard
 {
     public interface IGameBoard
     {
@@ -17,8 +17,8 @@ namespace MissionIIClassLibrary
         void ForEachObjectInPlayDo<A>(Action<A> theAction) where A : class;
 
         GameObject GetMan(); // TODO: inconsistent terms Man vs. Player in this section:
-        void AddToPlayerInventory(Interactibles.InteractibleObject o);
-        bool PlayerInventoryContains(Interactibles.InteractibleObject o);
+        void AddToPlayerInventory(InteractibleObject o);
+        bool PlayerInventoryContains(InteractibleObject o);
         void PlayerIncrementScore(int deltaAmount);
         void PlayerGainLife();
         void PlayerLoseLife();

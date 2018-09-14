@@ -2,8 +2,9 @@
 using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
+using GameClassLibrary.GameBoard;
 
-namespace MissionIIClassLibrary.ArtificialIntelligence
+namespace GameClassLibrary.ArtificialIntelligence
 {
     public class SingleMinded : AbstractIntelligenceProvider
     {

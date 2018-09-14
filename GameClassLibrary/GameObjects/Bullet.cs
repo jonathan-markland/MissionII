@@ -4,8 +4,9 @@ using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
+using GameClassLibrary.GameBoard;
 
-namespace MissionIIClassLibrary.GameObjects
+namespace GameClassLibrary.GameObjects
 {
     public class Bullet : GameObject
     {
@@ -15,6 +16,7 @@ namespace MissionIIClassLibrary.GameObjects
         private bool _increasesScore;
         private bool _firingSoundDone;
         private Func<Tile, bool> _isFloor;
+        private int _bonusScore;
 
 
 
@@ -23,8 +25,11 @@ namespace MissionIIClassLibrary.GameObjects
             Rectangle gameObjectextentsRectangle,
             MovementDeltas bulletDirection, 
             bool increasesScore, 
+            int bonusScore,
             Func<Tile, bool> isFloor)
         {
+            _bonusScore = bonusScore;
+
             var r = gameObjectextentsRectangle; // convenience
             var spriteTraits = bulletTraits.BulletSpriteTraits;
             var bulletWidth = spriteTraits.Width;
@@ -115,7 +120,7 @@ namespace MissionIIClassLibrary.GameObjects
                         {
                             if (bulletResult.HitCount > 1)
                             {
-                                theGameBoard.PlayerIncrementScore(Constants.MultiKillWithSingleBulletBonusScore);
+                                theGameBoard.PlayerIncrementScore(_bonusScore);
                                 _bulletTraits.DuoBonus.Play();
                             }
                             theGameBoard.PlayerIncrementScore(bulletResult.TotalScoreIncrease);
@@ -142,7 +147,7 @@ namespace MissionIIClassLibrary.GameObjects
 
         public override void Draw(IDrawingTarget drawingTarget)
         {
-            drawingTarget.DrawIndexedSpriteRoomRelative(_spriteInstance, 0);
+            drawingTarget.DrawIndexedSprite(_spriteInstance, 0);
         }
 
 

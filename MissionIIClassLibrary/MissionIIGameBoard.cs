@@ -6,6 +6,9 @@ using GameClassLibrary.Algorithms;
 using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
+using GameClassLibrary.GameBoard;
+using GameClassLibrary.GameObjects;
+using GameClassLibrary.ArtificialIntelligence;
 using MissionIIClassLibrary.Interactibles;
 
 namespace MissionIIClassLibrary
@@ -30,12 +33,12 @@ namespace MissionIIClassLibrary
         private WorldWallData TheWorldWallData;
         private int RoomNumber; // one-based
         private uint _cycleCount;
-        private MissionIIClassLibrary.GameObjects.BulletTraits WhiteBulletTraits;
+        private BulletTraits WhiteBulletTraits;
 
 
 
         private int LevelNumber;
-        public List<Interactibles.InteractibleObject> PlayerInventory = new List<Interactibles.InteractibleObject>();
+        public List<InteractibleObject> PlayerInventory = new List<InteractibleObject>();
         public TileMatrix CurrentRoomTileMatrix;
         public GameObjects.Man Man = new GameObjects.Man();
         public SuddenlyReplaceableList<GameObject> ObjectsInRoom = new SuddenlyReplaceableList<GameObject>();
@@ -57,7 +60,7 @@ namespace MissionIIClassLibrary
             Lives = Constants.InitialLives;
             LevelNumber = Constants.StartLevelNumber;
             _cycleCount = 0;
-            WhiteBulletTraits = new GameObjects.BulletTraits
+            WhiteBulletTraits = new BulletTraits
             {
                 AdversaryFiring = MissionIISounds.DroidFiring,
                 ManFiring = MissionIISounds.ManFiring,
@@ -248,7 +251,7 @@ namespace MissionIIClassLibrary
             Man.Alive(theLevel.ManStartFacingDirection, manX, manY);
 
             // Clear inventory at start of each level.
-            PlayerInventory = new List<Interactibles.InteractibleObject>();
+            PlayerInventory = new List<InteractibleObject>();
 
             // TODO: This could be done better, as it's a bit weird requiring the objects already to
             //       be created, and then only to replace them.  At least this way we have ONE
@@ -463,11 +466,12 @@ namespace MissionIIClassLibrary
             bool increasesScore)
         {
             Add(
-                new GameObjects.Bullet(
+                new Bullet(
                     WhiteBulletTraits
                     , gameObjectextentsRectangle
                     , bulletDirection
                     , increasesScore
+                    , Constants.MultiKillWithSingleBulletBonusScore
                     , TileExtensions.IsFloor
                 ));
         }
@@ -545,7 +549,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public void ForEachThingWeHaveToFindOnThisLevel(Action<Interactibles.InteractibleObject> theAction)
+        public void ForEachThingWeHaveToFindOnThisLevel(Action<InteractibleObject> theAction)
         {
             theAction(Key);
             if (LevelNumber > 1)
@@ -577,6 +581,8 @@ namespace MissionIIClassLibrary
                 Constants.ScreenWidth - 4, 8, 
                 ("ROOM " + RoomNumber) + " L" + LevelNumber, MissionIIFonts.WideFont, TextAlignment.Right);
 
+            drawingTarget.DeltaOrigin(Constants.RoomOriginX, Constants.RoomOriginY);
+
             // The Room:
 
             var drawTileMatrix = (!Man.IsBeingElectrocutedByWalls) | (_cycleCount & 2) == 0;
@@ -584,8 +590,8 @@ namespace MissionIIClassLibrary
             if (drawTileMatrix)
             {
                 drawingTarget.DrawTileMatrix(
-                    Constants.RoomOriginX, // TODO: Should not need to use origin.
-                    Constants.RoomOriginY, // TODO: Should not need to use origin.
+                    0,
+                    0,
                     CurrentRoomTileMatrix,
                     (_cycleCount & 32) == 0 ? _electrocutionBackgroundSprites : _normalBackgroundSprites);
             }
@@ -593,6 +599,8 @@ namespace MissionIIClassLibrary
             // Draw objects in the room:
 
             ObjectsInRoom.ForEach<GameObject>(o => { o.Draw(drawingTarget); });
+
+            drawingTarget.DeltaOrigin(-Constants.RoomOriginX, -Constants.RoomOriginY);
 
             // Lives:
 

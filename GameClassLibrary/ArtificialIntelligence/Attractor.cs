@@ -1,28 +1,19 @@
 ﻿
-using System;
 using GameClassLibrary.Math;
+using GameClassLibrary.GameBoard;
 
-namespace MissionIIClassLibrary.ArtificialIntelligence
+namespace GameClassLibrary.ArtificialIntelligence
 {
-    public class FiringAttractor : AbstractIntelligenceProvider
+    public class Attractor : AbstractIntelligenceProvider
     {
-        private uint _cycleCounter = 0;
-        private Action<Rectangle, MovementDeltas, bool> _fireBullet;
-
-
-
-        public FiringAttractor(Action<Rectangle, MovementDeltas, bool> fireBullet)
-        {
-            _fireBullet = fireBullet;
-        }
+        private bool _operationEnable = false;
 
 
 
         public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
-            ++_cycleCounter;
-
-            if (_cycleCounter % Constants.FiringAttractorSpeedDivisor == 0)
+            _operationEnable = !_operationEnable;  // ie: operate only ever other cycle
+            if (_operationEnable)
             {
                 var moveDeltas = gameObject.GetMovementDeltasToHeadTowards(
                     theGameBoard.GetMan());
@@ -40,15 +31,6 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
                 theGameBoard.MoveAdversaryOnePixel(
                     gameObject,
                     new MovementDeltas(0, moveDeltas.dy));
-
-                if ((_cycleCounter & Constants.FiringAttractorFiringCyclesAndMask) == 0)
-                {
-                    if (!moveDeltas.Stationary
-                        && Rng.Generator.Next(100) < Constants.AttractorFiringProbabilityPercent)
-                    {
-                        _fireBullet(gameObject.GetBoundingRectangle(), moveDeltas, false);
-                    }
-                }
             }
         }
     }

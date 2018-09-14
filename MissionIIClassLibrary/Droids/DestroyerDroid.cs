@@ -1,6 +1,7 @@
 ﻿
 using System;
 using GameClassLibrary.Math;
+using GameClassLibrary.ArtificialIntelligence;
 
 namespace MissionIIClassLibrary.Droids
 {
@@ -11,7 +12,7 @@ namespace MissionIIClassLibrary.Droids
                   MissionIISprites.Monster3, 
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  new ArtificialIntelligence.FiringAttractor(fireBullet), 
+                  new FiringAttractor(fireBullet), 
                   manDestroyAction)
         {
         }

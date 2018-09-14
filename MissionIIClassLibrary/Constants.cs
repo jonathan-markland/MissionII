@@ -22,24 +22,13 @@
         public const int GameOverMessageCycles = 400;
         public const int LeavingLevelCycles = 100;
         public const int EnteringLevelScreenCycles = 250;
-        public const int BulletCycles = 4;
         public const int GhostStartCycles = 1000;
-        public const int GhostMovementCycles = 2;
         public const int GhostStunnedCycles = 200;
         public const int ManDeadDelayCycles = 100;
-        public const int SingleMindedMoveDurationCycles = 50;
-        public const int SingleMindedFiringCyclesAndMask = 31;
-        public const int FiringAttractorFiringCyclesAndMask = 7;
-        public const int WanderingMineMoveDurationCycles = 20;
         #endregion
 
         #region Droids
         public const int IdealDroidCountPerRoom = 10;
-        public const int SingleMindedFiringProbabilityPercent = 20;
-        public const int AttractorFiringProbabilityPercent = 40;
-        public const int SingleMindedSpeedDivisor = 2;
-        public const int FiringAttractorSpeedDivisor = 3;
-        public const int WanderingMineSpeedDivisor = 4;
         #endregion
 
         #region Rooms
@@ -71,7 +60,6 @@
         public const int TileHeight = 8;
         public const int InventoryItemSpacing = 4;
         public const int InventoryIndent = 8;
-        public const int BulletSpacing = 1;
         public const int ExclusionZoneAroundMan = 32;
         public const int PositionerShapeSizeMinimum = 10; // sort of arbitrary
         #endregion

@@ -1,5 +1,6 @@
 ﻿
 using GameClassLibrary.Modes;
+using GameClassLibrary.GameBoard;
 
 namespace MissionIIClassLibrary.Modes
 {

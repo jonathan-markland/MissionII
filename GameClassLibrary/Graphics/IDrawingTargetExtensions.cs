@@ -5,6 +5,26 @@ namespace GameClassLibrary.Graphics
 {
     public static class IDrawingTargetExtensions
     {
+        public static void DrawFirstSprite(this IDrawingTarget drawingTarget, SpriteInstance theSprite)
+        {
+            drawingTarget.DrawSprite(
+                theSprite.X,
+                theSprite.Y,
+                theSprite.Traits.GetHostImageObject(0));
+        }
+
+
+
+        public static void DrawIndexedSprite(this IDrawingTarget drawingTarget, SpriteInstance theSprite, int spriteIndex)
+        {
+            drawingTarget.DrawSprite(
+                theSprite.X,
+                theSprite.Y,
+                theSprite.Traits.GetHostImageObject(spriteIndex));
+        }
+
+
+
         public static void DrawFirstSpriteCentred(
             this IDrawingTarget drawingTarget, int cx, int cy, SpriteTraits theSprite)
         {
@@ -13,7 +33,6 @@ namespace GameClassLibrary.Graphics
                 cy - theSprite.Height / 2,
                 theSprite.GetHostImageObject(0));
         }
-
 
 
         public static void DrawFirstSpriteScreenCentred(

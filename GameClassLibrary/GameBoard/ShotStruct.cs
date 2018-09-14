@@ -1,4 +1,5 @@
-﻿namespace MissionIIClassLibrary
+﻿
+namespace GameClassLibrary.GameBoard
 {
     public struct ShotStruct
     {

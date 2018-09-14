@@ -3,6 +3,8 @@ using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
+using GameClassLibrary.GameBoard;
+using GameClassLibrary.GameObjects;
 
 namespace MissionIIClassLibrary.GameObjects
 {
@@ -225,7 +227,7 @@ namespace MissionIIClassLibrary.GameObjects
         {
             if (_invincibleCountDown == 0 || DrawManDuringInvincibility())
             {
-                drawingTarget.DrawIndexedSpriteRoomRelative(SpriteInstance, _imageIndex);
+                drawingTarget.DrawIndexedSprite(SpriteInstance, _imageIndex);
             }
         }
 

@@ -1,5 +1,6 @@
 ﻿
 using GameClassLibrary.Graphics;
+using GameClassLibrary.GameBoard;
 
 namespace MissionIIClassLibrary.Interactibles
 {

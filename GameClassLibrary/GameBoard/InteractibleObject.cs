@@ -1,7 +1,7 @@
 ﻿
 using GameClassLibrary.Input;
 
-namespace MissionIIClassLibrary.Interactibles
+namespace GameClassLibrary.GameBoard
 {
     public abstract class InteractibleObject : GameObject
     {

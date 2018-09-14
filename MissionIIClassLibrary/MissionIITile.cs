@@ -1,4 +1,5 @@
-﻿using GameClassLibrary.Walls;
+﻿
+using GameClassLibrary.Walls;
 
 namespace MissionIIClassLibrary
 {

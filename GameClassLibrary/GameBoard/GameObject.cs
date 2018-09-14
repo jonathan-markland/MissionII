@@ -2,7 +2,7 @@
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
 
-namespace MissionIIClassLibrary
+namespace GameClassLibrary.GameBoard
 {
     public abstract class GameObject // TODO: Move into library AFTER IGameBoard is distilled
     {

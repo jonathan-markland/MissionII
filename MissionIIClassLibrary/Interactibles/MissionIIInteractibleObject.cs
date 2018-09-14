@@ -1,5 +1,6 @@
 ﻿using GameClassLibrary.Math;
 using GameClassLibrary.Graphics;
+using GameClassLibrary.GameBoard;
 
 namespace MissionIIClassLibrary.Interactibles
 {
@@ -55,7 +56,7 @@ namespace MissionIIClassLibrary.Interactibles
 
         public override void Draw(IDrawingTarget drawingTarget)
         {
-            drawingTarget.DrawIndexedSpriteRoomRelative(Sprite, 0);
+            drawingTarget.DrawIndexedSprite(Sprite, 0);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿
 using System;
+using GameClassLibrary.ArtificialIntelligence;
 
 namespace MissionIIClassLibrary.Droids
 {
@@ -10,7 +11,7 @@ namespace MissionIIClassLibrary.Droids
                   MissionIISprites.Monster4, 
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  new ArtificialIntelligence.Guardian(manDestroyAction), 
+                  new Guardian(manDestroyAction), 
                   manDestroyAction)
         {
         }

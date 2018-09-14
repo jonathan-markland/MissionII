@@ -1,7 +1,8 @@
 ﻿
 using System;
+using GameClassLibrary.GameBoard;
 
-namespace MissionIIClassLibrary.ArtificialIntelligence
+namespace GameClassLibrary.ArtificialIntelligence
 {
     public class Swoop : AbstractIntelligenceProvider
     {

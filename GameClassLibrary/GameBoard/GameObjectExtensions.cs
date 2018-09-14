@@ -3,9 +3,9 @@ using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
 
-namespace MissionIIClassLibrary
+namespace GameClassLibrary.GameBoard
 {
-    public static class GameObjectExtensions // TODO: move back into the librarry
+    public static class GameObjectExtensions
     {
         public static void MoveBy(this GameObject gameObject, MovementDeltas movementDeltas)
         {
@@ -13,10 +13,14 @@ namespace MissionIIClassLibrary
             gameObject.TopLeftPosition = new Point(p.X + movementDeltas.dx, p.Y + movementDeltas.dy);
         }
 
+
+
         public static bool Intersects(this GameObject gameObject, GameObject otherObject)
         {
             return gameObject.GetBoundingRectangle().Intersects(otherObject.GetBoundingRectangle());
         }
+
+
 
         /// <summary>
         /// It is advised that the movement is by ONE pixel at a time.

@@ -4,6 +4,9 @@ using GameClassLibrary.Math;
 using GameClassLibrary.Input;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Sound;
+using GameClassLibrary.GameBoard;
+using GameClassLibrary.GameObjects;
+using GameClassLibrary.ArtificialIntelligence;
 
 namespace MissionIIClassLibrary.Droids
 {
@@ -15,7 +18,7 @@ namespace MissionIIClassLibrary.Droids
         private int _imageIndex = 0;
         private int _animationCountdown = AnimationReset;
         private const int AnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
-        private ArtificialIntelligence.AbstractIntelligenceProvider _intelligenceProvider;
+        private AbstractIntelligenceProvider _intelligenceProvider;
         private Action _manDestroyAction;
 
 
@@ -24,7 +27,7 @@ namespace MissionIIClassLibrary.Droids
             SpriteTraits spriteTraits, 
             SpriteTraits explosionSpriteTraits,
             SoundTraits explosionSound,
-            ArtificialIntelligence.AbstractIntelligenceProvider intelligenceProvider,
+            AbstractIntelligenceProvider intelligenceProvider,
             Action manDestroyAction)
         {
             System.Diagnostics.Debug.Assert(spriteTraits != null);
@@ -49,7 +52,7 @@ namespace MissionIIClassLibrary.Droids
 
         public override void Draw(IDrawingTarget drawingTarget)
         {
-            drawingTarget.DrawIndexedSpriteRoomRelative(_spriteInstance, _imageIndex);
+            drawingTarget.DrawIndexedSprite(_spriteInstance, _imageIndex);
         }
 
 
@@ -58,7 +61,7 @@ namespace MissionIIClassLibrary.Droids
         {
             // TODO: FUTURE: We assume the explosion dimensions match the droid.  We should centre it about the droid.
             theGameBoard.Add(
-                new GameObjects.Explosion(
+                new Explosion(
                     _spriteInstance.X,
                     _spriteInstance.Y,
                     _explosionSpriteTraits,

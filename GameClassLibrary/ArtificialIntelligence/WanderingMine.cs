@@ -2,8 +2,9 @@
 using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
+using GameClassLibrary.GameBoard;
 
-namespace MissionIIClassLibrary.ArtificialIntelligence
+namespace GameClassLibrary.ArtificialIntelligence
 {
     public class WanderingMine : AbstractIntelligenceProvider
     {
@@ -13,11 +14,13 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
         private MovementDeltas _movementDeltas = new MovementDeltas(0, 0);
         private Func<Rectangle, FoundDirections> _freeDirectionFinder;
         private Action _manDestroyAction;
+        private int _speedDivisor;
 
 
 
-        public WanderingMine(Func<Rectangle, FoundDirections> freeDirectionFinder, Action manDestroyAction)
+        public WanderingMine(Func<Rectangle, FoundDirections> freeDirectionFinder, Action manDestroyAction, int speedDivisor)
         {
+            _speedDivisor = speedDivisor;
             _manDestroyAction = manDestroyAction;
             _freeDirectionFinder = freeDirectionFinder;
         }
@@ -27,7 +30,7 @@ namespace MissionIIClassLibrary.ArtificialIntelligence
         public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
             ++_cycleCounter;
-            if ((_cycleCounter % Constants.WanderingMineSpeedDivisor) == 0)
+            if ((_cycleCounter % _speedDivisor) == 0)
             {
                 if (_countDown > 0)
                 {

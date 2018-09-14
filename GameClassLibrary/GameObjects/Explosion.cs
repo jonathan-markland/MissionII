@@ -2,8 +2,9 @@
 using GameClassLibrary.Input;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Sound;
+using GameClassLibrary.GameBoard;
 
-namespace MissionIIClassLibrary.GameObjects
+namespace GameClassLibrary.GameObjects
 {
     public class Explosion : GameObject
     {
@@ -15,6 +16,8 @@ namespace MissionIIClassLibrary.GameObjects
         private const int ExplosionCountDownReset = 30; // TODO: Put constant elsewhere because we don't know the units
         private int _explosionCountDown = ExplosionCountDownReset;
 
+
+
         public Explosion(int roomX, int roomY, SpriteTraits explosionKind, SoundTraits explosionSound)
         {
             SpriteInstance.X = roomX;
@@ -22,6 +25,8 @@ namespace MissionIIClassLibrary.GameObjects
             SpriteInstance.Traits = explosionKind;
             _explosionSound = explosionSound;
         }
+
+
 
         public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
         {
@@ -44,20 +49,28 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
+
+
         public override void Draw(IDrawingTarget drawingTarget)
         {
-            drawingTarget.DrawIndexedSpriteRoomRelative(SpriteInstance, _imageIndex);
+            drawingTarget.DrawIndexedSprite(SpriteInstance, _imageIndex);
         }
+
+
 
         public override Rectangle GetBoundingRectangle()
         {
             return SpriteInstance.Extents;
         }
 
+
+
         public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
             // No action required.
         }
+
+
 
         public override ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
@@ -65,12 +78,19 @@ namespace MissionIIClassLibrary.GameObjects
             return new ShotStruct { Affirmed = false }; // ignore this.
         }
 
+
+
         public override Point TopLeftPosition
         {
             get { return SpriteInstance.TopLeftPosition; }
             set { SpriteInstance.TopLeftPosition = value; }
         }
 
-        public override bool CanBeOverlapped { get { return false; } }
+
+
+        public override bool CanBeOverlapped
+        {
+            get { return false; }
+        }
     }
 }
