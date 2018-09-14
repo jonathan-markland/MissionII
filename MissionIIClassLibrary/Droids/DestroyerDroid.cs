@@ -6,7 +6,11 @@ namespace MissionIIClassLibrary.Droids
     public class DestroyerDroid : BaseDroid
     {
         public DestroyerDroid(Action manDestroyAction)
-            : base(MissionIISprites.Monster3, MissionIISprites.Explosion, new ArtificialIntelligence.FiringAttractor(), manDestroyAction)
+            : base(
+                  MissionIISprites.Monster3, 
+                  MissionIISprites.Explosion, 
+                  new ArtificialIntelligence.FiringAttractor(), 
+                  manDestroyAction)
         {
         }
 
