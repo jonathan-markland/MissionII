@@ -7,7 +7,7 @@ using GameClassLibrary.Graphics;
 
 namespace MissionIIClassLibrary.Interactibles
 {
-    public class InvincibilityAmulet : InteractibleObject
+    public class InvincibilityAmulet : MissionIIInteractibleObject
     {
         public InvincibilityAmulet(int roomNumber)
             : base(new SpriteInstance { Traits = MissionIISprites.InvincibilityAmulet }, roomNumber)
@@ -17,7 +17,7 @@ namespace MissionIIClassLibrary.Interactibles
         public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
             theGameBoard.ManGainInvincibility();
-            RemoveThisObject(theGameBoard);
+            theGameBoard.Remove(this);
             MissionIISounds.InvincibilityAmuletSound.Play();
         }
 

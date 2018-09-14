@@ -2,7 +2,7 @@
 
 namespace MissionIIClassLibrary.Interactibles
 {
-    public class Ring : InteractibleObject
+    public class Ring : MissionIIInteractibleObject
     {
         public Ring(int roomNumber) 
             : base(new SpriteInstance { Traits = MissionIISprites.Ring }, roomNumber)

@@ -15,7 +15,7 @@ namespace MissionIIClassLibrary
         void Remove(GameObject o);
         void ForEachObjectInPlayDo<A>(Action<A> theAction) where A : class;
 
-        GameObject GetMan();
+        GameObject GetMan(); // TODO: inconsistent terms Man vs. Player
         void AddToPlayerInventory(Interactibles.InteractibleObject o);
         bool PlayerInventoryContains(Interactibles.InteractibleObject o);
         void PlayerIncrementScore(int deltaAmount);
@@ -272,5 +272,6 @@ namespace MissionIIClassLibrary
         public abstract void ManWalkedIntoYou(IGameBoard theGameBoard);
         public abstract ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan);
         public virtual int KillScore { get { return 0; } }
+        public virtual int CollectionScore { get { return 0; } }
     }
 }

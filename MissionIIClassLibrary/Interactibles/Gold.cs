@@ -2,7 +2,7 @@
 
 namespace MissionIIClassLibrary.Interactibles
 {
-    public class Gold : InteractibleObject
+    public class Gold : MissionIIInteractibleObject
     {
         public Gold(int roomNumber) 
             : base(new SpriteInstance { Traits = MissionIISprites.Gold }, roomNumber)

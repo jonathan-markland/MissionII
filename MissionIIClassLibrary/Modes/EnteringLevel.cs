@@ -72,7 +72,7 @@ namespace MissionIIClassLibrary.Modes
             _gameBoard.ForEachThingWeHaveToFindOnThisLevel(
                 o =>
                 {
-                    drawingTarget.DrawFirstSpriteCentred(x, y, o.SpriteTraits);
+                    drawingTarget.DrawFirstSpriteCentred(x, y, ((Interactibles.MissionIIInteractibleObject)o).SpriteTraits);  // TODO:  Ideally use o.Draw
                     y += dy;
                 });
 

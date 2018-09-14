@@ -2,7 +2,7 @@
 
 namespace MissionIIClassLibrary.Interactibles
 {
-    public class Potion : InteractibleObject
+    public class Potion : MissionIIInteractibleObject
     {
         public Potion(int roomNumber)
             : base(new SpriteInstance { Traits = MissionIISprites.Potion }, roomNumber)
@@ -12,7 +12,7 @@ namespace MissionIIClassLibrary.Interactibles
         public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
             theGameBoard.PlayerGainLife();
-            RemoveThisObject(theGameBoard);
+            theGameBoard.Remove(this);
         }
 
         public override int CollectionScore => 0;

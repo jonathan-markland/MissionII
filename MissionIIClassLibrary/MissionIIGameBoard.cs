@@ -165,7 +165,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public void IncludeIfInCurrentRoom(Interactibles.InteractibleObject theObject, List<GameObject> targetList)
+        public void IncludeIfInCurrentRoom(Interactibles.MissionIIInteractibleObject theObject, List<GameObject> targetList)
         {
             if (theObject.RoomNumber == RoomNumber)
             {
@@ -575,7 +575,7 @@ namespace MissionIIClassLibrary
             int x = Constants.ScreenWidth - Constants.InventoryIndent;
             foreach (var carriedObject in PlayerInventory)
             {
-                var spriteTraits = carriedObject.SpriteTraits;
+                var spriteTraits = ((MissionIIInteractibleObject)carriedObject).SpriteTraits;  // TODO
                 var spriteWidth = spriteTraits.Width;
                 x -= spriteWidth;
                 drawingTarget.DrawFirstSprite(x, y, spriteTraits);
