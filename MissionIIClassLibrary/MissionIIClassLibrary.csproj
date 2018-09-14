@@ -47,8 +47,11 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Droids\GuardianDroid.cs" />
     <Compile Include="Droids\WanderingMineDroid.cs" />
+    <Compile Include="GameBoardExtensionsForMissionII.cs" />
+    <Compile Include="GameObjectExtensions.cs" />
     <Compile Include="GameObjects\BulletTraits.cs" />
     <Compile Include="IDrawingTargetExtensionsForMissionII.cs" />
+    <Compile Include="IGameBoard.cs" />
     <Compile Include="Interactibles\InvincibilityAmulet.cs" />
     <Compile Include="Interactibles\MissionIIInteractibleObject.cs" />
     <Compile Include="Level.cs" />
@@ -88,6 +91,7 @@
     <Compile Include="Modes\TitleScreen.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs" />
+    <Compile Include="ShotStruct.cs" />
     <Compile Include="SpecialMarkers.cs" />
     <Compile Include="TileExtensions.cs" />
     <Compile Include="ColouredTileSpriteGenerator.cs" />

@@ -1,4 +1,5 @@
-﻿using GameClassLibrary.Input;
+﻿
+using GameClassLibrary.Input;
 
 namespace MissionIIClassLibrary.Interactibles
 {
