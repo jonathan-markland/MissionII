@@ -309,7 +309,7 @@ namespace MissionIIClassLibrary.GameObjects
             int deltaRoomWidth, int deltaSpriteWidth, 
             int deltaRoomHeight, int deltaSpriteHeight)
         {
-            theGameBoard.MoveRoomNumberByDelta(roomNumberDelta);
+            ((MissionIIGameBoard)theGameBoard).MoveRoomNumberByDelta(roomNumberDelta);
             // Note: We sort of assume all the rooms are the same size!  (Which they are!)
             var theMatrix = theGameBoard.GetTileMatrix();
             var roomWidth = theMatrix.TotalWidth;
@@ -323,7 +323,7 @@ namespace MissionIIClassLibrary.GameObjects
                 theGameBoard.PlayerIncrementScore(Constants.RoomClearingBonusScore);
                 MissionIISounds.Bonus.Play();
             }
-            theGameBoard.PrepareForNewRoom();
+            ((MissionIIGameBoard) theGameBoard).PrepareForNewRoom();
         }
 
         public override Rectangle GetBoundingRectangle() // TODO: Dont have this just get from the sprite

@@ -32,9 +32,6 @@ namespace MissionIIClassLibrary
         CollisionDetection.WallHitTestResult MoveAdversaryOnePixel(GameObject adversaryObject, MovementDeltas movementDeltas);
         // THe base class for adversaries would need to be in the library.
 
-        void MoveRoomNumberByDelta(int roomNumberDelta);
-        void PrepareForNewRoom();
-        void ForEachThingWeHaveToFindOnThisLevel(Action<Interactibles.InteractibleObject> theAction);
         bool ManIsInvincible();
         void ManGainInvincibility();
     }
@@ -43,13 +40,6 @@ namespace MissionIIClassLibrary
 
     public static class IGameBoardExtensionsForMissionII
     {
-        public static void Electrocute(this IGameBoard gameBoard, ElectrocutionMethod electrocutionMethod)
-        {
-            ((MissionIIGameBoard)gameBoard).Man.Electrocute(electrocutionMethod);
-        }
-
-
-
         /// <summary>
         /// Returns true if any droids exist in the room.
         /// </summary>
