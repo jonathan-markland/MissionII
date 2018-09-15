@@ -205,10 +205,6 @@ namespace MissionIIClassLibrary
 
 
 
-
-
-
-
         public void PrepareForNewLevel(int newLevelNumber)
         {
             LevelNumber = newLevelNumber;
@@ -217,6 +213,20 @@ namespace MissionIIClassLibrary
             var levelIndex = (LevelNumber - 1) % TheWorldWallData.Levels.Count;
             var theLevel = TheWorldWallData.Levels[levelIndex];
 
+            PrepareBackgroundSprites();
+            SetStartRoomNumber(theLevel);
+            PrepareManPositionOnLevelStart(theLevel);
+            ClearInventory();
+            ChooseRoomsForCollectibleObjects();
+            PrepareForNewRoom();
+
+            GameClassLibrary.Modes.GameMode.ActiveMode = new Modes.EnteringLevel(this);
+        }
+
+
+
+        public void PrepareBackgroundSprites()
+        {
             // Prepare the background walls / floors / electrocution brick tile sprites:
             _normalBackgroundSprites = ColouredTileSpriteGenerator.GenerateImages(
                 LevelNumber,
@@ -231,10 +241,12 @@ namespace MissionIIClassLibrary
                 MissionIISprites.WallBrick,
                 MissionIISprites.FloorTile,
                 0xFFBBFFFF);
+        }
 
-            // Set the start room number:
-            RoomNumber = theLevel.ManStartRoom.RoomNumber;
 
+
+        private void PrepareManPositionOnLevelStart(Level theLevel)
+        {
             // Calculate size of cluster in pixels:
             var clusterSizeX = Constants.TileWidth * Constants.DestClusterSide;
             var clusterSizeY = Constants.TileHeight * Constants.DestClusterSide;
@@ -248,10 +260,12 @@ namespace MissionIIClassLibrary
             var manX = manCX + theLevel.ManStartCluster.X * clusterSizeX;
             var manY = manCY + theLevel.ManStartCluster.Y * clusterSizeY;
             Man.Alive(theLevel.ManStartFacingDirection, manX, manY);
+        }
 
-            // Clear inventory at start of each level.
-            PlayerInventory = new List<InteractibleObject>();
 
+
+        private void ChooseRoomsForCollectibleObjects()
+        {
             // TODO: This could be done better, as it's a bit weird requiring the objects already to
             //       be created, and then only to replace them.  At least this way we have ONE
             //       place that decides what is to be found on the level (ForEachThingWeHaveToFindOnThisLevel)
@@ -263,7 +277,7 @@ namespace MissionIIClassLibrary
             // var roomNumberAllocator = new IncrementingNumberAllocator(1, Constants.NumRooms); // For testing purposes.
 
             ForEachThingWeHaveToFindOnThisLevel(o =>
-            {
+                {
                 var roomNumber = roomNumberAllocator.Next();
                 if (o is Interactibles.Key)
                 {
@@ -286,10 +300,22 @@ namespace MissionIIClassLibrary
             LevelExit = new MissionIIClassLibrary.Interactibles.LevelExit(roomNumberAllocator.Next());
             Potion = new MissionIIClassLibrary.Interactibles.Potion(roomNumberAllocator.Next());
             InvincibilityAmulet = new MissionIIClassLibrary.Interactibles.InvincibilityAmulet(roomNumberAllocator.Next());
+        }
 
-            PrepareForNewRoom();
 
-            GameClassLibrary.Modes.GameMode.ActiveMode = new Modes.EnteringLevel(this);
+
+        public void ClearInventory()
+        {
+            // Clear inventory at start of each level.
+            PlayerInventory = new List<InteractibleObject>();
+        }
+
+
+
+        private void SetStartRoomNumber(Level theLevel)
+        {
+            // Set the start room number:
+            RoomNumber = theLevel.ManStartRoom.RoomNumber;
         }
 
 
@@ -302,6 +328,37 @@ namespace MissionIIClassLibrary
 
 
 
+        public List<Point> GetListOfPotentialPositionsForObjects(List<GameObject> objectsList, List<Rectangle> exclusionRectangles)
+        {
+            // Now measure the max dimensions of the things that need positioning.
+
+            var maxDimensions = objectsList.GetMaxDimensions(Constants.PositionerShapeSizeMinimum, Constants.PositionerShapeSizeMinimum);
+
+            // Now find a list of points on which we can position objects.
+
+            var pointsList = new List<Point>();
+
+            PositionFinder.ForEachEmptyCell(   // TODO: This isn;t going to work if we refactor the TileMatrix to cover the entire level.  It must consider one room only.
+                CurrentRoomTileMatrix,
+                maxDimensions.Width,
+                maxDimensions.Height,
+                (x, y) =>
+                {
+                    if (!(new Rectangle(x, y, maxDimensions.Width, maxDimensions.Height).Intersects(exclusionRectangles)))
+                    {
+                        pointsList.Add(new Point(x, y));
+                    }
+                    return true;
+                },
+                TileExtensions.IsFloor);
+
+            pointsList.Shuffle(Rng.Generator);
+
+            return pointsList;
+        }
+
+
+
         public void PrepareForNewRoom()
         {
             // The Man must already be positioned.
@@ -310,9 +367,7 @@ namespace MissionIIClassLibrary
             ManPositionOnRoomEntry = Man.Position;
 
             var thisRoomNumber = RoomNumber;
-
             var maxLevelNumber = TheWorldWallData.Levels.Count;
-
             var thisRoom = TheWorldWallData
                     .Levels[(LevelNumber - 1) % maxLevelNumber]
                     .Rooms[thisRoomNumber - 1];
@@ -344,106 +399,30 @@ namespace MissionIIClassLibrary
 
             if (LevelNumber == 1)
             {
-                var theThreshold = Constants.IdealDroidCountPerRoom / 2;
-
-                for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
-                {
-                    if (j < theThreshold)
-                    {
-                        objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary));
-                    }
-                    else 
-                    {
-                        objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary)); // Not decided yet:  WanderingMineDroid());
-                    }
-                }
+                AddDroidsForLevel1(objectsList);
             }
             else if (LevelNumber == 2)
             {
-                var theThreshold1 = Constants.IdealDroidCountPerRoom / 3;
-                var theThreshold2 = Constants.IdealDroidCountPerRoom / 2;
-
-                for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
-                {
-                    if (j < theThreshold1)
-                    {
-                        objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary, StartBullet));
-                    }
-                    else if (j < theThreshold2)
-                    {
-                        objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary)); // Not decided yet:  WanderingMineDroid());
-                    }
-                    else
-                    {
-                        objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary));
-                    }
-                }
+                AddDroidsForLevel2(objectsList);
             }
             else
             {
-                var theThreshold1 = Constants.IdealDroidCountPerRoom / 3;
-                var theThreshold2 = Constants.IdealDroidCountPerRoom / 2;
-
-                for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
-                {
-                    if (j < theThreshold1)
-                    {
-                        objectsList.Add(new Droids.DestroyerDroid(DestroyManByAdversary, StartBullet));
-                    }
-                    else if (j < theThreshold2)
-                    {
-                        objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary, StartBullet));
-                    }
-                    else
-                    {
-                        objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary));
-                    }
-                }
+                AddDroidsForLevel3(objectsList);
             }
 
             // ^^^ TODO: end of bit that needs refactor.
 
             // vvv HACK - development test
-
-//            objectsList.Add(new Droids.LinearMoverDroid(DestroyManByAdversary));
-            objectsList.Add(new Droids.BouncingDroid(DestroyManByAdversary));
-
+            //objectsList.Add(new Droids.LinearMoverDroid(DestroyManByAdversary));
+            //objectsList.Add(new Droids.BouncingDroid(DestroyManByAdversary));
             // ^^^ HACK
 
-            // Now measure the max dimensions of the things that need positioning.
+            // Find available positions:
 
-            int posnWidth = Constants.PositionerShapeSizeMinimum;
-            int posnHeight = Constants.PositionerShapeSizeMinimum;
+            var pointsList = GetListOfPotentialPositionsForObjects(objectsList, new List<Rectangle> { manExclusionRectangle });
 
-            foreach (var obj in objectsList)
-            {
-                var objRect = obj.GetBoundingRectangle();
-                posnWidth = System.Math.Max(objRect.Width, posnWidth);
-                posnHeight = System.Math.Max(objRect.Height, posnHeight);
-            }
-
-            // Now find a list of points on which we can position objects.
-
-            var pointsList = new List<Point>();
-
-            PositionFinder.ForEachEmptyCell(
-                CurrentRoomTileMatrix,
-                posnWidth,
-                posnHeight,
-                (x, y) =>
-                {
-                    if (!manExclusionRectangle.Intersects(new Rectangle(x, y, posnWidth, posnHeight)))
-                    {
-                        pointsList.Add(new Point(x, y));
-                    }
-                    return true;
-                },
-                TileExtensions.IsFloor);
-
-            pointsList.Shuffle(Rng.Generator);
-
-            // Apply positions:
-            // If this is LESS THAN ObjectsInRoom.Count then we cull the ObjectsInRoom container.
+            // If there are fewer positions than ObjectsInRoom.Count then we cull the ObjectsInRoom container.
+            // This is why priority objects must be added first.
 
             int i = 0;
             for (; i < pointsList.Count; i++)
@@ -462,6 +441,73 @@ namespace MissionIIClassLibrary
             objectsList.Add(Man);
 
             ObjectsInRoom.ReplaceWith(objectsList);
+        }
+
+
+
+        public void AddDroidsForLevel1(List<GameObject> objectsList)
+        {
+            var theThreshold = Constants.IdealDroidCountPerRoom / 2;
+
+            for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
+            {
+                if (j < theThreshold)
+                {
+                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary));
+                }
+                else
+                {
+                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary)); // Not decided yet:  WanderingMineDroid());
+                }
+            }
+        }
+
+
+
+        public void AddDroidsForLevel2(List<GameObject> objectsList)
+        {
+            var theThreshold1 = Constants.IdealDroidCountPerRoom / 3;
+            var theThreshold2 = Constants.IdealDroidCountPerRoom / 2;
+
+            for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
+            {
+                if (j < theThreshold1)
+                {
+                    objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary, StartBullet));
+                }
+                else if (j < theThreshold2)
+                {
+                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary)); // Not decided yet:  WanderingMineDroid());
+                }
+                else
+                {
+                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary));
+                }
+            }
+        }
+
+
+
+        public void AddDroidsForLevel3(List<GameObject> objectsList)
+        {
+            var theThreshold1 = Constants.IdealDroidCountPerRoom / 3;
+            var theThreshold2 = Constants.IdealDroidCountPerRoom / 2;
+
+            for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
+            {
+                if (j < theThreshold1)
+                {
+                    objectsList.Add(new Droids.DestroyerDroid(DestroyManByAdversary, StartBullet));
+                }
+                else if (j < theThreshold2)
+                {
+                    objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary, StartBullet));
+                }
+                else
+                {
+                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary));
+                }
+            }
         }
 
 

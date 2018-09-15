@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace GameClassLibrary.Math
 {
     public struct Rectangle
@@ -43,6 +45,15 @@ namespace GameClassLibrary.Math
         public Rectangle Inflate(int n)
         {
             return new Rectangle(Left - n, Top - n, Width + (2 * n), Height + (2 * n));
+        }
+
+        public bool Intersects(List<Rectangle> theList)
+        {
+            foreach(var r in theList)
+            {
+                if (Intersects(r)) return true;
+            }
+            return false;
         }
     }
 }

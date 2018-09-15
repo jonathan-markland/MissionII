@@ -60,12 +60,14 @@
     <Compile Include="GameBoard\GameObjectExtensions.cs" />
     <Compile Include="GameBoard\IGameBoard.cs" />
     <Compile Include="GameBoard\InteractibleObject.cs" />
+    <Compile Include="GameBoard\ListGameObjectExtensions.cs" />
     <Compile Include="GameBoard\ShotStruct.cs" />
     <Compile Include="GameObjects\Bullet.cs" />
     <Compile Include="GameObjects\BulletTraits.cs" />
     <Compile Include="GameObjects\Constants.cs" />
     <Compile Include="GameObjects\Explosion.cs" />
     <Compile Include="Graphics\Screen.cs" />
+    <Compile Include="Math\Dimensions.cs" />
     <Compile Include="Modes\ChangeStageFreeze.cs" />
     <Compile Include="Modes\GameMode.cs" />
     <Compile Include="Graphics\Colour.cs" />
