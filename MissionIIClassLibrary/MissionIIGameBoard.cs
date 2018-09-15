@@ -403,6 +403,12 @@ namespace MissionIIClassLibrary
 
             // ^^^ TODO: end of bit that needs refactor.
 
+            // vvv HACK - development test
+
+            objectsList.Add(new Droids.LinearMoverDroid(DestroyManByAdversary));
+
+            // ^^^ HACK
+
             // Now measure the max dimensions of the things that need positioning.
 
             int posnWidth = Constants.PositionerShapeSizeMinimum;

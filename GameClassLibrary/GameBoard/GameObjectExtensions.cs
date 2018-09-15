@@ -67,18 +67,8 @@ namespace GameClassLibrary.GameBoard
             this GameObject aggressorSprite,
             GameObject targetSprite)
         {
-            var targetCentre = targetSprite.GetBoundingRectangle().Centre;
-            var aggressorCentre = aggressorSprite.GetBoundingRectangle().Centre;
-
-            int dx = 0;
-            if (targetCentre.X < aggressorCentre.X) dx = -1;
-            if (targetCentre.X > aggressorCentre.X) dx = 1;
-
-            int dy = 0;
-            if (targetCentre.Y < aggressorCentre.Y) dy = -1;
-            if (targetCentre.Y > aggressorCentre.Y) dy = 1;
-
-            return new MovementDeltas(dx, dy);
+            return aggressorSprite.GetBoundingRectangle().Centre.GetMovementDeltasToHeadTowards(
+                targetSprite.GetBoundingRectangle().Centre);
         }
     }
 }

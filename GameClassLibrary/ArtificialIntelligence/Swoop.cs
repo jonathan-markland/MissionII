@@ -19,7 +19,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
         public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
-            for (int i = 0; i < Constants.GhostMovementCycles; i++)
+            for (int i = 0; i < Constants.SwoopMovementCycles; i++)
             {
                 var moveDeltas = gameObject.GetMovementDeltasToHeadTowards(
                     theGameBoard.GetMan());

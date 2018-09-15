@@ -15,5 +15,29 @@
         {
             return new Point(p.X + md.dx, p.Y + md.dy);
         }
+
+        public static bool operator==(Point p, Point q)
+        {
+            return p.X == q.X && p.Y == q.Y;
+        }
+
+        public static bool operator!=(Point p, Point q)
+        {
+            return !(p == q);
+        }
+
+        public MovementDeltas GetMovementDeltasToHeadTowards(Point targetPoint)
+        {
+            int dx = 0;
+            if (targetPoint.X < X) dx = -1;
+            if (targetPoint.X > X) dx = 1;
+
+            int dy = 0;
+            if (targetPoint.Y < Y) dy = -1;
+            if (targetPoint.Y > Y) dy = 1;
+
+            return new MovementDeltas(dx, dy);
+        }
+
     }
 }

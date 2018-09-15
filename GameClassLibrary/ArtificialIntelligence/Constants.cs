@@ -17,6 +17,6 @@ namespace GameClassLibrary.ArtificialIntelligence
         public const int SingleMindedSpeedDivisor = 2;
         public const int FiringAttractorSpeedDivisor = 3;
         public const int WanderingMineSpeedDivisor = 4;
-        public const int GhostMovementCycles = 2;
+        public const int SwoopMovementCycles = 2;
     }
 }
