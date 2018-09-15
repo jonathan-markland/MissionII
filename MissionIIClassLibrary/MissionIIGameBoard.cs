@@ -405,7 +405,8 @@ namespace MissionIIClassLibrary
 
             // vvv HACK - development test
 
-            objectsList.Add(new Droids.LinearMoverDroid(DestroyManByAdversary));
+//            objectsList.Add(new Droids.LinearMoverDroid(DestroyManByAdversary));
+            objectsList.Add(new Droids.BouncingDroid(DestroyManByAdversary));
 
             // ^^^ HACK
 

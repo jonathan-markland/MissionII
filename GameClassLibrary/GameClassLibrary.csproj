@@ -44,6 +44,7 @@
     <Compile Include="Algorithms\UniqueNumberAllocator.cs" />
     <Compile Include="ArtificialIntelligence\AbstractIntelligenceProvider.cs" />
     <Compile Include="ArtificialIntelligence\Attractor.cs" />
+    <Compile Include="ArtificialIntelligence\Bouncing.cs" />
     <Compile Include="ArtificialIntelligence\Constants.cs" />
     <Compile Include="ArtificialIntelligence\FiringAttractor.cs" />
     <Compile Include="ArtificialIntelligence\Guardian.cs" />
