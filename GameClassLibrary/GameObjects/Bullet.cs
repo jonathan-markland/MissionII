@@ -112,10 +112,13 @@ namespace GameClassLibrary.GameObjects
                     _spriteInstance.X = proposedX;
                     _spriteInstance.Y = proposedY;
 
-                    var bulletResult = theGameBoard.KillThingsInRectangle(GetBoundingRectangle(), IncreasesScore);
+                    var bulletResult = theGameBoard.KillThingsInRectangle(
+                        GetBoundingRectangle(), IncreasesScore);
+
                     if (bulletResult.HitCount > 0)
                     {
                         theGameBoard.Remove(this);
+
                         if (_increasesScore)
                         {
                             if (bulletResult.HitCount > 1)

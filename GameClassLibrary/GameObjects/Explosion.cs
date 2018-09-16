@@ -18,10 +18,10 @@ namespace GameClassLibrary.GameObjects
 
 
 
-        public Explosion(int roomX, int roomY, SpriteTraits explosionKind, SoundTraits explosionSound)
+        public Explosion(int x, int y, SpriteTraits explosionKind, SoundTraits explosionSound)
         {
-            SpriteInstance.X = roomX;
-            SpriteInstance.Y = roomY;
+            SpriteInstance.X = x;
+            SpriteInstance.Y = y;
             SpriteInstance.Traits = explosionKind;
             _explosionSound = explosionSound;
         }
