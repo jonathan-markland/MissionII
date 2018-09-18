@@ -11,7 +11,7 @@ namespace MissionIIClassLibrary.Droids
                   MissionIISprites.Monster2,
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  new Bouncing(0, 256, 256, 2, manDestroyAction, 1),
+                  new Bouncing(100, 200, 30, 2, manDestroyAction, 1),
                   manDestroyAction
                   )
         {

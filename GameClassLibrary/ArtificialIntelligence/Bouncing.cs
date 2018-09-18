@@ -43,8 +43,8 @@ namespace GameClassLibrary.ArtificialIntelligence
             {
                 var positionBefore = gameObject.TopLeftPosition;
 
-                if (positionBefore.X == _leftLimit && _movementDeltas.dx < 0) { }
-                else if (positionBefore.X == _rightLimit && _movementDeltas.dx > 0) { }
+                if (positionBefore.X == _leftLimit && _movementDeltas.MovingLeft) { }
+                else if (positionBefore.X == _rightLimit && _movementDeltas.MovingRight) { }
                 else
                 {
                     theGameBoard.MoveAdversaryOnePixel(
@@ -52,7 +52,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                         new MovementDeltas(_movementDeltas.dx, 0));
                 }
 
-                if (_movementDeltas.dy == -1 && positionBefore.Y == (_floorFoundY - _maxBounceHeightOffFloor)) { }
+                if (_movementDeltas.MovingUp && positionBefore.Y == (_floorFoundY - _maxBounceHeightOffFloor)) { }
                 else
                 {
                     theGameBoard.MoveAdversaryOnePixel(
@@ -64,14 +64,15 @@ namespace GameClassLibrary.ArtificialIntelligence
 
                 if (positionBefore.X == newPosition.X)
                 {
-                    _movementDeltas = new MovementDeltas(-_movementDeltas.dx, _movementDeltas.dy);
+                    _movementDeltas = _movementDeltas.ReverseX;
                 }
                 if (positionBefore.Y == newPosition.Y)
                 {
-                    _movementDeltas = new MovementDeltas(_movementDeltas.dx, -_movementDeltas.dy);
-                    if (_movementDeltas.dy == -1)
+                    _movementDeltas = _movementDeltas.ReverseY;
+
+                    if (_movementDeltas.MovingUp)
                     {
-                        // Switched to moving up, remember where the floor is, in order to limit bounce height.
+                        // Remember where the floor is, in order to limit bounce height.
                         _floorFoundY = newPosition.Y;
                     }
                 }

@@ -27,5 +27,20 @@
         {
             return g_MovementDeltas[facingDirection];
         }
+
+        public bool MovingLeft { get { return dx < 0; } }
+        public bool MovingRight { get { return dx > 0; } }
+        public bool MovingUp { get { return dy < 0; } }
+        public bool MovingDown { get { return dy > 0; } }
+
+        public MovementDeltas ReverseX
+        {
+            get { return new MovementDeltas(-dx, dy); }
+        }
+
+        public MovementDeltas ReverseY
+        {
+            get { return new MovementDeltas(dx, -dy); }
+        }
     }
 }
