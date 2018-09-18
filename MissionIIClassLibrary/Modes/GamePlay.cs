@@ -16,7 +16,7 @@ namespace MissionIIClassLibrary.Modes
         public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
             if (MissionIIModes.HandlePause(_gameBoard, theKeyStates, this)) return;
-            _gameBoard.Update(theKeyStates); // TODO: pull logic into this class
+            _gameBoard.AdvanceOneCycle(theKeyStates); // TODO: pull logic into this class
         }
 
         public override void Draw(IDrawingTarget drawingTarget)

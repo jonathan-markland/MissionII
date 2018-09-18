@@ -31,7 +31,6 @@ namespace MissionIIClassLibrary
         private uint Lives;
         private WorldWallData TheWorldWallData;
         private int RoomNumber; // one-based
-        private uint _cycleCount;
         private BulletTraits WhiteBulletTraits;
 
 
@@ -50,7 +49,6 @@ namespace MissionIIClassLibrary
             TheWorldWallData = worldWallData;
             Lives = Constants.InitialLives;
             LevelNumber = Constants.StartLevelNumber;
-            _cycleCount = 0;
             WhiteBulletTraits = new BulletTraits
             {
                 AdversaryFiring = MissionIISounds.DroidFiring,
@@ -112,9 +110,9 @@ namespace MissionIIClassLibrary
 
 
 
-        public void Update(KeyStates keyStates)
+        public void AdvanceOneCycle(KeyStates keyStates)
         {
-            ++_cycleCount;
+            GameClassLibrary.Time.CycleCounter.IncrementCycleCounter();
             ObjectsInRoom.ForEach<GameObject>(o => { o.AdvanceOneCycle(this, keyStates); });
             ObjectsInRoom.RemoveThese(ObjectsToRemove);
             ObjectsToRemove.Clear();
@@ -637,7 +635,8 @@ namespace MissionIIClassLibrary
 
             // The Room:
 
-            var drawTileMatrix = (!Man.IsBeingElectrocutedByWalls) | (_cycleCount & 2) == 0;
+            var cycleCount = GameClassLibrary.Time.CycleCounter.Count32;
+            var drawTileMatrix = (!Man.IsBeingElectrocutedByWalls) | (cycleCount & 2) == 0;
 
             if (drawTileMatrix)
             {
@@ -645,7 +644,7 @@ namespace MissionIIClassLibrary
                     0,
                     0,
                     CurrentRoomTileMatrix,
-                    (_cycleCount & 32) == 0 ? _electrocutionBackgroundSprites : _normalBackgroundSprites);
+                    (cycleCount & 32) == 0 ? _electrocutionBackgroundSprites : _normalBackgroundSprites);
             }
 
             // Draw objects in the room:
