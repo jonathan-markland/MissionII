@@ -9,7 +9,6 @@ namespace GameClassLibrary.ArtificialIntelligence
     public class WanderingMine : AbstractIntelligenceProvider
     {
         private int _countDown = 0;
-        private int _cycleCounter = 0;
         private int _facingDirection = 0;
         private MovementDeltas _movementDeltas = new MovementDeltas(0, 0);
         private Func<Rectangle, FoundDirections> _freeDirectionFinder;
@@ -29,8 +28,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
         public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
-            ++_cycleCounter;
-            if ((_cycleCounter % _speedDivisor) == 0)
+            if (Time.CycleCounter.Count32 % _speedDivisor == 0)
             {
                 if (_countDown > 0)
                 {

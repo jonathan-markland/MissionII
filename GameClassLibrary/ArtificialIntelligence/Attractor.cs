@@ -6,14 +6,9 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public class Attractor : AbstractIntelligenceProvider
     {
-        private bool _operationEnable = false;
-
-
-
         public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
-            _operationEnable = !_operationEnable;  // ie: operate only ever other cycle
-            if (_operationEnable)
+            if ((Time.CycleCounter.Count32 & 1) == 0)
             {
                 var moveDeltas = gameObject.GetMovementDeltasToHeadTowards(
                     theGameBoard.GetMan());

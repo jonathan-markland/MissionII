@@ -9,7 +9,6 @@ namespace GameClassLibrary.ArtificialIntelligence
     public class SingleMinded : AbstractIntelligenceProvider
     {
         private int _countDown = 0;
-        private int _cycleCounter = 0;
         private int _facingDirection = 0;
         private MovementDeltas _movementDeltas = new MovementDeltas(0, 0);
         private Func<Rectangle, FoundDirections> _freeDirectionFinder;
@@ -29,9 +28,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
         public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
-            ++_cycleCounter;
-
-            if ((_cycleCounter % Constants.SingleMindedSpeedDivisor) == 0)
+            if (Time.CycleCounter.Count32 % Constants.SingleMindedSpeedDivisor == 0)
             {
                 if (_countDown > 0)
                 {
@@ -54,7 +51,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                 var hitResult = theGameBoard.MoveAdversaryOnePixel(
                     gameObject, _movementDeltas);
 
-                if ((_cycleCounter & Constants.SingleMindedFiringCyclesAndMask) == 0) // TODO: firing time constant
+                if ((Time.CycleCounter.Count32 & Constants.SingleMindedFiringCyclesAndMask) == 0)
                 {
                     if (!_movementDeltas.Stationary
                         && Rng.Generator.Next(100) < Constants.SingleMindedFiringProbabilityPercent)

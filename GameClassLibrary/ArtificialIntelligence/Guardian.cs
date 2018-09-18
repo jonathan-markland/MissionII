@@ -8,7 +8,6 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public class Guardian: AbstractIntelligenceProvider
     {
-        private int _cycleCounter;
         private int _facingDirection = 0;
         private MovementDeltas _movementDeltas = new MovementDeltas(0, 0);
         private Action _manDestroyAction;
@@ -23,8 +22,6 @@ namespace GameClassLibrary.ArtificialIntelligence
 
         public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
-            ++_cycleCounter;
-
             if (_movementDeltas.Stationary)
             {
                 _facingDirection = GameClassLibrary.Math.Rng.Generator.Next(8);

@@ -7,7 +7,6 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public class FiringAttractor : AbstractIntelligenceProvider
     {
-        private uint _cycleCounter = 0;
         private Action<Rectangle, MovementDeltas, bool> _fireBullet;
 
 
@@ -21,9 +20,9 @@ namespace GameClassLibrary.ArtificialIntelligence
 
         public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
-            ++_cycleCounter;
+            var cycleCount = Time.CycleCounter.Count32;
 
-            if (_cycleCounter % Constants.FiringAttractorSpeedDivisor == 0)
+            if (cycleCount % Constants.FiringAttractorSpeedDivisor == 0)
             {
                 var moveDeltas = gameObject.GetMovementDeltasToHeadTowards(
                     theGameBoard.GetMan());
@@ -42,7 +41,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                     gameObject,
                     new MovementDeltas(0, moveDeltas.dy));
 
-                if ((_cycleCounter & Constants.FiringAttractorFiringCyclesAndMask) == 0)
+                if ((cycleCount & Constants.FiringAttractorFiringCyclesAndMask) == 0)
                 {
                     if (!moveDeltas.Stationary
                         && Rng.Generator.Next(100) < Constants.AttractorFiringProbabilityPercent)
