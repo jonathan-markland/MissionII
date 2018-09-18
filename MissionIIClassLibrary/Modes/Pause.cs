@@ -10,7 +10,7 @@ namespace MissionIIClassLibrary.Modes
                   originalMode,
                   MissionIISprites.Paused,
                   MissionIISounds.PauseMode,
-                  Constants.ScreenHeight - 60,
+                  Constants.ScreenHeight - 146,
                   MissionIIFonts.GiantFont,
                   MissionIISounds.ManFiring,
                   s => theGameBoard.LevelCodeAccepted(s),

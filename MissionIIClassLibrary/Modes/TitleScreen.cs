@@ -9,7 +9,7 @@ namespace MissionIIClassLibrary.Modes
                   MissionIISprites.TitleScreen,
                   MissionIISounds.Intro,
                   MissionIIFonts.NarrowFont,
-                  "BY JONATHAN MARKLAND",
+                  "RETRO REMAKE   BY JONATHAN MARKLAND",
                   () => new StartNewGame(),
                   () => new HiScore(0))
         {

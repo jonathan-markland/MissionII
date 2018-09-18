@@ -10,11 +10,11 @@ namespace GameClassLibrary.Controls.Hiscore
         public HiScoreScreenModel(uint lowestScore, uint scoreIncrement)
         {
             _scoreTable = new List<HiScoreTableEntryModel>();
-            _scoreTable.Add(new HiScoreTableEntryModel("JUAN", lowestScore + 4 * scoreIncrement));
+            _scoreTable.Add(new HiScoreTableEntryModel("ZACHARY", lowestScore + 4 * scoreIncrement));
             _scoreTable.Add(new HiScoreTableEntryModel("DIMITAR", lowestScore + 3 * scoreIncrement));
-            _scoreTable.Add(new HiScoreTableEntryModel("LAURA", lowestScore + 2 * scoreIncrement));
-            _scoreTable.Add(new HiScoreTableEntryModel("NICO", lowestScore + 1 * scoreIncrement));
-            _scoreTable.Add(new HiScoreTableEntryModel("JANE", lowestScore));
+            _scoreTable.Add(new HiScoreTableEntryModel("ARIANA", lowestScore + 2 * scoreIncrement));
+            _scoreTable.Add(new HiScoreTableEntryModel("THEODORE", lowestScore + 1 * scoreIncrement));
+            _scoreTable.Add(new HiScoreTableEntryModel("XAVIER", lowestScore));
             SortScoreTable();
         }
 
