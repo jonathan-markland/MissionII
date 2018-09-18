@@ -29,7 +29,7 @@ namespace GameClassLibrary.Modes
             _getNextModeFunction = getNextModeFunction;
             _startTime = Time.CycleSnapshot.Now;
 
-            optionalFreezeSound?.Play();
+            optionalFreezeSound?.Play(); // TODO: No, do in AdvanceOneCycle()
         }
 
 

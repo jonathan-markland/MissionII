@@ -28,11 +28,6 @@ namespace GameClassLibrary.Controls.Hiscore
             _editedRowIndex = -1;
         }
 
-        public bool CanPlayerEnterTable(uint scoreObtained)
-        {
-            return _theModel.CanPlayerEnterTable(scoreObtained);
-        }
-
         public void ForceEnterScore(uint scoreObtained)
         {
             _editedRowIndex = _theModel.ForceEnterScore(scoreObtained);

@@ -1,17 +1,13 @@
 ﻿
 namespace MissionIIClassLibrary.Modes
 {
-    public class HiScore : GameClassLibrary.Modes.HiScore
+    public class HiScoreShow : GameClassLibrary.Modes.HiScoreShow
     {
-        public HiScore(uint scoreAchieved)
+        public HiScoreShow()
             : base(
                   Constants.TitleScreenRollCycles,
                   MissionIISprites.HiScoreScreen,
-                  MissionIIFonts.WideFont,
                   MissionIIFonts.HiScoreFont,
-                  MissionIISprites.Life,
-                  scoreAchieved,
-                  () => new TitleScreen(),
                   () => new StartNewGame(),
                   () => new MissionRotatingInstructions())
         {

@@ -8,7 +8,15 @@ namespace MissionIIClassLibrary.Modes
                   Constants.GameOverMessageCycles,
                   MissionIISprites.GameOver,
                   MissionIISounds.GameOver,
-                  () => new HiScore(finalScore))
+                  () =>
+                  {
+                      if(finalScore > 0 
+                          && GameClassLibrary.Modes.HiScoreEntry.HiScoreTableModel.CanPlayerEnterTable(finalScore))
+                      {
+                          return new HiScoreEntry(finalScore);
+                      }
+                      return new HiScoreShow();
+                  })
         {
         }
     }

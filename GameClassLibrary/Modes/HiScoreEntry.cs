@@ -6,11 +6,11 @@ using GameClassLibrary.Controls.Hiscore;
 
 namespace GameClassLibrary.Modes
 {
-    public class HiScore : GameMode
+    public class HiScoreEntry : GameMode
     {
-        private static HiScoreScreenModel HiScoreTableModel;
+        public static HiScoreScreenModel HiScoreTableModel;  // TODO: reconsider
+
         private uint _countDown;
-        private bool _enterScoreMode;
         private readonly uint _screenCycles;
         private readonly HiScoreScreenControl _hiScoreScreenControl;
         private readonly Font _enterNameFont;
@@ -40,7 +40,7 @@ namespace GameClassLibrary.Modes
         /// Constructor for finishing a game when scoreAchieved > 0.
         /// If scoreAchieved == 0, we just show the screen.
         /// </summary>
-        public HiScore(
+        public HiScoreEntry(
             uint screenCycles,
             SpriteTraits backgroundSprite,
             Font enterNameFont,
@@ -67,54 +67,28 @@ namespace GameClassLibrary.Modes
                 _cursorSprite,
                 HiScoreTableModel);
 
-            if (scoreAchieved > 0 && _hiScoreScreenControl.CanPlayerEnterTable(scoreAchieved))
-            {
-                _enterScoreMode = true;
-                _hiScoreScreenControl.ForceEnterScore(scoreAchieved);
-            }
-            else
-            {
-                _enterScoreMode = false;
-            }
+            _hiScoreScreenControl.ForceEnterScore(scoreAchieved);
         }
 
 
 
         public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
-            if (_enterScoreMode)
+            if (_hiScoreScreenControl.InEditMode)
             {
-                if (_hiScoreScreenControl.InEditMode)
-                {
-                    _hiScoreScreenControl.AdvanceOneCycle(theKeyStates);
-                }
-                else
-                {
-                    _enterScoreMode = false;
-                    ActiveMode = new GameClassLibrary.Modes.ChangeStageFreeze(
-                        _screenCycles,
-                        this,
-                        null,
-                        _getTitleScreenModeFunction);
-                }
+                _hiScoreScreenControl.AdvanceOneCycle(theKeyStates);
             }
-            else // show
+            else
             {
-                if (_countDown > 0)
-                {
-                    if (theKeyStates.Fire)
-                    {
-                        if (_countDown < (_screenCycles * 3 / 4))
-                        {
-                            ActiveMode = _getStartNewGameModeFunction();
-                        }
-                    }
-                    --_countDown;
-                }
-                else
-                {
-                    ActiveMode = _getRollOverModeFunction();
-                }
+                var hiScoreShow = new HiScoreShow(
+                        _screenCycles, _backgroundSprite, _tableFont,
+                        _getStartNewGameModeFunction, _getTitleScreenModeFunction);
+
+                ActiveMode = new ChangeStageFreeze(
+                    _screenCycles,
+                    hiScoreShow,
+                    null,
+                    _getTitleScreenModeFunction);
             }
         }
 
@@ -125,11 +99,8 @@ namespace GameClassLibrary.Modes
             drawingTarget.ClearScreen();
             drawingTarget.DrawSprite(0, 0, _backgroundSprite.GetHostImageObject(0));
             _hiScoreScreenControl.DrawScreen(drawingTarget);
-            if (_enterScoreMode)
-            {
-                drawingTarget.DrawText(
-                    Screen.Width / 2, 56, "ENTER YOUR NAME", _enterNameFont, TextAlignment.Centre);
-            }
+            drawingTarget.DrawText(
+                Screen.Width / 2, 56, "ENTER YOUR NAME", _enterNameFont, TextAlignment.Centre);
         }
     }
 }
