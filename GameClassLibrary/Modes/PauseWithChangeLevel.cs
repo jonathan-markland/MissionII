@@ -8,15 +8,15 @@ namespace GameClassLibrary.Modes
 {
     public class PauseWithChangeLevel : GameMode
     {
-        private GameMode _originalMode;
+        private readonly GameMode _originalMode;
         private bool _keyReleaseSeen;
         private bool _restartGameOnNextRelease;
-        private AccessCodeAccumulatorControl _accessCodeControl;
-        private Sound.SoundTraits _pauseSound;
-        private Func<string, bool> _tryCode;
-        private Func<GameMode> _getNextModeFunction;
-        private Func<bool> _canChangeLevel;
-        private SpriteTraits _pauseSprite;
+        private readonly AccessCodeAccumulatorControl _accessCodeControl;
+        private readonly Sound.SoundTraits _pauseSound;
+        private readonly Func<string, bool> _tryCode;
+        private readonly Func<GameMode> _getNextModeFunction;
+        private readonly Func<bool> _canChangeLevel;
+        private readonly SpriteTraits _pauseSprite;
 
 
 

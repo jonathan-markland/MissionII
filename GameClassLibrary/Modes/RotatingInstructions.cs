@@ -14,12 +14,12 @@ namespace GameClassLibrary.Modes
 
         private int _countDown;
         private int _initialCycles;
-        private int _pageVisibleCycles;
-        private List<List<string>> _listOfPages;
-        private SpriteTraits _backgroundSprite;
-        private Font _theFont;
-        private Func<GameMode> _getStartGameMode;
-        private Func<GameMode> _getNextModeFunction;
+        private readonly int _pageVisibleCycles;
+        private readonly List<List<string>> _listOfPages;
+        private readonly SpriteTraits _backgroundSprite;
+        private readonly Font _theFont;
+        private readonly Func<GameMode> _getStartGameMode;
+        private readonly Func<GameMode> _getNextModeFunction;
 
 
 

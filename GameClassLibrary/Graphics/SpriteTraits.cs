@@ -6,7 +6,7 @@ namespace GameClassLibrary.Graphics
 {
     public class SpriteTraits
     {
-        private List<HostSuppliedSprite> _hostImageObjects;
+        private readonly List<HostSuppliedSprite> _hostImageObjects;
         private static Func<string, HostSuppliedSprite> _hostSpriteSupplier;
 
         /// <summary>

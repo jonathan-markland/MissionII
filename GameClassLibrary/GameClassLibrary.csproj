@@ -76,7 +76,6 @@
     <Compile Include="Graphics\HostSuppliedSpriteRecolouringExtensions.cs" />
     <Compile Include="Graphics\IDrawingTarget.cs" />
     <Compile Include="Graphics\IDrawingTargetExtensions.cs" />
-    <Compile Include="Graphics\SpriteInstanceExtensions.cs" />
     <Compile Include="Graphics\SpriteInstance.cs" />
     <Compile Include="Graphics\SpriteTraits.cs" />
     <Compile Include="Graphics\TextAlignment.cs" />

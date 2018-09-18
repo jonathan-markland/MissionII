@@ -7,16 +7,16 @@ namespace GameClassLibrary.Modes
 {
     public class TitleScreenWithCredit : GameMode
     {
-        private int _titleScreenRollCycles;
-        private int _fireButtonPressEnableTime;
+        private readonly int _titleScreenRollCycles;
+        private readonly int _fireButtonPressEnableTime;
         private int _countDown;
         private bool _releaseWaiting = true;
         private bool _firstCycle = true;
-        private Sound.SoundTraits _introSound;
-        private SpriteTraits _titleScreenBackground;
-        private Font _font;
-        private Func<GameMode> _getStartGameModeObject;
-        private Func<GameMode> _getRollOntoScreenObject;
+        private readonly Sound.SoundTraits _introSound;
+        private readonly SpriteTraits _titleScreenBackground;
+        private readonly Font _font;
+        private readonly Func<GameMode> _getStartGameModeObject;
+        private readonly Func<GameMode> _getRollOntoScreenObject;
         private string _creditMessageText;
 
 

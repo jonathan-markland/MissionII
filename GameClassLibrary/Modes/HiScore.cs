@@ -10,16 +10,16 @@ namespace GameClassLibrary.Modes
     {
         private static HiScoreScreenModel HiScoreTableModel;
         private int _countDown;
-        private int _screenCycles;
         private bool _enterScoreMode;
-        private HiScoreScreenControl _hiScoreScreenControl;
-        private Font _enterNameFont;
-        private Font _tableFont;
-        private SpriteTraits _cursorSprite;
-        private Func<GameMode> _getTitleScreenModeFunction;
-        private Func<GameMode> _getStartNewGameModeFunction;
-        private Func<GameMode> _getRollOverModeFunction;
-        private SpriteTraits _backgroundSprite;
+        private readonly int _screenCycles;
+        private readonly HiScoreScreenControl _hiScoreScreenControl;
+        private readonly Font _enterNameFont;
+        private readonly Font _tableFont;
+        private readonly SpriteTraits _cursorSprite;
+        private readonly Func<GameMode> _getTitleScreenModeFunction;
+        private readonly Func<GameMode> _getStartNewGameModeFunction;
+        private readonly Func<GameMode> _getRollOverModeFunction;
+        private readonly SpriteTraits _backgroundSprite;
 
 
 
@@ -61,7 +61,11 @@ namespace GameClassLibrary.Modes
             _screenCycles = screenCycles;
             _countDown = screenCycles;
 
-            CreateHiScoreControl();
+            _hiScoreScreenControl = new HiScoreScreenControl(
+                new GameClassLibrary.Math.Rectangle(10, 70, 300, 246 - 70),// TODO: screen dimension constants!
+                _tableFont,
+                _cursorSprite,
+                HiScoreTableModel);
 
             if (scoreAchieved > 0 && _hiScoreScreenControl.CanPlayerEnterTable(scoreAchieved))
             {
@@ -72,17 +76,6 @@ namespace GameClassLibrary.Modes
             {
                 _enterScoreMode = false;
             }
-        }
-
-
-
-        private void CreateHiScoreControl()
-        {
-            _hiScoreScreenControl = new HiScoreScreenControl(
-                new GameClassLibrary.Math.Rectangle(10, 70, 300, 246 - 70),// TODO: screen dimension constants!
-                _tableFont,
-                _cursorSprite,
-                HiScoreTableModel);
         }
 
 

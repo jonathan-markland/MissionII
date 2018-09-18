@@ -11,7 +11,7 @@ namespace GameClassLibrary.Sound
         private static Action<HostSuppliedSound> _hostPlayMusicAction;
         private static Action _hostStopMusicAction;
         private static Random _rndGen;
-        private List<HostSuppliedSound> _hostSoundObjects;
+        private readonly List<HostSuppliedSound> _hostSoundObjects;
 
         /// <summary>
         /// Must be called by the host to specify a handler that can provide

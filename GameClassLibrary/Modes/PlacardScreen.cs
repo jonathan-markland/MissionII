@@ -13,9 +13,9 @@ namespace GameClassLibrary.Modes
     {
         private int _countDown;
         private bool _firstCycle = true;
-        private Sound.SoundTraits _placardSound;
-        private SpriteTraits _placardSprite;
-        private Func<GameMode> _getNextModeFunction;
+        private readonly Sound.SoundTraits _placardSound;
+        private readonly SpriteTraits _placardSprite;
+        private readonly Func<GameMode> _getNextModeFunction;
 
 
 
