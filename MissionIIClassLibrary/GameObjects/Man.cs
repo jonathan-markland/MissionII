@@ -105,7 +105,7 @@ namespace MissionIIClassLibrary.GameObjects
             var movementDeltas = keyStates.ToMovementDeltas();
             var hitResult = theGameBoard.MoveManOnePixel(movementDeltas);
 
-            if (!movementDeltas.Stationary)
+            if (!movementDeltas.IsStationary)
             {
                 PlayWalkingEffects();
             }

@@ -49,7 +49,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                 {
                     theGameBoard.MoveAdversaryOnePixel(
                         gameObject,
-                        new MovementDeltas(_movementDeltas.dx, 0));
+                        _movementDeltas.XComponent);
                 }
 
                 if (_movementDeltas.MovingUp && positionBefore.Y == (_floorFoundY - _maxBounceHeightOffFloor)) { }
@@ -57,7 +57,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                 {
                     theGameBoard.MoveAdversaryOnePixel(
                         gameObject,
-                        new MovementDeltas(0, _movementDeltas.dy));
+                        _movementDeltas.YComponent);
                 }
 
                 var newPosition = gameObject.TopLeftPosition;

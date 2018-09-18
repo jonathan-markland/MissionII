@@ -10,7 +10,7 @@ namespace GameClassLibrary.ArtificialIntelligence
     {
         private int _countDown = 0;
         private int _facingDirection = 0;
-        private MovementDeltas _movementDeltas = new MovementDeltas(0, 0);
+        private MovementDeltas _movementDeltas = MovementDeltas.Stationary;
         private Func<Rectangle, FoundDirections> _freeDirectionFinder;
         private Action _manDestroyAction;
         private int _speedDivisor;
@@ -46,7 +46,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
         private void DoMovement(IGameBoard theGameBoard, GameObject gameObject)
         {
-            if (!_movementDeltas.Stationary)
+            if (!_movementDeltas.IsStationary)
             {
                 var hitResult = theGameBoard.MoveAdversaryOnePixel(
                     gameObject, _movementDeltas);
@@ -77,7 +77,7 @@ namespace GameClassLibrary.ArtificialIntelligence
             {
                 // Can't move.
                 _countDown = 0;
-                _movementDeltas = new MovementDeltas(0, 0);
+                _movementDeltas = MovementDeltas.Stationary;
             }
             else
             {

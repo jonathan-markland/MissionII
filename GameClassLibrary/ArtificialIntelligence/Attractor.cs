@@ -21,11 +21,11 @@ namespace GameClassLibrary.ArtificialIntelligence
 
                 theGameBoard.MoveAdversaryOnePixel(
                     gameObject,
-                    new MovementDeltas(moveDeltas.dx, 0));
+                    moveDeltas.XComponent);
 
                 theGameBoard.MoveAdversaryOnePixel(
                     gameObject,
-                    new MovementDeltas(0, moveDeltas.dy));
+                    moveDeltas.YComponent);
             }
         }
     }

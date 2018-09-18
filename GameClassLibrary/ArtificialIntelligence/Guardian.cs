@@ -9,7 +9,7 @@ namespace GameClassLibrary.ArtificialIntelligence
     public class Guardian: AbstractIntelligenceProvider
     {
         private int _facingDirection = 0;
-        private MovementDeltas _movementDeltas = new MovementDeltas(0, 0);
+        private MovementDeltas _movementDeltas = MovementDeltas.Stationary;
         private Action _manDestroyAction;
 
 
@@ -22,7 +22,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
         public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
         {
-            if (_movementDeltas.Stationary)
+            if (_movementDeltas.IsStationary)
             {
                 _facingDirection = GameClassLibrary.Math.Rng.Generator.Next(8);
                 _movementDeltas = MovementDeltas.ConvertFromFacingDirection(_facingDirection);

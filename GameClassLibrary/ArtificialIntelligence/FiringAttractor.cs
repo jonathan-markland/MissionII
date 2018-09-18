@@ -35,15 +35,15 @@ namespace GameClassLibrary.ArtificialIntelligence
 
                 theGameBoard.MoveAdversaryOnePixel(
                     gameObject,
-                    new MovementDeltas(moveDeltas.dx, 0));
+                    moveDeltas.XComponent);
 
                 theGameBoard.MoveAdversaryOnePixel(
                     gameObject,
-                    new MovementDeltas(0, moveDeltas.dy));
+                    moveDeltas.YComponent);
 
                 if ((cycleCount & Constants.FiringAttractorFiringCyclesAndMask) == 0)
                 {
-                    if (!moveDeltas.Stationary
+                    if (!moveDeltas.IsStationary
                         && Rng.Generator.Next(100) < Constants.AttractorFiringProbabilityPercent)
                     {
                         _fireBullet(gameObject.GetBoundingRectangle(), moveDeltas, false);

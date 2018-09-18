@@ -10,7 +10,7 @@ namespace GameClassLibrary.ArtificialIntelligence
     {
         private int _countDown = 0;
         private int _facingDirection = 0;
-        private MovementDeltas _movementDeltas = new MovementDeltas(0, 0);
+        private MovementDeltas _movementDeltas = MovementDeltas.Stationary;
         private Func<Rectangle, FoundDirections> _freeDirectionFinder;
         private Action<Rectangle, MovementDeltas, bool> _fireBullet;
 
@@ -46,14 +46,14 @@ namespace GameClassLibrary.ArtificialIntelligence
 
         private void DoMovement(IGameBoard theGameBoard, GameObject gameObject)
         {
-            if (!_movementDeltas.Stationary)
+            if (!_movementDeltas.IsStationary)
             {
                 var hitResult = theGameBoard.MoveAdversaryOnePixel(
                     gameObject, _movementDeltas);
 
                 if ((Time.CycleCounter.Count32 & Constants.SingleMindedFiringCyclesAndMask) == 0)
                 {
-                    if (!_movementDeltas.Stationary
+                    if (!_movementDeltas.IsStationary
                         && Rng.Generator.Next(100) < Constants.SingleMindedFiringProbabilityPercent)
                     {
                         _fireBullet(
@@ -79,7 +79,7 @@ namespace GameClassLibrary.ArtificialIntelligence
             {
                 // Can't move.
                 _countDown = 0;
-                _movementDeltas = new MovementDeltas(0, 0);
+                _movementDeltas = MovementDeltas.Stationary;
             }
             else
             {
