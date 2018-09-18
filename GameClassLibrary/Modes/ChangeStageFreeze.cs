@@ -11,41 +11,32 @@ namespace GameClassLibrary.Modes
     /// </summary>
     public class ChangeStageFreeze : GameMode
     {
-        private int _countDown;
-        private bool _firstCycle = true;
+        private readonly uint _freezeCycles;
+        private readonly Time.CycleSnapshot _startTime;
         private readonly GameMode _previousMode;
         private readonly Func<GameMode> _getNextModeFunction;
-        private readonly Sound.SoundTraits _freezeSound;
 
 
 
         public ChangeStageFreeze(
-            int freezeCycles, 
+            uint freezeCycles, 
             GameMode previousMode,
             Sound.SoundTraits optionalFreezeSound,
             Func<GameMode> getNextModeFunction)
         {
-            _freezeSound = optionalFreezeSound;
-            _countDown = freezeCycles;
+            _freezeCycles = freezeCycles;
             _previousMode = previousMode;
             _getNextModeFunction = getNextModeFunction;
+            _startTime = Time.CycleSnapshot.Now;
+
+            optionalFreezeSound?.Play();
         }
 
 
 
         public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
-            if (_firstCycle)
-            {
-                _freezeSound?.Play();
-                _firstCycle = false;
-            }
-
-            if (_countDown > 0)
-            {
-                --_countDown;
-            }
-            else
+            if (_startTime.HasElapsed(_freezeCycles))
             {
                 ActiveMode = _getNextModeFunction();
             }

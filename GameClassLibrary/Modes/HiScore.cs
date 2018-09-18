@@ -9,9 +9,9 @@ namespace GameClassLibrary.Modes
     public class HiScore : GameMode
     {
         private static HiScoreScreenModel HiScoreTableModel;
-        private int _countDown;
+        private uint _countDown;
         private bool _enterScoreMode;
-        private readonly int _screenCycles;
+        private readonly uint _screenCycles;
         private readonly HiScoreScreenControl _hiScoreScreenControl;
         private readonly Font _enterNameFont;
         private readonly Font _tableFont;
@@ -41,7 +41,7 @@ namespace GameClassLibrary.Modes
         /// If scoreAchieved == 0, we just show the screen.
         /// </summary>
         public HiScore(
-            int screenCycles,
+            uint screenCycles,
             SpriteTraits backgroundSprite,
             Font enterNameFont,
             Font tableFont,

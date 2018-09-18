@@ -10,6 +10,12 @@ namespace GameClassLibrary.Modes
         /// </summary>
         public static GameMode ActiveMode;
 
+        public static void AdvanceActiveModeOneCycle(KeyStates theKeyStates)
+        {
+            Time.CycleCounter.IncrementCycleCounter();
+            ActiveMode.AdvanceOneCycle(theKeyStates);
+        }
+
         public virtual void AdvanceOneCycle(KeyStates theKeyStates)
         {
             // No base action

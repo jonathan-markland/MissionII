@@ -207,7 +207,7 @@ namespace MissionIIMonoGame
             }
             */
             ReadAndStorePlayerInputs();
-            GameClassLibrary.Modes.GameMode.ActiveMode.AdvanceOneCycle(_keyStates);
+            GameClassLibrary.Modes.GameMode.AdvanceActiveModeOneCycle(_keyStates);
             base.Update(gameTime);
         }
 

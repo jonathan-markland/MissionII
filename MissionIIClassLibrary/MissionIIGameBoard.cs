@@ -95,7 +95,7 @@ namespace MissionIIClassLibrary
 
         public bool ManIsInvincible()
         {
-            return Man.IsInvincible;
+            return true; // Man.IsInvincible;
         }
 
         public GameObject GetMan()
@@ -112,7 +112,6 @@ namespace MissionIIClassLibrary
 
         public void AdvanceOneCycle(KeyStates keyStates)
         {
-            GameClassLibrary.Time.CycleCounter.IncrementCycleCounter();
             ObjectsInRoom.ForEach<GameObject>(o => { o.AdvanceOneCycle(this, keyStates); });
             ObjectsInRoom.RemoveThese(ObjectsToRemove);
             ObjectsToRemove.Clear();
