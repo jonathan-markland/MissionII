@@ -10,7 +10,7 @@ namespace MissionIIClassLibrary.Modes
     {
         public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
-            using (var sr = new StreamReader("Resources\\Levels.txt"))
+			using (var sr = new StreamReader(Path.Combine("Resources", "Levels.txt")))
             {
                 var levelsList = MissionIIClassLibrary.LevelFileParser.Parse(sr);
                 MissionIIClassLibrary.LevelFileValidator.ExpectValidPathsInWorld(levelsList);

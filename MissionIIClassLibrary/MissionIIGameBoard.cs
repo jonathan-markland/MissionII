@@ -95,7 +95,7 @@ namespace MissionIIClassLibrary
 
         public bool ManIsInvincible()
         {
-            return true; // Man.IsInvincible;
+            return Man.IsInvincible;
         }
 
         public GameObject GetMan()
