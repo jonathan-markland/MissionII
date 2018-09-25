@@ -1,5 +1,4 @@
 ﻿
-using GameClassLibrary.Math;
 using GameClassLibrary.GameBoard;
 
 namespace GameClassLibrary.ArtificialIntelligence

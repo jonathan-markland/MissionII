@@ -8,15 +8,19 @@ namespace GameClassLibrary.Controls
     public class NameEntryControl
     {
         private static string NextCharString = " ";
-        private uint _cycleCounter;
+
+		private readonly Font _theFont;
+        private readonly SpriteTraits _cursorSprite;
+        private readonly int _maxLength;
+
+		private uint _cycleCounter;
         private string _editString;
         private bool _sustainEditModeUntilButtonsReleased;
         private bool _waitingForRelease;
-        private Font _theFont;
-        private SpriteTraits _cursorSprite;
-        private int _maxLength;
         private Action<string> _onFinalStringSet;
         private bool _addingCharsAllowed;
+
+
 
         public NameEntryControl(
             Font theFont,
@@ -30,6 +34,8 @@ namespace GameClassLibrary.Controls
             _sustainEditModeUntilButtonsReleased = false;
         }
 
+
+
         public void Start(string textString, Action<string> onFinalStringSet)
         {
             _onFinalStringSet = onFinalStringSet;
@@ -37,6 +43,8 @@ namespace GameClassLibrary.Controls
             _cycleCounter = 0;
             _addingCharsAllowed = true;
         }
+
+
 
         public bool InEditMode
         {
@@ -46,10 +54,14 @@ namespace GameClassLibrary.Controls
             }
         }
 
+
+
         public bool AllReleased(KeyStates keyStates)
         {
             return !keyStates.Up && !keyStates.Down && !keyStates.Left && !keyStates.Fire;
         }
+
+
 
         public void AdvanceOneCycle(KeyStates keyStates)
         {
@@ -68,6 +80,8 @@ namespace GameClassLibrary.Controls
             _waitingForRelease = true;
         }
 
+
+
         public void Draw(IDrawingTarget drawingTarget, int x, int y)
         {
             drawingTarget.DrawText(x, y, _editString, _theFont, TextAlignment.Left);
@@ -78,6 +92,8 @@ namespace GameClassLibrary.Controls
                 drawingTarget.DrawFirstSprite(x + nameLengthPixels, y, _cursorSprite);
             }
         }
+
+
 
         private void RubOut()
         {
@@ -90,6 +106,8 @@ namespace GameClassLibrary.Controls
                 _editString = _editString.Substring(0, _editString.Length - 1);
             }
         }
+
+
 
         private void NextChar()
         {
@@ -114,6 +132,8 @@ namespace GameClassLibrary.Controls
             }
         }
 
+
+
         private static char GetNextChar(char ch, int directionDelta)
         {
             var charIndex = CharToIndex(ch) + directionDelta;
@@ -123,12 +143,16 @@ namespace GameClassLibrary.Controls
             return IndexToChar(charIndex);
         }
 
+
+
         public static int CharToIndex(char ch)
         {
             if (ch == ' ') return -1;
             if (ch >= 'A' && ch <= 'Z') return ((int)ch) - 65;
             return -1;
         }
+
+
 
         public static char IndexToChar(int theIndex)
         {
@@ -139,12 +163,16 @@ namespace GameClassLibrary.Controls
             return ' ';
         }
 
+
+
         private void IncrementChar(int directionDelta)
         {
             // Up/Down tweaks the rightmost letter.
             var oldStr = _editString;
             _editString = oldStr.Substring(0, oldStr.Length - 1) + GetNextChar(oldStr.Last(), directionDelta);
         }
+
+
 
         private bool CursorVisible
         {

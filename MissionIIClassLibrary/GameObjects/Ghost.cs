@@ -75,7 +75,7 @@ namespace MissionIIClassLibrary.GameObjects
                 _spriteInstance.Traits = MissionIISprites.GhostStunned;
                 MissionIISounds.StunGhost.Play();
             }
-            return new ShotStruct { Affirmed = true, ScoreIncrease = 0 };
+			return new ShotStruct(affirmed:true);
         }
 
         public override Rectangle GetBoundingRectangle()

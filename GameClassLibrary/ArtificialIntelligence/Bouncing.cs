@@ -7,12 +7,13 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public class Bouncing : AbstractIntelligenceProvider
     {
-        private int _leftLimit;
-        private int _rightLimit;
-        private int _maxBounceHeightOffFloor;
-        private int _movesPerCycle;
-        private MovementDeltas _movementDeltas;
-        private Action _manDestroyAction;
+		private readonly int _leftLimit;
+		private readonly int _rightLimit;
+		private readonly int _maxBounceHeightOffFloor;
+		private readonly int _movesPerCycle;
+		private readonly Action _manDestroyAction;
+
+		private MovementDeltas _movementDeltas;
         private bool _firstCycle;
         private int _floorFoundY;
 

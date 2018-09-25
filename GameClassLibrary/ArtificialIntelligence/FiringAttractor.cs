@@ -7,7 +7,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public class FiringAttractor : AbstractIntelligenceProvider
     {
-        private Action<Rectangle, MovementDeltas, bool> _fireBullet;
+        private readonly Action<Rectangle, MovementDeltas, bool> _fireBullet;
 
 
 

@@ -69,7 +69,7 @@ namespace MissionIIClassLibrary.Droids
 
             theGameBoard.Remove(this);
 
-            return new ShotStruct { Affirmed = true, ScoreIncrease = KillScore };
+			return new ShotStruct(affirmed: true, scoreIncrease: KillScore);
         }
 
 

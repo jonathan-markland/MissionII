@@ -344,7 +344,7 @@ namespace MissionIIClassLibrary.GameObjects
             {
                 Die(); // No electrocution animation desired here.
             }
-            return new ShotStruct { Affirmed = true, ScoreIncrease = 0 };
+			return new ShotStruct(affirmed:true);
         }
 
         public override Point TopLeftPosition

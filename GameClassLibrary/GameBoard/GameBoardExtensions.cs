@@ -7,8 +7,14 @@ namespace GameClassLibrary.GameBoard
     {
         public struct BulletResult
         {
-            public uint HitCount;
-            public int TotalScoreIncrease;
+            public readonly uint HitCount;
+			public readonly int TotalScoreIncrease;
+
+			public BulletResult(uint hitCount, int totalScoreIncrease)
+			{
+				HitCount = hitCount;
+				TotalScoreIncrease = totalScoreIncrease;
+			}
         }
 
 
@@ -37,7 +43,7 @@ namespace GameClassLibrary.GameBoard
                 }
             });
 
-            return new BulletResult { HitCount = hitCount, TotalScoreIncrease = scoreDelta };
+			return new BulletResult(hitCount, scoreDelta);
         }
     }
 }

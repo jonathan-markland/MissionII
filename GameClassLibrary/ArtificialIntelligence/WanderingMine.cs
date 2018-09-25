@@ -8,12 +8,13 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public class WanderingMine : AbstractIntelligenceProvider
     {
-        private int _countDown = 0;
+		private readonly Func<Rectangle, FoundDirections> _freeDirectionFinder;
+        private readonly Action _manDestroyAction;
+        private readonly int _speedDivisor;
+
+		private int _countDown = 0;
         private int _facingDirection = 0;
         private MovementDeltas _movementDeltas = MovementDeltas.Stationary;
-        private Func<Rectangle, FoundDirections> _freeDirectionFinder;
-        private Action _manDestroyAction;
-        private int _speedDivisor;
 
 
 

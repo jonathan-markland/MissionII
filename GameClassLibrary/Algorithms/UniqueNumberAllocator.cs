@@ -8,11 +8,15 @@ namespace GameClassLibrary.Algorithms
     {
         private List<int> _theList;
 
+
+
         public UniqueNumberAllocator(int baseNumber, int countOfItems)
         {
             _theList = Enumerable.Range(baseNumber, countOfItems).ToList();
             _theList.Shuffle(Rng.Generator);
         }
+
+
 
         public int Next()
         {

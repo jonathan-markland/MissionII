@@ -7,13 +7,16 @@ namespace GameClassLibrary.Controls
 {
     public class AccessCodeAccumulatorControl
     {
-        private string _accessCode = String.Empty;
-        private int _centreX;
-        private int _centreY;
-        private int _maxLength;
-        private Action<string> _onEntryCompleted;
-        private Sound.SoundTraits _playLetterSound;
-        private Font _theFont;
+        private readonly int _centreX;
+		private readonly int _centreY;
+		private readonly int _maxLength;
+		private readonly Action<string> _onEntryCompleted;
+		private readonly Sound.SoundTraits _playLetterSound;
+		private readonly Font _theFont;
+
+		private string _accessCode = String.Empty;
+
+
 
         public AccessCodeAccumulatorControl(
             int centreX, int centreY, int maxLength, 
@@ -29,12 +32,16 @@ namespace GameClassLibrary.Controls
             _theFont = theFont;
         }
 
+
+
         public void ClearEntry()
         {
             _accessCode = String.Empty;
         }
 
-        public void AdvanceOneCycle(KeyStates theKeyStates)
+        
+
+		public void AdvanceOneCycle(KeyStates theKeyStates)
         {
             if (_accessCode.Length == _maxLength)
             {
@@ -55,11 +62,15 @@ namespace GameClassLibrary.Controls
             }
         }
 
+
+
         public void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawText(
                 _centreX, _centreY, _accessCode, _theFont, TextAlignment.Centre);
         }
+
+
 
         private string AccumulateAccessCode(string currentString, bool up, bool down, bool left, bool right, bool fire)
         {

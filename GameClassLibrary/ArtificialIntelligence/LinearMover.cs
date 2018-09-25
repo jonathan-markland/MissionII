@@ -7,11 +7,12 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public class LinearMover : AbstractIntelligenceProvider
     {
-        private Point _startPoint;
-        private Point _endPoint;
-        private bool _headToEnd;
-        private int _movesPerCycle;
-        private Action _manDestroyAction;
+		private readonly Point _startPoint;
+		private readonly Point _endPoint;
+		private readonly int _movesPerCycle;
+		private readonly Action _manDestroyAction;
+
+		private bool _headToEnd;
 
 
 

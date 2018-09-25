@@ -8,11 +8,12 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public class SingleMinded : AbstractIntelligenceProvider
     {
-        private int _countDown = 0;
+		private readonly Func<Rectangle, FoundDirections> _freeDirectionFinder;
+        private readonly Action<Rectangle, MovementDeltas, bool> _fireBullet;
+
+		private int _countDown = 0;
         private int _facingDirection = 0;
         private MovementDeltas _movementDeltas = MovementDeltas.Stationary;
-        private Func<Rectangle, FoundDirections> _freeDirectionFinder;
-        private Action<Rectangle, MovementDeltas, bool> _fireBullet;
 
 
 

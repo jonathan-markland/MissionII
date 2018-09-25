@@ -8,11 +8,13 @@ namespace GameClassLibrary.Controls.Hiscore
     {
         private const int MaxNameLength = 10;
 
-        private HiScoreScreenModel _theModel;
-        private Math.Rectangle _hiScoreScreenDimensions;
-        private Controls.NameEntryControl _nameEntryControl;
-        private Font _theFont;
-        private int _editedRowIndex;
+        private readonly HiScoreScreenModel _theModel;
+        private readonly Math.Rectangle _hiScoreScreenDimensions;
+		private readonly Controls.NameEntryControl _nameEntryControl;
+		private readonly Font _theFont;
+
+		private int _editedRowIndex;
+
 
 
         public HiScoreScreenControl(
@@ -28,13 +30,17 @@ namespace GameClassLibrary.Controls.Hiscore
             _editedRowIndex = -1;
         }
 
+
+
         public void ForceEnterScore(uint scoreObtained)
         {
             _editedRowIndex = _theModel.ForceEnterScore(scoreObtained);
             _nameEntryControl.Start("A", newString => { _theModel.SetNameAt(_editedRowIndex, newString); });
         }
 
-        public bool InEditMode
+        
+
+		public bool InEditMode
         {
             get
             {
@@ -42,10 +48,14 @@ namespace GameClassLibrary.Controls.Hiscore
             }
         }
 
-        public void AdvanceOneCycle(KeyStates keyStates)
+        
+
+		public void AdvanceOneCycle(KeyStates keyStates)
         {
             _nameEntryControl.AdvanceOneCycle(keyStates);
         }
+
+
 
         public void DrawScreen(IDrawingTarget drawingTarget)
         {

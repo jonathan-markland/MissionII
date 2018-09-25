@@ -6,7 +6,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public class Swoop : AbstractIntelligenceProvider
     {
-        private Action _manDestroyAction;
+        private readonly Action _manDestroyAction;
 
 
 

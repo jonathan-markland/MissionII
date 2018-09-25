@@ -21,6 +21,8 @@ namespace GameClassLibrary.Algorithms
             return s;
         }
 
+
+
         private static int AccessCodeInt(int lastAccessCodeInt, int arbitraryValue)
         {
             arbitraryValue &= 3;
@@ -28,6 +30,8 @@ namespace GameClassLibrary.Algorithms
             System.Diagnostics.Debug.Assert(n != lastAccessCodeInt);
             return n;
         }
+
+
 
         private static string AccessCodeIntToChar(int accessCodeInt)
         {

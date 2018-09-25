@@ -8,9 +8,10 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public class Guardian: AbstractIntelligenceProvider
     {
-        private int _facingDirection = 0;
+		private readonly Action _manDestroyAction;
+
+		private int _facingDirection = 0;
         private MovementDeltas _movementDeltas = MovementDeltas.Stationary;
-        private Action _manDestroyAction;
 
 
 

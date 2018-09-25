@@ -75,7 +75,7 @@ namespace GameClassLibrary.GameObjects
         public override ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
             // no action required
-            return new ShotStruct { Affirmed = false }; // ignore this.
+			return new ShotStruct(affirmed:false); // ignore this.
         }
 
 
