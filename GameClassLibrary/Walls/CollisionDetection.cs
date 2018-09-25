@@ -15,6 +15,8 @@ namespace GameClassLibrary.Walls
             HitWall
         }
 
+
+
         public static WallHitTestResult HitsWalls(
             TileMatrix wallData,
             int objectX,

@@ -7,12 +7,21 @@
         public int dx { get; private set; }
         public int dy { get; private set; }
 
-        public bool IsStationary { get { return dx == 0 && dy == 0; } }
+
+
+        public bool IsStationary 
+		{ 
+			get { return dx == 0 && dy == 0; } 
+		}
+
+
 
         public static MovementDeltas Stationary
         {
             get { return new MovementDeltas(0, 0); }
         }
+
+
 
         private static MovementDeltas[] g_MovementDeltas = new MovementDeltas[]
         {
@@ -27,15 +36,20 @@
         };
 
 
+
         public static MovementDeltas ConvertFromFacingDirection(int facingDirection)
         {
             return g_MovementDeltas[facingDirection];
         }
 
+
+
         public bool MovingLeft { get { return dx < 0; } }
         public bool MovingRight { get { return dx > 0; } }
         public bool MovingUp { get { return dy < 0; } }
         public bool MovingDown { get { return dy > 0; } }
+
+
 
         public MovementDeltas XComponent
         {
@@ -46,6 +60,8 @@
         {
             get { return new MovementDeltas(0, dy); }
         }
+
+
 
         public MovementDeltas ReverseX
         {

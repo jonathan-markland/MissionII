@@ -9,15 +9,16 @@ namespace GameClassLibrary.Walls.Clusters
     /// </summary>
     public struct WallExpander
     {
-        private int _clustersHorizontally;
-        private int _clustersVertically;
-        private int _sourceClusterSide;
-        private int _destClusterSide;
-        private TileMatrix _sourceMatrix;
-        private WriteableTileMatrix _destMatrix;
-        private Tile _outputFloorTile;
-        private Tile _outputWallTile;
-        private Func<Tile, bool> _isFloorFunc;
+        private readonly int _clustersHorizontally;
+		private readonly int _clustersVertically;
+		private readonly int _sourceClusterSide;
+		private readonly int _destClusterSide;
+		private readonly TileMatrix _sourceMatrix;
+		private readonly Tile _outputFloorTile;
+		private readonly Tile _outputWallTile;
+		private readonly Func<Tile, bool> _isFloorFunc;
+
+		private WriteableTileMatrix _destMatrix;
 
 
 

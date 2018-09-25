@@ -6,11 +6,15 @@ namespace GameClassLibrary.Math
         public int Count { get; private set; }
         public int DirectionsMask { get; private set; } // Follows MovementDeltas convention.
 
+
+
         public FoundDirections(int directionsMask, int theCount)
         {
             Count = theCount;
             DirectionsMask = directionsMask;
         }
+
+
 
         public int Choose(int theIndex)
         {

@@ -11,20 +11,28 @@
             Y = y;
         }
 
+
+
         public static Point operator+(Point p, MovementDeltas md)
         {
             return new Point(p.X + md.dx, p.Y + md.dy);
         }
+
+
 
         public static bool operator==(Point p, Point q)
         {
             return p.X == q.X && p.Y == q.Y;
         }
 
+
+
         public static bool operator!=(Point p, Point q)
         {
             return !(p == q);
         }
+
+
 
         public MovementDeltas GetMovementDeltasToHeadTowards(Point targetPoint)
         {

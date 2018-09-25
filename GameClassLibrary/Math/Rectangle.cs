@@ -10,6 +10,8 @@ namespace GameClassLibrary.Math
         public int Width { get; private set; }
         public int Height { get; private set; }
 
+
+
         public Rectangle( int left, int top, int width, int height )
         {
             Left = left;
@@ -18,15 +20,21 @@ namespace GameClassLibrary.Math
             Height = height;
         }
 
+
+
         public int Right
         {
             get { return Left + Width; }
         }
 
+
+
         public int Bottom
         {
             get { return Top + Height; }
         }
+
+
 
         public bool Intersects(Rectangle otherRectangle)
         {
@@ -37,15 +45,21 @@ namespace GameClassLibrary.Math
             return true;
         }
 
+
+
         public Point Centre
         {
             get { return new Point((Left + Right) / 2, (Top + Bottom) / 2); }
         }
 
+
+
         public Rectangle Inflate(int n)
         {
             return new Rectangle(Left - n, Top - n, Width + (2 * n), Height + (2 * n));
         }
+
+
 
         public bool Intersects(List<Rectangle> theList)
         {

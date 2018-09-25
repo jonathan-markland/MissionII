@@ -9,15 +9,16 @@ namespace GameClassLibrary.Modes
     {
         private readonly int _titleScreenRollCycles;
         private readonly int _fireButtonPressEnableTime;
-        private int _countDown;
-        private bool _releaseWaiting = true;
-        private bool _firstCycle = true;
         private readonly Sound.SoundTraits _introSound;
         private readonly SpriteTraits _titleScreenBackground;
         private readonly Font _font;
         private readonly Func<GameMode> _getStartGameModeObject;
         private readonly Func<GameMode> _getRollOntoScreenObject;
-        private string _creditMessageText;
+        private readonly string _creditMessageText;
+
+		private int _countDown;
+        private bool _releaseWaiting = true;
+        private bool _firstCycle = true;
 
 
 

@@ -10,13 +10,14 @@ namespace GameClassLibrary.GameObjects
 {
     public class Bullet : GameObject
     {
-        private BulletTraits _bulletTraits;
-        private SpriteInstance _spriteInstance;
-        private MovementDeltas BulletDirection;
-        private bool _increasesScore;
+        private readonly BulletTraits _bulletTraits;
+		private readonly MovementDeltas BulletDirection;
+		private readonly bool _increasesScore;
+		private readonly Func<Tile, bool> _isFloor;
+		private readonly int _bonusScore;
+
+		private SpriteInstance _spriteInstance;
         private bool _firingSoundDone;
-        private Func<Tile, bool> _isFloor;
-        private int _bonusScore;
 
 
 
