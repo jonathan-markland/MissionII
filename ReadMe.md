@@ -63,8 +63,10 @@ C# source listing developed on Visual Studio 2017 Community Edition.
 
 Requires MONOGAME 3.6 library.
 
-It is *supposed* to be Linux/Mono compliant but I have put no work into
-getting this to build on that platform yet.
+UPDATE OCT 2018 - It is Linux/Mono compliant and I have gotten a
+build running on that platform.
+
+![MissionII on Linux MonoDevelop](/WebSite/MissionIIOnLinux.png)
 
 Since MonoGame is supposed to be portable to the XBOX (etc) I
 suppose so should this game!  I have avoided requiring a keyboard,
@@ -149,7 +151,14 @@ classes, and ultimately analyze these for potential to be re-usable only
 *after* the fact.  I would typically migrate code out to the GameClassLibrary 
 if I spot its potential to be used in other games.
 
-There is still potential for more of this to be done.
+There is still potential for more of this to be done -- UPDATE OCT 2018:  I
+have actually done more recent work on this.  I want to make the game use
+as much immutable types as possible, as I have a side-project interest in
+using F# instead, and a migration route is desirable.
+
+(NB:  Not a typo that really is 'F' for Freddy):
+
+https://fsharp.org/
 
 
 Credits
