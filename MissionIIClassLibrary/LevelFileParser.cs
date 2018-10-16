@@ -10,12 +10,8 @@ namespace MissionIIClassLibrary
     {
         public static List<Level> Parse(StreamReader streamReader)
         {
-            var levelsList = new List<Level>();
-            int nextLevelNumber = 1;
-
-            while (FindNextLevel(streamReader, nextLevelNumber))
-            {
-                try
+            return ForEachLevelInFileDo(streamReader, 
+                nextLevelNumber =>
                 {
                     var roomsList = new List<Room>();
                     var specialMarkers = new SpecialMarkers();
@@ -27,15 +23,30 @@ namespace MissionIIClassLibrary
                             // TODO:  no more:  ExpectRoomHeader(streamReader, roomX, roomY);
                             roomsList.AddRange(ParseRowOfRooms(streamReader, roomY, specialMarkers));
                         }
-                        catch(Exception e)
+                        catch (Exception e)
                         {
                             throw new Exception($"Error while reading room-row {roomY}:  " + e.Message);
                         }
                     }
 
-                    levelsList.Add(new Level(nextLevelNumber, roomsList, specialMarkers));
+                    return new Level(nextLevelNumber, roomsList, specialMarkers);
+                });
+        }
+
+
+
+        public static List<Level> ForEachLevelInFileDo(StreamReader streamReader, Func<int, Level> levelMaker)
+        {
+            var levelsList = new List<Level>();
+            int nextLevelNumber = 1;
+
+            while (FindNextLevel(streamReader, nextLevelNumber))
+            {
+                try
+                {
+                    levelsList.Add(levelMaker(nextLevelNumber));
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     throw new Exception($"Error while reading level {nextLevelNumber}:  " + e.Message);
                 }
@@ -79,19 +90,6 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ExpectRoomHeader(StreamReader streamReader, int roomX, int roomY)
-        {
-            var nextLine = ReadLineAfterAnyEmpties(streamReader);
-
-            var roomHeader = GetRoomHeader(roomX, roomY);
-            if (nextLine != roomHeader)
-            {
-                throw new Exception("Missing room header.  Expected: " + roomHeader);
-            }
-        }
-
-
-
         private static bool IsBlankLine(string textString)
         {
             return String.IsNullOrWhiteSpace(textString);
@@ -102,13 +100,6 @@ namespace MissionIIClassLibrary
         public static string GetLevelHeader(int levelNumber)
         {
             return "[Level " + levelNumber + "]";
-        }
-
-
-
-        public static string GetRoomHeader(int roomX, int roomY)
-        {
-            return "[Room " + roomX + "," + roomY + "]";
         }
 
 
