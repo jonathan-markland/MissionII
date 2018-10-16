@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using GameClassLibrary.Math;
+using GameClassLibrary.Walls;
 
 namespace MissionIIClassLibrary
 {
@@ -8,10 +8,10 @@ namespace MissionIIClassLibrary
     {
         private SpecialMarkers _specialMarkers;
 
-        public Level(int levelNumber, List<Room> roomList, SpecialMarkers specialMarkers)
+        public Level(int levelNumber, TileMatrix wholeOfLevelMatrix, SpecialMarkers specialMarkers)
         {
             LevelNumber = levelNumber;
-            Rooms = roomList;
+            LevelTileMatrix = wholeOfLevelMatrix;
             _specialMarkers = specialMarkers;
             if (specialMarkers.StartRoom == null)
             {
@@ -23,7 +23,7 @@ namespace MissionIIClassLibrary
         public Point ManStartCluster { get { return _specialMarkers.ManStart; } }
         public int ManStartFacingDirection { get { return _specialMarkers.InitialManFacingDirection; } }
         public int LevelNumber { get; private set; }
-        public List<Room> Rooms { get; private set; }
+        public TileMatrix LevelTileMatrix { get; private set; }
         public SpecialMarkers SpecialMarkers { get { return _specialMarkers; } }
     }
 }

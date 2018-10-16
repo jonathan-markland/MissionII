@@ -8,30 +8,89 @@ namespace MissionIIClassLibrary
 {
     public static class LevelFileParser
     {
-        public static List<Level> Parse(StreamReader streamReader)
+        #region New parsing
+
+        public static List<Level> Parse2(StreamReader streamReader)
         {
-            return ForEachLevelInFileDo(streamReader, 
+            return ForEachLevelInFileDo(streamReader,
                 nextLevelNumber =>
                 {
-                    var roomsList = new List<Room>();
-                    var specialMarkers = new SpecialMarkers();
+                    var wholeOfLevelMatrix = new WriteableTileMatrix(
+                        Constants.RoomsHorizontally * Constants.ClustersHorizontally * Constants.SourceClusterSide,
+                        Constants.RoomsVertically * Constants.ClustersVertically * Constants.SourceClusterSide,
+                        Constants.TileWidth,
+                        Constants.TileHeight);
 
-                    for (int roomY = 1; roomY <= Constants.RoomsVertically; ++roomY)
+                    int rowOnLevel = 0;
+                    int manX = -1, manY = -1;
+
+                    for (int roomY = 0; roomY < Constants.RoomsVertically; ++roomY)
                     {
-                        try
+                        if (streamReader.ReadLine().Length != 0)
                         {
-                            // TODO:  no more:  ExpectRoomHeader(streamReader, roomX, roomY);
-                            roomsList.AddRange(ParseRowOfRooms(streamReader, roomY, specialMarkers));
+                            throw new Exception("One empty line expected before starting row of rooms.");
                         }
-                        catch (Exception e)
+
+                        for (int rowNumber = 0; rowNumber < Constants.SourceFileCharsVertically; ++rowNumber)
                         {
-                            throw new Exception($"Error while reading room-row {roomY}:  " + e.Message);
+                            var thisLine = streamReader.ReadLine();
+                            if (thisLine.Length != Constants.SourceFileRowOfRoomCharsHorizontally)
+                            {
+                                throw new Exception($"Room-row definition has invalid number of characters on the row:  Expected {Constants.SourceFileRoomCharsHorizontally}.");
+                            }
+
+                            var theSplittings = thisLine.Split(new[] { " | " }, StringSplitOptions.None);
+                            if (theSplittings.Length != Constants.RoomsHorizontally)
+                            {
+                                throw new Exception($"Room definition has invalid number of rooms on the row.  Expected {Constants.RoomsHorizontally}.");
+                            }
+
+                            foreach (var str in theSplittings)
+                            {
+                                if (str.Length != Constants.SourceFileRoomCharsHorizontally)
+                                {
+                                    throw new Exception($"Room definition has invalid number of rooms on the row.  Expected {Constants.RoomsHorizontally}.");
+                                }
+
+                                CheckWallDefinitionCharacters(str);
+                            }
+
+                            for (int roomX = 1; roomX <= Constants.RoomsHorizontally; ++roomX)
+                            {
+                                try
+                                {
+                                    var x = roomX - 1;
+                                    var sourceString = theSplittings[x];
+                                    var roomSideOffset = x * Constants.SourceFileRoomCharsHorizontally;
+                                    PaintLine(wholeOfLevelMatrix, roomSideOffset, rowNumber, sourceString);
+                                    ForEachSpecialMarker(sourceString, roomSideOffset,
+                                        columnOnLevel => {
+                                            manX = columnOnLevel;
+                                            manY = rowOnLevel;
+                                        });
+                                }
+                                catch (Exception e)
+                                {
+                                    throw new Exception($"Error in room-column {roomX}:  " + e.Message);
+                                }
+                            }
                         }
+
+                        ++rowOnLevel;
                     }
 
-                    return new Level(nextLevelNumber, roomsList, specialMarkers);
+                    var specialMarkers = new SpecialMarkers();
+
+                    specialMarkers.SetManStartCluster(
+                        new Point(manX / Constants.SourceClusterSide, manY / Constants.SourceClusterSide),
+                        MissionIITile.Floor,
+                        wholeOfLevelMatrix);
+
+                    return new Level(nextLevelNumber, wholeOfLevelMatrix, specialMarkers);
                 });
         }
+
+        #endregion
 
 
 
@@ -104,74 +163,6 @@ namespace MissionIIClassLibrary
 
 
 
-        public static List<Room> ParseRowOfRooms(StreamReader streamReader, int roomY, SpecialMarkers specialMarkers)
-        {
-            var rowOfWallMatrices = new List<WriteableTileMatrix>(Constants.RoomsHorizontally);
-
-            var rowOfRooms = new List<Room>(Constants.RoomsHorizontally);
-
-            for (int roomX = 0; roomX < Constants.RoomsHorizontally; ++roomX)
-            {
-                var m = new WriteableTileMatrix(
-                    Constants.SourceFileRoomCharsHorizontally, 
-                    Constants.SourceFileCharsVertically,
-                    Constants.TileWidth,
-                    Constants.TileHeight);
-                rowOfWallMatrices.Add(m);
-                rowOfRooms.Add(new Room(roomX + 1, roomY, m));
-            }
-
-            if (streamReader.ReadLine().Length != 0)
-            {
-                throw new Exception("One empty line expected before starting row of rooms.");
-            }
-
-            for (int rowNumber = 0; rowNumber < Constants.SourceFileCharsVertically; ++rowNumber)
-            {
-                var thisLine = streamReader.ReadLine();
-                if (thisLine.Length != Constants.SourceFileRowOfRoomCharsHorizontally)
-                {
-                    throw new Exception($"Room-row definition has invalid number of characters on the row:  Expected {Constants.SourceFileRoomCharsHorizontally}.");
-                }
-
-                var theSplittings = thisLine.Split(new [] { " | " }, StringSplitOptions.None);
-                if (theSplittings.Length != Constants.RoomsHorizontally)
-                {
-                    throw new Exception($"Room definition has invalid number of rooms on the row.  Expected {Constants.RoomsHorizontally}.");
-                }
-
-                foreach(var str in theSplittings)
-                {
-                    if (str.Length != Constants.SourceFileRoomCharsHorizontally)
-                    {
-                        throw new Exception($"Room definition has invalid number of rooms on the row.  Expected {Constants.RoomsHorizontally}.");
-                    }
-
-                    CheckWallDefinitionCharacters(str);
-                }
-
-                for (int roomX = 1; roomX <= Constants.RoomsHorizontally; ++roomX)
-                {
-                    try
-                    {
-                        var x = roomX - 1;
-                        var targetRoom = rowOfRooms[x];
-                        var sourceString = theSplittings[x];
-                        PaintLine(rowOfWallMatrices[x], rowNumber, sourceString);
-                        ScanForSpecialMarkers(sourceString, rowNumber, targetRoom, specialMarkers, MissionIITile.Floor);
-                    }
-                    catch (Exception e)
-                    {
-                        throw new Exception($"Error in room-column {roomX}:  " + e.Message);
-                    }
-                }
-            }
-
-            return rowOfRooms;
-        }
-
-
-
         public static Tile CharToWallMatrixChar(char ch)
         {
             if (ch == ' ' || ch == 'x') return MissionIITile.Floor;  // 'x' marks man start spot
@@ -183,9 +174,8 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void PaintLine(WriteableTileMatrix targetMatrix, int rowNumber, string thisLine)
+        public static void PaintLine(WriteableTileMatrix targetMatrix, int x, int rowNumber, string thisLine)
         {
-            int x = 0;
             foreach(char ch in thisLine)
             {
                 targetMatrix.Write(x, rowNumber, CharToWallMatrixChar(ch));
@@ -195,20 +185,13 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ScanForSpecialMarkers(
-            string sourceString, int rowNumber, 
-            Room targetRoom, SpecialMarkers specialMarkers, 
-            Tile spaceCharValue)
+        public static void ForEachSpecialMarker(string sourceString, int x, Action<int> foundAt)
         {
-            int x = 0;
             foreach (char ch in sourceString)
             {
                 if (ch == 'x')
                 {
-                    specialMarkers.SetManStartCluster(
-                        targetRoom, 
-                        new Point(x / Constants.SourceClusterSide, rowNumber / Constants.SourceClusterSide), 
-                        spaceCharValue);
+                    foundAt(x);
                 }
                 x++;
             }
