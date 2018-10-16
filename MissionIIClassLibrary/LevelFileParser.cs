@@ -10,7 +10,7 @@ namespace MissionIIClassLibrary
     {
         #region New parsing
 
-        public static List<Level> Parse2(StreamReader streamReader)
+        public static List<Level> Parse(StreamReader streamReader)
         {
             return ForEachLevelInFileDo(streamReader,
                 nextLevelNumber =>
