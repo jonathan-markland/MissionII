@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GameClassLibrary.Walls;
+using GameClassLibrary.Math;
 
 namespace MissionIIClassLibrary
 {
@@ -10,43 +11,49 @@ namespace MissionIIClassLibrary
         {
             foreach (var thisLevel in levelsList)
             {
-                foreach (var thisRoom in thisLevel.Rooms)
+                try
                 {
-                    try
-                    {
-                        ExpectValidPathsInRoom(thisRoom.WallData);
-                        ExpectEdgeDoorwaysMatchOtherRooms(thisRoom, thisLevel.Rooms);
-                    }
-                    catch(Exception e)
-                    {
-                        throw new Exception($"{e.Message}  In room ({thisRoom.RoomX},{thisRoom.RoomY}) in level {thisLevel.LevelNumber}.", e);
-                    }
+                    ExpectValidPathsOnLevel(thisLevel.LevelTileMatrix);
+                    ExpectDoorwaysMustNotLeadOffMap(thisLevel.LevelTileMatrix);
+                    ExpectEdgeDoorwaysMatchOtherRooms(thisLevel.LevelTileMatrix);
+                }
+                catch(Exception e)
+                {
+                    throw new Exception($"{e.Message}  On level {thisLevel.LevelNumber}.", e);
                 }
             }
         }
 
 
 
-        public static void ExpectValidPathsInRoom(TileMatrix fileWallData)
+        public static void ExpectValidPathsOnLevel(TileMatrix levelMatrix)
         {
             // Validations for each 3x3 group of tiles individually:
 
-            for(int y = 0; y < Constants.SourceFileCharsVertically - Constants.SourceClusterSide; y += Constants.SourceClusterSide)
+            for(int y = 0; 
+                y < Constants.RoomsVertically * Constants.SourceFileRoomCharsVertically - Constants.SourceClusterSide; 
+                y += Constants.SourceClusterSide)
             {
-                for (int x = 0; x < Constants.SourceFileRoomCharsHorizontally - Constants.SourceClusterSide; x += Constants.SourceClusterSide)
+                for (int x = 0; 
+                    x < Constants.RoomsHorizontally * Constants.SourceFileRoomCharsHorizontally - Constants.SourceClusterSide; 
+                    x += Constants.SourceClusterSide)
                 {
-                    ExpectValidThreeByThree(fileWallData, x, y);
+                    ExpectValidThreeByThree(levelMatrix, x, y);
                 }
             }
 
             // Validations of the connections BETWEEN the 3x3 groups:
 
-            for (int y = 1; y <= Constants.SourceFileCharsVertically - 2; y += Constants.SourceClusterSide)
+            for (int y = 1; 
+                y <= Constants.RoomsVertically * Constants.SourceFileRoomCharsVertically - 2; 
+                y += Constants.SourceClusterSide)
             {
-                for (int x = 2; x <= Constants.SourceFileRoomCharsHorizontally - 4; x += Constants.SourceClusterSide)
+                for (int x = 2; 
+                    x <= Constants.RoomsHorizontally * Constants.SourceFileRoomCharsHorizontally - 4; 
+                    x += Constants.SourceClusterSide)
                 {
-                    ValidateTileConnection(fileWallData, x, y, 1, 0);  // Horizontal connections
-                    ValidateTileConnection(fileWallData, y, x, 0, 1);  // Vertical connections
+                    ValidateTileConnection(levelMatrix, x, y, 1, 0);  // Horizontal connections
+                    ValidateTileConnection(levelMatrix, y, x, 0, 1);  // Vertical connections
                 }
             }
         }
@@ -60,10 +67,10 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ValidateTileConnection(TileMatrix fileWallData, int x, int y, int dx, int dy)
+        public static void ValidateTileConnection(TileMatrix levelMatrix, int x, int y, int dx, int dy)
         {
-            var c1 = fileWallData.TileAt(x, y);
-            var c2 = fileWallData.TileAt(x + dx, y + dy);
+            var c1 = levelMatrix.TileAt(x, y);
+            var c2 = levelMatrix.TileAt(x + dx, y + dy);
             if (! BothAreSpaceOrBothAreNotSpace(c1, c2))
             {
                 throw new Exception($"Invalid connection between 3 x 3 tiles at ({x},{y}).  Both must be spaces, or both must be wall.");
@@ -72,25 +79,60 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ExpectEdgeDoorwaysMatchOtherRooms(Room thisRoom, List<Room> rooms)
+        public static void ExpectDoorwaysMustNotLeadOffMap(TileMatrix levelTileMatrix)
         {
-            CheckDoorwaysMirrored(thisRoom.RoomX, thisRoom.RoomY,  0, -1, rooms, 1,  0, Constants.SourceClusterSide, 0);  // Along the top / left
-            CheckDoorwaysMirrored(thisRoom.RoomX, thisRoom.RoomY,  0,  1, rooms, 1, 14, Constants.SourceClusterSide, 0);  // Along the bottom / right
+            int h = levelTileMatrix.CountH - 1;
+            int v = levelTileMatrix.CountV - 1;
+            ExpectAllWall(levelTileMatrix, new Point(0, 0), new MovementDeltas(1, 0), h+1); // top
+            ExpectAllWall(levelTileMatrix, new Point(0, 0), new MovementDeltas(0, 1), v+1); // left
+            ExpectAllWall(levelTileMatrix, new Point(0, v), new MovementDeltas(1, 0), h+1); // bottom
+            ExpectAllWall(levelTileMatrix, new Point(h, 0), new MovementDeltas(0, 1), v+1); // right
+        }
+
+
+
+        private static void ExpectAllWall(TileMatrix levelTileMatrix, Point point, MovementDeltas movementDeltas, int count)
+        {
+            while(count > 0)
+            {
+                if (levelTileMatrix.TileAt(point).IsFloor())
+                {
+                    throw new Exception($"Invalid doorway tile at ({point.X},{point.Y}) because it leads off the map.");
+                }
+                point += movementDeltas;
+                --count;
+            }
+        }
+
+
+
+        public static void ExpectEdgeDoorwaysMatchOtherRooms(TileMatrix levelMatrix)
+        {
+            for(int ry=0; ry < Constants.RoomsVertically; ry++)
+            {
+                for(int rx=0; rx < Constants.RoomsHorizontally; rx++)
+                {
+                    var roomOriginX = rx * Constants.SourceFileRoomCharsHorizontally;
+                    var roomOriginY = ry * Constants.SourceFileRoomCharsVertically;
+                    CheckDoorwaysMirrored(0, -1, levelMatrix, roomOriginX + 1, roomOriginY + 0, Constants.SourceClusterSide, 0);  // Along the top / left
+                    CheckDoorwaysMirrored(0,  1, levelMatrix, roomOriginX + 1, roomOriginY + 14, Constants.SourceClusterSide, 0);  // Along the bottom / right
+                }
+            }
         }
 
 
 
         private static void CheckDoorwaysMirrored(
-            int roomX, int roomY, int roomDx, int roomDy, List<Room> rooms, int startX, int startY, int dx, int dy)
+            int roomDx, int roomDy, TileMatrix levelMatrix, int startX, int startY, int dx, int dy)
         {
-            CheckDoorwaysAlongSide(roomX, roomY, roomDx, roomDy, rooms, startX, startY, dx, dy);
-            CheckDoorwaysAlongSide(roomX, roomY, roomDy, roomDx, rooms, startY, startX, dy, dx); // mirror in line y=x
+            CheckDoorwaysAlongSide(roomDx, roomDy, levelMatrix, startX, startY, dx, dy);
+            CheckDoorwaysAlongSide(roomDy, roomDx, levelMatrix, startY, startX, dy, dx); // mirror in line y=x
         }
 
 
 
         private static void CheckDoorwaysAlongSide(
-            int roomX, int roomY, int roomDx, int roomDy, List<Room> rooms, int startX, int startY, int dx, int dy)
+            int roomDx, int roomDy, TileMatrix levelMatrix, int startX, int startY, int dx, int dy)
         {
             // - roomDx,roomDy : Where to find the desired adjacent room, relative to the room to check.  One of these will be 0.
             // - startX,startY : char cell to start at, within the room to check.

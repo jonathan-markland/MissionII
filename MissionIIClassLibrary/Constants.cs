@@ -48,7 +48,7 @@
         public const int CharsPerRoomSeparator = 3;
         public const int SourceFileRoomCharsHorizontally = (ClustersHorizontally * SourceClusterSide);
         public const int SourceFileRowOfRoomCharsHorizontally = SourceFileRoomCharsHorizontally * RoomsHorizontally + (RoomsHorizontally-1) * CharsPerRoomSeparator;
-        public const int SourceFileCharsVertically = ClustersVertically * SourceClusterSide;
+        public const int SourceFileRoomCharsVertically = ClustersVertically * SourceClusterSide;
         #endregion
 
         #region Pixel measurements

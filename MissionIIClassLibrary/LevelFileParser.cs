@@ -31,7 +31,7 @@ namespace MissionIIClassLibrary
                             throw new Exception("One empty line expected before starting row of rooms.");
                         }
 
-                        for (int rowNumber = 0; rowNumber < Constants.SourceFileCharsVertically; ++rowNumber)
+                        for (int rowNumber = 0; rowNumber < Constants.SourceFileRoomCharsVertically; ++rowNumber)
                         {
                             var thisLine = streamReader.ReadLine();
                             if (thisLine.Length != Constants.SourceFileRowOfRoomCharsHorizontally)
