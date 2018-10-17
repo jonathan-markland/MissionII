@@ -72,5 +72,13 @@
         {
             get { return new MovementDeltas(dx, -dy); }
         }
+
+
+
+        public MovementDeltas ReflectYX
+        {
+            get { return new MovementDeltas(dy, dx); }
+        }
+
     }
 }

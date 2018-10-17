@@ -108,100 +108,71 @@ namespace MissionIIClassLibrary
 
         public static void ExpectEdgeDoorwaysMatchOtherRooms(TileMatrix levelMatrix)
         {
-            for(int ry=0; ry < Constants.RoomsVertically; ry++)
+            CheckDoorwaysMirror(
+                levelMatrix,
+                Constants.RoomsHorizontally,
+                Constants.SourceFileRoomCharsHorizontally,
+                Constants.SourceFileRoomCharsVertically * Constants.RoomsVertically,
+                new Point(Constants.SourceFileRoomCharsHorizontally - 1, 0),
+                new MovementDeltas(Constants.SourceFileRoomCharsHorizontally, 0),
+                new MovementDeltas(0, 1));
+
+            CheckDoorwaysMirror(
+                levelMatrix,
+                Constants.RoomsVertically,
+                Constants.SourceFileRoomCharsVertically,
+                Constants.SourceFileRoomCharsHorizontally * Constants.RoomsHorizontally,
+                new Point(0, Constants.SourceFileRoomCharsVertically - 1),
+                new MovementDeltas(0, Constants.SourceFileRoomCharsVertically),
+                new MovementDeltas(1, 0));
+        }
+
+
+
+        private static void CheckDoorwaysMirror(
+            TileMatrix levelMatrix,
+            int roomCountAlong, 
+            int tileCountPerRoom, 
+            int count, 
+            Point point,
+            MovementDeltas majorDelta,
+            MovementDeltas minorDelta)
+        {
+            for(int i=1; i < roomCountAlong; i++)
             {
-                for(int rx=0; rx < Constants.RoomsHorizontally; rx++)
-                {
-                    var roomOriginX = rx * Constants.SourceFileRoomCharsHorizontally;
-                    var roomOriginY = ry * Constants.SourceFileRoomCharsVertically;
-                    CheckDoorwaysMirrored(0, -1, levelMatrix, roomOriginX + 1, roomOriginY + 0, Constants.SourceClusterSide, 0);  // Along the top / left
-                    CheckDoorwaysMirrored(0,  1, levelMatrix, roomOriginX + 1, roomOriginY + 14, Constants.SourceClusterSide, 0);  // Along the bottom / right
-                }
+                CheckDoorwaysMirror2(levelMatrix, count, point, minorDelta);
+                point += majorDelta;
             }
         }
 
 
 
-        private static void CheckDoorwaysMirrored(
-            int roomDx, int roomDy, TileMatrix levelMatrix, int startX, int startY, int dx, int dy)
+        private static void CheckDoorwaysMirror2(
+            TileMatrix levelMatrix,
+            int count, 
+            Point point, 
+            MovementDeltas minorDelta)
         {
-            CheckDoorwaysAlongSide(roomDx, roomDy, levelMatrix, startX, startY, dx, dy);
-            CheckDoorwaysAlongSide(roomDy, roomDx, levelMatrix, startY, startX, dy, dx); // mirror in line y=x
-        }
-
-
-
-        private static void CheckDoorwaysAlongSide(
-            int roomDx, int roomDy, TileMatrix levelMatrix, int startX, int startY, int dx, int dy)
-        {
-            // - roomDx,roomDy : Where to find the desired adjacent room, relative to the room to check.  One of these will be 0.
-            // - startX,startY : char cell to start at, within the room to check.
-            // - dx,dy         : Stepping distance to next doorway slot.  One of these will be 0.
-
-            // Reminder: roomDx / roomDy MAY go out of bounds!
-
-            var thisRoom = FindRoom(rooms, roomX, roomY);
-
-            var otherRoomX = (roomX + roomDx);
-            var otherRoomY = (roomY + roomDy);
-
-            var otherRoomIsOffMap =
-                (otherRoomX <= 0 || otherRoomX > Constants.RoomsHorizontally) ||
-                (otherRoomY <= 0 || otherRoomY > Constants.RoomsVertically);
-
-            var otherRoom = otherRoomIsOffMap ? null : FindRoom(rooms, otherRoomX, otherRoomY);
-
-            for (int i=0; i < Constants.ClustersHorizontally; i++) // TODO: collapse H/V constants to one.
+            var adjacentColumnPoint = point + minorDelta.ReflectYX;
+            while(count > 0)
             {
-                var thisRoomSquare = thisRoom.WallData.TileAt(startX, startY);
-
-                if (otherRoomIsOffMap)
+                if (! BothAreSpaceOrBothAreNotSpace(
+                    levelMatrix.TileAt(point),
+                    levelMatrix.TileAt(adjacentColumnPoint)))
                 {
-                    if (thisRoomSquare.IsFloor())
-                    {
-                        throw new Exception($"No doorway must exist at ({startX},{startY}) because it leads off the map.");
-                    }
-                }
-                else
-                {
-                    // Reflect to other side for the 'other' room:
-                    // Only one of these two will actually calculate a reflection:
-                    var travellingVertically = (dx == 0);
-                    var travellingHorizontally = (dy == 0);
-                    var n = Constants.SourceFileRoomCharsHorizontally - 1;
-                    var otherRoomPosX = travellingVertically ? (n - startX) : startX; 
-                    var otherRoomPosY = travellingHorizontally ? (n - startY) : startY; 
-
-                    // Fetch corresponding char in adjacent room, and check:
-                    var otherRoomSquare = otherRoom.WallData.TileAt(otherRoomPosX, otherRoomPosY);
-
-                    if (! BothAreSpaceOrBothAreNotSpace(thisRoomSquare, otherRoomSquare))
-                    {
-                        throw new Exception($"Invalid connection " +
-                            $"to ({otherRoomPosX},{otherRoomPosY}) in room {otherRoom.RoomX},{otherRoom.RoomY} " +
-                            $"from ({startX},{startY}) "
-                            );
-                    }
+                    throw new Exception($"Invalid doorway " +
+                        $"from tile ({point.X},{point.Y}) " +
+                        $"to tile ({adjacentColumnPoint.X},{adjacentColumnPoint.Y}) ");
                 }
 
-                startX += dx;
-                startY += dy;
+                point += minorDelta;
+                adjacentColumnPoint += minorDelta;
+                --count;
             }
         }
 
 
 
-        public static Room FindRoom(List<Room> roomsList, int roomX, int roomY)
-        {
-            foreach(var thisRoom in roomsList)
-            {
-                if (thisRoom.RoomX == roomX && thisRoom.RoomY == roomY)
-                {
-                    return thisRoom;
-                }
-            }
-            return null;
-        }
 
 
 
