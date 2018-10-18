@@ -1,5 +1,6 @@
 ﻿
 using System.Collections.Generic;
+using GameClassLibrary.Math;
 
 namespace GameClassLibrary.Graphics
 {
@@ -133,15 +134,22 @@ namespace GameClassLibrary.Graphics
             this IDrawingTarget drawingTarget,
             int leftX, int topY, 
             Walls.TileMatrix tileMatrix,
+            Point offsetIntoData,
+            int renderWidth,
+            int renderHeight,
             HostSuppliedSprite[] hostSpritesFortiles)
         {
             var tileWidth = tileMatrix.TileWidth;
             var tileHeight = tileMatrix.TileHeight;
 
-            for (int y = 0; y < tileMatrix.CountV; y++)
+            int startY = offsetIntoData.Y;
+            var endY = startY + renderHeight;
+            for (int y = startY; y < endY; y++)
             {
                 int a = leftX;
-                for (int x = 0; x < tileMatrix.CountH; x++)
+                int startX = offsetIntoData.X;
+                var endX = startX + renderWidth;
+                for (int x = startX; x < endX; x++)
                 {
                     var t = tileMatrix.TileAt(x, y).VisualIndex;
                     drawingTarget.DrawSprite(leftX, topY, hostSpritesFortiles[t]);

@@ -32,6 +32,7 @@ namespace MissionIIClassLibrary
         private WorldWallData TheWorldWallData;
         private int RoomNumber; // one-based
         private BulletTraits WhiteBulletTraits;
+        private Point RoomXY;
 
 
 
@@ -210,10 +211,12 @@ namespace MissionIIClassLibrary
             // Determine this level object:
             var levelIndex = (LevelNumber - 1) % TheWorldWallData.Levels.Count;
             var theLevel = TheWorldWallData.Levels[levelIndex];
+            LevelTileMatrix = theLevel.LevelTileMatrix;
 
             PrepareBackgroundSprites();
             SetStartRoomNumber(theLevel);
             PrepareManPositionOnLevelStart(theLevel);
+            // TODO: PrepareObjectPositionsOnLevel(); -- but not overlapping man!
             ClearInventory();
             ChooseRoomsForCollectibleObjects();
             PrepareForNewRoom();
@@ -310,10 +313,41 @@ namespace MissionIIClassLibrary
 
 
 
+
+        /// <summary>
+        /// Index into the level tile matrix of the current room's top left tile.
+        /// </summary>
+        private Point TileOrigin
+        {
+            get
+            {
+                return new Point(
+                    RoomXY.X * Constants.ClustersHorizontally * Constants.DestClusterSide,
+                    RoomXY.Y * Constants.ClustersVertically * Constants.DestClusterSide);
+            }
+        }
+
+        /// <summary>
+        /// Model-space coordinates of the current room's top left pixel.
+        /// </summary>
+        private Point ModelPixelOrigin
+        {
+            get
+            {
+                return new Point(
+                    RoomXY.X * Constants.ClustersHorizontally * Constants.DestClusterSide * Constants.TileWidth,
+                    RoomXY.Y * Constants.ClustersVertically * Constants.DestClusterSide * Constants.TileHeight);
+            }
+        }
+
+
+
         private void SetStartRoomNumber(Level theLevel)
         {
             // Set the start room number:
-            RoomNumber = theLevel.ManStartRoomNumber;
+            var startCluster = theLevel.ManStartCluster;
+            RoomXY = Level.ClusterToRoomXY(startCluster);
+            RoomNumber = 1 + RoomXY.X + RoomXY.Y * Constants.RoomsHorizontally;
         }
 
 
@@ -330,7 +364,7 @@ namespace MissionIIClassLibrary
             List<GameObject> objectsList, 
             List<Rectangle> exclusionRectangles)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
             // TODO:
             // - Needed to position objects at the start of the level,
             //   where the scope is the entire level.  (NEW FEATURE)
@@ -349,21 +383,21 @@ namespace MissionIIClassLibrary
 
             var pointsList = new List<Point>();
 
-            PositionFinder.ForEachEmptyCell(   // TODO: This isn;t going to work if we refactor the TileMatrix to cover the entire level.  It must consider one room only.
-                LevelTileMatrix,
-                maxDimensions.Width,
-                maxDimensions.Height,
-                (x, y) =>
-                {
-                    if (!(new Rectangle(x, y, maxDimensions.Width, maxDimensions.Height).Intersects(exclusionRectangles)))
-                    {
-                        pointsList.Add(new Point(x, y));
-                    }
-                    return true;
-                },
-                TileExtensions.IsFloor);
-
-            pointsList.Shuffle(Rng.Generator);
+            // PositionFinder.ForEachEmptyCell(   // TODO: This isn;t going to work if we refactor the TileMatrix to cover the entire level.  It must consider one room only.
+            //     LevelTileMatrix,
+            //     maxDimensions.Width,
+            //     maxDimensions.Height,
+            //     (x, y) =>
+            //     {
+            //         if (!(new Rectangle(x, y, maxDimensions.Width, maxDimensions.Height).Intersects(exclusionRectangles)))
+            //         {
+            //             pointsList.Add(new Point(x, y));
+            //         }
+            //         return true;
+            //     },
+            //     TileExtensions.IsFloor);
+            // 
+            // pointsList.Shuffle(Rng.Generator);
 
             return pointsList;
         }
@@ -652,9 +686,11 @@ namespace MissionIIClassLibrary
             if (drawTileMatrix)
             {
                 drawingTarget.DrawTileMatrix(
-                    0,
-                    0,
+                    0, 0,
                     LevelTileMatrix,
+                    TileOrigin,
+                    Constants.ClustersHorizontally * Constants.DestClusterSide,
+                    Constants.ClustersVertically * Constants.DestClusterSide,
                     (cycleCount & 32) == 0 ? _electrocutionBackgroundSprites : _normalBackgroundSprites);
             }
 

@@ -22,8 +22,7 @@ namespace MissionIIMonoGame
             }
             catch(Exception e)
             {
-                // Intended for when modifying Levels.txt file.
-                Console.WriteLine("Game failed to start because of error:");
+                Console.WriteLine("Game failed because of error:");
                 Console.WriteLine(e.Message);
             }
         }

@@ -23,22 +23,14 @@ namespace MissionIIClassLibrary
 
 
 
-        /// <summary>
-        /// The room number is 1-based.
-        /// </summary>
-        public static int ClusterToRoomNumber(Point clusterPos)
+        public static Point ClusterToRoomXY(Point clusterPos)
         {
-            return
-                (clusterPos.Y / Constants.ClustersVertically) * Constants.RoomsHorizontally
-                + (clusterPos.X / Constants.ClustersHorizontally) + 1;
+            return new Point(
+                (clusterPos.X / Constants.ClustersHorizontally),
+                (clusterPos.Y / Constants.ClustersVertically));
         }
 
 
-
-        public int ManStartRoomNumber
-        {
-            get { return ClusterToRoomNumber(ManStartCluster); }
-        }
 
         public Point ManStartCluster
         {
