@@ -312,9 +312,8 @@ namespace MissionIIClassLibrary
 
         private void SetStartRoomNumber(Level theLevel)
         {
-            throw new NotImplementedException();
             // Set the start room number:
-            // RoomNumber = theLevel.ManStartRoom.RoomNumber;
+            RoomNumber = theLevel.ManStartRoomNumber;
         }
 
 

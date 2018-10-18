@@ -62,7 +62,7 @@ namespace MissionIIClassLibrary
                                     var x = roomX - 1;
                                     var sourceString = theSplittings[x];
                                     var roomSideOffset = x * Constants.SourceFileRoomCharsHorizontally;
-                                    PaintLine(wholeOfLevelMatrix, roomSideOffset, rowNumber, sourceString);
+                                    PaintLine(wholeOfLevelMatrix, roomSideOffset, rowOnLevel, sourceString);
                                     ForEachSpecialMarker(sourceString, roomSideOffset,
                                         columnOnLevel => {
                                             manX = columnOnLevel;

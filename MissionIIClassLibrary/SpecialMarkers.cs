@@ -36,7 +36,7 @@ namespace MissionIIClassLibrary
             get { return _manStart.HasValue; }
         }
 
-        public Point ManStartPoint
+        public Point ManStartCluster
         {
             get
             {

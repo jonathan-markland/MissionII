@@ -101,7 +101,7 @@ namespace GameClassLibrary.GameObjects
                 var proposedY = _spriteInstance.Y + BulletDirection.dy;
 
                 var hitResult = CollisionDetection.HitsWalls(
-                    theGameBoard.GetTileMatrix(),
+                    theGameBoard.GetLevelTileMatrix(),
                     proposedX,
                     proposedY,
                     _spriteInstance.Traits.Width,

@@ -63,7 +63,8 @@ namespace GameClassLibrary.Walls
             {
                 if (y >= 0 && y < _countV)
                 {
-                    return _theTiles[y * _countH + x];
+                    var i = y * _countH + x;
+                    return _theTiles[i];
                 }
             }
             throw new Exception("TileMatrix class read outside bounds.");

@@ -10,7 +10,7 @@ namespace GameClassLibrary.GameBoard
         void PrepareForNewLevel(int newLevelNumber);
         int GetLevelNumber();
 
-        TileMatrix GetTileMatrix();
+        TileMatrix GetLevelTileMatrix();
 
         void Add(GameObject o);
         void Remove(GameObject o);
