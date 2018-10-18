@@ -11,6 +11,8 @@ namespace GameClassLibrary.GameBoard
         int GetLevelNumber();
 
         TileMatrix GetLevelTileMatrix();
+        int GetTileWidth();
+        int GetTileHeight();
 
         void Add(GameObject o);
         void Remove(GameObject o);

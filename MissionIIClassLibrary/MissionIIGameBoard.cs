@@ -66,6 +66,16 @@ namespace MissionIIClassLibrary
             return LevelNumber;
         }
 
+        public int GetTileWidth()
+        {
+            return Constants.TileWidth;
+        }
+
+        public int GetTileHeight()
+        {
+            return Constants.TileHeight;
+        }
+
 
 
 
@@ -197,7 +207,9 @@ namespace MissionIIClassLibrary
         {
             return DirectionFinder.GetFreeDirections(
                 currentExtents, 
-                LevelTileMatrix,
+                LevelTileMatrix.WholeArea,
+                Constants.TileWidth,
+                Constants.TileHeight,
                 TileExtensions.IsFloor);
         }
 
@@ -340,6 +352,20 @@ namespace MissionIIClassLibrary
             }
         }
 
+        private ArrayView2D<Tile> ThisRoomArrayView2D
+        {
+            get
+            {
+                var o = TileOrigin;
+
+                return new ArrayView2D<Tile>(   // TODO: This only changes when rooms change.
+                    LevelTileMatrix.WholeArea, o.X, o.Y,
+                    Constants.ClustersHorizontally * Constants.DestClusterSide,
+                    Constants.ClustersVertically * Constants.DestClusterSide);
+            }
+        }
+
+
 
 
         private void SetStartRoomNumber(Level theLevel)
@@ -383,10 +409,12 @@ namespace MissionIIClassLibrary
 
             var pointsList = new List<Point>();
 
-            PositionFinder.ForEachEmptyCell(   // TODO: This isn;t going to work if we refactor the TileMatrix to cover the entire level.  It must consider one room only.
-                LevelTileMatrix,
+            PositionFinder.ForEachEmptyCell(
+                ThisRoomArrayView2D,
                 maxDimensions.Width,
                 maxDimensions.Height,
+                Constants.TileWidth,
+                Constants.TileHeight,
                 (x, y) =>
                 {
                     if (!(new Rectangle(x, y, maxDimensions.Width, maxDimensions.Height).Intersects(exclusionRectangles)))
@@ -685,15 +713,8 @@ namespace MissionIIClassLibrary
 
             if (drawTileMatrix)
             {
-                var o = TileOrigin;
-
-                var thisRoomOnly = new ArrayView2D<Tile>(   // TODO: This only changes when rooms change.
-                    LevelTileMatrix.WholeArea, o.X, o.Y,
-                    Constants.ClustersHorizontally * Constants.DestClusterSide,
-                    Constants.ClustersVertically * Constants.DestClusterSide);
-
                 drawingTarget.DrawTileMatrix(
-                    0, 0, thisRoomOnly,
+                    0, 0, ThisRoomArrayView2D,
                     (cycleCount & 32) == 0 ? _electrocutionBackgroundSprites : _normalBackgroundSprites,
                     Constants.TileWidth,
                     Constants.TileHeight);

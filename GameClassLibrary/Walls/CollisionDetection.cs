@@ -1,5 +1,6 @@
 ﻿
 using System;
+using GameClassLibrary.Math;
 
 namespace GameClassLibrary.Walls
 {
@@ -18,20 +19,16 @@ namespace GameClassLibrary.Walls
 
 
         public static WallHitTestResult HitsWalls(
-            TileMatrix wallData,
-            int objectX,
-            int objectY,
-            int objectWidth,
-            int objectHeight,
+            ArrayView2D<Tile> tileMatrix,
+            int objectX, int objectY,
+            int objectWidth, int objectHeight,
+            int tileWidth, int tileHeight,
             Func<Tile, bool> isFloor)
         {
-            if (wallData.Empty) return WallHitTestResult.HitWall; // Required.
+            if (tileMatrix.Empty) return WallHitTestResult.HitWall; // Required.
 
-            var tileWidth = wallData.TileWidth;
-            var tileHeight = wallData.TileHeight;
-
-            var roomWidth = wallData.TotalWidth;
-            var roomHeight = wallData.TotalHeight;
+            var roomWidth = tileMatrix.CountH * tileWidth;
+            var roomHeight = tileMatrix.CountV * tileHeight;
 
             // Non-inclusive bottom right corner of object:
             var objectX2 = objectX + objectWidth;
@@ -55,7 +52,7 @@ namespace GameClassLibrary.Walls
             {
                 for (int x = cX; x < cx2; x++)
                 {
-                    if (!isFloor(wallData.TileAt(x, y)))
+                    if (!isFloor(tileMatrix.At(x, y)))
                     {
                         return WallHitTestResult.HitWall;  // hit wall block  // NB: If indexing fails, all rows MUST be the same length!
                     }

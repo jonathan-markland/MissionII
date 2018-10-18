@@ -18,7 +18,7 @@ Oct 2018 -- the Room abstraction project
 
 [ ] The painting routines need to take account of the model-space origin.
 
-
+[ ] TileMatrix:  remove knowledge of tile widths.  Refactor all to use ArrayView2d?
 
 
 

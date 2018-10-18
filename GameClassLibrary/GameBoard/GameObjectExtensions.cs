@@ -44,10 +44,12 @@ namespace GameClassLibrary.GameBoard
             // First consider both X and Y deltas directly:
 
             var hitResult = CollisionDetection.HitsWalls(
-                wallMatrix,
+                wallMatrix.WholeArea,
                 proposedX, proposedY,
                 r.Width,
                 r.Height,
+                wallMatrix.TileWidth,
+                wallMatrix.TileHeight,
                 isFloorFunc);
 
             if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)

@@ -8,19 +8,22 @@ namespace GameClassLibrary.Walls
     {
         public static FoundDirections GetFreeDirections(
             Rectangle currentExtents, 
-            TileMatrix currentRoomWallData, 
+            ArrayView2D<Tile> tileMatrix, 
+            int tileWidth, int tileHeight,
             Func<Tile, bool> isFloor)
         {
             int countFound = 0;
             int resultMask = 0;
+
             for (int directionIndex = 0; directionIndex < 8; directionIndex++)
             {
                 var movementDelta = MovementDeltas.ConvertFromFacingDirection(directionIndex);
 
                 var hitResult = CollisionDetection.HitsWalls(
-                    currentRoomWallData, 
+                    tileMatrix, 
                     currentExtents.Left, currentExtents.Top, 
-                    currentExtents.Width, currentExtents.Height, 
+                    currentExtents.Width, currentExtents.Height,
+                    tileWidth, tileHeight,
                     isFloor);
 
                 if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)

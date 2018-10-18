@@ -100,12 +100,16 @@ namespace GameClassLibrary.GameObjects
                 var proposedX = _spriteInstance.X + BulletDirection.dx;
                 var proposedY = _spriteInstance.Y + BulletDirection.dy;
 
+                var tileMatrix = theGameBoard.GetLevelTileMatrix();
+
                 var hitResult = CollisionDetection.HitsWalls(
-                    theGameBoard.GetLevelTileMatrix(),
+                    theGameBoard.GetLevelTileMatrix().WholeArea,
                     proposedX,
                     proposedY,
                     _spriteInstance.Traits.Width,
                     _spriteInstance.Traits.Height,
+                    theGameBoard.GetTileWidth(),
+                    theGameBoard.GetTileHeight(),
                     _isFloor);
 
                 if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
