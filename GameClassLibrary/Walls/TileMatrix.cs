@@ -25,6 +25,15 @@ namespace GameClassLibrary.Walls
         }
 
 
+
+        /// <summary>
+        /// Return an ArrayView2D that covers the entire of this TileMatrix.
+        /// </summary>
+        public ArrayView2D<Tile> WholeArea
+        {
+            get { return new ArrayView2D<Tile>(_theTiles, _countH); }
+        }
+
         /// <summary>
         /// The number of tiles horizontally.
         /// </summary>

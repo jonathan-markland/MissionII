@@ -383,21 +383,21 @@ namespace MissionIIClassLibrary
 
             var pointsList = new List<Point>();
 
-            // PositionFinder.ForEachEmptyCell(   // TODO: This isn;t going to work if we refactor the TileMatrix to cover the entire level.  It must consider one room only.
-            //     LevelTileMatrix,
-            //     maxDimensions.Width,
-            //     maxDimensions.Height,
-            //     (x, y) =>
-            //     {
-            //         if (!(new Rectangle(x, y, maxDimensions.Width, maxDimensions.Height).Intersects(exclusionRectangles)))
-            //         {
-            //             pointsList.Add(new Point(x, y));
-            //         }
-            //         return true;
-            //     },
-            //     TileExtensions.IsFloor);
-            // 
-            // pointsList.Shuffle(Rng.Generator);
+            PositionFinder.ForEachEmptyCell(   // TODO: This isn;t going to work if we refactor the TileMatrix to cover the entire level.  It must consider one room only.
+                LevelTileMatrix,
+                maxDimensions.Width,
+                maxDimensions.Height,
+                (x, y) =>
+                {
+                    if (!(new Rectangle(x, y, maxDimensions.Width, maxDimensions.Height).Intersects(exclusionRectangles)))
+                    {
+                        pointsList.Add(new Point(x, y));
+                    }
+                    return true;
+                },
+                TileExtensions.IsFloor);
+            
+            pointsList.Shuffle(Rng.Generator);
 
             return pointsList;
         }
@@ -685,13 +685,18 @@ namespace MissionIIClassLibrary
 
             if (drawTileMatrix)
             {
-                drawingTarget.DrawTileMatrix(
-                    0, 0,
-                    LevelTileMatrix,
-                    TileOrigin,
+                var o = TileOrigin;
+
+                var thisRoomOnly = new ArrayView2D<Tile>(   // TODO: This only changes when rooms change.
+                    LevelTileMatrix.WholeArea, o.X, o.Y,
                     Constants.ClustersHorizontally * Constants.DestClusterSide,
-                    Constants.ClustersVertically * Constants.DestClusterSide,
-                    (cycleCount & 32) == 0 ? _electrocutionBackgroundSprites : _normalBackgroundSprites);
+                    Constants.ClustersVertically * Constants.DestClusterSide);
+
+                drawingTarget.DrawTileMatrix(
+                    0, 0, thisRoomOnly,
+                    (cycleCount & 32) == 0 ? _electrocutionBackgroundSprites : _normalBackgroundSprites,
+                    Constants.TileWidth,
+                    Constants.TileHeight);
             }
 
             // Draw objects in the room:

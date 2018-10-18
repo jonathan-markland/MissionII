@@ -130,29 +130,21 @@ namespace GameClassLibrary.Graphics
 
 
 
-        public static void DrawTileMatrix(   // TODO: Should this allow huge tile arrays, thus require iterating over a portion only?
+        public static void DrawTileMatrix(   // TODO: Should this allow huge tile arrays
             this IDrawingTarget drawingTarget,
             int leftX, int topY, 
-            Walls.TileMatrix tileMatrix,
-            Point offsetIntoData,
-            int renderWidth,
-            int renderHeight,
-            HostSuppliedSprite[] hostSpritesFortiles)
+            ArrayView2D<Walls.Tile> tileMatrix,
+            HostSuppliedSprite[] hostSpritesForTiles,
+            int tileWidth,
+            int tileHeight)
         {
-            var tileWidth = tileMatrix.TileWidth;
-            var tileHeight = tileMatrix.TileHeight;
-
-            int startY = offsetIntoData.Y;
-            var endY = startY + renderHeight;
-            for (int y = startY; y < endY; y++)
+            for (int y = 0; y < tileMatrix.CountV; y++)
             {
                 int a = leftX;
-                int startX = offsetIntoData.X;
-                var endX = startX + renderWidth;
-                for (int x = startX; x < endX; x++)
+                for (int x = 0; x < tileMatrix.CountH; x++)
                 {
-                    var t = tileMatrix.TileAt(x, y).VisualIndex;
-                    drawingTarget.DrawSprite(leftX, topY, hostSpritesFortiles[t]);
+                    var t = tileMatrix.At(x, y).VisualIndex;
+                    drawingTarget.DrawSprite(leftX, topY, hostSpritesForTiles[t]);
                     leftX += tileWidth;
                 }
                 leftX = a;
