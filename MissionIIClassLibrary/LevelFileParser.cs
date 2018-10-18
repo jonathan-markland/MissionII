@@ -74,9 +74,9 @@ namespace MissionIIClassLibrary
                                     throw new Exception($"Error in room-column {roomX}:  " + e.Message);
                                 }
                             }
-                        }
 
-                        ++rowOnLevel;
+                            ++rowOnLevel;
+                        }
                     }
 
                     var specialMarkers = new SpecialMarkers();

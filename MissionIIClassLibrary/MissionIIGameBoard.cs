@@ -37,7 +37,7 @@ namespace MissionIIClassLibrary
 
         private int LevelNumber;
         public List<InteractibleObject> PlayerInventory = new List<InteractibleObject>();
-        public TileMatrix CurrentRoomTileMatrix;
+        public TileMatrix LevelTileMatrix;
         public GameObjects.Man Man = new GameObjects.Man();
         public SuddenlyReplaceableList<GameObject> ObjectsInRoom = new SuddenlyReplaceableList<GameObject>();
         public List<GameObject> ObjectsToRemove = new List<GameObject>();
@@ -119,9 +119,9 @@ namespace MissionIIClassLibrary
 
 
 
-        public TileMatrix GetTileMatrix()
+        public TileMatrix GetLevelTileMatrix()
         {
-            return CurrentRoomTileMatrix;
+            return LevelTileMatrix;
         }
 
 
@@ -185,7 +185,7 @@ namespace MissionIIClassLibrary
         public CollisionDetection.WallHitTestResult MoveManOnePixel(MovementDeltas movementDeltas)
         {
             return Man.MoveConsideringWallsOnly(
-                CurrentRoomTileMatrix,
+                LevelTileMatrix,
                 movementDeltas,
                 TileExtensions.IsFloor);
         }
@@ -195,7 +195,8 @@ namespace MissionIIClassLibrary
         private FoundDirections GetFreeDirections(Rectangle currentExtents)
         {
             return DirectionFinder.GetFreeDirections(
-                currentExtents, CurrentRoomTileMatrix,
+                currentExtents, 
+                LevelTileMatrix,
                 TileExtensions.IsFloor);
         }
 
@@ -274,7 +275,7 @@ namespace MissionIIClassLibrary
             // var roomNumberAllocator = new IncrementingNumberAllocator(1, Constants.NumRooms); // For testing purposes.
 
             ForEachThingWeHaveToFindOnThisLevel(o =>
-                {
+            {
                 var roomNumber = roomNumberAllocator.Next();
                 if (o is Interactibles.Key)
                 {
@@ -311,8 +312,9 @@ namespace MissionIIClassLibrary
 
         private void SetStartRoomNumber(Level theLevel)
         {
+            throw new NotImplementedException();
             // Set the start room number:
-            RoomNumber = theLevel.ManStartRoom.RoomNumber;
+            // RoomNumber = theLevel.ManStartRoom.RoomNumber;
         }
 
 
@@ -325,18 +327,31 @@ namespace MissionIIClassLibrary
 
 
 
-        public List<Point> GetListOfPotentialPositionsForObjects(List<GameObject> objectsList, List<Rectangle> exclusionRectangles)
+        public List<Point> GetListOfPotentialPositionsForObjects(
+            List<GameObject> objectsList, 
+            List<Rectangle> exclusionRectangles)
         {
+            throw new NotImplementedException();
+            // TODO:
+            // - Needed to position objects at the start of the level,
+            //   where the scope is the entire level.  (NEW FEATURE)
+
+            // - Needed to position monsters at the start of a room.
+            //   Scope is the room, but we also need to exclude the
+            //   locations of any objects (eg:key) positioned at level-time.
+
             // Now measure the max dimensions of the things that need positioning.
 
-            var maxDimensions = objectsList.GetMaxDimensions(Constants.PositionerShapeSizeMinimum, Constants.PositionerShapeSizeMinimum);
+            var maxDimensions = objectsList.GetMaxDimensions(
+                Constants.PositionerShapeSizeMinimum, 
+                Constants.PositionerShapeSizeMinimum);
 
             // Now find a list of points on which we can position objects.
 
             var pointsList = new List<Point>();
 
             PositionFinder.ForEachEmptyCell(   // TODO: This isn;t going to work if we refactor the TileMatrix to cover the entire level.  It must consider one room only.
-                CurrentRoomTileMatrix,
+                LevelTileMatrix,
                 maxDimensions.Width,
                 maxDimensions.Height,
                 (x, y) =>
@@ -365,11 +380,9 @@ namespace MissionIIClassLibrary
 
             var thisRoomNumber = RoomNumber;
             var maxLevelNumber = TheWorldWallData.Levels.Count;
-            var thisRoom = TheWorldWallData
-                    .Levels[(LevelNumber - 1) % maxLevelNumber]
-                    .Rooms[thisRoomNumber - 1];
-
-            CurrentRoomTileMatrix = thisRoom.WallData;
+            // var thisRoom = TheWorldWallData
+            //         .Levels[(LevelNumber - 1) % maxLevelNumber]
+            //         .Rooms[thisRoomNumber - 1];
 
             var objectsList = new List<GameObject>();
 
@@ -571,7 +584,7 @@ namespace MissionIIClassLibrary
             }
 
             return adversaryObject.MoveConsideringWallsOnly(
-                CurrentRoomTileMatrix, 
+                LevelTileMatrix, 
                 movementDeltas, TileExtensions.IsFloor);
         }
 
@@ -642,7 +655,7 @@ namespace MissionIIClassLibrary
                 drawingTarget.DrawTileMatrix(
                     0,
                     0,
-                    CurrentRoomTileMatrix,
+                    LevelTileMatrix,
                     (cycleCount & 32) == 0 ? _electrocutionBackgroundSprites : _normalBackgroundSprites);
             }
 

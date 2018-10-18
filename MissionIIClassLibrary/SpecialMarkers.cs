@@ -31,17 +31,17 @@ namespace MissionIIClassLibrary
                 levelTileMatrix, startCluster, Constants.SourceClusterSide, TileExtensions.IsFloor);
         }
 
-        public Point ManStart
+        public bool ManStartFound
+        {
+            get { return _manStart.HasValue; }
+        }
+
+        public Point ManStartPoint
         {
             get
             {
                 return _manStart.Value;
             }
-        }
-
-        public Room StartRoom
-        {
-            get { return _manStartRoom; }
         }
 
         public int InitialManFacingDirection

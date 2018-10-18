@@ -13,14 +13,13 @@ namespace MissionIIClassLibrary
             LevelNumber = levelNumber;
             LevelTileMatrix = wholeOfLevelMatrix;
             _specialMarkers = specialMarkers;
-            if (specialMarkers.StartRoom == null)
+            if (!specialMarkers.ManStartFound)
             {
                 throw new Exception($"Man start position marker 'x' has not been set.");
             }
         }
 
-        public Room ManStartRoom { get { return _specialMarkers.StartRoom; } }
-        public Point ManStartCluster { get { return _specialMarkers.ManStart; } }
+        public Point ManStartCluster { get { return _specialMarkers.ManStartPoint; } }
         public int ManStartFacingDirection { get { return _specialMarkers.InitialManFacingDirection; } }
         public int LevelNumber { get; private set; }
         public TileMatrix LevelTileMatrix { get; private set; }

@@ -313,18 +313,20 @@ namespace MissionIIClassLibrary.GameObjects
         {
             ((MissionIIGameBoard)theGameBoard).MoveRoomNumberByDelta(roomNumberDelta);
             // Note: We sort of assume all the rooms are the same size!  (Which they are!)
-            var theMatrix = theGameBoard.GetTileMatrix();
-            var roomWidth = theMatrix.TotalWidth;
-            var roomHeight = theMatrix.TotalHeight;
+            var roomWidth = Constants.TileWidth * Constants.ClustersHorizontally * Constants.DestClusterSide;
+            var roomHeight = Constants.TileHeight * Constants.ClustersVertically * Constants.DestClusterSide;
+
             SpriteInstance.X += roomWidth * deltaRoomWidth;
             SpriteInstance.X += deltaSpriteWidth;
             SpriteInstance.Y += roomHeight * deltaRoomHeight;
             SpriteInstance.Y += deltaSpriteHeight;
+
             if (! theGameBoard.DroidsExistInRoom())
             {
                 theGameBoard.PlayerIncrementScore(Constants.RoomClearingBonusScore);
                 MissionIISounds.Bonus.Play();
             }
+
             ((MissionIIGameBoard) theGameBoard).PrepareForNewRoom();
         }
 
