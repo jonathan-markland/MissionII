@@ -28,8 +28,8 @@ namespace GameClassLibrary.Walls
             var countVert = (int)roomHeight / tallestHeight;
 
             // Start so that search-space "grid" is centred over the map area:
-            var leftX = (roomWidth - (countHorz * tallestWidth)) / 2;
-            var topY = (roomHeight - (countVert * tallestHeight)) / 2;
+            var leftX = scanArea.Left + (roomWidth - (countHorz * tallestWidth)) / 2;
+            var topY = scanArea.Top + (roomHeight - (countVert * tallestHeight)) / 2;
 
             var y = topY;
             while (countVert > 0)
