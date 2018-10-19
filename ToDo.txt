@@ -20,8 +20,18 @@ Oct 2018 -- the Room abstraction project
 
 [ ] TileMatrix:  remove knowledge of tile widths.  Refactor all to use ArrayView2d?
 
+[ ] Does this work?
 
+			GameClassLibrary.Walls
+			{
+				public static class DirectionFinder
 
+	Because the following is never used:
+
+			var movementDelta = MovementDeltas.ConvertFromFacingDirection(directionIndex);	
+				
+				
+	
 Sep 2018
 --------
 [ ] Scalar type for "Model Space" rather than just using "int".

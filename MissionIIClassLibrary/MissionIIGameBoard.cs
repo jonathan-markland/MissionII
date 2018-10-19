@@ -386,6 +386,13 @@ namespace MissionIIClassLibrary
 
 
 
+        /// <summary>
+        /// Obtains a list, in model-space, of potential location to position things
+        /// within the current
+        /// </summary>
+        /// <param name="objectsList"></param>
+        /// <param name="exclusionRectangles"></param>
+        /// <returns></returns>
         public List<Point> GetListOfPotentialPositionsForObjects(
             List<GameObject> objectsList, 
             List<Rectangle> exclusionRectangles)
@@ -409,6 +416,8 @@ namespace MissionIIClassLibrary
 
             var pointsList = new List<Point>();
 
+            var ro = ModelPixelOrigin;
+
             PositionFinder.ForEachEmptyCell(
                 ThisRoomArrayView2D,
                 maxDimensions.Width,
@@ -417,10 +426,13 @@ namespace MissionIIClassLibrary
                 Constants.TileHeight,
                 (x, y) =>
                 {
+                    // Coordinates are relative to top left pixel of this room's walls.
+
                     if (!(new Rectangle(x, y, maxDimensions.Width, maxDimensions.Height).Intersects(exclusionRectangles)))
                     {
                         pointsList.Add(new Point(x, y));
                     }
+
                     return true;
                 },
                 TileExtensions.IsFloor);

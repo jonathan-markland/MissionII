@@ -9,12 +9,12 @@ namespace GameClassLibrary.Walls
         /// Empty location finder.
         /// Intended for one-pass-only placement of objects / monsters in room.
         /// </summary>
-        /// <param name="tileMatrix">Room wall data.</param>
+        /// <param name="tileMatrix">Map data. The search is over this entire area.</param>
         /// <param name="tileWidth">Width of wall block.</param>
         /// <param name="tileHeight">Height of wall block.</param>
         /// <param name="tallestWidth">Width of WIDEST sprite to be positioned.</param>
         /// <param name="tallestHeight">Height of TALLEST sprite to be positioned.</param>
-        /// <param name="lambdaFunc">Callback function passed top left (x,y) of locations found.</param>
+        /// <param name="lambdaFunc">Callback function passed top left (x,y) of locations found, relative to tileMatrix top left.</param>
         public static void ForEachEmptyCell(
                         ArrayView2D<Tile> tileMatrix,
                         int tallestWidth,
@@ -30,6 +30,7 @@ namespace GameClassLibrary.Walls
             var countHorz = (int)roomWidth / tallestWidth;
             var countVert = (int)roomHeight / tallestHeight;
 
+            // Start so that search-space net is centred over the map area:
             var leftX = (roomWidth - (countHorz * tallestWidth)) / 2;
             var topY = (roomHeight - (countVert * tallestHeight)) / 2;
 
