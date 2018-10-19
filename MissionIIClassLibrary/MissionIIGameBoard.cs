@@ -78,14 +78,6 @@ namespace MissionIIClassLibrary
 
 
 
-
-        public void MoveRoomNumberByDelta(int roomNumberDelta)
-        {
-            RoomNumber += roomNumberDelta;
-        }
-
-
-
         public bool LevelCodeAccepted(string accessCode)
         {
             for (int i = Constants.FirstLevelWithAccessCode; i < Constants.LastLevelWithAccessCode; i++)
@@ -383,6 +375,21 @@ namespace MissionIIClassLibrary
             var startCluster = theLevel.ManStartCluster;
             RoomXY = Level.ClusterToRoomXY(startCluster);
             RoomNumber = 1 + RoomXY.X + RoomXY.Y * Constants.RoomsHorizontally;
+        }
+
+
+
+        public void MoveRoomNumberByDelta(int roomNumberDelta)
+        {
+            int x = RoomXY.X;
+            int y = RoomXY.Y;
+            if (roomNumberDelta == -1) x -= 1;
+            if (roomNumberDelta == +1) x += 1;
+            if (roomNumberDelta < -1) y -= 1;
+            if (roomNumberDelta > +1) y += 1;
+            // TODO all the above is dodgy, but need to completely change interface for room number changing, and setting for the first time!
+            RoomXY = new Point(x, y);
+            RoomNumber += roomNumberDelta;
         }
 
 
