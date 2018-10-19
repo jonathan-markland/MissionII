@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls.Clusters;
 
@@ -6,28 +7,45 @@ namespace GameClassLibrary.Walls
 {
     public static class DirectionFinder
     {
+        /// <summary>
+        /// Find the free directions surrounding an object.
+        /// We test a 1-pixel strip just outside the extents of the object given.
+        /// All strips that lie in unobstructed space are deemed to be 'free' directions.
+        /// </summary>
+        /// <param name="objectExtents">Extents of object to consider.</param>
+        /// <param name="isSpace">Function to test if rectangle is entirely free of obstructions.</param>
+        /// <returns>FoundDirections value contains the free directions, if any.</returns>
         public static FoundDirections GetFreeDirections(
-            Rectangle currentExtents, 
-            ArrayView2D<Tile> tileMatrix, 
-            Rectangle roomArea,
-            int tileWidth, int tileHeight,
-            Func<Tile, bool> isFloor)
+            Rectangle objectExtents, 
+            Func<Rectangle, bool> isSpace)
         {
             int countFound = 0;
             int resultMask = 0;
 
             for (int directionIndex = 0; directionIndex < 8; directionIndex++)
             {
-                var movementDelta = MovementDeltas.ConvertFromFacingDirection(directionIndex);   // TODO: never used??? what??
+                //
+                //     objectExtents       Areas tested (direction numbers indicated).
+                //                         - 1,3,5,7 just test corner pixels.
+                //
+                //                           7<--0-->1
+                //        +-----+            ^+-----+^
+                //        |#####|            ||#####||
+                //        |#####|            6|#####|2
+                //        |#####|            ||#####||
+                //        +-----+            v+-----+v
+                //                           5<--4-->3
+                //
 
-                var hitResult = CollisionDetection.HitsWalls(
-                    tileMatrix, roomArea, 
-                    currentExtents.Left, currentExtents.Top, 
-                    currentExtents.Width, currentExtents.Height,
-                    tileWidth, tileHeight,
-                    isFloor);
+                var movementDelta = MovementDeltas.ConvertFromFacingDirection(directionIndex);
 
-                if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
+                var newWidth = movementDelta.dx == 0 ? objectExtents.Width : 1;
+                var newHeight = movementDelta.dy == 0 ? objectExtents.Height : 1;
+
+                var dx = (movementDelta.dx > 0) ? objectExtents.Width : movementDelta.dx;
+                var dy = (movementDelta.dy > 0) ? objectExtents.Height : movementDelta.dy;
+
+                if (isSpace(new Rectangle(objectExtents.Left + dx, objectExtents.Top + dy, newWidth, newHeight)))
                 {
                     resultMask |= 1 << directionIndex;
                     ++countFound;
