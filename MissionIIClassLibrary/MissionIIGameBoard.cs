@@ -197,6 +197,7 @@ namespace MissionIIClassLibrary
         {
             return Man.MoveConsideringWallsOnly(
                 LevelTileMatrix,
+                RoomArea,
                 movementDeltas,
                 TileExtensions.IsFloor);
         }
@@ -349,6 +350,21 @@ namespace MissionIIClassLibrary
                 return new Point(
                     RoomXY.X * Constants.ClustersHorizontally * Constants.DestClusterSide * Constants.TileWidth,
                     RoomXY.Y * Constants.ClustersVertically * Constants.DestClusterSide * Constants.TileHeight);
+            }
+        }
+
+        /// <summary>
+        /// Model-space coordinates of the extents of the current room.
+        /// Non-inclusive in the bottom/right.
+        /// </summary>
+        private Rectangle RoomArea
+        {
+            get
+            {
+                return new Rectangle(
+                    ModelPixelOrigin,
+                    Constants.ClustersHorizontally * Constants.DestClusterSide * Constants.TileWidth,
+                    Constants.ClustersVertically * Constants.DestClusterSide * Constants.TileHeight);
             }
         }
 

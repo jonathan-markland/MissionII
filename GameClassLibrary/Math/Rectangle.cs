@@ -22,6 +22,16 @@ namespace GameClassLibrary.Math
 
 
 
+        public Rectangle(Point topLeft, int width, int height)
+        {
+            Left = topLeft.X;
+            Top = topLeft.Y;
+            Width = width;
+            Height = height;
+        }
+
+
+
         public int Right
         {
             get { return Left + Width; }

@@ -29,11 +29,12 @@ namespace GameClassLibrary.GameBoard
 
 
         /// <summary>
-        /// It is advised that the movement is by ONE pixel at a time.
+        /// It is advised that the movement is by ONE pixel at a time, and allows diagonal movement.
         /// </summary>
         public static CollisionDetection.WallHitTestResult MoveConsideringWallsOnly(
             this GameObject gameObject,
             TileMatrix wallMatrix,
+            Rectangle roomArea,
             MovementDeltas movementDeltas,
             Func<Tile, bool> isFloorFunc)
         {
@@ -41,10 +42,9 @@ namespace GameClassLibrary.GameBoard
             var proposedX = r.Left + movementDeltas.dx;
             var proposedY = r.Top + movementDeltas.dy;
 
-            // First consider both X and Y deltas directly:
-
             var hitResult = CollisionDetection.HitsWalls(
                 wallMatrix.WholeArea,
+                roomArea,
                 proposedX, proposedY,
                 r.Width,
                 r.Height,

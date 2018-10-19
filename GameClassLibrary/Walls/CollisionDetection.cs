@@ -20,6 +20,7 @@ namespace GameClassLibrary.Walls
 
         public static WallHitTestResult HitsWalls(
             ArrayView2D<Tile> tileMatrix,
+            Rectangle roomArea,
             int objectX, int objectY,
             int objectWidth, int objectHeight,
             int tileWidth, int tileHeight,
@@ -27,18 +28,15 @@ namespace GameClassLibrary.Walls
         {
             if (tileMatrix.Empty) return WallHitTestResult.HitWall; // Required.
 
-            var roomWidth = tileMatrix.CountH * tileWidth;
-            var roomHeight = tileMatrix.CountV * tileHeight;
-
             // Non-inclusive bottom right corner of object:
             var objectX2 = objectX + objectWidth;
             var objectY2 = objectY + objectHeight;
 
             // Fully or partially off-screen is treated as a collision:
-            if (objectX2 > roomWidth) return WallHitTestResult.OutsideRoomToRight;
-            if (objectY2 > roomHeight) return WallHitTestResult.OutsideRoomBelow;
-            if (objectX < 0) return WallHitTestResult.OutsideRoomToLeft;
-            if (objectY < 0) return WallHitTestResult.OutsideRoomAbove;
+            if (objectX2 >= roomArea.Right) return WallHitTestResult.OutsideRoomToRight;
+            if (objectY2 >= roomArea.Bottom) return WallHitTestResult.OutsideRoomBelow;
+            if (objectX < roomArea.Left) return WallHitTestResult.OutsideRoomToLeft;
+            if (objectY < roomArea.Top) return WallHitTestResult.OutsideRoomAbove;
 
             // Lies completely on-screen.
 
