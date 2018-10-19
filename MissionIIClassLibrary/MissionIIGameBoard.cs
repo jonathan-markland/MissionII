@@ -716,9 +716,11 @@ namespace MissionIIClassLibrary
                 Constants.ScreenWidth - 4, 8, 
                 ("ROOM " + RoomNumber) + " L" + LevelNumber, MissionIIFonts.WideFont, TextAlignment.Right);
 
+            // Adjust origin so room is drawn below header strip:
+
             drawingTarget.DeltaOrigin(Constants.RoomOriginX, Constants.RoomOriginY);
 
-            // The Room:
+            // The Room tiles:
 
             var cycleCount = GameClassLibrary.Time.CycleCounter.Count32;
             var drawTileMatrix = (!Man.IsBeingElectrocutedByWalls) | (cycleCount & 2) == 0;
@@ -732,9 +734,14 @@ namespace MissionIIClassLibrary
                     Constants.TileHeight);
             }
 
-            // Draw objects in the room:
+            // Objects in the room (these are in model-space coordinates):
 
+            var roomOrigin = ModelPixelOrigin;
+            drawingTarget.DeltaOrigin(-roomOrigin.X, -roomOrigin.Y);
             ObjectsInRoom.ForEach<GameObject>(o => { o.Draw(drawingTarget); });
+            drawingTarget.DeltaOrigin(+roomOrigin.X, +roomOrigin.Y);
+
+            // Restore origin adjustment to account for header strip:
 
             drawingTarget.DeltaOrigin(-Constants.RoomOriginX, -Constants.RoomOriginY);
 
