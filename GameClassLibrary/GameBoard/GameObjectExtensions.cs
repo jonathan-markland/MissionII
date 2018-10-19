@@ -33,25 +33,15 @@ namespace GameClassLibrary.GameBoard
         /// </summary>
         public static CollisionDetection.WallHitTestResult MoveConsideringWallsOnly(
             this GameObject gameObject,
-            TileMatrix wallMatrix,
-            Rectangle roomArea,
             MovementDeltas movementDeltas,
-            Func<Tile, bool> isFloorFunc)
+            Func<Rectangle, CollisionDetection.WallHitTestResult> hitTest)
         {
             var r = gameObject.GetBoundingRectangle();
+
             var proposedX = r.Left + movementDeltas.dx;
             var proposedY = r.Top + movementDeltas.dy;
 
-            var hitResult = CollisionDetection.HitsWalls(
-                wallMatrix.WholeArea,
-                roomArea,
-                proposedX, proposedY,
-                r.Width,
-                r.Height,
-                wallMatrix.TileWidth,
-                wallMatrix.TileHeight,
-                isFloorFunc);
-
+            var hitResult = hitTest(new Rectangle(proposedX, proposedY, r.Width, r.Height));
             if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
             {
                 gameObject.TopLeftPosition = new Point(proposedX, proposedY);

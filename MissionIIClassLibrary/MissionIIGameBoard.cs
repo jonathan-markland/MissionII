@@ -196,22 +196,15 @@ namespace MissionIIClassLibrary
         public CollisionDetection.WallHitTestResult MoveManOnePixel(MovementDeltas movementDeltas)
         {
             return Man.MoveConsideringWallsOnly(
-                LevelTileMatrix,
-                RoomArea,
                 movementDeltas,
-                TileExtensions.IsFloor);
+                HitTest);
         }
 
 
 
         private FoundDirections GetFreeDirections(Rectangle currentExtents)
         {
-            return DirectionFinder.GetFreeDirections(
-                currentExtents, 
-                LevelTileMatrix.WholeArea,
-                Constants.TileWidth,
-                Constants.TileHeight,
-                TileExtensions.IsFloor);
+            return DirectionFinder.GetFreeDirections(currentExtents, IsSpace);
         }
 
 
@@ -403,6 +396,28 @@ namespace MissionIIClassLibrary
 
 
         /// <summary>
+        /// Returns true if the given rectangle (in model-space) intersects no walls.
+        /// Only walls are considered for "collision" with this.
+        /// </summary>
+        public bool IsSpace(Rectangle areaOfInterest)
+        {
+            return HitTest(areaOfInterest) == CollisionDetection.WallHitTestResult.NothingHit;
+        }
+
+        public CollisionDetection.WallHitTestResult HitTest(Rectangle areaOfInterest)
+        {
+            return CollisionDetection.HitsWalls(
+                LevelTileMatrix.WholeArea,
+                RoomArea,
+                areaOfInterest.Left, areaOfInterest.Top,
+                areaOfInterest.Width, areaOfInterest.Height,
+                Constants.TileWidth, Constants.TileHeight,
+                TileExtensions.IsFloor);
+        }
+
+
+
+        /// <summary>
         /// Obtains a list, in model-space, of potential location to position things
         /// within the current
         /// </summary>
@@ -435,23 +450,18 @@ namespace MissionIIClassLibrary
             var ro = ModelPixelOrigin;
 
             PositionFinder.ForEachEmptyCell(
-                ThisRoomArrayView2D,
+                RoomArea,
                 maxDimensions.Width,
                 maxDimensions.Height,
-                Constants.TileWidth,
-                Constants.TileHeight,
+                IsSpace,
                 (x, y) =>
                 {
-                    // Coordinates are relative to top left pixel of this room's walls.
-
                     if (!(new Rectangle(x, y, maxDimensions.Width, maxDimensions.Height).Intersects(exclusionRectangles)))
                     {
                         pointsList.Add(new Point(x, y));
                     }
-
                     return true;
-                },
-                TileExtensions.IsFloor);
+                });
             
             pointsList.Shuffle(Rng.Generator);
 
@@ -623,7 +633,7 @@ namespace MissionIIClassLibrary
                     , bulletDirection
                     , increasesScore
                     , Constants.MultiKillWithSingleBulletBonusScore
-                    , TileExtensions.IsFloor
+                    , IsSpace
                 ));
         }
 
@@ -672,9 +682,7 @@ namespace MissionIIClassLibrary
                 return hitResult;
             }
 
-            return adversaryObject.MoveConsideringWallsOnly(
-                LevelTileMatrix, 
-                movementDeltas, TileExtensions.IsFloor);
+            return adversaryObject.MoveConsideringWallsOnly(movementDeltas, HitTest);
         }
 
 

@@ -13,7 +13,7 @@ namespace GameClassLibrary.GameObjects
         private readonly BulletTraits _bulletTraits;
 		private readonly MovementDeltas BulletDirection;
 		private readonly bool _increasesScore;
-		private readonly Func<Tile, bool> _isFloor;
+		private readonly Func<Rectangle, bool> _isSpace;
 		private readonly int _bonusScore;
 
 		private SpriteInstance _spriteInstance;
@@ -27,7 +27,7 @@ namespace GameClassLibrary.GameObjects
             MovementDeltas bulletDirection, 
             bool increasesScore, 
             int bonusScore,
-            Func<Tile, bool> isFloor)
+            Func<Rectangle, bool> isSpace)
         {
             _bonusScore = bonusScore;
 
@@ -75,7 +75,7 @@ namespace GameClassLibrary.GameObjects
             _spriteInstance = new SpriteInstance { X=x, Y=y, Traits = bulletTraits.BulletSpriteTraits };
             BulletDirection = bulletDirection;
             _increasesScore = increasesScore;
-            _isFloor = isFloor;
+            _isSpace = isSpace;
         }
 
 
@@ -102,17 +102,11 @@ namespace GameClassLibrary.GameObjects
 
                 var tileMatrix = theGameBoard.GetLevelTileMatrix();
 
-                var hitResult = CollisionDetection.HitsWalls(
-                    theGameBoard.GetLevelTileMatrix().WholeArea,
-                    proposedX,
-                    proposedY,
-                    _spriteInstance.Traits.Width,
-                    _spriteInstance.Traits.Height,
-                    theGameBoard.GetTileWidth(),
-                    theGameBoard.GetTileHeight(),
-                    _isFloor);
-
-                if (hitResult == CollisionDetection.WallHitTestResult.NothingHit)
+                if (_isSpace(
+                    new Rectangle(
+                        proposedX, proposedY, 
+                        _spriteInstance.Traits.Width,
+                        _spriteInstance.Traits.Height)))
                 {
                     _spriteInstance.X = proposedX;
                     _spriteInstance.Y = proposedY;
