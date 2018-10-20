@@ -32,6 +32,13 @@ namespace GameClassLibrary.Math
 
 
 
+        public Rectangle MovedBy(MovementDeltas movementDeltas)
+        {
+            return new Rectangle(Left + movementDeltas.dx, Top + movementDeltas.dy, Width, Height);
+        }
+
+
+
         public int Right
         {
             get { return Left + Width; }

@@ -1,4 +1,5 @@
 ﻿using System;
+using GameClassLibrary.Math;
 
 namespace GameClassLibrary.Walls.Clusters
 {
@@ -11,7 +12,7 @@ namespace GameClassLibrary.Walls.Clusters
         // Area codes:  456
         //              789
 
-		private TileMatrix _wallMatrix;
+		private ArrayView2D<Tile> _wallMatrix;
         private Func<Tile, bool> _isFloorFunc;
 
         protected int _originX;
@@ -22,11 +23,15 @@ namespace GameClassLibrary.Walls.Clusters
 		
 		
 		public ClusterReader(
-            TileMatrix wallMatrix, 
+            ArrayView2D<Tile> wallMatrix, 
             int clusterIndexX, int clusterIndexY, 
             int clusterSide, Func<Tile, bool> isFloorFunc)
 		{
-			_wallMatrix = wallMatrix;
+            System.Diagnostics.Debug.Assert(clusterSide >= 3);
+            System.Diagnostics.Debug.Assert(wallMatrix.CountH % clusterSide == 0);
+            System.Diagnostics.Debug.Assert(wallMatrix.CountV % clusterSide == 0);
+
+            _wallMatrix = wallMatrix;
 			_originX = clusterIndexX * clusterSide;
 			_originY = clusterIndexY * clusterSide;
 			_endOffset = clusterSide - 1;
@@ -70,7 +75,7 @@ namespace GameClassLibrary.Walls.Clusters
 		
 		private Tile Test(int x, int y)
 		{
-			return _wallMatrix.TileAt(x + _originX, y + _originY);
+			return _wallMatrix.At(x + _originX, y + _originY);
 		}
     }
 }

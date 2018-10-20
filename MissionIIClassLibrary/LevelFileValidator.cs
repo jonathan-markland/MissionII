@@ -26,7 +26,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ExpectValidPathsOnLevel(TileMatrix levelMatrix)
+        public static void ExpectValidPathsOnLevel(ArrayView2D<Tile> levelMatrix)
         {
             // Validations for each 3x3 group of tiles individually:
 
@@ -67,10 +67,10 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ValidateTileConnection(TileMatrix levelMatrix, int x, int y, int dx, int dy)
+        public static void ValidateTileConnection(ArrayView2D<Tile> levelMatrix, int x, int y, int dx, int dy)
         {
-            var c1 = levelMatrix.TileAt(x, y);
-            var c2 = levelMatrix.TileAt(x + dx, y + dy);
+            var c1 = levelMatrix.At(x, y);
+            var c2 = levelMatrix.At(x + dx, y + dy);
             if (! BothAreSpaceOrBothAreNotSpace(c1, c2))
             {
                 throw new Exception($"Invalid connection between 3 x 3 tiles at ({x},{y}).  Both must be spaces, or both must be wall.");
@@ -79,7 +79,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ExpectDoorwaysMustNotLeadOffMap(TileMatrix levelTileMatrix)
+        public static void ExpectDoorwaysMustNotLeadOffMap(ArrayView2D<Tile> levelTileMatrix)
         {
             int h = levelTileMatrix.CountH - 1;
             int v = levelTileMatrix.CountV - 1;
@@ -91,11 +91,11 @@ namespace MissionIIClassLibrary
 
 
 
-        private static void ExpectAllWall(TileMatrix levelTileMatrix, Point point, MovementDeltas movementDeltas, int count)
+        private static void ExpectAllWall(ArrayView2D<Tile> levelTileMatrix, Point point, MovementDeltas movementDeltas, int count)
         {
             while(count > 0)
             {
-                if (levelTileMatrix.TileAt(point).IsFloor())
+                if (levelTileMatrix.At(point).IsFloor())
                 {
                     throw new Exception($"Invalid doorway tile at ({point.X},{point.Y}) because it leads off the map.");
                 }
@@ -106,7 +106,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ExpectEdgeDoorwaysMatchOtherRooms(TileMatrix levelMatrix)
+        public static void ExpectEdgeDoorwaysMatchOtherRooms(ArrayView2D<Tile> levelMatrix)
         {
             CheckDoorwaysMirror(
                 levelMatrix,
@@ -130,7 +130,7 @@ namespace MissionIIClassLibrary
 
 
         private static void CheckDoorwaysMirror(
-            TileMatrix levelMatrix,
+            ArrayView2D<Tile> levelMatrix,
             int roomCountAlong, 
             int tileCountPerRoom, 
             int count, 
@@ -148,7 +148,7 @@ namespace MissionIIClassLibrary
 
 
         private static void CheckDoorwaysMirror2(
-            TileMatrix levelMatrix,
+            ArrayView2D<Tile> levelMatrix,
             int count, 
             Point point, 
             MovementDeltas minorDelta)
@@ -157,8 +157,8 @@ namespace MissionIIClassLibrary
             while(count > 0)
             {
                 if (! BothAreSpaceOrBothAreNotSpace(
-                    levelMatrix.TileAt(point),
-                    levelMatrix.TileAt(adjacentColumnPoint)))
+                    levelMatrix.At(point),
+                    levelMatrix.At(adjacentColumnPoint)))
                 {
                     throw new Exception($"Invalid doorway " +
                         $"from tile ({point.X},{point.Y}) " +
@@ -176,21 +176,21 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ExpectValidThreeByThree(TileMatrix fileWallData, int x, int y)
+        public static void ExpectValidThreeByThree(ArrayView2D<Tile> fileWallData, int x, int y)
         {
             // 789
             // 456
             // 123
 
-            var c7 = fileWallData.TileAt(x + 0, y + 0);
-            var c8 = fileWallData.TileAt(x + 1, y + 0);
-            var c9 = fileWallData.TileAt(x + 2, y + 0);
-            var c4 = fileWallData.TileAt(x + 0, y + 1);
-            var c5 = fileWallData.TileAt(x + 1, y + 1);
-            var c6 = fileWallData.TileAt(x + 2, y + 1);
-            var c1 = fileWallData.TileAt(x + 0, y + 2);
-            var c2 = fileWallData.TileAt(x + 1, y + 2);
-            var c3 = fileWallData.TileAt(x + 2, y + 2);
+            var c7 = fileWallData.At(x + 0, y + 0);
+            var c8 = fileWallData.At(x + 1, y + 0);
+            var c9 = fileWallData.At(x + 2, y + 0);
+            var c4 = fileWallData.At(x + 0, y + 1);
+            var c5 = fileWallData.At(x + 1, y + 1);
+            var c6 = fileWallData.At(x + 2, y + 1);
+            var c1 = fileWallData.At(x + 0, y + 2);
+            var c2 = fileWallData.At(x + 1, y + 2);
+            var c3 = fileWallData.At(x + 2, y + 2);
 
             var spaceIn8246 = (c8.IsFloor() || c2.IsFloor() || c4.IsFloor() || c6.IsFloor());
 

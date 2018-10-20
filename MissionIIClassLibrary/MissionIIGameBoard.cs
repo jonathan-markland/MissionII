@@ -38,7 +38,7 @@ namespace MissionIIClassLibrary
 
         private int LevelNumber;
         public List<InteractibleObject> PlayerInventory = new List<InteractibleObject>();
-        public TileMatrix LevelTileMatrix;
+        public ArrayView2D<Tile> LevelTileMatrix;
         public GameObjects.Man Man = new GameObjects.Man();
         public SuddenlyReplaceableList<GameObject> ObjectsInRoom = new SuddenlyReplaceableList<GameObject>();
         public List<GameObject> ObjectsToRemove = new List<GameObject>();
@@ -122,7 +122,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public TileMatrix GetLevelTileMatrix()
+        public ArrayView2D<Tile> GetLevelTileMatrix()
         {
             return LevelTileMatrix;
         }
@@ -360,7 +360,7 @@ namespace MissionIIClassLibrary
                 var o = TileOrigin;
 
                 return new ArrayView2D<Tile>(   // TODO: This only changes when rooms change.
-                    LevelTileMatrix.WholeArea, o.X, o.Y,
+                    LevelTileMatrix, o.X, o.Y,
                     Constants.ClustersHorizontally * Constants.DestClusterSide,
                     Constants.ClustersVertically * Constants.DestClusterSide);
             }
@@ -414,7 +414,7 @@ namespace MissionIIClassLibrary
         public CollisionDetection.WallHitTestResult HitTest(Rectangle areaOfInterest)
         {
             return CollisionDetection.HitsWalls(
-                LevelTileMatrix.WholeArea,
+                LevelTileMatrix,
                 RoomArea,
                 areaOfInterest.Left, areaOfInterest.Top,
                 areaOfInterest.Width, areaOfInterest.Height,
@@ -490,8 +490,6 @@ namespace MissionIIClassLibrary
             //         .Levels[(LevelNumber - 1) % maxLevelNumber]
             //         .Rooms[thisRoomNumber - 1];
 
-            var objectsList = new List<GameObject>();
-
             ObjectsToRemove.Clear();
 
             // Man should have been positioned by caller.
@@ -502,8 +500,10 @@ namespace MissionIIClassLibrary
                 Man.GetBoundingRectangle()
                 .Inflate(Constants.ExclusionZoneAroundMan);
 
-            // Make a list of those things that need positioning.  TODO: Refactor.  Not obvious when new item kind created!
+            // Make a list of those things that need positioning and then remembering
+            // for each time we come back into the room:
 
+            var objectsList = new List<GameObject>();
             IncludeIfInCurrentRoom(Key, objectsList);
             IncludeIfInCurrentRoom(Ring, objectsList);
             IncludeIfInCurrentRoom(Gold, objectsList);
@@ -511,7 +511,16 @@ namespace MissionIIClassLibrary
             IncludeIfInCurrentRoom(Potion, objectsList);
             IncludeIfInCurrentRoom(InvincibilityAmulet, objectsList);
 
-            // TODO: The following needs refactoring into a framework.
+            // The above shapes (if added) and the man are to be excluded from monster-positioning:
+
+            var excludeList = new List<Rectangle>();
+            foreach (MissionIIInteractibleObject obj in objectsList)
+            {
+                if(obj.PositionedAlready) excludeList.Add(obj.GetBoundingRectangle());
+            }
+            excludeList.Add(manExclusionRectangle);
+
+            // Now add the droids, which can start anywhere each time we come into the room:
 
             if (LevelNumber == 1)
             {
@@ -529,13 +538,13 @@ namespace MissionIIClassLibrary
             // ^^^ TODO: end of bit that needs refactor.
 
             // vvv HACK - development test
-            //objectsList.Add(new Droids.LinearMoverDroid(DestroyManByAdversary));
-            //objectsList.Add(new Droids.BouncingDroid(DestroyManByAdversary));
+            // objectsList.Add(new Droids.LinearMoverDroid(DestroyManByAdversary));
+            // objectsList.Add(new Droids.BouncingDroid(DestroyManByAdversary));
             // ^^^ HACK
 
             // Find available positions:
 
-            var pointsList = GetListOfPotentialPositionsForObjects(objectsList, new List<Rectangle> { manExclusionRectangle });
+            var pointsList = GetListOfPotentialPositionsForObjects(objectsList, excludeList);
 
             // If there are fewer positions than ObjectsInRoom.Count then we cull the ObjectsInRoom container.
             // This is why priority objects must be added first.
@@ -544,7 +553,11 @@ namespace MissionIIClassLibrary
             for (; i < pointsList.Count; i++)
             {
                 if (i >= objectsList.Count) break;
-                objectsList[i].TopLeftPosition = pointsList[i];
+                if (!(objectsList[i] is MissionIIInteractibleObject)
+                    || !(objectsList[i] as MissionIIInteractibleObject).PositionedAlready)
+                {
+                    objectsList[i].TopLeftPosition = pointsList[i];
+                }
             }
             if (i < objectsList.Count)
             {
@@ -658,14 +671,7 @@ namespace MissionIIClassLibrary
             MovementDeltas movementDeltas)
         {
             var r = adversaryObject.GetBoundingRectangle();
-            var oldX = r.Left;
-            var oldY = r.Top;
-
-            var myNewRectangle = new Rectangle(
-                oldX + movementDeltas.dx,
-                oldY + movementDeltas.dy,
-                r.Width,
-                r.Height);
+            var myNewRectangle = r.MovedBy(movementDeltas);
 
             var hitResult = CollisionDetection.WallHitTestResult.NothingHit;
             ObjectsInRoom.ForEach<GameObject>(theObject =>
@@ -674,7 +680,7 @@ namespace MissionIIClassLibrary
                     && theObject.CanBeOverlapped)
                 {
                     var objectRectangle = theObject.GetBoundingRectangle();
-                    if (objectRectangle.Left != oldX || objectRectangle.Top != oldY) // TODO: crude way of avoiding self-intersection test
+                    if (objectRectangle.Left != r.Left || objectRectangle.Top != r.Top) // TODO: crude way of avoiding self-intersection test
                     {
                         if (objectRectangle.Intersects(myNewRectangle))
                         {

@@ -6,11 +6,13 @@ namespace MissionIIClassLibrary.Interactibles
 {
     public class MissionIIInteractibleObject : InteractibleObject
     {
+        private bool _positionedAlready;
         private SpriteInstance Sprite;
         protected int _roomNumber;
 
         public MissionIIInteractibleObject(SpriteInstance spriteInstance, int roomNumber)
         {
+            _positionedAlready = false;
             Sprite = spriteInstance;
             _roomNumber = roomNumber;
         }
@@ -51,8 +53,14 @@ namespace MissionIIClassLibrary.Interactibles
         public override Point TopLeftPosition
         {
             get { return Sprite.TopLeftPosition; }
-            set { Sprite.TopLeftPosition = value; }
+            set
+            {
+                _positionedAlready = true;
+                Sprite.TopLeftPosition = value;
+            }
         }
+
+        public bool PositionedAlready { get { return _positionedAlready; } }
 
         public override void Draw(IDrawingTarget drawingTarget)
         {

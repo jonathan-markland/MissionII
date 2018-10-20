@@ -12,6 +12,7 @@ namespace MissionIIClassLibrary.Droids
                   MissionIISprites.Monster3,
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
+                  // TODO: Demo no longer works since we are using model-space coordinates:
                   new LinearMover(new Point(100, 50), new Point(200, 50), 1, manDestroyAction),
                   manDestroyAction
                   )

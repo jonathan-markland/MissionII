@@ -9,7 +9,10 @@ namespace MissionIIClassLibrary
         private Point? _manStart;
         private int _initialManFacingDirection;
 
-        public void SetManStartCluster(Point startCluster, Tile spaceCharValue, TileMatrix levelTileMatrix)
+        public void SetManStartCluster(
+            Point startCluster, 
+            Tile spaceCharValue,
+            ArrayView2D<Tile> levelTileMatrix)
         {
             if (_manStart.HasValue)
             {

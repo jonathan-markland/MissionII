@@ -42,12 +42,12 @@ namespace MissionIIClassLibrary
             var expandedLevelMatrix = GetExpandedLevelTileMatrix(thisLevel.LevelTileMatrix);
             AlignDoorways(expandedLevelMatrix);
             DecorateLevel(expandedLevelMatrix, resamplingColourData);
-            return new Level(thisLevel.LevelNumber, expandedLevelMatrix, thisLevel.SpecialMarkers);
+            return new Level(thisLevel.LevelNumber, expandedLevelMatrix.WholeArea, thisLevel.SpecialMarkers);
         }
 
 
 
-        private static WriteableTileMatrix GetExpandedLevelTileMatrix(TileMatrix levelTileMatrix)
+        private static WriteableTileMatrix GetExpandedLevelTileMatrix(ArrayView2D<Tile> levelTileMatrix)
         {
             return new WallExpander(
                     levelTileMatrix,
@@ -139,10 +139,12 @@ namespace MissionIIClassLibrary
             MovementDeltas movementDeltas,
             int blockCount)
         {
+            var readableView = levelMatrix.WholeArea;  // TODO:  a bit hackish
+
             while (blockCount > 0)
             {
-                if (   !levelMatrix.TileAt(point1).IsFloor()
-                    || !levelMatrix.TileAt(point2).IsFloor())
+                if (   !readableView.At(point1).IsFloor()
+                    || !readableView.At(point2).IsFloor())
                 {
                     levelMatrix.Write(point1, MissionIITile.ElectricWall);
                     levelMatrix.Write(point2, MissionIITile.ElectricWall);
@@ -179,10 +181,10 @@ namespace MissionIIClassLibrary
         private static bool SurroundedByWall4(WriteableTileMatrix wallMatrix, int x, int y) // TODO: We could be arty and call this instead.
         {
             return
-                   !wallMatrix.TileAt(x, y - 1).IsFloor()
-                && !wallMatrix.TileAt(x, y + 1).IsFloor()
-                && !wallMatrix.TileAt(x - 1, y).IsFloor()
-                && !wallMatrix.TileAt(x + 1, y).IsFloor();
+                   !wallMatrix.At(x, y - 1).IsFloor()
+                && !wallMatrix.At(x, y + 1).IsFloor()
+                && !wallMatrix.At(x - 1, y).IsFloor()
+                && !wallMatrix.At(x + 1, y).IsFloor();
         }
 
 
@@ -190,14 +192,14 @@ namespace MissionIIClassLibrary
         private static bool SurroundedByWall8(WriteableTileMatrix wallMatrix, int x, int y)
         {
             return
-                   !wallMatrix.TileAt(x, y - 1).IsFloor()
-                && !wallMatrix.TileAt(x, y + 1).IsFloor()
-                && !wallMatrix.TileAt(x - 1, y).IsFloor()
-                && !wallMatrix.TileAt(x + 1, y).IsFloor()
-                && !wallMatrix.TileAt(x - 1, y - 1).IsFloor()
-                && !wallMatrix.TileAt(x + 1, y - 1).IsFloor()
-                && !wallMatrix.TileAt(x - 1, y + 1).IsFloor()
-                && !wallMatrix.TileAt(x + 1, y + 1).IsFloor();
+                   !wallMatrix.At(x, y - 1).IsFloor()
+                && !wallMatrix.At(x, y + 1).IsFloor()
+                && !wallMatrix.At(x - 1, y).IsFloor()
+                && !wallMatrix.At(x + 1, y).IsFloor()
+                && !wallMatrix.At(x - 1, y - 1).IsFloor()
+                && !wallMatrix.At(x + 1, y - 1).IsFloor()
+                && !wallMatrix.At(x - 1, y + 1).IsFloor()
+                && !wallMatrix.At(x + 1, y + 1).IsFloor();
         }
 
 
@@ -217,12 +219,12 @@ namespace MissionIIClassLibrary
                 int cy = (y + logicalOffsetY) & 63;
                 for (int x = 0; x < wallMatrix.CountH; x++)
                 {
-                    if ((wallMatrix.TileAt(x, y).IsFloor()) ^ doWalls)
+                    if ((wallMatrix.At(x, y).IsFloor()) ^ doWalls)
                     {
                         int cx = (x + logicalOffsetX) & 63;
                         var greyLevel = Colour.GetGreyLevel(resamplingImageArray[cy * 64 + cx]);
                         var styleDelta = (byte)((greyLevel < sampleThreshold) ? 0 : 1);
-                        var item = (byte)(wallMatrix.TileAt(x, y).VisualIndex | styleDelta);
+                        var item = (byte)(wallMatrix.At(x, y).VisualIndex | styleDelta);
                         wallMatrix.Write(x, y, new Tile { VisualIndex = item });
                     }
                 }

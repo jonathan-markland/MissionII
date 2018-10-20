@@ -17,9 +17,7 @@ namespace MissionIIClassLibrary
                 {
                     var wholeOfLevelMatrix = new WriteableTileMatrix(
                         Constants.RoomsHorizontally * Constants.ClustersHorizontally * Constants.SourceClusterSide,
-                        Constants.RoomsVertically * Constants.ClustersVertically * Constants.SourceClusterSide,
-                        Constants.TileWidth,
-                        Constants.TileHeight);
+                        Constants.RoomsVertically * Constants.ClustersVertically * Constants.SourceClusterSide);
 
                     int rowOnLevel = 0;
                     int manX = -1, manY = -1;
@@ -84,9 +82,9 @@ namespace MissionIIClassLibrary
                     specialMarkers.SetManStartCluster(
                         new Point(manX / Constants.SourceClusterSide, manY / Constants.SourceClusterSide),
                         MissionIITile.Floor,
-                        wholeOfLevelMatrix);
+                        wholeOfLevelMatrix.WholeArea);
 
-                    return new Level(nextLevelNumber, wholeOfLevelMatrix, specialMarkers);
+                    return new Level(nextLevelNumber, wholeOfLevelMatrix.WholeArea, specialMarkers);
                 });
         }
 

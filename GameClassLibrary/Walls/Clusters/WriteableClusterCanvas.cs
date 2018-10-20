@@ -19,7 +19,7 @@ namespace GameClassLibrary.Walls.Clusters
         public WriteableClusterCanvas(
             WriteableTileMatrix wallMatrix, int clusterIndexX, int clusterIndexY, 
             int clusterSide, Func<Tile, bool> isFloorFunc)
-                : base(wallMatrix, clusterIndexX, clusterIndexY, clusterSide, isFloorFunc)
+                : base(wallMatrix.WholeArea, clusterIndexX, clusterIndexY, clusterSide, isFloorFunc)
         {
             _writeableWallMatrix = wallMatrix;
         }

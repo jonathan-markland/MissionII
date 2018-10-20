@@ -1,5 +1,6 @@
 ﻿
 using System;
+using GameClassLibrary.Math;
 
 namespace GameClassLibrary.Walls.Clusters
 {
@@ -13,7 +14,7 @@ namespace GameClassLibrary.Walls.Clusters
 		private readonly int _clustersVertically;
 		private readonly int _sourceClusterSide;
 		private readonly int _destClusterSide;
-		private readonly TileMatrix _sourceMatrix;
+		private readonly ArrayView2D<Tile> _sourceMatrix;
 		private readonly Tile _outputFloorTile;
 		private readonly Tile _outputWallTile;
 		private readonly Func<Tile, bool> _isFloorFunc;
@@ -23,7 +24,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
         public WallExpander(
-            TileMatrix sourceMatrix,
+            ArrayView2D<Tile> sourceMatrix,
             int clustersHorizontally, int clustersVertically,
             int sourceClusterSide, int destClusterSide,
             Func<Tile, bool> isFloorFunc,
@@ -60,9 +61,7 @@ namespace GameClassLibrary.Walls.Clusters
 
             var destMatrix = new WriteableTileMatrix(
                 _clustersHorizontally * _destClusterSide,
-                _clustersVertically * _destClusterSide,
-                _sourceMatrix.TileWidth,
-                _sourceMatrix.TileHeight);
+                _clustersVertically * _destClusterSide);
 
             _destMatrix = destMatrix;
 

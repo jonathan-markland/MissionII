@@ -58,7 +58,7 @@ namespace GameClassLibrary.Walls
 
 
         public static int GetDirectionFacingAwayFromWalls(
-            TileMatrix fileWallData, Point startCluster, int sourceClusterSide,
+            ArrayView2D<Tile> fileWallData, Point startCluster, int sourceClusterSide,
             Func<Tile, bool> isFloorFunc)
         {
             var clusterCanvas = new ClusterReader(
