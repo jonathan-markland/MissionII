@@ -47,7 +47,7 @@ namespace GameClassLibrary.Walls
                     return;
                 }
             }
-            throw new Exception("TileMatrix class write outside bounds.");
+            throw new Exception("WriteableTileMatrix class write outside bounds.");
         }
     }
 }
