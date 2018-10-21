@@ -1,16 +1,15 @@
 ﻿using System;
-using GameClassLibrary.Math;
 
-namespace GameClassLibrary.Walls
+namespace GameClassLibrary.Math
 {
-    public struct WriteableTileMatrix<T>
+    public struct WriteableArraySlice2D<T>
     {
         private T[] _theArray;
         private ArraySlice2D<T> _theMatrix;
 
 
 
-        public WriteableTileMatrix(int tileCountH, int tileCountV)
+        public WriteableArraySlice2D(int tileCountH, int tileCountV)
         {
             System.Diagnostics.Debug.Assert(tileCountH >= 0);
             System.Diagnostics.Debug.Assert(tileCountV >= 0);

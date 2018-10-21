@@ -47,7 +47,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static WriteableTileMatrix<Tile> GetExpandedLevelTileMatrix(ArraySlice2D<Tile> levelTileMatrix)
+        private static WriteableArraySlice2D<Tile> GetExpandedLevelTileMatrix(ArraySlice2D<Tile> levelTileMatrix)
         {
             return new WallExpander(
                     levelTileMatrix,
@@ -63,7 +63,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static void DecorateLevel(WriteableTileMatrix<Tile> levelMatrix, uint[] resamplingColourData)
+        private static void DecorateLevel(WriteableArraySlice2D<Tile> levelMatrix, uint[] resamplingColourData)
         {
             int n = 5; // TODO sort out a seed
 
@@ -92,7 +92,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static void AlignDoorways(WriteableTileMatrix<Tile> levelMatrix)
+        private static void AlignDoorways(WriteableArraySlice2D<Tile> levelMatrix)
         {
             for (int y = 0; y < Constants.RoomsVertically; y++)
             {
@@ -133,7 +133,7 @@ namespace MissionIIClassLibrary
         
 
         private static void AlignDoorwaysScan(
-            WriteableTileMatrix<Tile> levelMatrix, 
+            WriteableArraySlice2D<Tile> levelMatrix, 
             Point point1,
             Point point2,
             MovementDeltas movementDeltas,
@@ -157,7 +157,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static void AddDecorativeBrickwork(WriteableTileMatrix<Tile> wallMatrix)
+        private static void AddDecorativeBrickwork(WriteableArraySlice2D<Tile> wallMatrix)
         {
             // Turn Electric areas into Brick leaving just an Electric outline.
 
@@ -178,7 +178,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static bool SurroundedByWall4(WriteableTileMatrix<Tile> wallMatrix, int x, int y) // TODO: We could be arty and call this instead.
+        private static bool SurroundedByWall4(WriteableArraySlice2D<Tile> wallMatrix, int x, int y) // TODO: We could be arty and call this instead.
         {
             return
                    !wallMatrix.At(x, y - 1).IsFloor()
@@ -189,7 +189,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static bool SurroundedByWall8(WriteableTileMatrix<Tile> wallMatrix, int x, int y)
+        private static bool SurroundedByWall8(WriteableArraySlice2D<Tile> wallMatrix, int x, int y)
         {
             return
                    !wallMatrix.At(x, y - 1).IsFloor()
@@ -205,7 +205,7 @@ namespace MissionIIClassLibrary
 
 
         private static void SetWallStyleDeltas(
-            WriteableTileMatrix<Tile> wallMatrix,
+            WriteableArraySlice2D<Tile> wallMatrix,
             uint[] resamplingImageArray,
             int logicalOffsetX,
             int logicalOffsetY,

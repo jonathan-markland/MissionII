@@ -1,4 +1,5 @@
 ﻿using System;
+using GameClassLibrary.Math;
 
 namespace GameClassLibrary.Walls.Clusters
 {
@@ -12,12 +13,12 @@ namespace GameClassLibrary.Walls.Clusters
         // 456 
         // 123       
 
-        private WriteableTileMatrix<T> _writeableWallMatrix;
+        private WriteableArraySlice2D<T> _writeableWallMatrix;
 
 
 
         public WriteableClusterCanvas(
-            WriteableTileMatrix<T> wallMatrix, int clusterIndexX, int clusterIndexY, 
+            WriteableArraySlice2D<T> wallMatrix, int clusterIndexX, int clusterIndexY, 
             int clusterSide, Func<T, bool> isFloorFunc)
                 : base(wallMatrix.WholeArea, clusterIndexX, clusterIndexY, clusterSide, isFloorFunc)
         {

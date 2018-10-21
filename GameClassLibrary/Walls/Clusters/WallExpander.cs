@@ -19,7 +19,7 @@ namespace GameClassLibrary.Walls.Clusters
 		private readonly Tile _outputWallTile;
 		private readonly Func<Tile, bool> _isFloorFunc;
 
-		private WriteableTileMatrix<Tile> _destMatrix;
+		private WriteableArraySlice2D<Tile> _destMatrix;
 
 
 
@@ -32,7 +32,7 @@ namespace GameClassLibrary.Walls.Clusters
             Tile outputFloorTile)
         {
             _sourceMatrix = sourceMatrix;
-            _destMatrix = new WriteableTileMatrix<Tile>();   // TODO:  Is no longer a class, thus no longer nullable.
+            _destMatrix = new WriteableArraySlice2D<Tile>();   // TODO:  Is no longer a class, thus no longer nullable.
             _clustersHorizontally = clustersHorizontally;
             _clustersVertically = clustersVertically;
             _sourceClusterSide = sourceClusterSide;
@@ -51,7 +51,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        public WriteableTileMatrix<Tile> GetExpandedWalls()
+        public WriteableArraySlice2D<Tile> GetExpandedWalls()
         {
             // 789       78889
             // 456 ----> 45556
@@ -59,7 +59,7 @@ namespace GameClassLibrary.Walls.Clusters
             //           45556
             //           12223
 
-            var destMatrix = new WriteableTileMatrix<Tile>(
+            var destMatrix = new WriteableArraySlice2D<Tile>(
                 _clustersHorizontally * _destClusterSide,
                 _clustersVertically * _destClusterSide);
 
@@ -78,7 +78,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private void ExpandCluster(int x, int y, WriteableTileMatrix<Tile> destMatrix)
+        private void ExpandCluster(int x, int y, WriteableArraySlice2D<Tile> destMatrix)
         {
             // NB: Order is significant
 
@@ -97,7 +97,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private void SidePiece(WriteableTileMatrix<Tile> destMatrix, int x, int y, int targetSide, int dx, int dy, int joinSide)
+        private void SidePiece(WriteableArraySlice2D<Tile> destMatrix, int x, int y, int targetSide, int dx, int dy, int joinSide)
         {
             /*
              *  JKL
@@ -149,7 +149,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private void CentrePiece(WriteableTileMatrix<Tile> destMatrix, int x, int y)
+        private void CentrePiece(WriteableArraySlice2D<Tile> destMatrix, int x, int y)
         {
             // The level designer specified whether the centres are filled.
 
@@ -162,7 +162,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
         private void CornerPiece(
-            WriteableTileMatrix<Tile> destMatrix, int x, int y, int targetCorner, 
+            WriteableArraySlice2D<Tile> destMatrix, int x, int y, int targetCorner, 
             int adjacentSide1, int adjacentSide2)
         {
             /*

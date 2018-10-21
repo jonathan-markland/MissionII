@@ -110,7 +110,7 @@
     <Compile Include="Walls\Clusters\WallExpander.cs" />
     <Compile Include="Walls\PositionFinder.cs" />
     <Compile Include="Walls\Tile.cs" />
-    <Compile Include="Walls\WriteableTileMatrix.cs" />
+    <Compile Include="Math\WriteableArraySlice2D.cs" />
     <Compile Include="Time\CycleSnapshot.cs" />
   </ItemGroup>
   <ItemGroup />
