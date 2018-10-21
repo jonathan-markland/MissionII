@@ -61,7 +61,7 @@ namespace GameClassLibrary.Walls
             ArraySlice2D<Tile> fileWallData, Point startCluster, int sourceClusterSide,
             Func<Tile, bool> isFloorFunc)
         {
-            var clusterCanvas = new ClusterReader(
+            var clusterCanvas = new ClusterReader<Tile>(
                 fileWallData, startCluster.X, startCluster.Y, sourceClusterSide, isFloorFunc);
 
             // Note this is a priority order:

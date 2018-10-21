@@ -3,10 +3,10 @@ using GameClassLibrary.Math;
 
 namespace GameClassLibrary.Walls
 {
-    public class WriteableTileMatrix
+    public struct WriteableTileMatrix<T>
     {
-        private Tile[] _theArray;
-        private ArraySlice2D<Tile> _theMatrix;
+        private T[] _theArray;
+        private ArraySlice2D<T> _theMatrix;
 
 
 
@@ -17,36 +17,37 @@ namespace GameClassLibrary.Walls
             System.Diagnostics.Debug.Assert(tileCountH < 10000);
             System.Diagnostics.Debug.Assert(tileCountV < 10000);
 
-            _theArray = new Tile[tileCountH * tileCountV];
-            _theMatrix = new ArraySlice2D<Tile>(_theArray, tileCountH);
+            _theArray = new T[tileCountH * tileCountV];
+            _theMatrix = new ArraySlice2D<T>(_theArray, tileCountH);
         }
 
 
 
         public int CountH { get { return _theMatrix.CountH; } }
         public int CountV { get { return _theMatrix.CountV; } }
-        public Tile At(int x, int y) { return _theMatrix.At(x, y); }
-        public ArraySlice2D<Tile> WholeArea { get { return _theMatrix; } } 
+        public T At(int x, int y) { return _theMatrix.At(x, y); }
+        public ArraySlice2D<T> WholeArea { get { return _theMatrix; } } 
 
 
 
-        public void Write(Point p, Tile ch)
+        public void Write(Point p, T ch)
         {
             Write(p.X, p.Y, ch);
         }
 
 
 
-        public void Write(int x, int y, Tile ch)
+        public void Write(int x, int y, T ch)
         {
             if (x >= 0 && x < _theMatrix.CountH)
             {
                 if (y >= 0 && y < _theMatrix.CountV)
                 {
-                    _theArray[y * _theMatrix.CountH + x] = ch;
+                    _theArray[_theMatrix.OriginArrayOffset + y * _theMatrix.CountH + x] = ch;
                     return;
                 }
             }
+
             throw new Exception("WriteableTileMatrix class write outside bounds.");
         }
     }

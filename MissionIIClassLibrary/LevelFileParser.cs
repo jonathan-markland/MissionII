@@ -15,7 +15,7 @@ namespace MissionIIClassLibrary
             return ForEachLevelInFileDo(streamReader,
                 nextLevelNumber =>
                 {
-                    var wholeOfLevelMatrix = new WriteableTileMatrix(
+                    var wholeOfLevelMatrix = new WriteableTileMatrix<Tile>(
                         Constants.RoomsHorizontally * Constants.ClustersHorizontally * Constants.SourceClusterSide,
                         Constants.RoomsVertically * Constants.ClustersVertically * Constants.SourceClusterSide);
 
@@ -172,7 +172,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void PaintLine(WriteableTileMatrix targetMatrix, int x, int rowNumber, string thisLine)
+        public static void PaintLine(WriteableTileMatrix<Tile> targetMatrix, int x, int rowNumber, string thisLine)
         {
             foreach(char ch in thisLine)
             {

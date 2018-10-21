@@ -6,14 +6,14 @@ namespace GameClassLibrary.Walls.Clusters
     /// <summary>
     /// Provides a way to query a "cluster" (a 3x3 arrangement of tiles).
     /// </summary>
-    public class ClusterReader
+    public class ClusterReader<T>
     {
         //              123
         // Area codes:  456
         //              789
 
-		private ArraySlice2D<Tile> _wallMatrix;
-        private Func<Tile, bool> _isFloorFunc;
+		private ArraySlice2D<T> _wallMatrix;
+        private Func<T, bool> _isFloorFunc;
 
         protected int _originX;
 		protected int _originY;
@@ -23,9 +23,9 @@ namespace GameClassLibrary.Walls.Clusters
 		
 		
 		public ClusterReader(
-            ArraySlice2D<Tile> wallMatrix, 
+            ArraySlice2D<T> wallMatrix, 
             int clusterIndexX, int clusterIndexY, 
-            int clusterSide, Func<Tile, bool> isFloorFunc)
+            int clusterSide, Func<T, bool> isFloorFunc)
 		{
             System.Diagnostics.Debug.Assert(clusterSide >= 3);
             System.Diagnostics.Debug.Assert(wallMatrix.CountH % clusterSide == 0);
@@ -55,7 +55,7 @@ namespace GameClassLibrary.Walls.Clusters
 		
 		
 		
-		public Tile Test(int areaCode)
+		public T Test(int areaCode)
 		{
 			var e = _endOffset;
 			
@@ -73,7 +73,7 @@ namespace GameClassLibrary.Walls.Clusters
 		
 		
 		
-		private Tile Test(int x, int y)
+		private T Test(int x, int y)
 		{
 			return _wallMatrix.At(x + _originX, y + _originY);
 		}
