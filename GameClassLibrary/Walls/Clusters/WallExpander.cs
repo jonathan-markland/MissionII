@@ -8,31 +8,31 @@ namespace GameClassLibrary.Walls.Clusters
     /// In a room tile map, each cluster of 9 tiles (3x3), is expanded
     /// to a cluster of 25 (5x5).
     /// </summary>
-    public struct WallExpander
+    public struct WallExpander<T>
     {
         private readonly int _clustersHorizontally;
 		private readonly int _clustersVertically;
 		private readonly int _sourceClusterSide;
 		private readonly int _destClusterSide;
-		private readonly ArraySlice2D<Tile> _sourceMatrix;
-		private readonly Tile _outputFloorTile;
-		private readonly Tile _outputWallTile;
-		private readonly Func<Tile, bool> _isFloorFunc;
+		private readonly ArraySlice2D<T> _sourceMatrix;
+		private readonly T _outputFloorTile;
+		private readonly T _outputWallTile;
+		private readonly Func<T, bool> _isFloorFunc;
 
-		private WriteableArraySlice2D<Tile> _destMatrix;
+		private WriteableArraySlice2D<T> _destMatrix;
 
 
 
         public WallExpander(
-            ArraySlice2D<Tile> sourceMatrix,
+            ArraySlice2D<T> sourceMatrix,
             int clustersHorizontally, int clustersVertically,
             int sourceClusterSide, int destClusterSide,
-            Func<Tile, bool> isFloorFunc,
-            Tile outputWallTile,
-            Tile outputFloorTile)
+            Func<T, bool> isFloorFunc,
+            T outputWallTile,
+            T outputFloorTile)
         {
             _sourceMatrix = sourceMatrix;
-            _destMatrix = new WriteableArraySlice2D<Tile>();   // TODO:  Is no longer a class, thus no longer nullable.
+            _destMatrix = new WriteableArraySlice2D<T>();   // TODO:  Is no longer a class, thus no longer nullable.
             _clustersHorizontally = clustersHorizontally;
             _clustersVertically = clustersVertically;
             _sourceClusterSide = sourceClusterSide;
@@ -44,14 +44,14 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        public void Paint(WriteableClusterCanvas<Tile> dstClusterCanvas, int areaCode, bool paintWall)
+        public void Paint(WriteableClusterCanvas<T> dstClusterCanvas, int areaCode, bool paintWall)
         {
             dstClusterCanvas.Paint(areaCode, paintWall ? _outputWallTile : _outputFloorTile);
         }
 
 
 
-        public WriteableArraySlice2D<Tile> GetExpandedWalls()
+        public WriteableArraySlice2D<T> GetExpandedWalls()
         {
             // 789       78889
             // 456 ----> 45556
@@ -59,7 +59,7 @@ namespace GameClassLibrary.Walls.Clusters
             //           45556
             //           12223
 
-            var destMatrix = new WriteableArraySlice2D<Tile>(
+            var destMatrix = new WriteableArraySlice2D<T>(
                 _clustersHorizontally * _destClusterSide,
                 _clustersVertically * _destClusterSide);
 
@@ -78,7 +78,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private void ExpandCluster(int x, int y, WriteableArraySlice2D<Tile> destMatrix)
+        private void ExpandCluster(int x, int y, WriteableArraySlice2D<T> destMatrix)
         {
             // NB: Order is significant
 
@@ -97,7 +97,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private void SidePiece(WriteableArraySlice2D<Tile> destMatrix, int x, int y, int targetSide, int dx, int dy, int joinSide)
+        private void SidePiece(WriteableArraySlice2D<T> destMatrix, int x, int y, int targetSide, int dx, int dy, int joinSide)
         {
             /*
              *  JKL
@@ -118,8 +118,8 @@ namespace GameClassLibrary.Walls.Clusters
              *       (respectively for the other sides, 4, 6, 8).
              */
 
-            var srcClusterCanvas = new ClusterReader<Tile>(_sourceMatrix, x, y, _sourceClusterSide, _isFloorFunc);
-            var dstClusterCanvas = new WriteableClusterCanvas<Tile>(destMatrix, x, y, _destClusterSide, _isFloorFunc);
+            var srcClusterCanvas = new ClusterReader<T>(_sourceMatrix, x, y, _sourceClusterSide, _isFloorFunc);
+            var dstClusterCanvas = new WriteableClusterCanvas<T>(destMatrix, x, y, _destClusterSide, _isFloorFunc);
 
             if (srcClusterCanvas.IsFloor(targetSide)) // If B is unfilled, 
             {
@@ -134,7 +134,7 @@ namespace GameClassLibrary.Walls.Clusters
                     && otherX < _clustersHorizontally
                     && otherY < _clustersVertically)   // except if the 3x3 above exists
                 {
-                    var srcOtherClusterCanvas = new ClusterReader<Tile>(_sourceMatrix, otherX, otherY, _sourceClusterSide, _isFloorFunc);
+                    var srcOtherClusterCanvas = new ClusterReader<T>(_sourceMatrix, otherX, otherY, _sourceClusterSide, _isFloorFunc);
                     Paint(dstClusterCanvas, targetSide,
                         ! (srcOtherClusterCanvas.IsWall(joinSide)
                         && srcOtherClusterCanvas.IsWall(5)
@@ -149,12 +149,12 @@ namespace GameClassLibrary.Walls.Clusters
 
 
 
-        private void CentrePiece(WriteableArraySlice2D<Tile> destMatrix, int x, int y)
+        private void CentrePiece(WriteableArraySlice2D<T> destMatrix, int x, int y)
         {
             // The level designer specified whether the centres are filled.
 
-            var dstClusterCanvas = new WriteableClusterCanvas<Tile>(destMatrix, x, y, _destClusterSide, _isFloorFunc);
-            var srcClusterCanvas = new ClusterReader<Tile>(_sourceMatrix, x, y, _sourceClusterSide, _isFloorFunc);
+            var dstClusterCanvas = new WriteableClusterCanvas<T>(destMatrix, x, y, _destClusterSide, _isFloorFunc);
+            var srcClusterCanvas = new ClusterReader<T>(_sourceMatrix, x, y, _sourceClusterSide, _isFloorFunc);
 
             Paint(dstClusterCanvas, 5, srcClusterCanvas.IsWall(5));
         }
@@ -162,7 +162,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
         private void CornerPiece(
-            WriteableArraySlice2D<Tile> destMatrix, int x, int y, int targetCorner, 
+            WriteableArraySlice2D<T> destMatrix, int x, int y, int targetCorner, 
             int adjacentSide1, int adjacentSide2)
         {
             /*
@@ -176,7 +176,7 @@ namespace GameClassLibrary.Walls.Clusters
              *   ...resp. for 3, 7, 9
              */
 
-            var dstClusterCanvas = new WriteableClusterCanvas<Tile>(destMatrix, x, y, _destClusterSide, _isFloorFunc);
+            var dstClusterCanvas = new WriteableClusterCanvas<T>(destMatrix, x, y, _destClusterSide, _isFloorFunc);
 
             Paint(dstClusterCanvas, targetCorner,
                 dstClusterCanvas.IsWall(adjacentSide1)

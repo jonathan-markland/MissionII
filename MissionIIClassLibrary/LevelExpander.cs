@@ -49,7 +49,7 @@ namespace MissionIIClassLibrary
 
         private static WriteableArraySlice2D<Tile> GetExpandedLevelTileMatrix(ArraySlice2D<Tile> levelTileMatrix)
         {
-            return new WallExpander(
+            return new WallExpander<Tile>(
                     levelTileMatrix,
                     Constants.ClustersHorizontally * Constants.RoomsHorizontally,
                     Constants.ClustersVertically * Constants.RoomsVertically,
