@@ -14,7 +14,7 @@ namespace GameClassLibrary.Walls.Clusters
 		private readonly int _clustersVertically;
 		private readonly int _sourceClusterSide;
 		private readonly int _destClusterSide;
-		private readonly ArrayView2D<Tile> _sourceMatrix;
+		private readonly ArraySlice2D<Tile> _sourceMatrix;
 		private readonly Tile _outputFloorTile;
 		private readonly Tile _outputWallTile;
 		private readonly Func<Tile, bool> _isFloorFunc;
@@ -24,7 +24,7 @@ namespace GameClassLibrary.Walls.Clusters
 
 
         public WallExpander(
-            ArrayView2D<Tile> sourceMatrix,
+            ArraySlice2D<Tile> sourceMatrix,
             int clustersHorizontally, int clustersVertically,
             int sourceClusterSide, int destClusterSide,
             Func<Tile, bool> isFloorFunc,

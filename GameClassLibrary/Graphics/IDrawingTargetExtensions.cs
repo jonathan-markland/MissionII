@@ -133,7 +133,7 @@ namespace GameClassLibrary.Graphics
         public static void DrawTileMatrix(   // TODO: Should this allow huge tile arrays
             this IDrawingTarget drawingTarget,
             int leftX, int topY, 
-            ArrayView2D<Walls.Tile> tileMatrix,
+            ArraySlice2D<Walls.Tile> tileMatrix,
             HostSuppliedSprite[] hostSpritesForTiles,
             int tileWidth,
             int tileHeight)

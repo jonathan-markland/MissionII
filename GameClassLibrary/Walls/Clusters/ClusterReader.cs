@@ -12,7 +12,7 @@ namespace GameClassLibrary.Walls.Clusters
         // Area codes:  456
         //              789
 
-		private ArrayView2D<Tile> _wallMatrix;
+		private ArraySlice2D<Tile> _wallMatrix;
         private Func<Tile, bool> _isFloorFunc;
 
         protected int _originX;
@@ -23,7 +23,7 @@ namespace GameClassLibrary.Walls.Clusters
 		
 		
 		public ClusterReader(
-            ArrayView2D<Tile> wallMatrix, 
+            ArraySlice2D<Tile> wallMatrix, 
             int clusterIndexX, int clusterIndexY, 
             int clusterSide, Func<Tile, bool> isFloorFunc)
 		{

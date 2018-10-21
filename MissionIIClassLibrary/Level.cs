@@ -12,7 +12,7 @@ namespace MissionIIClassLibrary
 
         public Level(
             int levelNumber,
-            ArrayView2D<Tile> wholeOfLevelMatrix, 
+            ArraySlice2D<Tile> wholeOfLevelMatrix, 
             SpecialMarkers specialMarkers)
         {
             LevelNumber = levelNumber;
@@ -50,7 +50,7 @@ namespace MissionIIClassLibrary
             get; private set;
         }
 
-        public ArrayView2D<Tile> LevelTileMatrix
+        public ArraySlice2D<Tile> LevelTileMatrix
         {
             get; private set;
         }

@@ -67,7 +67,7 @@
     <Compile Include="GameObjects\Constants.cs" />
     <Compile Include="GameObjects\Explosion.cs" />
     <Compile Include="Graphics\Screen.cs" />
-    <Compile Include="Math\ArrayView2D.cs" />
+    <Compile Include="Math\ArraySlice2D.cs" />
     <Compile Include="Math\Dimensions.cs" />
     <Compile Include="Modes\ChangeStageFreeze.cs" />
     <Compile Include="Modes\GameMode.cs" />

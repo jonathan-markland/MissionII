@@ -38,7 +38,7 @@ namespace MissionIIClassLibrary
 
         private int LevelNumber;
         public List<InteractibleObject> PlayerInventory = new List<InteractibleObject>();
-        public ArrayView2D<Tile> LevelTileMatrix;
+        public ArraySlice2D<Tile> LevelTileMatrix;
         public GameObjects.Man Man = new GameObjects.Man();
         public SuddenlyReplaceableList<GameObject> ObjectsInRoom = new SuddenlyReplaceableList<GameObject>();
         public List<GameObject> ObjectsToRemove = new List<GameObject>();
@@ -122,7 +122,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public ArrayView2D<Tile> GetLevelTileMatrix()
+        public ArraySlice2D<Tile> GetLevelTileMatrix()
         {
             return LevelTileMatrix;
         }
@@ -353,13 +353,13 @@ namespace MissionIIClassLibrary
             }
         }
 
-        private ArrayView2D<Tile> ThisRoomArrayView2D
+        private ArraySlice2D<Tile> ThisRoomArrayView2D
         {
             get
             {
                 var o = TileOrigin;
 
-                return new ArrayView2D<Tile>(   // TODO: This only changes when rooms change.
+                return new ArraySlice2D<Tile>(   // TODO: This only changes when rooms change.
                     LevelTileMatrix, o.X, o.Y,
                     Constants.ClustersHorizontally * Constants.DestClusterSide,
                     Constants.ClustersVertically * Constants.DestClusterSide);

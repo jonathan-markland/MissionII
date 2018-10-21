@@ -12,7 +12,7 @@ namespace MissionIIClassLibrary
         public void SetManStartCluster(
             Point startCluster, 
             Tile spaceCharValue,
-            ArrayView2D<Tile> levelTileMatrix)
+            ArraySlice2D<Tile> levelTileMatrix)
         {
             if (_manStart.HasValue)
             {

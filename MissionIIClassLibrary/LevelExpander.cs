@@ -47,7 +47,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static WriteableTileMatrix GetExpandedLevelTileMatrix(ArrayView2D<Tile> levelTileMatrix)
+        private static WriteableTileMatrix GetExpandedLevelTileMatrix(ArraySlice2D<Tile> levelTileMatrix)
         {
             return new WallExpander(
                     levelTileMatrix,

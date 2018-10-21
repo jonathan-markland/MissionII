@@ -19,7 +19,7 @@ namespace GameClassLibrary.Walls
 
 
         public static WallHitTestResult HitsWalls(
-            ArrayView2D<Tile> tileMatrix,
+            ArraySlice2D<Tile> tileMatrix,
             Rectangle roomArea,
             int objectX, int objectY,
             int objectWidth, int objectHeight,

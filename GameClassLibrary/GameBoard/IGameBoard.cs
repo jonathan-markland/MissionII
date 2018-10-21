@@ -10,7 +10,7 @@ namespace GameClassLibrary.GameBoard
         void PrepareForNewLevel(int newLevelNumber);
         int GetLevelNumber();
 
-        ArrayView2D<Tile> GetLevelTileMatrix();
+        ArraySlice2D<Tile> GetLevelTileMatrix();
         int GetTileWidth();
         int GetTileHeight();
 

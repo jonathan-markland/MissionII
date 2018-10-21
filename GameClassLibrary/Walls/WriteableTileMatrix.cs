@@ -6,7 +6,7 @@ namespace GameClassLibrary.Walls
     public class WriteableTileMatrix
     {
         private Tile[] _theArray;
-        private ArrayView2D<Tile> _theMatrix;
+        private ArraySlice2D<Tile> _theMatrix;
 
 
 
@@ -18,7 +18,7 @@ namespace GameClassLibrary.Walls
             System.Diagnostics.Debug.Assert(tileCountV < 10000);
 
             _theArray = new Tile[tileCountH * tileCountV];
-            _theMatrix = new ArrayView2D<Tile>(_theArray, tileCountH);
+            _theMatrix = new ArraySlice2D<Tile>(_theArray, tileCountH);
         }
 
 
@@ -26,7 +26,7 @@ namespace GameClassLibrary.Walls
         public int CountH { get { return _theMatrix.CountH; } }
         public int CountV { get { return _theMatrix.CountV; } }
         public Tile At(int x, int y) { return _theMatrix.At(x, y); }
-        public ArrayView2D<Tile> WholeArea { get { return _theMatrix; } } 
+        public ArraySlice2D<Tile> WholeArea { get { return _theMatrix; } } 
 
 
 

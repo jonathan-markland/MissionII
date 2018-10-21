@@ -26,7 +26,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ExpectValidPathsOnLevel(ArrayView2D<Tile> levelMatrix)
+        public static void ExpectValidPathsOnLevel(ArraySlice2D<Tile> levelMatrix)
         {
             // Validations for each 3x3 group of tiles individually:
 
@@ -67,7 +67,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ValidateTileConnection(ArrayView2D<Tile> levelMatrix, int x, int y, int dx, int dy)
+        public static void ValidateTileConnection(ArraySlice2D<Tile> levelMatrix, int x, int y, int dx, int dy)
         {
             var c1 = levelMatrix.At(x, y);
             var c2 = levelMatrix.At(x + dx, y + dy);
@@ -79,7 +79,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ExpectDoorwaysMustNotLeadOffMap(ArrayView2D<Tile> levelTileMatrix)
+        public static void ExpectDoorwaysMustNotLeadOffMap(ArraySlice2D<Tile> levelTileMatrix)
         {
             int h = levelTileMatrix.CountH - 1;
             int v = levelTileMatrix.CountV - 1;
@@ -91,7 +91,7 @@ namespace MissionIIClassLibrary
 
 
 
-        private static void ExpectAllWall(ArrayView2D<Tile> levelTileMatrix, Point point, MovementDeltas movementDeltas, int count)
+        private static void ExpectAllWall(ArraySlice2D<Tile> levelTileMatrix, Point point, MovementDeltas movementDeltas, int count)
         {
             while(count > 0)
             {
@@ -106,7 +106,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ExpectEdgeDoorwaysMatchOtherRooms(ArrayView2D<Tile> levelMatrix)
+        public static void ExpectEdgeDoorwaysMatchOtherRooms(ArraySlice2D<Tile> levelMatrix)
         {
             CheckDoorwaysMirror(
                 levelMatrix,
@@ -130,7 +130,7 @@ namespace MissionIIClassLibrary
 
 
         private static void CheckDoorwaysMirror(
-            ArrayView2D<Tile> levelMatrix,
+            ArraySlice2D<Tile> levelMatrix,
             int roomCountAlong, 
             int tileCountPerRoom, 
             int count, 
@@ -148,7 +148,7 @@ namespace MissionIIClassLibrary
 
 
         private static void CheckDoorwaysMirror2(
-            ArrayView2D<Tile> levelMatrix,
+            ArraySlice2D<Tile> levelMatrix,
             int count, 
             Point point, 
             MovementDeltas minorDelta)
@@ -176,7 +176,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void ExpectValidThreeByThree(ArrayView2D<Tile> fileWallData, int x, int y)
+        public static void ExpectValidThreeByThree(ArraySlice2D<Tile> fileWallData, int x, int y)
         {
             // 789
             // 456
