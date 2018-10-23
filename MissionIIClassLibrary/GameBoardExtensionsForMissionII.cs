@@ -18,20 +18,5 @@ namespace MissionIIClassLibrary
             });
             return foundDroids;
         }
-
-
-
-        public static GameClassLibrary.Math.Point GetCornerFurthestAwayFromMan(this IGameBoard gameBoard)
-        {
-            var cx = Constants.ScreenWidth / 2;
-            var cy = Constants.ScreenHeight / 2;
-            var manCentre = gameBoard.GetMan().GetBoundingRectangle().Centre;
-            var x = manCentre.X < cx ? Constants.ScreenWidth : 0;
-            var y = manCentre.Y < cy ? Constants.ScreenHeight : 0;
-            return new Point(x, y);
-        }
-
-
-
     }
 }

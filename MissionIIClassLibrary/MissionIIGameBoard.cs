@@ -566,10 +566,22 @@ namespace MissionIIClassLibrary
 
             // Add other objects to the list, that don't require the positioner:
 
-            objectsList.Add(new GameObjects.Ghost(DestroyManByAdversary));
+            objectsList.Add(new GameObjects.Ghost(DestroyManByAdversary, GetCornerFurthestAwayFromMan));
             objectsList.Add(Man);
 
             ObjectsInRoom.ReplaceWith(objectsList);
+        }
+
+
+
+        public GameClassLibrary.Math.Point GetCornerFurthestAwayFromMan()
+        {
+            var roomRect = RoomArea;
+            var roomCentre = roomRect.Centre;
+            var manCentre = Man.GetBoundingRectangle().Centre;
+            var x = manCentre.X < roomCentre.X ? roomRect.Right : roomRect.Left;
+            var y = manCentre.Y < roomCentre.Y ? roomRect.Bottom : roomRect.Top;
+            return new Point(x, y);
         }
 
 

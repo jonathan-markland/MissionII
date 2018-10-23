@@ -14,11 +14,13 @@ namespace MissionIIClassLibrary.GameObjects
         private int _startCountDown = Constants.GhostStartCycles;
         private SpriteInstance _spriteInstance;
         private AbstractIntelligenceProvider _intelligenceProvider;
+        private Func<Point> _getStartingCorner;
 
-        public Ghost(Action manDestroyAction)
+        public Ghost(Action manDestroyAction, Func<Point> getStartingCorner)
         {
             _intelligenceProvider = new Swoop(manDestroyAction);
             _spriteInstance = new SpriteInstance();
+            _getStartingCorner = getStartingCorner;
         }
 
         private bool IsActive
@@ -33,7 +35,7 @@ namespace MissionIIClassLibrary.GameObjects
                 --_startCountDown;
                 if (_startCountDown == 0)
                 {
-                    var furthestCorner = theGameBoard.GetCornerFurthestAwayFromMan();
+                    var furthestCorner = _getStartingCorner();
                     _spriteInstance.X = furthestCorner.X;
                     _spriteInstance.Y = furthestCorner.Y;
                     _spriteInstance.Traits = MissionIISprites.Ghost;
