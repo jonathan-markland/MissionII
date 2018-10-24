@@ -14,9 +14,10 @@ namespace MissionIIClassLibrary.Droids
                   MissionIISprites.Monster4, 
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  new Guardian(manDestroyAction, moveAdversaryOnePixel, getManExtents), 
                   manDestroyAction)
         {
+            base.SetIntelligenceProvider(
+                new Guardian(this, manDestroyAction, moveAdversaryOnePixel, getManExtents));
         }
 
         public override int KillScore

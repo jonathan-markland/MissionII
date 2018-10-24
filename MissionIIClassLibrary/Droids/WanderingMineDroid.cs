@@ -14,10 +14,12 @@ namespace MissionIIClassLibrary.Droids
                   MissionIISprites.Monster5, 
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  new WanderingMine(freeDirectionFinder, manDestroyAction, 
-                      GameClassLibrary.ArtificialIntelligence.Constants.WanderingMineSpeedDivisor, moveAdversaryOnePixel, getManExtents), 
                   manDestroyAction)
         {
+            base.SetIntelligenceProvider(
+                new WanderingMine(this, freeDirectionFinder, manDestroyAction,
+                      GameClassLibrary.ArtificialIntelligence.Constants.WanderingMineSpeedDivisor, 
+                      moveAdversaryOnePixel, getManExtents));
         }
 
         public override int KillScore

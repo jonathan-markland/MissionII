@@ -6,6 +6,6 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public abstract class AbstractIntelligenceProvider
     {
-        public abstract void AdvanceOneCycle(GameObject gameObject);
+        public abstract void AdvanceOneCycle();
     }
 }

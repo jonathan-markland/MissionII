@@ -13,8 +13,10 @@ namespace GameClassLibrary.ArtificialIntelligence
         private readonly Func<Rectangle, FoundDirections> _freeDirectionFinder;
         private readonly Action _manDestroyAction;
         private readonly int _speedDivisor;
+        private readonly GameObject _gameObject;
 
-		private int _countDown = 0;
+
+        private int _countDown = 0;
         private int _facingDirection = 0;
         private MovementDeltas _movementDeltas = MovementDeltas.Stationary;
 
@@ -22,6 +24,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
 
         public WanderingMine(
+            GameObject gameObject,
             Func<Rectangle, FoundDirections> freeDirectionFinder, Action manDestroyAction, int speedDivisor,
             Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents)
@@ -31,39 +34,40 @@ namespace GameClassLibrary.ArtificialIntelligence
             _freeDirectionFinder = freeDirectionFinder;
             _moveAdversaryOnePixel = moveAdversaryOnePixel;
             _getManExtents = getManExtents;
+            _gameObject = gameObject;
         }
 
 
 
-        public override void AdvanceOneCycle(GameObject gameObject)
+        public override void AdvanceOneCycle()
         {
             if (Time.CycleCounter.Count32 % _speedDivisor == 0)
             {
                 if (_countDown > 0)
                 {
                     --_countDown;
-                    DoMovement(gameObject);
+                    DoMovement();
                 }
                 else
                 {
-                    ChooseNewMovement(gameObject.GetBoundingRectangle());
+                    ChooseNewMovement(_gameObject.GetBoundingRectangle());
                 }
             }
         }
 
 
 
-        private void DoMovement(GameObject gameObject)
+        private void DoMovement()
         {
             if (!_movementDeltas.IsStationary)
             {
                 var hitResult = _moveAdversaryOnePixel(
-                    gameObject, _movementDeltas);
+                    _gameObject, _movementDeltas);
 
                 // Check proximity to man, and detonate killing man:
 
                 var detonationRectangle = _getManExtents().Inflate(5); // TODO: constant
-                if (gameObject.GetBoundingRectangle().Intersects(detonationRectangle))
+                if (_gameObject.GetBoundingRectangle().Intersects(detonationRectangle))
                 {
                     _manDestroyAction();
                     // TODO: Droid (the gameObject) should detonate 

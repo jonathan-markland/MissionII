@@ -15,10 +15,11 @@ namespace MissionIIClassLibrary.Droids
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
                   // TODO: Demo no longer works since we are using model-space coordinates:
-                  new LinearMover(new Point(100, 50), new Point(200, 50), 1, manDestroyAction, moveAdversaryOnePixel, getManExtents),
-                  manDestroyAction
-                  )
-        { 
+                  manDestroyAction)
+        {
+            base.SetIntelligenceProvider(
+                new LinearMover(this, new Point(100, 50), new Point(200, 50), 1, 
+                manDestroyAction, moveAdversaryOnePixel, getManExtents));
         }
 
         public override int KillScore

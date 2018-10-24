@@ -17,10 +17,10 @@ namespace MissionIIClassLibrary.Droids
                   MissionIISprites.Monster2,
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  new Bouncing(100, 200, 30, 2, manDestroyAction, 1, moveAdversaryOnePixel, getManExtents),
-                  manDestroyAction
-                  )
+                  manDestroyAction)
         {
+            base.SetIntelligenceProvider(
+                new Bouncing(this, 100, 200, 30, 2, manDestroyAction, 1, moveAdversaryOnePixel, getManExtents));
         }
 
         public override int KillScore

@@ -14,12 +14,14 @@ namespace GameClassLibrary.ArtificialIntelligence
 		private readonly Point _endPoint;
 		private readonly int _movesPerCycle;
 		private readonly Action _manDestroyAction;
+        private readonly GameObject _gameObject;
 
 		private bool _headToEnd;
 
 
 
         public LinearMover(
+            GameObject gameObject,
             Point startPoint, Point endPoint, int movesPerCycle, Action manDestroyAction,
             Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents)
@@ -31,15 +33,16 @@ namespace GameClassLibrary.ArtificialIntelligence
             _manDestroyAction = manDestroyAction;
             _moveAdversaryOnePixel = moveAdversaryOnePixel;
             _getManExtents = getManExtents;
+            _gameObject = gameObject;
         }
 
 
 
-        public override void AdvanceOneCycle(GameObject gameObject)
+        public override void AdvanceOneCycle()
         {
             for (int i = 0; i < _movesPerCycle; i++)
             {
-                var currentPosition = gameObject.TopLeftPosition;
+                var currentPosition = _gameObject.TopLeftPosition;
 
                 if (currentPosition == _startPoint)
                 {
@@ -50,13 +53,13 @@ namespace GameClassLibrary.ArtificialIntelligence
                     _headToEnd = false;
                 }
 
-                var r = gameObject.GetBoundingRectangle();
+                var r = _gameObject.GetBoundingRectangle();
                 var moveDeltas = new Point(r.Left, r.Top).GetMovementDeltasToHeadTowards(
                     _headToEnd ? _endPoint : _startPoint);
 
-                gameObject.MoveBy(moveDeltas);
+                _gameObject.MoveBy(moveDeltas);
 
-                if (gameObject.GetBoundingRectangle().Intersects(_getManExtents()))
+                if (_gameObject.GetBoundingRectangle().Intersects(_getManExtents()))
                 {
                     _manDestroyAction();
                 }

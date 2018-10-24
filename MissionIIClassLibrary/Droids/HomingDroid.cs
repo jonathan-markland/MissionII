@@ -17,9 +17,10 @@ namespace MissionIIClassLibrary.Droids
                   MissionIISprites.Monster1, 
                   MissionIISprites.Explosion, 
                   MissionIISounds.Explosion,
-                  new Attractor(moveAdversaryOnePixel, getManExtents), 
                   manDestroyAction)
         {
+            base.SetIntelligenceProvider(
+                new Attractor(this, moveAdversaryOnePixel, getManExtents));
         }
 
         public override int KillScore

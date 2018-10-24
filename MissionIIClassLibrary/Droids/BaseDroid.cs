@@ -27,16 +27,21 @@ namespace MissionIIClassLibrary.Droids
             SpriteTraits spriteTraits, 
             SpriteTraits explosionSpriteTraits,
             SoundTraits explosionSound,
-            AbstractIntelligenceProvider intelligenceProvider,
             Action manDestroyAction)
         {
             System.Diagnostics.Debug.Assert(spriteTraits != null);
             _spriteInstance.Traits = spriteTraits;
             _explosionSpriteTraits = explosionSpriteTraits;
             _explosionSound = explosionSound;
-            _intelligenceProvider = intelligenceProvider;
+            _intelligenceProvider = null;
             _manDestroyAction = manDestroyAction;
         }
+
+        protected void SetIntelligenceProvider(AbstractIntelligenceProvider ai) // not ideal, problem with calling base constructor in derived class because AI object needs to be tied to derived object
+        {
+            _intelligenceProvider = ai;
+        }
+
 
 
 
@@ -45,7 +50,7 @@ namespace MissionIIClassLibrary.Droids
             GameClassLibrary.Algorithms.Animation.Animate(
                 ref _animationCountdown, ref _imageIndex, AnimationReset, _spriteInstance.Traits.ImageCount);
 
-            _intelligenceProvider.AdvanceOneCycle(this);
+            _intelligenceProvider.AdvanceOneCycle();
         }
 
 

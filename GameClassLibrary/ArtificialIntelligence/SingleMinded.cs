@@ -11,6 +11,7 @@ namespace GameClassLibrary.ArtificialIntelligence
         private readonly Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> _moveAdversaryOnePixel;
         private readonly Func<Rectangle, FoundDirections> _freeDirectionFinder;
         private readonly Action<Rectangle, MovementDeltas, bool> _fireBullet;
+        private readonly GameObject _gameObject;
 
 		private int _countDown = 0;
         private int _facingDirection = 0;
@@ -20,6 +21,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
 
         public SingleMinded(
+            GameObject gameObject,
             Func<Rectangle, FoundDirections> freeDirectionFinder,
             Action<Rectangle, MovementDeltas, bool> fireBullet,
             Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel)
@@ -27,33 +29,34 @@ namespace GameClassLibrary.ArtificialIntelligence
             _fireBullet = fireBullet;
             _freeDirectionFinder = freeDirectionFinder;
             _moveAdversaryOnePixel = moveAdversaryOnePixel;
+            _gameObject = gameObject;
         }
 
 
 
-        public override void AdvanceOneCycle(GameObject gameObject)
+        public override void AdvanceOneCycle()
         {
             if (Time.CycleCounter.Count32 % Constants.SingleMindedSpeedDivisor == 0)
             {
                 if (_countDown > 0)
                 {
                     --_countDown;
-                    DoMovement(gameObject);
+                    DoMovement();
                 }
                 else
                 {
-                    ChooseNewMovement(gameObject.GetBoundingRectangle());
+                    ChooseNewMovement(_gameObject.GetBoundingRectangle());
                 }
             }
         }
 
 
 
-        private void DoMovement(GameObject gameObject)
+        private void DoMovement()
         {
             if (!_movementDeltas.IsStationary)
             {
-                var hitResult = _moveAdversaryOnePixel(gameObject, _movementDeltas);
+                var hitResult = _moveAdversaryOnePixel(_gameObject, _movementDeltas);
 
                 if ((Time.CycleCounter.Count32 & Constants.SingleMindedFiringCyclesAndMask) == 0)
                 {
@@ -61,7 +64,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                         && Rng.Generator.Next(100) < Constants.SingleMindedFiringProbabilityPercent)
                     {
                         _fireBullet(
-                            gameObject.GetBoundingRectangle(), 
+                            _gameObject.GetBoundingRectangle(), 
                             MovementDeltas.ConvertFromFacingDirection(_facingDirection), false);
                     }
                 }

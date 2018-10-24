@@ -16,6 +16,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 		private readonly int _maxBounceHeightOffFloor;
 		private readonly int _movesPerCycle;
 		private readonly Action _manDestroyAction;
+        private readonly GameObject _gameObject;
 
 		private MovementDeltas _movementDeltas;
         private bool _firstCycle;
@@ -24,6 +25,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
 
         public Bouncing(
+            GameObject gameObject,
             int leftLimit, int rightLimit, int maxBounceHeightOffFloor, int movesPerCycle, Action manDestroyAction, int initialDx,
             Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents)
@@ -37,36 +39,37 @@ namespace GameClassLibrary.ArtificialIntelligence
             _firstCycle = true;
             _moveAdversaryOnePixel = moveAdversaryOnePixel;
             _getManExtents = getManExtents;
+            _gameObject = gameObject;
         }
 
 
 
-        public override void AdvanceOneCycle(GameObject gameObject)
+        public override void AdvanceOneCycle()
         {
             if (_firstCycle)
             {
                 _firstCycle = false;
-                _floorFoundY = gameObject.TopLeftPosition.Y;
+                _floorFoundY = _gameObject.TopLeftPosition.Y;
             }
 
             for (int i = 0; i < _movesPerCycle; i++)
             {
-                var positionBefore = gameObject.TopLeftPosition;
+                var positionBefore = _gameObject.TopLeftPosition;
 
                 if (positionBefore.X == _leftLimit && _movementDeltas.MovingLeft) { }
                 else if (positionBefore.X == _rightLimit && _movementDeltas.MovingRight) { }
                 else
                 {
-                    _moveAdversaryOnePixel(gameObject, _movementDeltas.XComponent);
+                    _moveAdversaryOnePixel(_gameObject, _movementDeltas.XComponent);
                 }
 
                 if (_movementDeltas.MovingUp && positionBefore.Y == (_floorFoundY - _maxBounceHeightOffFloor)) { }
                 else
                 {
-                    _moveAdversaryOnePixel(gameObject, _movementDeltas.YComponent);
+                    _moveAdversaryOnePixel(_gameObject, _movementDeltas.YComponent);
                 }
 
-                var newPosition = gameObject.TopLeftPosition;
+                var newPosition = _gameObject.TopLeftPosition;
 
                 if (positionBefore.X == newPosition.X)
                 {
@@ -83,7 +86,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                     }
                 }
 
-                if (gameObject.GetBoundingRectangle().Intersects(_getManExtents()))
+                if (_gameObject.GetBoundingRectangle().Intersects(_getManExtents()))
                 {
                     _manDestroyAction();
                 }

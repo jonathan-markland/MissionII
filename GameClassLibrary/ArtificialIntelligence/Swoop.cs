@@ -10,28 +10,30 @@ namespace GameClassLibrary.ArtificialIntelligence
     {
         private readonly Action _manDestroyAction;
         private readonly Func<Rectangle> _getManExtents;
-
+        private readonly GameObject _gameObject;
 
 
         public Swoop(
+            GameObject gameObject,
             Action manDestroyAction,
             Func<Rectangle> getManExtents)
         {
             _manDestroyAction = manDestroyAction;
             _getManExtents = getManExtents;
+            _gameObject = gameObject;
         }
 
 
 
-        public override void AdvanceOneCycle(GameObject gameObject)
+        public override void AdvanceOneCycle()
         {
             for (int i = 0; i < Constants.SwoopMovementCycles; i++)
             {
-                var moveDeltas = gameObject.GetBoundingRectangle().GetMovementDeltasToHeadTowards(_getManExtents());
+                var moveDeltas = _gameObject.GetBoundingRectangle().GetMovementDeltasToHeadTowards(_getManExtents());
 
-                gameObject.MoveBy(moveDeltas);
+                _gameObject.MoveBy(moveDeltas);
 
-                if (gameObject.GetBoundingRectangle().Intersects(_getManExtents()))
+                if (_gameObject.GetBoundingRectangle().Intersects(_getManExtents()))
                 {
                     _manDestroyAction();
                 }

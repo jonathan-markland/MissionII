@@ -18,7 +18,7 @@ namespace MissionIIClassLibrary.GameObjects
 
         public Ghost(Action manDestroyAction, Func<Point> getStartingCorner, Func<Rectangle> getManExtents)
         {
-            _intelligenceProvider = new Swoop(manDestroyAction, getManExtents);
+            _intelligenceProvider = new Swoop(this, manDestroyAction, getManExtents);
             _spriteInstance = new SpriteInstance();
             _getStartingCorner = getStartingCorner;
         }
@@ -52,7 +52,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
             else
             {
-                _intelligenceProvider.AdvanceOneCycle(this);
+                _intelligenceProvider.AdvanceOneCycle();
             }
         }
 

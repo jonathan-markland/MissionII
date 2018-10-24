@@ -14,9 +14,10 @@ namespace MissionIIClassLibrary.Droids
                   MissionIISprites.Monster2, 
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  new SingleMinded(freeDirectionFinder, fireBullet, moveAdversaryOnePixel), 
                   manDestroyAction)
         {
+            base.SetIntelligenceProvider(
+                new SingleMinded(this, freeDirectionFinder, fireBullet, moveAdversaryOnePixel));
         }
 
         public override int KillScore

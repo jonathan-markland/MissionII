@@ -11,6 +11,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 		private readonly Action _manDestroyAction;
         private readonly Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> _moveAdversaryOnePixel;
         private readonly Func<Rectangle> _getManExtents;
+        private readonly GameObject _gameObject;
 
         private int _facingDirection = 0;
         private MovementDeltas _movementDeltas = MovementDeltas.Stationary;
@@ -18,6 +19,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
 
         public Guardian(
+            GameObject gameObject,
             Action manDestroyAction,
             Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents)
@@ -25,11 +27,12 @@ namespace GameClassLibrary.ArtificialIntelligence
             _manDestroyAction = manDestroyAction;
             _moveAdversaryOnePixel = moveAdversaryOnePixel;
             _getManExtents = getManExtents;
+            _gameObject = gameObject;
         }
 
 
 
-        public override void AdvanceOneCycle(GameObject gameObject)
+        public override void AdvanceOneCycle()
         {
             if (_movementDeltas.IsStationary)
             {
@@ -38,10 +41,10 @@ namespace GameClassLibrary.ArtificialIntelligence
             }
             else
             {
-                var hitResult = _moveAdversaryOnePixel(gameObject, _movementDeltas);  // TODO: differentiate walls/other droids
+                var hitResult = _moveAdversaryOnePixel(_gameObject, _movementDeltas);  // TODO: differentiate walls/other droids
                 if (hitResult != CollisionDetection.WallHitTestResult.NothingHit)
                 {
-                    if (gameObject.GetBoundingRectangle().Intersects(
+                    if (_gameObject.GetBoundingRectangle().Intersects(
                         _getManExtents().Inflate(5)))
                     {
                         _manDestroyAction();
