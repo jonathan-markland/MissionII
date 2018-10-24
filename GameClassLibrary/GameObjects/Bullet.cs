@@ -1,7 +1,6 @@
 ﻿
 using System;
 using GameClassLibrary.Math;
-using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
 using GameClassLibrary.GameBoard;
@@ -15,8 +14,8 @@ namespace GameClassLibrary.GameObjects
 		private readonly bool _increasesScore;
 		private readonly Func<Rectangle, bool> _isSpace;
 		private readonly int _bonusScore;
+		private readonly SpriteInstance _spriteInstance;
 
-		private SpriteInstance _spriteInstance;
         private bool _firingSoundDone;
 
 
@@ -99,8 +98,6 @@ namespace GameClassLibrary.GameObjects
             {
                 var proposedX = _spriteInstance.X + BulletDirection.dx;
                 var proposedY = _spriteInstance.Y + BulletDirection.dy;
-
-                var tileMatrix = theGameBoard.GetLevelTileMatrix();
 
                 if (_isSpace(
                     new Rectangle(
