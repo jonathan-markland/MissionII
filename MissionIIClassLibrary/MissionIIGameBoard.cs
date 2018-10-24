@@ -566,7 +566,7 @@ namespace MissionIIClassLibrary
 
             // Add other objects to the list, that don't require the positioner:
 
-            objectsList.Add(new GameObjects.Ghost(DestroyManByAdversary, GetCornerFurthestAwayFromMan));
+            objectsList.Add(new GameObjects.Ghost(DestroyManByAdversary, GetCornerFurthestAwayFromMan, GetManExtentsRectangle));
             objectsList.Add(Man);
 
             ObjectsInRoom.ReplaceWith(objectsList);
@@ -594,11 +594,11 @@ namespace MissionIIClassLibrary
             {
                 if (j < theThreshold)
                 {
-                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary));
+                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle));
                 }
                 else
                 {
-                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary)); // Not decided yet:  WanderingMineDroid());
+                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle)); // Not decided yet:  WanderingMineDroid());
                 }
             }
         }
@@ -614,15 +614,15 @@ namespace MissionIIClassLibrary
             {
                 if (j < theThreshold1)
                 {
-                    objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary, StartBullet));
+                    objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary, StartBullet, MoveAdversaryOnePixel));
                 }
                 else if (j < theThreshold2)
                 {
-                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary)); // Not decided yet:  WanderingMineDroid());
+                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle)); // Not decided yet:  WanderingMineDroid());
                 }
                 else
                 {
-                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary));
+                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle));
                 }
             }
         }
@@ -638,15 +638,15 @@ namespace MissionIIClassLibrary
             {
                 if (j < theThreshold1)
                 {
-                    objectsList.Add(new Droids.DestroyerDroid(DestroyManByAdversary, StartBullet));
+                    objectsList.Add(new Droids.DestroyerDroid(DestroyManByAdversary, StartBullet, MoveAdversaryOnePixel, GetManExtentsRectangle));
                 }
                 else if (j < theThreshold2)
                 {
-                    objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary, StartBullet));
+                    objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary, StartBullet, MoveAdversaryOnePixel));
                 }
                 else
                 {
-                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary));
+                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle));
                 }
             }
         }

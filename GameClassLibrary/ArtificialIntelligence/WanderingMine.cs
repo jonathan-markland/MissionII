@@ -8,7 +8,9 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public class WanderingMine : AbstractIntelligenceProvider
     {
-		private readonly Func<Rectangle, FoundDirections> _freeDirectionFinder;
+        private readonly Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> _moveAdversaryOnePixel;
+        private readonly Func<Rectangle> _getManExtents;
+        private readonly Func<Rectangle, FoundDirections> _freeDirectionFinder;
         private readonly Action _manDestroyAction;
         private readonly int _speedDivisor;
 
@@ -18,23 +20,29 @@ namespace GameClassLibrary.ArtificialIntelligence
 
 
 
-        public WanderingMine(Func<Rectangle, FoundDirections> freeDirectionFinder, Action manDestroyAction, int speedDivisor)
+
+        public WanderingMine(
+            Func<Rectangle, FoundDirections> freeDirectionFinder, Action manDestroyAction, int speedDivisor,
+            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
+            Func<Rectangle> getManExtents)
         {
             _speedDivisor = speedDivisor;
             _manDestroyAction = manDestroyAction;
             _freeDirectionFinder = freeDirectionFinder;
+            _moveAdversaryOnePixel = moveAdversaryOnePixel;
+            _getManExtents = getManExtents;
         }
 
 
 
-        public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
+        public override void AdvanceOneCycle(GameObject gameObject)
         {
             if (Time.CycleCounter.Count32 % _speedDivisor == 0)
             {
                 if (_countDown > 0)
                 {
                     --_countDown;
-                    DoMovement(theGameBoard, gameObject);
+                    DoMovement(gameObject);
                 }
                 else
                 {
@@ -45,16 +53,16 @@ namespace GameClassLibrary.ArtificialIntelligence
 
 
 
-        private void DoMovement(IGameBoard theGameBoard, GameObject gameObject)
+        private void DoMovement(GameObject gameObject)
         {
             if (!_movementDeltas.IsStationary)
             {
-                var hitResult = theGameBoard.MoveAdversaryOnePixel(
+                var hitResult = _moveAdversaryOnePixel(
                     gameObject, _movementDeltas);
 
                 // Check proximity to man, and detonate killing man:
 
-                var detonationRectangle = theGameBoard.GetManExtentsRectangle().Inflate(5); // TODO: constant
+                var detonationRectangle = _getManExtents().Inflate(5); // TODO: constant
                 if (gameObject.GetBoundingRectangle().Intersects(detonationRectangle))
                 {
                     _manDestroyAction();

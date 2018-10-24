@@ -1,17 +1,23 @@
 ﻿
 using System;
 using GameClassLibrary.ArtificialIntelligence;
+using GameClassLibrary.Walls;
+using GameClassLibrary.GameBoard;
+using GameClassLibrary.Math;
 
 namespace MissionIIClassLibrary.Droids
 {
     public class BouncingDroid : BaseDroid  // TODO: This is a development test and should be removed.
     {
-        public BouncingDroid(Action manDestroyAction)
+        public BouncingDroid(
+            Action manDestroyAction,
+            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
+            Func<Rectangle> getManExtents)
             : base(
                   MissionIISprites.Monster2,
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  new Bouncing(100, 200, 30, 2, manDestroyAction, 1),
+                  new Bouncing(100, 200, 30, 2, manDestroyAction, 1, moveAdversaryOnePixel, getManExtents),
                   manDestroyAction
                   )
         {

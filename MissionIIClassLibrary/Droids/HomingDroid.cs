@@ -1,17 +1,23 @@
 ﻿
 using System;
 using GameClassLibrary.ArtificialIntelligence;
+using GameClassLibrary.Math;
+using GameClassLibrary.Walls;
+using GameClassLibrary.GameBoard;
 
 namespace MissionIIClassLibrary.Droids
 {
     public class HomingDroid : BaseDroid
     {
-        public HomingDroid(Action manDestroyAction)
+        public HomingDroid(
+            Action manDestroyAction, 
+            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
+            Func<Rectangle> getManExtents)
             : base(
                   MissionIISprites.Monster1, 
                   MissionIISprites.Explosion, 
                   MissionIISounds.Explosion,
-                  new Attractor(), 
+                  new Attractor(moveAdversaryOnePixel, getManExtents), 
                   manDestroyAction)
         {
         }

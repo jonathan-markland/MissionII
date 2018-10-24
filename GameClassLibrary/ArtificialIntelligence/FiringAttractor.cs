@@ -2,30 +2,38 @@
 using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.GameBoard;
+using GameClassLibrary.Walls;
 
 namespace GameClassLibrary.ArtificialIntelligence
 {
     public class FiringAttractor : AbstractIntelligenceProvider
     {
         private readonly Action<Rectangle, MovementDeltas, bool> _fireBullet;
+        private readonly Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> _moveAdversaryOnePixel;
+        private readonly Func<Rectangle> _getManExtents;
 
 
 
-        public FiringAttractor(Action<Rectangle, MovementDeltas, bool> fireBullet)
+        public FiringAttractor(
+            Action<Rectangle, MovementDeltas, bool> fireBullet,
+            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
+            Func<Rectangle> getManExtents)
         {
             _fireBullet = fireBullet;
+            _moveAdversaryOnePixel = moveAdversaryOnePixel;
+            _getManExtents = getManExtents;
         }
 
 
 
-        public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
+        public override void AdvanceOneCycle(GameObject gameObject)
         {
             var cycleCount = Time.CycleCounter.Count32;
 
             if (cycleCount % Constants.FiringAttractorSpeedDivisor == 0)
             {
                 var moveDeltas = gameObject.GetBoundingRectangle().GetMovementDeltasToHeadTowards(
-                    theGameBoard.GetManExtentsRectangle());
+                    _getManExtents());
 
                 // We must separate horizontal and vertical movement in order to avoid
                 // things getting 'stuck' on walls because they can't move horizontally
@@ -33,13 +41,8 @@ namespace GameClassLibrary.ArtificialIntelligence
                 // directions at once results in rejection of the move, and the
                 // sticking problem.
 
-                theGameBoard.MoveAdversaryOnePixel(
-                    gameObject,
-                    moveDeltas.XComponent);
-
-                theGameBoard.MoveAdversaryOnePixel(
-                    gameObject,
-                    moveDeltas.YComponent);
+                _moveAdversaryOnePixel(gameObject, moveDeltas.XComponent);
+                _moveAdversaryOnePixel(gameObject, moveDeltas.YComponent);
 
                 if ((cycleCount & Constants.FiringAttractorFiringCyclesAndMask) == 0)
                 {

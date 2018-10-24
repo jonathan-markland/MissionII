@@ -9,19 +9,27 @@ namespace GameClassLibrary.ArtificialIntelligence
     public class Guardian: AbstractIntelligenceProvider
     {
 		private readonly Action _manDestroyAction;
+        private readonly Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> _moveAdversaryOnePixel;
+        private readonly Func<Rectangle> _getManExtents;
 
-		private int _facingDirection = 0;
+        private int _facingDirection = 0;
         private MovementDeltas _movementDeltas = MovementDeltas.Stationary;
 
 
 
-        public Guardian(Action manDestroyAction)
+        public Guardian(
+            Action manDestroyAction,
+            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
+            Func<Rectangle> getManExtents)
         {
             _manDestroyAction = manDestroyAction;
+            _moveAdversaryOnePixel = moveAdversaryOnePixel;
+            _getManExtents = getManExtents;
         }
 
 
-        public override void AdvanceOneCycle(IGameBoard theGameBoard, GameObject gameObject)
+
+        public override void AdvanceOneCycle(GameObject gameObject)
         {
             if (_movementDeltas.IsStationary)
             {
@@ -30,11 +38,11 @@ namespace GameClassLibrary.ArtificialIntelligence
             }
             else
             {
-                var hitResult = theGameBoard.MoveAdversaryOnePixel(gameObject, _movementDeltas);  // TODO: differentiate walls/other droids
+                var hitResult = _moveAdversaryOnePixel(gameObject, _movementDeltas);  // TODO: differentiate walls/other droids
                 if (hitResult != CollisionDetection.WallHitTestResult.NothingHit)
                 {
                     if (gameObject.GetBoundingRectangle().Intersects(
-                        theGameBoard.GetManExtentsRectangle().Inflate(5)))
+                        _getManExtents().Inflate(5)))
                     {
                         _manDestroyAction();
                     }
