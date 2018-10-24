@@ -40,7 +40,7 @@ namespace MissionIIClassLibrary
         private int LevelNumber;
         public List<InteractibleObject> PlayerInventory = new List<InteractibleObject>();
         public ArraySlice2D<Tile> LevelTileMatrix;
-        public GameObjects.Man Man = new GameObjects.Man();
+        public GameObjects.Man Man;
         public SuddenlyReplaceableList<GameObject> ObjectsInRoom = new SuddenlyReplaceableList<GameObject>();
         public List<GameObject> ObjectsToRemove = new List<GameObject>();
 
@@ -48,6 +48,7 @@ namespace MissionIIClassLibrary
 
         public MissionIIGameBoard(WorldWallData worldWallData)
         {
+            Man = new GameObjects.Man(StartBullet);
             TheWorldWallData = worldWallData;
             Lives = Constants.InitialLives;
             LevelNumber = Constants.StartLevelNumber;
@@ -671,7 +672,7 @@ namespace MissionIIClassLibrary
 
 
 
-        public void StartBullet(
+        private void StartBullet(
             Rectangle gameObjectextentsRectangle,
             MovementDeltas bulletDirection,
             bool increasesScore)

@@ -1,4 +1,5 @@
 ﻿
+using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
@@ -10,6 +11,8 @@ namespace MissionIIClassLibrary.GameObjects
 {
     public class Man : GameObject
     {
+        private readonly Action<Rectangle, MovementDeltas, bool> _fireBullet;
+
         public SpriteInstance SpriteInstance = new SpriteInstance();
         private bool _debugInvulnerable = false;
         private bool _isDead;
@@ -25,6 +28,11 @@ namespace MissionIIClassLibrary.GameObjects
         private int _whileDeadCount = 0;
         private int _invincibleCountDown = 0;
         public int _cyclesMoving = 0;
+
+        public Man(Action<Rectangle, MovementDeltas, bool> fireBullet)
+        {
+            _fireBullet = fireBullet;
+        }
 
         public PositionAndDirection Position
         {
@@ -167,7 +175,7 @@ namespace MissionIIClassLibrary.GameObjects
             {
                 if (!_awaitingFireRelease)
                 {
-                    ((MissionIIGameBoard)theGameBoard).StartBullet(
+                    _fireBullet(
                         SpriteInstance.Extents, 
                         MovementDeltas.ConvertFromFacingDirection(_facingDirection) // TODO
                         , true);
