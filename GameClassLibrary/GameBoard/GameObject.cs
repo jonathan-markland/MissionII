@@ -8,7 +8,6 @@ namespace GameClassLibrary.GameBoard
     {
         // Note - We avoid restricting a GameObject to be a *single* SpriteInstance.
 
-            // TODO: Can these be abstract properties?
         public abstract Rectangle GetBoundingRectangle();
         public abstract Point TopLeftPosition { get; set; }
         public abstract bool CanBeOverlapped { get; }
