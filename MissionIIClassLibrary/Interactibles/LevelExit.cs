@@ -1,12 +1,14 @@
-﻿using GameClassLibrary.Graphics;
+﻿using System;
+using GameClassLibrary.Graphics;
 using GameClassLibrary.GameBoard;
 
 namespace MissionIIClassLibrary.Interactibles
 {
     public class LevelExit : MissionIIInteractibleObject
     {
-        public LevelExit(int roomNumber) 
-            : base(new SpriteInstance { Traits = MissionIISprites.LevelExit }, roomNumber)
+        // TODO: This should not need to be passed the collectObject function!
+        public LevelExit(int roomNumber, Action<InteractibleObject, int> collectObject) 
+            : base(new SpriteInstance { Traits = MissionIISprites.LevelExit }, roomNumber, collectObject)
         {
         }
 

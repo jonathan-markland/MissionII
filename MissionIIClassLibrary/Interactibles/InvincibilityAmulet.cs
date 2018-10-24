@@ -1,4 +1,5 @@
 ﻿
+using System;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.GameBoard;
 
@@ -6,8 +7,8 @@ namespace MissionIIClassLibrary.Interactibles
 {
     public class InvincibilityAmulet : MissionIIInteractibleObject
     {
-        public InvincibilityAmulet(int roomNumber)
-            : base(new SpriteInstance { Traits = MissionIISprites.InvincibilityAmulet }, roomNumber)
+        public InvincibilityAmulet(int roomNumber, Action<InteractibleObject, int> collectObject)
+            : base(new SpriteInstance { Traits = MissionIISprites.InvincibilityAmulet }, roomNumber, collectObject)
         {
         }
 

@@ -1,4 +1,5 @@
-﻿using GameClassLibrary.Math;
+﻿using System;
+using GameClassLibrary.Math;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.GameBoard;
 
@@ -10,7 +11,8 @@ namespace MissionIIClassLibrary.Interactibles
         private SpriteInstance Sprite;
         protected int _roomNumber;
 
-        public MissionIIInteractibleObject(SpriteInstance spriteInstance, int roomNumber)
+        public MissionIIInteractibleObject(SpriteInstance spriteInstance, int roomNumber, Action<InteractibleObject, int> collectObject)
+            : base(collectObject)
         {
             _positionedAlready = false;
             Sprite = spriteInstance;

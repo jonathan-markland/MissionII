@@ -269,9 +269,9 @@ namespace MissionIIClassLibrary
             // TODO: This could be done better, as it's a bit weird requiring the objects already to
             //       be created, and then only to replace them.  At least this way we have ONE
             //       place that decides what is to be found on the level (ForEachThingWeHaveToFindOnThisLevel)
-            Key = new MissionIIClassLibrary.Interactibles.Key(0);
-            Ring = new MissionIIClassLibrary.Interactibles.Ring(0);
-            Gold = new MissionIIClassLibrary.Interactibles.Gold(0);
+            Key = new MissionIIClassLibrary.Interactibles.Key(0, CollectObject);
+            Ring = new MissionIIClassLibrary.Interactibles.Ring(0, CollectObject);
+            Gold = new MissionIIClassLibrary.Interactibles.Gold(0, CollectObject);
 
             var roomNumberAllocator = new UniqueNumberAllocator(1, Constants.NumRooms);
             // var roomNumberAllocator = new IncrementingNumberAllocator(1, Constants.NumRooms); // For testing purposes.
@@ -281,15 +281,15 @@ namespace MissionIIClassLibrary
                 var roomNumber = roomNumberAllocator.Next();
                 if (o is Interactibles.Key)
                 {
-                    Key = new MissionIIClassLibrary.Interactibles.Key(roomNumber);
+                    Key = new MissionIIClassLibrary.Interactibles.Key(roomNumber, CollectObject);
                 }
                 else if (o is Interactibles.Ring)
                 {
-                    Ring = new MissionIIClassLibrary.Interactibles.Ring(roomNumber);
+                    Ring = new MissionIIClassLibrary.Interactibles.Ring(roomNumber, CollectObject);
                 }
                 else if (o is Interactibles.Gold)
                 {
-                    Gold = new MissionIIClassLibrary.Interactibles.Gold(roomNumber);
+                    Gold = new MissionIIClassLibrary.Interactibles.Gold(roomNumber, CollectObject);
                 }
                 else
                 {
@@ -297,9 +297,9 @@ namespace MissionIIClassLibrary
                 }
             });
 
-            LevelExit = new MissionIIClassLibrary.Interactibles.LevelExit(roomNumberAllocator.Next());
-            Potion = new MissionIIClassLibrary.Interactibles.Potion(roomNumberAllocator.Next());
-            InvincibilityAmulet = new MissionIIClassLibrary.Interactibles.InvincibilityAmulet(roomNumberAllocator.Next());
+            LevelExit = new MissionIIClassLibrary.Interactibles.LevelExit(roomNumberAllocator.Next(), CollectObject);
+            Potion = new MissionIIClassLibrary.Interactibles.Potion(roomNumberAllocator.Next(), CollectObject);
+            InvincibilityAmulet = new MissionIIClassLibrary.Interactibles.InvincibilityAmulet(roomNumberAllocator.Next(), CollectObject);
         }
 
 
@@ -675,12 +675,15 @@ namespace MissionIIClassLibrary
 
 
 
-        public void StartExplosion(
+        private void StartExplosion(
             GameObject explodingObject,
             SpriteTraits explosionSpriteTraits,
             SoundTraits explosionSound)
         {
             // TODO: FUTURE: We assume the explosion dimensions match the droid.  We should centre it about the droid.
+
+            // TODO: play the sound here?
+
             var r = explodingObject.GetBoundingRectangle();
 
             Add(
@@ -692,6 +695,15 @@ namespace MissionIIClassLibrary
                     Remove));
 
             Remove(explodingObject);
+        }
+
+
+
+        private void CollectObject(InteractibleObject objectToCollect, int collectionScore)
+        {
+            AddToPlayerInventory(objectToCollect);
+            Remove(objectToCollect);
+            PlayerIncrementScore(collectionScore);
         }
 
 

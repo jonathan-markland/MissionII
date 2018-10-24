@@ -1,12 +1,13 @@
-﻿using GameClassLibrary.Graphics;
+﻿using System;
+using GameClassLibrary.Graphics;
 using GameClassLibrary.GameBoard;
 
 namespace MissionIIClassLibrary.Interactibles
 {
     public class Potion : MissionIIInteractibleObject
     {
-        public Potion(int roomNumber)
-            : base(new SpriteInstance { Traits = MissionIISprites.Potion }, roomNumber)
+        public Potion(int roomNumber, Action<InteractibleObject, int> collectObject)
+            : base(new SpriteInstance { Traits = MissionIISprites.Potion }, roomNumber, collectObject)
         {
         }
 

@@ -1,10 +1,21 @@
 ﻿
+using System;
 using GameClassLibrary.Input;
 
 namespace GameClassLibrary.GameBoard
 {
     public abstract class InteractibleObject : GameObject
     {
+        private readonly Action<InteractibleObject, int> _collectObject;
+
+
+        public InteractibleObject(Action<InteractibleObject, int> collectObject)
+        {
+            _collectObject = collectObject;
+        }
+
+
+
         public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
         {
             // No action required.
@@ -14,9 +25,7 @@ namespace GameClassLibrary.GameBoard
 
         public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
-            theGameBoard.AddToPlayerInventory(this);
-            theGameBoard.Remove(this);
-            theGameBoard.PlayerIncrementScore(CollectionScore);
+            _collectObject(this, CollectionScore);
         }
 
 
