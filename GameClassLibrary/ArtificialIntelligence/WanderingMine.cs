@@ -54,7 +54,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
                 // Check proximity to man, and detonate killing man:
 
-                var detonationRectangle = theGameBoard.GetMan().GetBoundingRectangle().Inflate(5); // TODO: constant
+                var detonationRectangle = theGameBoard.GetManExtentsRectangle().Inflate(5); // TODO: constant
                 if (gameObject.GetBoundingRectangle().Intersects(detonationRectangle))
                 {
                     _manDestroyAction();

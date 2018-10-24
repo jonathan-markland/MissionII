@@ -1,5 +1,6 @@
 ﻿
 using GameClassLibrary.GameBoard;
+using GameClassLibrary.Math;
 
 namespace GameClassLibrary.ArtificialIntelligence
 {
@@ -9,8 +10,8 @@ namespace GameClassLibrary.ArtificialIntelligence
         {
             if ((Time.CycleCounter.Count32 & 1) == 0)
             {
-                var moveDeltas = gameObject.GetMovementDeltasToHeadTowards(
-                    theGameBoard.GetMan());
+                var moveDeltas = gameObject.GetBoundingRectangle().GetMovementDeltasToHeadTowards(
+                    theGameBoard.GetManExtentsRectangle());
 
                 // We must separate horizontal and vertical movement in order to avoid
                 // things getting 'stuck' on walls because they can't move horizontally

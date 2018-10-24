@@ -87,4 +87,17 @@ namespace GameClassLibrary.Math
             return false;
         }
     }
+
+    public static class RectangleExtensions
+    {
+        /// <summary>
+        /// Obtain movement deltas necessary to head towards another object.
+        /// </summary>
+        public static MovementDeltas GetMovementDeltasToHeadTowards(
+            this Rectangle aggressorRectangle,
+            Rectangle targetRectangle)
+        {
+            return aggressorRectangle.Centre.GetMovementDeltasToHeadTowards(targetRectangle.Centre);
+        }
+    }
 }

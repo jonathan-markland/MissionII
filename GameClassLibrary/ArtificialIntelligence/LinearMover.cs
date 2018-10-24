@@ -48,7 +48,8 @@ namespace GameClassLibrary.ArtificialIntelligence
 
                 gameObject.MoveBy(moveDeltas);
 
-                if (gameObject.Intersects(theGameBoard.GetMan()))
+                if (gameObject.GetBoundingRectangle().Intersects(
+                    theGameBoard.GetManExtentsRectangle()))
                 {
                     _manDestroyAction();
                 }

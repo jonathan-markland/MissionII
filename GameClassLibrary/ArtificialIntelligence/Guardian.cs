@@ -34,7 +34,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                 if (hitResult != CollisionDetection.WallHitTestResult.NothingHit)
                 {
                     if (gameObject.GetBoundingRectangle().Intersects(
-                        theGameBoard.GetMan().GetBoundingRectangle().Inflate(5)))
+                        theGameBoard.GetManExtentsRectangle().Inflate(5)))
                     {
                         _manDestroyAction();
                     }

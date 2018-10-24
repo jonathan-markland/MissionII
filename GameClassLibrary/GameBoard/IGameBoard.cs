@@ -18,7 +18,7 @@ namespace GameClassLibrary.GameBoard
         void Remove(GameObject o);
         void ForEachObjectInPlayDo<A>(Action<A> theAction) where A : class;
 
-        GameObject GetMan();  // TODO: Get rid of this function.  Only need extents rectangle.
+        Rectangle GetManExtentsRectangle();
         
         // TODO: inconsistent terms Man vs. Player in this section:
         void AddToPlayerInventory(InteractibleObject o);

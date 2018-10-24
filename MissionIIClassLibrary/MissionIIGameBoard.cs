@@ -101,9 +101,9 @@ namespace MissionIIClassLibrary
             return Man.IsInvincible;
         }
 
-        public GameObject GetMan()
+        public Rectangle GetManExtentsRectangle()
         {
-            return Man;
+            return Man.GetBoundingRectangle();
         }
 
         public bool PlayerInventoryContains(InteractibleObject o)

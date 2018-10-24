@@ -24,8 +24,8 @@ namespace GameClassLibrary.ArtificialIntelligence
 
             if (cycleCount % Constants.FiringAttractorSpeedDivisor == 0)
             {
-                var moveDeltas = gameObject.GetMovementDeltasToHeadTowards(
-                    theGameBoard.GetMan());
+                var moveDeltas = gameObject.GetBoundingRectangle().GetMovementDeltasToHeadTowards(
+                    theGameBoard.GetManExtentsRectangle());
 
                 // We must separate horizontal and vertical movement in order to avoid
                 // things getting 'stuck' on walls because they can't move horizontally

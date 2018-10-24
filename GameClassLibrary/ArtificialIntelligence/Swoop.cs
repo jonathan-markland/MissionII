@@ -1,5 +1,6 @@
 ﻿
 using System;
+using GameClassLibrary.Math;
 using GameClassLibrary.GameBoard;
 
 namespace GameClassLibrary.ArtificialIntelligence
@@ -21,12 +22,13 @@ namespace GameClassLibrary.ArtificialIntelligence
         {
             for (int i = 0; i < Constants.SwoopMovementCycles; i++)
             {
-                var moveDeltas = gameObject.GetMovementDeltasToHeadTowards(
-                    theGameBoard.GetMan());
+                var moveDeltas = gameObject.GetBoundingRectangle().GetMovementDeltasToHeadTowards(
+                    theGameBoard.GetManExtentsRectangle());
 
                 gameObject.MoveBy(moveDeltas);
 
-                if (gameObject.Intersects(theGameBoard.GetMan()))
+                if (gameObject.GetBoundingRectangle().Intersects(
+                    theGameBoard.GetManExtentsRectangle()))
                 {
                     _manDestroyAction();
                 }

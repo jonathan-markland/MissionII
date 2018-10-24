@@ -78,7 +78,8 @@ namespace GameClassLibrary.ArtificialIntelligence
                     }
                 }
 
-                if (gameObject.Intersects(theGameBoard.GetMan()))
+                if (gameObject.GetBoundingRectangle().Intersects(
+                    theGameBoard.GetManExtentsRectangle()))
                 {
                     _manDestroyAction();
                 }
