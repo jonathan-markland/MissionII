@@ -12,6 +12,10 @@ namespace MissionIIClassLibrary.GameObjects
     public class Man : GameObject
     {
         private readonly Action<Rectangle, MovementDeltas, bool> _fireBullet;
+        private readonly Action<int> _moveRoomNumberByDelta;
+        private readonly Func<Rectangle, CollisionDetection.WallHitTestResult> _hitTest;
+        private readonly Action _playerLoseLife;
+        private readonly Action _checkManCollidingWithGameObjects;
 
         public SpriteInstance SpriteInstance = new SpriteInstance();
         private bool _debugInvulnerable = false;
@@ -29,9 +33,18 @@ namespace MissionIIClassLibrary.GameObjects
         private int _invincibleCountDown = 0;
         public int _cyclesMoving = 0;
 
-        public Man(Action<Rectangle, MovementDeltas, bool> fireBullet)
+        public Man(
+            Action<Rectangle, MovementDeltas, bool> fireBullet, 
+            Action<int> moveRoomNumberByDelta,
+            Func<Rectangle, CollisionDetection.WallHitTestResult> hitTest,
+            Action playerLoseLife,
+            Action checkManCollidingWithGameObjects)
         {
             _fireBullet = fireBullet;
+            _moveRoomNumberByDelta = moveRoomNumberByDelta;
+            _hitTest = hitTest;
+            _playerLoseLife = playerLoseLife;
+            _checkManCollidingWithGameObjects = checkManCollidingWithGameObjects;
         }
 
         public PositionAndDirection Position
@@ -61,12 +74,12 @@ namespace MissionIIClassLibrary.GameObjects
             }
             else if (!_isDead)
             {
-                FireButtonCheck(theGameBoard, keyStates);
+                FireButtonCheck(keyStates);
 
                 int theDirection = keyStates.ToDirectionIndex();
                 if (theDirection != -1)
                 {
-                    DoWalking(theGameBoard, keyStates, theDirection);
+                    DoWalking(keyStates, theDirection);
                 }
                 else
                 {
@@ -77,7 +90,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
             else
             {
-                DeadHandling(theGameBoard);
+                DeadHandling();
             }
         }
 
@@ -104,14 +117,14 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        private void DoWalking(IGameBoard theGameBoard, KeyStates keyStates, int theDirection)
+        private void DoWalking(KeyStates keyStates, int theDirection)
         {
             ++_cyclesMoving;
             _facingDirection = theDirection;
             SpriteInstance.Traits = MissionIISprites.ManWalking[theDirection];
             AdvanceAnimation();
             var movementDeltas = keyStates.ToMovementDeltas();
-            var hitResult = theGameBoard.MoveManOnePixel(movementDeltas);
+            var hitResult = this.MoveConsideringWallsOnly(movementDeltas, _hitTest);
 
             if (!movementDeltas.IsStationary)
             {
@@ -126,32 +139,23 @@ namespace MissionIIClassLibrary.GameObjects
             }
             else if (hitResult == CollisionDetection.WallHitTestResult.OutsideRoomAbove)
             {
-                RoomUp(theGameBoard);
+                RoomUp();
             }
             else if (hitResult == CollisionDetection.WallHitTestResult.OutsideRoomBelow)
             {
-                RoomDown(theGameBoard);
+                RoomDown();
             }
             else if (hitResult == CollisionDetection.WallHitTestResult.OutsideRoomToLeft)
             {
-                RoomLeft(theGameBoard);
+                RoomLeft();
             }
             else if (hitResult == CollisionDetection.WallHitTestResult.OutsideRoomToRight)
             {
-                RoomRight(theGameBoard);
+                RoomRight();
             }
             else
             {
-                // Collision between man and room objects?
-
-                var manRectangle = GetBoundingRectangle();
-                theGameBoard.ForEachObjectInPlayDo<GameObject>(roomObject =>
-                {
-                    if (!_isDead && manRectangle.Intersects(roomObject.GetBoundingRectangle()))
-                    {
-                        roomObject.ManWalkedIntoYou(theGameBoard);
-                    }
-                });
+                _checkManCollidingWithGameObjects();
             }
         }
 
@@ -169,7 +173,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        private void FireButtonCheck(IGameBoard theGameBoard, KeyStates keyStates)
+        private void FireButtonCheck(KeyStates keyStates)
         {
             if (keyStates.Fire)
             {
@@ -189,7 +193,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        private void DeadHandling(IGameBoard theGameBoard)
+        private void DeadHandling()
         {
             System.Diagnostics.Debug.Assert(_isDead);
             if (_whileDeadCount > 0)
@@ -198,7 +202,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
             else
             {
-                theGameBoard.PlayerLoseLife();
+                _playerLoseLife();
             }
         }
 
@@ -277,49 +281,43 @@ namespace MissionIIClassLibrary.GameObjects
             get { return _isDead; }
         }
 
-        private void RoomUp(IGameBoard theGameBoard)
+        private void RoomUp()
         {
             MoveRooms(
-                theGameBoard,
                 -Constants.RoomsHorizontally,
                 0, 0,
                 0, -SpriteInstance.Traits.Height);
         }
 
-        private void RoomDown(IGameBoard theGameBoard)
+        private void RoomDown()
         {
             MoveRooms(
-                theGameBoard,
                 Constants.RoomsHorizontally,
                 0, 0,
                 0, +SpriteInstance.Traits.Height);
         }
 
-        private void RoomLeft(IGameBoard theGameBoard)
+        private void RoomLeft()
         {
             MoveRooms(
-                theGameBoard,
                 -1,
                 0, -SpriteInstance.Traits.Width,
                 0, 0);
         }
 
-        private void RoomRight(IGameBoard theGameBoard)
+        private void RoomRight()
         {
             MoveRooms(
-                theGameBoard,
                 +1,
                 0, +SpriteInstance.Traits.Width,
                 0, 0);
         }
 
         private void MoveRooms(
-            IGameBoard theGameBoard, 
             int roomNumberDelta, 
             int deltaRoomWidth, int deltaSpriteWidth, 
             int deltaRoomHeight, int deltaSpriteHeight)
         {
-            ((MissionIIGameBoard)theGameBoard).MoveRoomNumberByDelta(roomNumberDelta);
             // Note: We sort of assume all the rooms are the same size!  (Which they are!)
             var roomWidth = Constants.TileWidth * Constants.ClustersHorizontally * Constants.DestClusterSide;
             var roomHeight = Constants.TileHeight * Constants.ClustersVertically * Constants.DestClusterSide;
@@ -329,13 +327,7 @@ namespace MissionIIClassLibrary.GameObjects
             SpriteInstance.Y += roomHeight * deltaRoomHeight;
             SpriteInstance.Y += deltaSpriteHeight;
 
-            if (! theGameBoard.DroidsExistInRoom())
-            {
-                theGameBoard.PlayerIncrementScore(Constants.RoomClearingBonusScore);
-                MissionIISounds.Bonus.Play();
-            }
-
-            ((MissionIIGameBoard) theGameBoard).PrepareForNewRoom();
+            _moveRoomNumberByDelta(roomNumberDelta);
         }
 
         public override Rectangle GetBoundingRectangle() // TODO: Dont have this just get from the sprite

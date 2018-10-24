@@ -48,7 +48,7 @@ namespace MissionIIClassLibrary
 
         public MissionIIGameBoard(WorldWallData worldWallData)
         {
-            Man = new GameObjects.Man(StartBullet);
+            Man = new GameObjects.Man(StartBullet, MoveRoomNumberByDelta, HitTest, PlayerLoseLife, CheckManCollidingWithGameObjects);
             TheWorldWallData = worldWallData;
             Lives = Constants.InitialLives;
             LevelNumber = Constants.StartLevelNumber;
@@ -392,6 +392,14 @@ namespace MissionIIClassLibrary
             // TODO all the above is dodgy, but need to completely change interface for room number changing, and setting for the first time!
             RoomXY = new Point(x, y);
             RoomNumber += roomNumberDelta;
+
+            if (!DroidsExistInRoom())
+            {
+                PlayerIncrementScore(Constants.RoomClearingBonusScore);
+                MissionIISounds.Bonus.Play();
+            }
+
+            PrepareForNewRoom();
         }
 
 
@@ -590,7 +598,6 @@ namespace MissionIIClassLibrary
 
         public void AddDroidsForLevel1(List<GameObject> objectsList)
         {
-            return;
             var theThreshold = Constants.IdealDroidCountPerRoom / 2;
 
             for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
@@ -739,6 +746,20 @@ namespace MissionIIClassLibrary
         private void DestroyManByAdversary()
         {
             Man.Electrocute(ElectrocutionMethod.ByDroid);
+        }
+
+
+
+        private void CheckManCollidingWithGameObjects()
+        {
+            var manRectangle = Man.GetBoundingRectangle();
+            ForEachObjectInPlayDo<GameObject>(roomObject =>
+            {
+                if (!Man.IsDead && manRectangle.Intersects(roomObject.GetBoundingRectangle()))
+                {
+                    roomObject.ManWalkedIntoYou(this);
+                }
+            });
         }
 
 
