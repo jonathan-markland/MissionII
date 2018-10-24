@@ -12,6 +12,7 @@ namespace MissionIIClassLibrary.Droids
 {
     public class BaseDroid : GameObject
     {
+        private readonly Action<GameObject, SpriteTraits, SoundTraits> _startExplosion;
         private SpriteInstance _spriteInstance = new SpriteInstance();
         private SpriteTraits _explosionSpriteTraits;
         private SoundTraits _explosionSound;
@@ -24,10 +25,11 @@ namespace MissionIIClassLibrary.Droids
 
 
         public BaseDroid(
-            SpriteTraits spriteTraits, 
+            SpriteTraits spriteTraits,
             SpriteTraits explosionSpriteTraits,
             SoundTraits explosionSound,
-            Action manDestroyAction)
+            Action manDestroyAction,
+            Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
         {
             System.Diagnostics.Debug.Assert(spriteTraits != null);
             _spriteInstance.Traits = spriteTraits;
@@ -35,7 +37,10 @@ namespace MissionIIClassLibrary.Droids
             _explosionSound = explosionSound;
             _intelligenceProvider = null;
             _manDestroyAction = manDestroyAction;
+            _startExplosion = startExplosion;
         }
+
+
 
         protected void SetIntelligenceProvider(AbstractIntelligenceProvider ai) // not ideal, problem with calling base constructor in derived class because AI object needs to be tied to derived object
         {
@@ -64,16 +69,7 @@ namespace MissionIIClassLibrary.Droids
 
         public override ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
         {
-            // TODO: FUTURE: We assume the explosion dimensions match the droid.  We should centre it about the droid.
-            theGameBoard.Add(
-                new Explosion(
-                    _spriteInstance.X,
-                    _spriteInstance.Y,
-                    _explosionSpriteTraits,
-                    _explosionSound));
-
-            theGameBoard.Remove(this);
-
+            _startExplosion(this, _explosionSpriteTraits, _explosionSound);
 			return new ShotStruct(affirmed: true, scoreIncrease: KillScore);
         }
 

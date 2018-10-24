@@ -4,17 +4,20 @@ using GameClassLibrary.ArtificialIntelligence;
 using GameClassLibrary.GameBoard;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
+using GameClassLibrary.Sound;
+using GameClassLibrary.Graphics;
 
 namespace MissionIIClassLibrary.Droids
 {
     public class GuardianDroid : BaseDroid  // Didn't make it into final release
     {
-        public GuardianDroid(Action manDestroyAction, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel, Func<Rectangle> getManExtents)
+        public GuardianDroid(Action manDestroyAction, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel, Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
             : base(
                   MissionIISprites.Monster4, 
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  manDestroyAction)
+                  manDestroyAction,
+                  startExplosion)
         {
             base.SetIntelligenceProvider(
                 new Guardian(this, manDestroyAction, moveAdversaryOnePixel, getManExtents));

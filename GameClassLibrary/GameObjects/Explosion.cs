@@ -1,4 +1,6 @@
-﻿using GameClassLibrary.Math;
+﻿
+using System;
+using GameClassLibrary.Math;
 using GameClassLibrary.Input;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Sound;
@@ -12,6 +14,7 @@ namespace GameClassLibrary.GameObjects
         private const int ExplosionCountDownReset = 30; // TODO: Put constant elsewhere because we don't know the units
 
 		private readonly SoundTraits _explosionSound;
+        private readonly Action<GameObject> _removeObject;
 
 		private SpriteInstance _spriteInstance = new SpriteInstance();
         private int _imageIndex = 0;
@@ -20,12 +23,13 @@ namespace GameClassLibrary.GameObjects
 
 
 
-        public Explosion(int x, int y, SpriteTraits explosionKind, SoundTraits explosionSound)
+        public Explosion(int x, int y, SpriteTraits explosionKind, SoundTraits explosionSound, Action<GameObject> removeObject)
         {
             _spriteInstance.X = x;
             _spriteInstance.Y = y;
             _spriteInstance.Traits = explosionKind;
             _explosionSound = explosionSound;
+            _removeObject = removeObject;
         }
 
 
@@ -46,7 +50,7 @@ namespace GameClassLibrary.GameObjects
 
                 if (_explosionCountDown == 0)
                 {
-                    theGameBoard.Remove(this);  // It gets removed by the framework when we add it to this list.
+                    _removeObject(this);  // It gets removed by the framework when we add it to this list.
                 }
             }
         }

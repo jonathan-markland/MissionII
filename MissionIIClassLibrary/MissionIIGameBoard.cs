@@ -6,6 +6,7 @@ using GameClassLibrary.Algorithms;
 using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
+using GameClassLibrary.Sound;
 using GameClassLibrary.GameBoard;
 using GameClassLibrary.GameObjects;
 using MissionIIClassLibrary.Interactibles;
@@ -594,11 +595,11 @@ namespace MissionIIClassLibrary
             {
                 if (j < theThreshold)
                 {
-                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle));
+                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion));
                 }
                 else
                 {
-                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle)); // Not decided yet:  WanderingMineDroid());
+                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion)); // Not decided yet:  WanderingMineDroid());
                 }
             }
         }
@@ -614,15 +615,15 @@ namespace MissionIIClassLibrary
             {
                 if (j < theThreshold1)
                 {
-                    objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary, StartBullet, MoveAdversaryOnePixel));
+                    objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary, StartBullet, MoveAdversaryOnePixel, StartExplosion));
                 }
                 else if (j < theThreshold2)
                 {
-                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle)); // Not decided yet:  WanderingMineDroid());
+                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion)); // Not decided yet:  WanderingMineDroid());
                 }
                 else
                 {
-                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle));
+                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion));
                 }
             }
         }
@@ -638,15 +639,15 @@ namespace MissionIIClassLibrary
             {
                 if (j < theThreshold1)
                 {
-                    objectsList.Add(new Droids.DestroyerDroid(DestroyManByAdversary, StartBullet, MoveAdversaryOnePixel, GetManExtentsRectangle));
+                    objectsList.Add(new Droids.DestroyerDroid(DestroyManByAdversary, StartBullet, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion));
                 }
                 else if (j < theThreshold2)
                 {
-                    objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary, StartBullet, MoveAdversaryOnePixel));
+                    objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, DestroyManByAdversary, StartBullet, MoveAdversaryOnePixel, StartExplosion));
                 }
                 else
                 {
-                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle));
+                    objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion));
                 }
             }
         }
@@ -666,7 +667,31 @@ namespace MissionIIClassLibrary
                     , increasesScore
                     , Constants.MultiKillWithSingleBulletBonusScore
                     , IsSpace
+                    , this.KillThingsInRectangle
+                    , PlayerIncrementScore
+                    , Remove
                 ));
+        }
+
+
+
+        public void StartExplosion(
+            GameObject explodingObject,
+            SpriteTraits explosionSpriteTraits,
+            SoundTraits explosionSound)
+        {
+            // TODO: FUTURE: We assume the explosion dimensions match the droid.  We should centre it about the droid.
+            var r = explodingObject.GetBoundingRectangle();
+
+            Add(
+                new Explosion(
+                    r.Left,
+                    r.Top,
+                    explosionSpriteTraits,
+                    explosionSound,
+                    Remove));
+
+            Remove(explodingObject);
         }
 
 

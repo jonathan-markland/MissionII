@@ -15,6 +15,9 @@ namespace GameClassLibrary.GameObjects
 		private readonly Func<Rectangle, bool> _isSpace;
 		private readonly int _bonusScore;
 		private readonly SpriteInstance _spriteInstance;
+        private readonly Func<Rectangle, bool, GameBoardExtensions.BulletResult> _killThingsInRectangle;
+        private readonly Action<int> _incrementPlayerScore;
+        private readonly Action<GameObject> _removeObject;
 
         private bool _firingSoundDone;
 
@@ -26,9 +29,16 @@ namespace GameClassLibrary.GameObjects
             MovementDeltas bulletDirection, 
             bool increasesScore, 
             int bonusScore,
-            Func<Rectangle, bool> isSpace)
+            Func<Rectangle, bool> isSpace,
+            Func<Rectangle, bool, GameBoardExtensions.BulletResult> killThingsInRectangle,
+            Action<int> incrementPlayerScore,
+            Action<GameObject> removeObject)
         {
+            _killThingsInRectangle = killThingsInRectangle;
+            _removeObject = removeObject;
             _bonusScore = bonusScore;
+            _incrementPlayerScore = incrementPlayerScore;
+            _removeObject = removeObject;
 
             var r = gameObjectextentsRectangle; // convenience
             var spriteTraits = bulletTraits.BulletSpriteTraits;
@@ -108,28 +118,28 @@ namespace GameClassLibrary.GameObjects
                     _spriteInstance.X = proposedX;
                     _spriteInstance.Y = proposedY;
 
-                    var bulletResult = theGameBoard.KillThingsInRectangle(
+                    var bulletResult = _killThingsInRectangle(
                         GetBoundingRectangle(), IncreasesScore);
 
                     if (bulletResult.HitCount > 0)
                     {
-                        theGameBoard.Remove(this);
+                        _removeObject(this);
 
                         if (_increasesScore)
                         {
                             if (bulletResult.HitCount > 1)
                             {
-                                theGameBoard.PlayerIncrementScore(_bonusScore);
+                                _incrementPlayerScore(_bonusScore);
                                 _bulletTraits.DuoBonus.Play();
                             }
-                            theGameBoard.PlayerIncrementScore(bulletResult.TotalScoreIncrease);
+                            _incrementPlayerScore(bulletResult.TotalScoreIncrease);
                         }
                         break;
                     }
                 }
                 else // Bullet hit wall or went outside room.
                 {
-                    theGameBoard.Remove(this);
+                    _removeObject(this);
                     break;
                 }
             }
