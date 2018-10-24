@@ -7,16 +7,18 @@ namespace MissionIIClassLibrary.Interactibles
 {
     public class InvincibilityAmulet : MissionIIInteractibleObject
     {
-        public InvincibilityAmulet(int roomNumber, Action<InteractibleObject, int> collectObject)
+        private readonly Action<GameObject> _gainInvincibility;
+
+        // TODO: This does not need collectObject because we override the base!
+        public InvincibilityAmulet(int roomNumber, Action<InteractibleObject, int> collectObject, Action<GameObject> gainInvincibility)
             : base(new SpriteInstance { Traits = MissionIISprites.InvincibilityAmulet }, roomNumber, collectObject)
         {
+            _gainInvincibility = gainInvincibility;
         }
 
         public override void ManWalkedIntoYou(IGameBoard theGameBoard)
         {
-            theGameBoard.ManGainInvincibility();
-            theGameBoard.Remove(this);
-            MissionIISounds.InvincibilityAmuletSound.Play();
+            _gainInvincibility(this);
             MarkCollected();
         }
 

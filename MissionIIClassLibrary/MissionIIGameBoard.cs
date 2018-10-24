@@ -300,7 +300,7 @@ namespace MissionIIClassLibrary
 
             LevelExit = new MissionIIClassLibrary.Interactibles.LevelExit(roomNumberAllocator.Next(), CollectObject, LevelObjectivesMet);
             Potion = new MissionIIClassLibrary.Interactibles.Potion(roomNumberAllocator.Next(), CollectObject);
-            InvincibilityAmulet = new MissionIIClassLibrary.Interactibles.InvincibilityAmulet(roomNumberAllocator.Next(), CollectObject);
+            InvincibilityAmulet = new MissionIIClassLibrary.Interactibles.InvincibilityAmulet(roomNumberAllocator.Next(), CollectObject, GainInvincibility);
         }
 
 
@@ -590,6 +590,7 @@ namespace MissionIIClassLibrary
 
         public void AddDroidsForLevel1(List<GameObject> objectsList)
         {
+            return;
             var theThreshold = Constants.IdealDroidCountPerRoom / 2;
 
             for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
@@ -722,6 +723,15 @@ namespace MissionIIClassLibrary
             AddToPlayerInventory(objectToCollect);
             Remove(objectToCollect);
             PlayerIncrementScore(collectionScore);
+        }
+
+
+
+        private void GainInvincibility(GameObject amuletObject)
+        {
+            ManGainInvincibility();
+            Remove(amuletObject);
+            MissionIISounds.InvincibilityAmuletSound.Play();
         }
 
 
