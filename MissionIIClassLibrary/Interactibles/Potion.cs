@@ -6,15 +6,17 @@ namespace MissionIIClassLibrary.Interactibles
 {
     public class Potion : MissionIIInteractibleObject
     {
-        public Potion(int roomNumber, Action<InteractibleObject, int> collectObject)
+        private readonly Action<GameObject> _gainLife;
+
+        public Potion(int roomNumber, Action<InteractibleObject, int> collectObject, Action<GameObject> gainLife)
             : base(new SpriteInstance { Traits = MissionIISprites.Potion }, roomNumber, collectObject)
         {
+            _gainLife = gainLife;
         }
 
-        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
+        public override void ManWalkedIntoYou()
         {
-            theGameBoard.PlayerGainLife();
-            theGameBoard.Remove(this);
+            _gainLife(this);
             base.MarkCollected();
         }
 

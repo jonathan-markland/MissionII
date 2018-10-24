@@ -66,7 +66,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates keyStates)
+        public override void AdvanceOneCycle(KeyStates keyStates)
         {
             if (_isElectrocuting || _isElectrocutedByWalls)
             {
@@ -335,12 +335,12 @@ namespace MissionIIClassLibrary.GameObjects
             return SpriteInstance.Extents;
         }
 
-        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
+        public override void ManWalkedIntoYou()
         {
             // No action for self-intersection.
         }
 
-        public override ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
+        public override ShotStruct YouHaveBeenShot(bool shotByMan)
         {
             if (!IsInvincible)
             {

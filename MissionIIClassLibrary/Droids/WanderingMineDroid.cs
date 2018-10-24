@@ -11,16 +11,16 @@ namespace MissionIIClassLibrary.Droids
 {
     public class WanderingMineDroid : BaseDroid  // Didn't make it into final release
     {
-        public WanderingMineDroid(Func<Rectangle, FoundDirections> freeDirectionFinder, Action manDestroyAction, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel, Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
+        public WanderingMineDroid(Func<Rectangle, FoundDirections> freeDirectionFinder, Action<GameObject> manWalksIntoDroidAction, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel, Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
             : base(
                   MissionIISprites.Monster5, 
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  manDestroyAction,
+                  manWalksIntoDroidAction,
                   startExplosion)
         {
             base.SetIntelligenceProvider(
-                new WanderingMine(this, freeDirectionFinder, manDestroyAction,
+                new WanderingMine(this, freeDirectionFinder, manWalksIntoDroidAction,
                       GameClassLibrary.ArtificialIntelligence.Constants.WanderingMineSpeedDivisor, 
                       moveAdversaryOnePixel, getManExtents));
         }

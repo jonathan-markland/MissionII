@@ -15,7 +15,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 		private readonly int _rightLimit;
 		private readonly int _maxBounceHeightOffFloor;
 		private readonly int _movesPerCycle;
-		private readonly Action _manDestroyAction;
+		private readonly Action<GameObject> _manWalksIntoDroidAction;
         private readonly GameObject _gameObject;
 
 		private MovementDeltas _movementDeltas;
@@ -26,7 +26,8 @@ namespace GameClassLibrary.ArtificialIntelligence
 
         public Bouncing(
             GameObject gameObject,
-            int leftLimit, int rightLimit, int maxBounceHeightOffFloor, int movesPerCycle, Action manDestroyAction, int initialDx,
+            int leftLimit, int rightLimit, int maxBounceHeightOffFloor, int movesPerCycle,
+            Action<GameObject> manWalksIntoDroidAction, int initialDx,
             Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents)
         {
@@ -34,7 +35,7 @@ namespace GameClassLibrary.ArtificialIntelligence
             _maxBounceHeightOffFloor = maxBounceHeightOffFloor;
             _rightLimit = rightLimit;
             _movesPerCycle = movesPerCycle;
-            _manDestroyAction = manDestroyAction;
+            _manWalksIntoDroidAction = manWalksIntoDroidAction;
             _movementDeltas = new MovementDeltas(initialDx, -1);  // Force upwards motion initially.
             _firstCycle = true;
             _moveAdversaryOnePixel = moveAdversaryOnePixel;
@@ -88,7 +89,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
                 if (_gameObject.GetBoundingRectangle().Intersects(_getManExtents()))
                 {
-                    _manDestroyAction();
+                    _manWalksIntoDroidAction(_gameObject);
                 }
             }
         }

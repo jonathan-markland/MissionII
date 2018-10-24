@@ -11,18 +11,19 @@ namespace MissionIIClassLibrary.Droids
 {
     public class LinearMoverDroid : BaseDroid  // TODO: This is a development test and should be removed.
     {
-        public LinearMoverDroid(Action manDestroyAction, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel, Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
+        public LinearMoverDroid(Action<GameObject> manWalksIntoDroidAction, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel, Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
             : base(
                   MissionIISprites.Monster3,
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
                   // TODO: Demo no longer works since we are using model-space coordinates:
-                  manDestroyAction,
+                  manWalksIntoDroidAction,
                   startExplosion)
         {
             base.SetIntelligenceProvider(
-                new LinearMover(this, new Point(100, 50), new Point(200, 50), 1, 
-                manDestroyAction, moveAdversaryOnePixel, getManExtents));
+                new LinearMover(
+                    this, new Point(100, 50), new Point(200, 50), 1, 
+                    manWalksIntoDroidAction, moveAdversaryOnePixel, getManExtents));
         }
 
         public override int KillScore

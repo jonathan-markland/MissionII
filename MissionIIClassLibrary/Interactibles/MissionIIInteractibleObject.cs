@@ -45,10 +45,10 @@ namespace MissionIIClassLibrary.Interactibles
             return Sprite.Extents; // Note: applies in every room!
         }
 
-        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
+        public override void ManWalkedIntoYou()
         {
             MarkCollected();
-            base.ManWalkedIntoYou(theGameBoard);
+            base.ManWalkedIntoYou();
             MissionIISounds.PickUpObject.Play();
         }
 

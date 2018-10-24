@@ -11,16 +11,16 @@ namespace MissionIIClassLibrary.Droids
 {
     public class GuardianDroid : BaseDroid  // Didn't make it into final release
     {
-        public GuardianDroid(Action manDestroyAction, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel, Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
+        public GuardianDroid(Action<GameObject> manWalksIntoDroidAction, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel, Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
             : base(
                   MissionIISprites.Monster4, 
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  manDestroyAction,
+                  manWalksIntoDroidAction,
                   startExplosion)
         {
             base.SetIntelligenceProvider(
-                new Guardian(this, manDestroyAction, moveAdversaryOnePixel, getManExtents));
+                new Guardian(this, manWalksIntoDroidAction, moveAdversaryOnePixel, getManExtents));
         }
 
         public override int KillScore

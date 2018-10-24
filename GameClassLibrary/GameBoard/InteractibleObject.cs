@@ -16,21 +16,21 @@ namespace GameClassLibrary.GameBoard
 
 
 
-        public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
+        public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
             // No action required.
         }
 
 
 
-        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
+        public override void ManWalkedIntoYou()
         {
             _collectObject(this, CollectionScore);
         }
 
 
 
-        public override ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
+        public override ShotStruct YouHaveBeenShot(bool shotByMan)
         {
             // This cannot be shot (ignore)
 			return new ShotStruct(affirmed: false, scoreIncrease:0);

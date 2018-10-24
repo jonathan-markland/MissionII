@@ -34,7 +34,7 @@ namespace GameClassLibrary.GameObjects
 
 
 
-        public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
+        public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
             if (_explosionCountDown == ExplosionCountDownReset)
             {
@@ -71,14 +71,14 @@ namespace GameClassLibrary.GameObjects
 
 
 
-        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
+        public override void ManWalkedIntoYou()
         {
             // No action required.
         }
 
 
 
-        public override ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
+        public override ShotStruct YouHaveBeenShot(bool shotByMan)
         {
             // no action required
 			return new ShotStruct(affirmed:false); // ignore this.

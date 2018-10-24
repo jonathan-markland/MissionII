@@ -11,10 +11,10 @@ namespace GameClassLibrary.GameBoard
         public abstract Rectangle GetBoundingRectangle();
         public abstract Point TopLeftPosition { get; set; }
         public abstract bool CanBeOverlapped { get; }
-        public abstract void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates);
+        public abstract void AdvanceOneCycle(KeyStates theKeyStates);
         public abstract void Draw(IDrawingTarget drawingTarget);
-        public abstract void ManWalkedIntoYou(IGameBoard theGameBoard);
-        public abstract ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan);
+        public abstract void ManWalkedIntoYou();
+        public abstract ShotStruct YouHaveBeenShot(bool shotByMan);
         public virtual int KillScore { get { return 0; } }
         public virtual int CollectionScore { get { return 0; } }
     }

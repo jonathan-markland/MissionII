@@ -13,7 +13,7 @@ namespace GameClassLibrary.ArtificialIntelligence
         private readonly Point _startPoint;
 		private readonly Point _endPoint;
 		private readonly int _movesPerCycle;
-		private readonly Action _manDestroyAction;
+		private readonly Action<GameObject> _manWalksIntoDroidAction;
         private readonly GameObject _gameObject;
 
 		private bool _headToEnd;
@@ -22,7 +22,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
         public LinearMover(
             GameObject gameObject,
-            Point startPoint, Point endPoint, int movesPerCycle, Action manDestroyAction,
+            Point startPoint, Point endPoint, int movesPerCycle, Action<GameObject> manWalksIntoDroidAction,
             Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents)
         {
@@ -30,7 +30,7 @@ namespace GameClassLibrary.ArtificialIntelligence
             _endPoint = endPoint;
             _headToEnd = true;
             _movesPerCycle = movesPerCycle;
-            _manDestroyAction = manDestroyAction;
+            _manWalksIntoDroidAction = manWalksIntoDroidAction;
             _moveAdversaryOnePixel = moveAdversaryOnePixel;
             _getManExtents = getManExtents;
             _gameObject = gameObject;
@@ -61,7 +61,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
                 if (_gameObject.GetBoundingRectangle().Intersects(_getManExtents()))
                 {
-                    _manDestroyAction();
+                    _manWalksIntoDroidAction(_gameObject);
                 }
             }
         }

@@ -13,6 +13,7 @@ namespace MissionIIClassLibrary.Droids
     public class BaseDroid : GameObject
     {
         private readonly Action<GameObject, SpriteTraits, SoundTraits> _startExplosion;
+        private readonly Action<GameObject> _manWalksIntoDroidAction;
         private SpriteInstance _spriteInstance = new SpriteInstance();
         private SpriteTraits _explosionSpriteTraits;
         private SoundTraits _explosionSound;
@@ -20,7 +21,6 @@ namespace MissionIIClassLibrary.Droids
         private int _animationCountdown = AnimationReset;
         private const int AnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
         private AbstractIntelligenceProvider _intelligenceProvider;
-        private Action _manDestroyAction;
 
 
 
@@ -28,7 +28,7 @@ namespace MissionIIClassLibrary.Droids
             SpriteTraits spriteTraits,
             SpriteTraits explosionSpriteTraits,
             SoundTraits explosionSound,
-            Action manDestroyAction,
+            Action<GameObject> manWalksIntoDroidAction,
             Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
         {
             System.Diagnostics.Debug.Assert(spriteTraits != null);
@@ -36,7 +36,7 @@ namespace MissionIIClassLibrary.Droids
             _explosionSpriteTraits = explosionSpriteTraits;
             _explosionSound = explosionSound;
             _intelligenceProvider = null;
-            _manDestroyAction = manDestroyAction;
+            _manWalksIntoDroidAction = manWalksIntoDroidAction;
             _startExplosion = startExplosion;
         }
 
@@ -50,7 +50,7 @@ namespace MissionIIClassLibrary.Droids
 
 
 
-        public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
+        public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
             GameClassLibrary.Algorithms.Animation.Animate(
                 ref _animationCountdown, ref _imageIndex, AnimationReset, _spriteInstance.Traits.ImageCount);
@@ -67,7 +67,7 @@ namespace MissionIIClassLibrary.Droids
 
 
 
-        public override ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
+        public override ShotStruct YouHaveBeenShot(bool shotByMan)
         {
             _startExplosion(this, _explosionSpriteTraits, _explosionSound);
 			return new ShotStruct(affirmed: true, scoreIncrease: KillScore);
@@ -82,16 +82,9 @@ namespace MissionIIClassLibrary.Droids
 
 
 
-        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
+        public override void ManWalkedIntoYou()
         {
-            if (!theGameBoard.ManIsInvincible())
-            {
-                _manDestroyAction();
-            }
-            else
-            {
-                YouHaveBeenShot(theGameBoard, true);
-            }
+            _manWalksIntoDroidAction(this);
         }
 
 

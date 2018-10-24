@@ -89,7 +89,7 @@ namespace GameClassLibrary.GameObjects
 
 
 
-        public override void AdvanceOneCycle(IGameBoard theGameBoard, KeyStates theKeyStates)
+        public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
             if (!_firingSoundDone)
             {
@@ -147,7 +147,7 @@ namespace GameClassLibrary.GameObjects
 
 
 
-        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
+        public override void ManWalkedIntoYou()
         {
             // Not handled here.  Bullets killing man happens in AdvanceOneCycle().
         }
@@ -168,7 +168,7 @@ namespace GameClassLibrary.GameObjects
 
 
 
-        public override ShotStruct YouHaveBeenShot(IGameBoard theGameBoard, bool shotByMan)
+        public override ShotStruct YouHaveBeenShot(bool shotByMan)
         {
             // No action -- bullets cannot be shot.
 			return new ShotStruct(affirmed: false); // ignore this.

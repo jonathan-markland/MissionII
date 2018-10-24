@@ -11,7 +11,7 @@ namespace GameClassLibrary.ArtificialIntelligence
         private readonly Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> _moveAdversaryOnePixel;
         private readonly Func<Rectangle> _getManExtents;
         private readonly Func<Rectangle, FoundDirections> _freeDirectionFinder;
-        private readonly Action _manDestroyAction;
+        private readonly Action<GameObject> _manWalksIntoDroidAction;
         private readonly int _speedDivisor;
         private readonly GameObject _gameObject;
 
@@ -25,12 +25,12 @@ namespace GameClassLibrary.ArtificialIntelligence
 
         public WanderingMine(
             GameObject gameObject,
-            Func<Rectangle, FoundDirections> freeDirectionFinder, Action manDestroyAction, int speedDivisor,
+            Func<Rectangle, FoundDirections> freeDirectionFinder, Action<GameObject> manWalksIntoDroidAction, int speedDivisor,
             Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents)
         {
             _speedDivisor = speedDivisor;
-            _manDestroyAction = manDestroyAction;
+            _manWalksIntoDroidAction = manWalksIntoDroidAction;
             _freeDirectionFinder = freeDirectionFinder;
             _moveAdversaryOnePixel = moveAdversaryOnePixel;
             _getManExtents = getManExtents;
@@ -69,7 +69,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                 var detonationRectangle = _getManExtents().Inflate(5); // TODO: constant
                 if (_gameObject.GetBoundingRectangle().Intersects(detonationRectangle))
                 {
-                    _manDestroyAction();
+                    _manWalksIntoDroidAction(_gameObject);
                     // TODO: Droid (the gameObject) should detonate 
                 }
 

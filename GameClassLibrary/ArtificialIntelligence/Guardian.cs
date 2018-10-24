@@ -8,7 +8,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public class Guardian: AbstractIntelligenceProvider
     {
-		private readonly Action _manDestroyAction;
+		private readonly Action<GameObject> _manWalksIntoDroidAction;
         private readonly Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> _moveAdversaryOnePixel;
         private readonly Func<Rectangle> _getManExtents;
         private readonly GameObject _gameObject;
@@ -20,11 +20,11 @@ namespace GameClassLibrary.ArtificialIntelligence
 
         public Guardian(
             GameObject gameObject,
-            Action manDestroyAction,
+            Action<GameObject> manWalksIntoDroidAction,
             Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents)
         {
-            _manDestroyAction = manDestroyAction;
+            _manWalksIntoDroidAction = manWalksIntoDroidAction;
             _moveAdversaryOnePixel = moveAdversaryOnePixel;
             _getManExtents = getManExtents;
             _gameObject = gameObject;
@@ -47,7 +47,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                     if (_gameObject.GetBoundingRectangle().Intersects(
                         _getManExtents().Inflate(5)))
                     {
-                        _manDestroyAction();
+                        _manWalksIntoDroidAction(_gameObject);
                     }
                     else
                     {

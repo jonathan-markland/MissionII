@@ -31,7 +31,7 @@ namespace GameClassLibrary.GameBoard
             {
                 if (o.GetBoundingRectangle().Intersects(bulletRectangle))
                 {
-                    var shotResult = o.YouHaveBeenShot(gameBoard, increasesScore);
+                    var shotResult = o.YouHaveBeenShot(increasesScore);
                     if (shotResult.Affirmed)
                     {
                         if (increasesScore)

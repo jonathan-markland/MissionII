@@ -6,23 +6,20 @@ namespace MissionIIClassLibrary.Interactibles
 {
     public class LevelExit : MissionIIInteractibleObject
     {
-        private readonly Func<bool> _levelObjectivesMet;
+        private readonly Action _seeIflevelObjectivesMet;
 
         // TODO: This should not need to be passed the collectObject function!
-        public LevelExit(int roomNumber, Action<InteractibleObject, int> collectObject, Func<bool> levelObjectivesMet) 
+        public LevelExit(int roomNumber, Action<InteractibleObject, int> collectObject, Action seeIflevelObjectivesMet) 
             : base(new SpriteInstance { Traits = MissionIISprites.LevelExit }, roomNumber, collectObject)
         {
-            _levelObjectivesMet = levelObjectivesMet;
+            _seeIflevelObjectivesMet = seeIflevelObjectivesMet;
         }
 
         public override int CollectionScore => 0;
 
-        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
+        public override void ManWalkedIntoYou()
         {
-            if (_levelObjectivesMet())
-            {
-                GameClassLibrary.Modes.GameMode.ActiveMode = new Modes.LeavingLevel(theGameBoard);
-            }
+            _seeIflevelObjectivesMet();
         }
     }
 }

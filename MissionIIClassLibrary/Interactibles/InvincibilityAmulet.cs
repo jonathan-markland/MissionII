@@ -16,7 +16,7 @@ namespace MissionIIClassLibrary.Interactibles
             _gainInvincibility = gainInvincibility;
         }
 
-        public override void ManWalkedIntoYou(IGameBoard theGameBoard)
+        public override void ManWalkedIntoYou()
         {
             _gainInvincibility(this);
             MarkCollected();

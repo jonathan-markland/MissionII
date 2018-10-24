@@ -11,12 +11,12 @@ namespace MissionIIClassLibrary.Droids
 {
     public class DestroyerDroid : BaseDroid
     {
-        public DestroyerDroid(Action manDestroyAction, Action<Rectangle, MovementDeltas, bool> fireBullet, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel, Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
+        public DestroyerDroid(Action<GameObject> manWalksIntoDroidAction, Action<Rectangle, MovementDeltas, bool> fireBullet, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel, Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
             : base(
                   MissionIISprites.Monster3, 
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  manDestroyAction,
+                  manWalksIntoDroidAction,
                   startExplosion)
         {
             base.SetIntelligenceProvider(

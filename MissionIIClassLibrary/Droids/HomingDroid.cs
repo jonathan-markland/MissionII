@@ -12,7 +12,7 @@ namespace MissionIIClassLibrary.Droids
     public class HomingDroid : BaseDroid
     {
         public HomingDroid(
-            Action manDestroyAction, 
+            Action<GameObject> manWalksIntoDroidAction,
             Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents,
             Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
@@ -20,7 +20,7 @@ namespace MissionIIClassLibrary.Droids
                   MissionIISprites.Monster1, 
                   MissionIISprites.Explosion, 
                   MissionIISounds.Explosion,
-                  manDestroyAction,
+                  manWalksIntoDroidAction,
                   startExplosion)
         {
             base.SetIntelligenceProvider(
