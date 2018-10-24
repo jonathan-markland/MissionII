@@ -297,7 +297,7 @@ namespace MissionIIClassLibrary
                 }
             });
 
-            LevelExit = new MissionIIClassLibrary.Interactibles.LevelExit(roomNumberAllocator.Next(), CollectObject);
+            LevelExit = new MissionIIClassLibrary.Interactibles.LevelExit(roomNumberAllocator.Next(), CollectObject, LevelObjectivesMet);
             Potion = new MissionIIClassLibrary.Interactibles.Potion(roomNumberAllocator.Next(), CollectObject);
             InvincibilityAmulet = new MissionIIClassLibrary.Interactibles.InvincibilityAmulet(roomNumberAllocator.Next(), CollectObject);
         }
@@ -650,6 +650,23 @@ namespace MissionIIClassLibrary
                     objectsList.Add(new Droids.HomingDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion));
                 }
             }
+        }
+
+
+
+        private bool LevelObjectivesMet()
+        {
+            bool carryingEverything = true;
+
+            ForEachThingWeHaveToFindOnThisLevel(o =>
+            {
+                if (!PlayerInventoryContains(o))
+                {
+                    carryingEverything = false;
+                }
+            });
+
+            return carryingEverything;
         }
 
 
