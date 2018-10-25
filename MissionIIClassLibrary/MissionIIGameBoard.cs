@@ -93,11 +93,6 @@ namespace MissionIIClassLibrary
             return false;
         }
 
-        public void ManGainInvincibility()
-        {
-            Man.GainInvincibility();
-        }
-
         public bool ManIsInvincible()
         {
             return Man.IsInvincible;
@@ -270,9 +265,9 @@ namespace MissionIIClassLibrary
             // TODO: This could be done better, as it's a bit weird requiring the objects already to
             //       be created, and then only to replace them.  At least this way we have ONE
             //       place that decides what is to be found on the level (ForEachThingWeHaveToFindOnThisLevel)
-            Key = new MissionIIClassLibrary.Interactibles.Key(0, CollectObject);
-            Ring = new MissionIIClassLibrary.Interactibles.Ring(0, CollectObject);
-            Gold = new MissionIIClassLibrary.Interactibles.Gold(0, CollectObject);
+            Key = new MissionIIClassLibrary.Interactibles.Key(0, PickUpObject);
+            Ring = new MissionIIClassLibrary.Interactibles.Ring(0, PickUpObject);
+            Gold = new MissionIIClassLibrary.Interactibles.Gold(0, PickUpObject);
 
             var roomNumberAllocator = new UniqueNumberAllocator(1, Constants.NumRooms);
             // var roomNumberAllocator = new IncrementingNumberAllocator(1, Constants.NumRooms); // For testing purposes.
@@ -282,15 +277,15 @@ namespace MissionIIClassLibrary
                 var roomNumber = roomNumberAllocator.Next();
                 if (o is Interactibles.Key)
                 {
-                    Key = new MissionIIClassLibrary.Interactibles.Key(roomNumber, CollectObject);
+                    Key = new MissionIIClassLibrary.Interactibles.Key(roomNumber, PickUpObject);
                 }
                 else if (o is Interactibles.Ring)
                 {
-                    Ring = new MissionIIClassLibrary.Interactibles.Ring(roomNumber, CollectObject);
+                    Ring = new MissionIIClassLibrary.Interactibles.Ring(roomNumber, PickUpObject);
                 }
                 else if (o is Interactibles.Gold)
                 {
-                    Gold = new MissionIIClassLibrary.Interactibles.Gold(roomNumber, CollectObject);
+                    Gold = new MissionIIClassLibrary.Interactibles.Gold(roomNumber, PickUpObject);
                 }
                 else
                 {
@@ -298,9 +293,9 @@ namespace MissionIIClassLibrary
                 }
             });
 
-            LevelExit = new MissionIIClassLibrary.Interactibles.LevelExit(roomNumberAllocator.Next(), CollectObject, LevelObjectivesMet);
-            Potion = new MissionIIClassLibrary.Interactibles.Potion(roomNumberAllocator.Next(), CollectObject, GainLife);
-            InvincibilityAmulet = new MissionIIClassLibrary.Interactibles.InvincibilityAmulet(roomNumberAllocator.Next(), CollectObject, GainInvincibility);
+            LevelExit = new MissionIIClassLibrary.Interactibles.LevelExit(roomNumberAllocator.Next(), PickUpObject, LevelObjectivesMet);
+            Potion = new MissionIIClassLibrary.Interactibles.Potion(roomNumberAllocator.Next(), PickUpObject, GainLife);
+            InvincibilityAmulet = new MissionIIClassLibrary.Interactibles.InvincibilityAmulet(roomNumberAllocator.Next(), PickUpObject, GainInvincibility);
         }
 
 
@@ -723,16 +718,16 @@ namespace MissionIIClassLibrary
             SpriteTraits explosionSpriteTraits,
             SoundTraits explosionSound)
         {
-            // TODO: FUTURE: We assume the explosion dimensions match the droid.  We should centre it about the droid.
-
             // TODO: play the sound here?
 
             var r = explodingObject.GetBoundingRectangle();
+            var dx = (r.Width - explosionSpriteTraits.Width) / 2;
+            var dy = (r.Height - explosionSpriteTraits.Height) / 2;
 
             Add(
                 new Explosion(
-                    r.Left,
-                    r.Top,
+                    r.Left + dx,
+                    r.Top + dy,
                     explosionSpriteTraits,
                     explosionSound,
                     Remove));
@@ -742,18 +737,18 @@ namespace MissionIIClassLibrary
 
 
 
-        private void CollectObject(InteractibleObject objectToCollect, int collectionScore)
+        private void PickUpObject(InteractibleObject objectToPickUp, int scoreIncrease)
         {
-            AddToPlayerInventory(objectToCollect);
-            Remove(objectToCollect);
-            PlayerIncrementScore(collectionScore);
+            AddToPlayerInventory(objectToPickUp);
+            Remove(objectToPickUp);
+            PlayerIncrementScore(scoreIncrease);
         }
 
 
 
         private void GainInvincibility(GameObject amuletObject)
         {
-            ManGainInvincibility();
+            Man.GainInvincibility();
             Remove(amuletObject);
             MissionIISounds.InvincibilityAmuletSound.Play();
         }
