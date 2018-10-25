@@ -42,7 +42,6 @@
     <Compile Include="Droids\GuardianDroid.cs" />
     <Compile Include="Droids\LinearMoverDroid.cs" />
     <Compile Include="Droids\WanderingMineDroid.cs" />
-    <Compile Include="GameBoardExtensionsForMissionII.cs" />
     <Compile Include="Interactibles\InvincibilityAmulet.cs" />
     <Compile Include="Interactibles\MissionIIInteractibleObject.cs" />
     <Compile Include="Level.cs" />

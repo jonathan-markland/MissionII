@@ -13,7 +13,7 @@ using MissionIIClassLibrary.Interactibles;
 
 namespace MissionIIClassLibrary
 {
-    public class MissionIIGameBoard : IGameBoard
+    public class MissionIIGameBoard
     {
         // The Game Board class is where things have started out, before being refactored out
         // to other classes.  TODO: There is still more that can be done here.  Might also 
@@ -677,7 +677,16 @@ namespace MissionIIClassLibrary
 
             if (carryingEverything)
             {
-                GameClassLibrary.Modes.GameMode.ActiveMode = new Modes.LeavingLevel(this);
+                GameClassLibrary.Modes.GameMode.ActiveMode = 
+                    new Modes.LeavingLevel(
+                          () =>
+                          {
+                              var thisLevelNumber = GetLevelNumber();
+                              ++thisLevelNumber;
+                              PrepareForNewLevel(thisLevelNumber);
+                              return GameClassLibrary.Modes.GameMode.ActiveMode; // PrepareForNewLevel() just set this
+                          }
+                        );
             }
         }
 
@@ -696,7 +705,7 @@ namespace MissionIIClassLibrary
                     , increasesScore
                     , Constants.MultiKillWithSingleBulletBonusScore
                     , IsSpace
-                    , this.KillThingsInRectangle
+                    , KillThingsInRectangle
                     , PlayerIncrementScore
                     , Remove
                 ));
@@ -823,6 +832,33 @@ namespace MissionIIClassLibrary
 
 
 
+        private BulletResult KillThingsInRectangle(
+            Rectangle bulletRectangle,
+            bool increasesScore)
+        {
+            int scoreDelta = 0;
+            uint hitCount = 0;
+
+            ForEachObjectInPlayDo<GameObject>(o =>
+            {
+                if (o.GetBoundingRectangle().Intersects(bulletRectangle))
+                {
+                    var shotResult = o.YouHaveBeenShot(increasesScore);
+                    if (shotResult.Affirmed)
+                    {
+                        if (increasesScore)
+                        {
+                            scoreDelta += shotResult.ScoreIncrease;
+                        }
+                        ++hitCount;
+                    }
+                }
+            });
+
+            return new BulletResult(hitCount, scoreDelta);
+        }
+
+
 
 
 
@@ -832,7 +868,7 @@ namespace MissionIIClassLibrary
         /// <summary>
         /// Returns true if any droids exist in the room.
         /// </summary>
-        public bool DroidsExistInRoom()
+        private bool DroidsExistInRoom()
         {
             bool foundDroids = false;
             ObjectsInRoom.ForEach<Droids.BaseDroid>(o => 

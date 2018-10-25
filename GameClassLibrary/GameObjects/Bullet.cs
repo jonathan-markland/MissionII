@@ -7,6 +7,19 @@ using GameClassLibrary.GameBoard;
 
 namespace GameClassLibrary.GameObjects
 {
+    public struct BulletResult
+    {
+        public readonly uint HitCount;
+        public readonly int TotalScoreIncrease;
+
+        public BulletResult(uint hitCount, int totalScoreIncrease)
+        {
+            HitCount = hitCount;
+            TotalScoreIncrease = totalScoreIncrease;
+        }
+    }
+
+
     public class Bullet : GameObject
     {
         private readonly BulletTraits _bulletTraits;
@@ -15,7 +28,7 @@ namespace GameClassLibrary.GameObjects
 		private readonly Func<Rectangle, bool> _isSpace;
 		private readonly int _bonusScore;
 		private readonly SpriteInstance _spriteInstance;
-        private readonly Func<Rectangle, bool, GameBoardExtensions.BulletResult> _killThingsInRectangle;
+        private readonly Func<Rectangle, bool, BulletResult> _killThingsInRectangle;
         private readonly Action<int> _incrementPlayerScore;
         private readonly Action<GameObject> _removeObject;
 
@@ -30,7 +43,7 @@ namespace GameClassLibrary.GameObjects
             bool increasesScore, 
             int bonusScore,
             Func<Rectangle, bool> isSpace,
-            Func<Rectangle, bool, GameBoardExtensions.BulletResult> killThingsInRectangle,
+            Func<Rectangle, bool, BulletResult> killThingsInRectangle,
             Action<int> incrementPlayerScore,
             Action<GameObject> removeObject)
         {

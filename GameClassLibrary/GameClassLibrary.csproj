@@ -55,10 +55,8 @@
     <Compile Include="Containers\SuddenlyReplaceableList.cs" />
     <Compile Include="Controls\AccessCodeAccumulatorControl.cs" />
     <Compile Include="Controls\NameEntryControl.cs" />
-    <Compile Include="GameBoard\GameBoardExtensions.cs" />
     <Compile Include="GameBoard\GameObject.cs" />
     <Compile Include="GameBoard\GameObjectExtensions.cs" />
-    <Compile Include="GameBoard\IGameBoard.cs" />
     <Compile Include="GameBoard\InteractibleObject.cs" />
     <Compile Include="GameBoard\ListGameObjectExtensions.cs" />
     <Compile Include="GameBoard\ShotStruct.cs" />
