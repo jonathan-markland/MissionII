@@ -596,20 +596,30 @@ namespace MissionIIClassLibrary
 
 
 
+        private Droids.HomingDroid NewHomingDroid()
+        {
+            return new Droids.HomingDroid(ManWalksIntoDroidAction, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion);
+        }
+
+
+        private Droids.WanderingDroid NewWanderingDroid()
+        {
+            return new Droids.WanderingDroid(GetFreeDirections, ManWalksIntoDroidAction, StartBullet, MoveAdversaryOnePixel, StartExplosion);
+        }
+
+
+        private Droids.DestroyerDroid NewDestroyerDroid()
+        {
+            return new Droids.DestroyerDroid(ManWalksIntoDroidAction, StartBullet, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion);
+        }
+
+
+
         public void AddDroidsForLevel1(List<GameObject> objectsList)
         {
-            var theThreshold = Constants.IdealDroidCountPerRoom / 2;
-
             for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
             {
-                if (j < theThreshold)
-                {
-                    objectsList.Add(new Droids.HomingDroid(ManWalksIntoDroidAction, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion));
-                }
-                else
-                {
-                    objectsList.Add(new Droids.HomingDroid(ManWalksIntoDroidAction, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion)); // Not decided yet:  WanderingMineDroid());
-                }
+                objectsList.Add(NewHomingDroid());
             }
         }
 
@@ -618,21 +628,16 @@ namespace MissionIIClassLibrary
         public void AddDroidsForLevel2(List<GameObject> objectsList)
         {
             var theThreshold1 = Constants.IdealDroidCountPerRoom / 3;
-            var theThreshold2 = Constants.IdealDroidCountPerRoom / 2;
 
             for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
             {
                 if (j < theThreshold1)
                 {
-                    objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, ManWalksIntoDroidAction, StartBullet, MoveAdversaryOnePixel, StartExplosion));
-                }
-                else if (j < theThreshold2)
-                {
-                    objectsList.Add(new Droids.HomingDroid(ManWalksIntoDroidAction, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion)); // Not decided yet:  WanderingMineDroid());
+                    objectsList.Add(NewWanderingDroid());
                 }
                 else
                 {
-                    objectsList.Add(new Droids.HomingDroid(ManWalksIntoDroidAction, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion));
+                    objectsList.Add(NewHomingDroid());
                 }
             }
         }
@@ -648,15 +653,15 @@ namespace MissionIIClassLibrary
             {
                 if (j < theThreshold1)
                 {
-                    objectsList.Add(new Droids.DestroyerDroid(ManWalksIntoDroidAction, StartBullet, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion));
+                    objectsList.Add(NewDestroyerDroid());
                 }
                 else if (j < theThreshold2)
                 {
-                    objectsList.Add(new Droids.WanderingDroid(GetFreeDirections, ManWalksIntoDroidAction, StartBullet, MoveAdversaryOnePixel, StartExplosion));
+                    objectsList.Add(NewWanderingDroid());
                 }
                 else
                 {
-                    objectsList.Add(new Droids.HomingDroid(ManWalksIntoDroidAction, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion));
+                    objectsList.Add(NewHomingDroid());
                 }
             }
         }
