@@ -13,19 +13,16 @@ namespace MissionIIClassLibrary.Modes
         public EnteringLevel(MissionIIGameBoard theGameBoard)
         {
             _gameBoard = theGameBoard;
-            if (ThisLevelHasAccessCode)
+
+            if (LevelHasAccessCode(_gameBoard.GetLevelNumber()))
             {
                 _levelAccessCode = GameClassLibrary.Algorithms.LevelAccessCodes.GetForLevel(_gameBoard.GetLevelNumber());
             }
         }
 
-        private bool ThisLevelHasAccessCode
+        private bool LevelHasAccessCode(int levelNumber)
         {
-            get
-            {
-                var l = _gameBoard.GetLevelNumber();
-                return (l >= Constants.FirstLevelWithAccessCode && l <= Constants.LastLevelWithAccessCode);
-            }
+            return (levelNumber >= Constants.FirstLevelWithAccessCode && levelNumber <= Constants.LastLevelWithAccessCode);
         }
 
         public override void AdvanceOneCycle(KeyStates theKeyStates)
@@ -52,10 +49,11 @@ namespace MissionIIClassLibrary.Modes
             drawingTarget.DrawSprite(0, 0, MissionIISprites.Background.GetHostImageObject(0));
 
             var cx = Constants.ScreenWidth / 2;
+            var levelNumber = _gameBoard.GetLevelNumber();
 
-            drawingTarget.DrawText(cx, 40, "LEVEL " + _gameBoard.GetLevelNumber(), MissionIIFonts.GiantFont, TextAlignment.Centre);
+            drawingTarget.DrawText(cx, 40, "LEVEL " + levelNumber, MissionIIFonts.GiantFont, TextAlignment.Centre);
 
-            if (ThisLevelHasAccessCode)
+            if (LevelHasAccessCode(levelNumber))
             {
                 drawingTarget.DrawText(Constants.ScreenWidth - 10, 50, "ACCESS", MissionIIFonts.NarrowFont, TextAlignment.Right);
                 drawingTarget.DrawText(Constants.ScreenWidth - 10, 80, _levelAccessCode, MissionIIFonts.NarrowFont, TextAlignment.Right);
