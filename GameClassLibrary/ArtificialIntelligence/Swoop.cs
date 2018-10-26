@@ -1,43 +1,31 @@
 ﻿
 using System;
 using GameClassLibrary.Math;
-using GameClassLibrary.Walls;
 using GameClassLibrary.GameBoard;
 
 namespace GameClassLibrary.ArtificialIntelligence
 {
-    public class Swoop : AbstractIntelligenceProvider
+    public static class Swoop
     {
-        private readonly Action _manDestroyAction;
-        private readonly Func<Rectangle> _getManExtents;
-        private readonly GameObject _gameObject;
-
-
-        public Swoop(
+        public static ArtificialIntelligenceFunctions New(
             GameObject gameObject,
             Action manDestroyAction,
             Func<Rectangle> getManExtents)
         {
-            _manDestroyAction = manDestroyAction;
-            _getManExtents = getManExtents;
-            _gameObject = gameObject;
-        }
-
-
-
-        public override void AdvanceOneCycle()
-        {
-            for (int i = 0; i < Constants.SwoopMovementCycles; i++)
+            return new ArtificialIntelligenceFunctions(() => 
             {
-                var moveDeltas = _gameObject.GetBoundingRectangle().GetMovementDeltasToHeadTowards(_getManExtents());
-
-                _gameObject.MoveBy(moveDeltas);
-
-                if (_gameObject.GetBoundingRectangle().Intersects(_getManExtents()))
+                for (int i = 0; i < Constants.SwoopMovementCycles; i++)
                 {
-                    _manDestroyAction();
+                    var moveDeltas = gameObject.GetBoundingRectangle().GetMovementDeltasToHeadTowards(getManExtents());
+
+                    gameObject.MoveBy(moveDeltas);
+
+                    if (gameObject.GetBoundingRectangle().Intersects(getManExtents()))
+                    {
+                        manDestroyAction();
+                    }
                 }
-            }
+            });
         }
     }
 }

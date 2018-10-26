@@ -20,7 +20,7 @@ namespace MissionIIClassLibrary.Droids
                   startExplosion)
         {
             base.SetIntelligenceProvider(
-                new FiringAttractor(this, fireBullet, moveAdversaryOnePixel, getManExtents));
+                FiringAttractor.New(this, fireBullet, moveAdversaryOnePixel, getManExtents));
         }
 
         public override int KillScore

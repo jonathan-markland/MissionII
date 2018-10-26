@@ -6,56 +6,42 @@ using GameClassLibrary.GameBoard;
 
 namespace GameClassLibrary.ArtificialIntelligence
 {
-    public class Guardian: AbstractIntelligenceProvider
+    public static class Guardian
     {
-		private readonly Action<GameObject> _manWalksIntoDroidAction;
-        private readonly Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> _moveAdversaryOnePixel;
-        private readonly Func<Rectangle> _getManExtents;
-        private readonly GameObject _gameObject;
-
-        private int _facingDirection = 0;
-        private MovementDeltas _movementDeltas = MovementDeltas.Stationary;
-
-
-
-        public Guardian(
+        public static ArtificialIntelligenceFunctions New(
             GameObject gameObject,
             Action<GameObject> manWalksIntoDroidAction,
             Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents)
         {
-            _manWalksIntoDroidAction = manWalksIntoDroidAction;
-            _moveAdversaryOnePixel = moveAdversaryOnePixel;
-            _getManExtents = getManExtents;
-            _gameObject = gameObject;
-        }
+            int facingDirection = 0;
+            var movementDeltas = MovementDeltas.Stationary;
 
-
-
-        public override void AdvanceOneCycle()
-        {
-            if (_movementDeltas.IsStationary)
+            return new ArtificialIntelligenceFunctions(()=>
             {
-                _facingDirection = GameClassLibrary.Math.Rng.Generator.Next(8);
-                _movementDeltas = MovementDeltas.ConvertFromFacingDirection(_facingDirection);
-            }
-            else
-            {
-                var hitResult = _moveAdversaryOnePixel(_gameObject, _movementDeltas);  // TODO: differentiate walls/other droids
-                if (hitResult != CollisionDetection.WallHitTestResult.NothingHit)
+                if (movementDeltas.IsStationary)
                 {
-                    if (_gameObject.GetBoundingRectangle().Intersects(
-                        _getManExtents().Inflate(5)))
+                    facingDirection = GameClassLibrary.Math.Rng.Generator.Next(8);
+                    movementDeltas = MovementDeltas.ConvertFromFacingDirection(facingDirection);
+                }
+                else
+                {
+                    var hitResult = moveAdversaryOnePixel(gameObject, movementDeltas);  // TODO: differentiate walls/other droids
+                    if (hitResult != CollisionDetection.WallHitTestResult.NothingHit)
                     {
-                        _manWalksIntoDroidAction(_gameObject);
-                    }
-                    else
-                    {
-                        _facingDirection = (_facingDirection + 4) & 7;  // TODO: reverse direction function
-                        _movementDeltas = MovementDeltas.ConvertFromFacingDirection(_facingDirection);
+                        if (gameObject.GetBoundingRectangle().Intersects(
+                            getManExtents().Inflate(5)))
+                        {
+                            manWalksIntoDroidAction(gameObject);
+                        }
+                        else
+                        {
+                            facingDirection = (facingDirection + 4) & 7;  // TODO: reverse direction function
+                            movementDeltas = MovementDeltas.ConvertFromFacingDirection(facingDirection);
+                        }
                     }
                 }
-            }
+            });
         }
     }
 }

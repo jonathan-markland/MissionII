@@ -5,7 +5,6 @@ using GameClassLibrary.Input;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Sound;
 using GameClassLibrary.GameBoard;
-using GameClassLibrary.GameObjects;
 using GameClassLibrary.ArtificialIntelligence;
 
 namespace MissionIIClassLibrary.Droids
@@ -20,7 +19,7 @@ namespace MissionIIClassLibrary.Droids
         private int _imageIndex = 0;
         private int _animationCountdown = AnimationReset;
         private const int AnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
-        private AbstractIntelligenceProvider _intelligenceProvider;
+        private ArtificialIntelligenceFunctions _intelligenceProvider;
 
 
 
@@ -42,7 +41,7 @@ namespace MissionIIClassLibrary.Droids
 
 
 
-        protected void SetIntelligenceProvider(AbstractIntelligenceProvider ai) // not ideal, problem with calling base constructor in derived class because AI object needs to be tied to derived object
+        protected void SetIntelligenceProvider(ArtificialIntelligenceFunctions ai) // not ideal, problem with calling base constructor in derived class because AI object needs to be tied to derived object
         {
             _intelligenceProvider = ai;
         }

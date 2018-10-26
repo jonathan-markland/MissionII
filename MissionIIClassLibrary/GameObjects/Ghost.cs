@@ -13,12 +13,12 @@ namespace MissionIIClassLibrary.GameObjects
         private int _stunCountDown = 0;
         private int _startCountDown = Constants.GhostStartCycles;
         private SpriteInstance _spriteInstance;
-        private AbstractIntelligenceProvider _intelligenceProvider;
+        private ArtificialIntelligenceFunctions _intelligenceProvider;
         private Func<Point> _getStartingCorner;
 
         public Ghost(Action manDestroyAction, Func<Point> getStartingCorner, Func<Rectangle> getManExtents)
         {
-            _intelligenceProvider = new Swoop(this, manDestroyAction, getManExtents);
+            _intelligenceProvider = Swoop.New(this, manDestroyAction, getManExtents);
             _spriteInstance = new SpriteInstance();
             _getStartingCorner = getStartingCorner;
         }

@@ -20,7 +20,7 @@ namespace MissionIIClassLibrary.Droids
                   startExplosion)
         {
             base.SetIntelligenceProvider(
-                new WanderingMine(this, freeDirectionFinder, manWalksIntoDroidAction,
+                WanderingMine.New(this, freeDirectionFinder, manWalksIntoDroidAction,
                       GameClassLibrary.ArtificialIntelligence.Constants.WanderingMineSpeedDivisor, 
                       moveAdversaryOnePixel, getManExtents));
         }

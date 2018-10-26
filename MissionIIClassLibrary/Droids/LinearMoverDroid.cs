@@ -21,7 +21,7 @@ namespace MissionIIClassLibrary.Droids
                   startExplosion)
         {
             base.SetIntelligenceProvider(
-                new LinearMover(
+                LinearMover.New(
                     this, new Point(100, 50), new Point(200, 50), 1, 
                     manWalksIntoDroidAction, moveAdversaryOnePixel, getManExtents));
         }
