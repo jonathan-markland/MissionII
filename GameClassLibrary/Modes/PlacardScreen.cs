@@ -1,7 +1,6 @@
 ﻿
 using System;
 using GameClassLibrary.Graphics;
-using GameClassLibrary.Input;
 
 namespace GameClassLibrary.Modes
 {
@@ -9,54 +8,46 @@ namespace GameClassLibrary.Modes
     /// Shows a placard sprite for a period, with an accompanying sound.
     /// Then move to the next mode using the given function.
     /// </summary>
-    public class PlacardScreen : GameMode
+    public static class PlacardScreen
     {
-        private int _countDown;
-        private bool _firstCycle = true;
-        private readonly Sound.SoundTraits _placardSound;
-        private readonly SpriteTraits _placardSprite;
-        private readonly Func<GameMode> _getNextModeFunction;
-
-
-
-        public PlacardScreen(
+        public static ModeFunctions New(
             int placardCycles,
             SpriteTraits placardSprite,
             Sound.SoundTraits placardSound,
-            Func<GameMode> getNextModeFunction)
+            Func<ModeFunctions> getNextModeFunction)
         {
-            _getNextModeFunction = getNextModeFunction;
-            _placardSprite = placardSprite;
-            _placardSound = placardSound;
-            _countDown = placardCycles;
-        }
+            var countDown = placardCycles;
+            bool firstCycle = true;
 
+            return new ModeFunctions(
 
+                // -- Advance one cycle --
 
-        public override void AdvanceOneCycle(KeyStates theKeyStates)
-        {
-            if (_firstCycle)
-            {
-                _firstCycle = false;
-                _placardSound.Play();
-            }
+                keyStates =>
+                {
+                    if (firstCycle)
+                    {
+                        firstCycle = false;
+                        placardSound.Play();
+                    }
 
-            if (_countDown > 0)
-            {
-                --_countDown;
-            }
-            else
-            {
-                ActiveMode = _getNextModeFunction();
-            }
-        }
+                    if (countDown > 0)
+                    {
+                        --countDown;
+                    }
+                    else
+                    {
+                        GameMode.ActiveMode = getNextModeFunction();
+                    }
+                },
 
+                // -- Draw --
 
-
-        public override void Draw(IDrawingTarget drawingTarget)
-        {
-            drawingTarget.ClearScreen();
-            drawingTarget.DrawFirstSpriteScreenCentred(_placardSprite);
+                drawingTarget =>
+                {
+                    drawingTarget.ClearScreen();
+                    drawingTarget.DrawFirstSpriteScreenCentred(placardSprite);
+                });
         }
     }
 }

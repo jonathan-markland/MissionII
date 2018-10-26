@@ -4,15 +4,15 @@ using GameClassLibrary.Graphics;
 
 namespace GameClassLibrary.Modes
 {
-    public class Pause : PauseWithChangeLevel  // TODO: Perhaps the wrong way around!
+    public static class Pause  // TODO: Perhaps the wrong way around!
     {
-        public Pause(
-            GameMode originalMode,
+        public static ModeFunctions New(
+            ModeFunctions originalMode,
             SpriteTraits pauseSprite,
             Sound.SoundTraits pauseSound,
-            Func<GameMode> getNextModeFunction)
-            : base(
-                  originalMode, 
+            Func<ModeFunctions> getNextModeFunction)
+        {
+            return PauseWithChangeLevel.New(originalMode,
                   pauseSprite,
                   pauseSound,
                   0,
@@ -20,8 +20,7 @@ namespace GameClassLibrary.Modes
                   null,
                   s => false,
                   getNextModeFunction,
-                  () => false)
-        {
+                  () => false);
         }
     }
 }

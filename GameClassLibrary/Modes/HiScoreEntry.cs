@@ -1,25 +1,13 @@
 ﻿
 using System;
 using GameClassLibrary.Graphics;
-using GameClassLibrary.Input;
 using GameClassLibrary.Controls.Hiscore;
 
 namespace GameClassLibrary.Modes
 {
-    public class HiScoreEntry : GameMode
+    public static class HiScoreEntry
     {
         public static HiScoreScreenModel HiScoreTableModel;  // TODO: reconsider
-
-        private uint _countDown;
-        private readonly uint _screenCycles;
-        private readonly HiScoreScreenControl _hiScoreScreenControl;
-        private readonly Font _enterNameFont;
-        private readonly Font _tableFont;
-        private readonly SpriteTraits _cursorSprite;
-        private readonly Func<GameMode> _getTitleScreenModeFunction;
-        private readonly Func<GameMode> _getStartNewGameModeFunction;
-        private readonly Func<GameMode> _getRollOverModeFunction;
-        private readonly SpriteTraits _backgroundSprite;
 
 
 
@@ -36,71 +24,59 @@ namespace GameClassLibrary.Modes
 
 
 
-        /// <summary>
-        /// Constructor for finishing a game when scoreAchieved > 0.
-        /// If scoreAchieved == 0, we just show the screen.
-        /// </summary>
-        public HiScoreEntry(
+        public static ModeFunctions New(
             uint screenCycles,
             SpriteTraits backgroundSprite,
             Font enterNameFont,
             Font tableFont,
             SpriteTraits cursorSprite,
             uint scoreAchieved,
-            Func<GameMode> getTitleScreenModeFunction,
-            Func<GameMode> getStartNewGameModeFunction,
-            Func<GameMode> getRollOverModeFunction)
+            Func<ModeFunctions> getTitleScreenModeFunction,
+            Func<ModeFunctions> getStartNewGameModeFunction,
+            Func<ModeFunctions> getRollOverModeFunction)
         {
-            _backgroundSprite = backgroundSprite;
-            _getTitleScreenModeFunction = getTitleScreenModeFunction;
-            _getStartNewGameModeFunction = getStartNewGameModeFunction;
-            _getRollOverModeFunction = getRollOverModeFunction;
-            _tableFont = tableFont;
-            _enterNameFont = enterNameFont;
-            _cursorSprite = cursorSprite;
-            _screenCycles = screenCycles;
-            _countDown = screenCycles;
-
-            _hiScoreScreenControl = new HiScoreScreenControl(
+            var hiScoreScreenControl = new HiScoreScreenControl(
                 new GameClassLibrary.Math.Rectangle(10, 70, 300, 246 - 70),// TODO: screen dimension constants!
-                _tableFont,
-                _cursorSprite,
+                tableFont,
+                cursorSprite,
                 HiScoreTableModel);
 
-            _hiScoreScreenControl.ForceEnterScore(scoreAchieved);
-        }
+            hiScoreScreenControl.ForceEnterScore(scoreAchieved);
 
+            return new ModeFunctions(
 
+                // -- Advance one cycle --
 
-        public override void AdvanceOneCycle(KeyStates theKeyStates)
-        {
-            if (_hiScoreScreenControl.InEditMode)
-            {
-                _hiScoreScreenControl.AdvanceOneCycle(theKeyStates);
-            }
-            else
-            {
-                var hiScoreShow = new HiScoreShow(
-                        _screenCycles, _backgroundSprite, _tableFont,
-                        _getStartNewGameModeFunction, _getTitleScreenModeFunction);
+                keyStates =>
+                {
+                    if (hiScoreScreenControl.InEditMode)
+                    {
+                        hiScoreScreenControl.AdvanceOneCycle(keyStates);
+                    }
+                    else
+                    {
+                        var hiScoreShow = HiScoreShow.New(
+                                screenCycles, backgroundSprite, tableFont,
+                                getStartNewGameModeFunction, getTitleScreenModeFunction);
 
-                ActiveMode = new ChangeStageFreeze(
-                    _screenCycles,
-                    hiScoreShow,
-                    null,
-                    _getTitleScreenModeFunction);
-            }
-        }
+                        GameMode.ActiveMode = ChangeStageFreeze.New(
+                            screenCycles,
+                            hiScoreShow,
+                            null,
+                            getTitleScreenModeFunction);
+                    }
+                },
 
+                // -- Draw --
 
-
-        public override void Draw(IDrawingTarget drawingTarget)
-        {
-            drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, _backgroundSprite.GetHostImageObject(0));
-            _hiScoreScreenControl.DrawScreen(drawingTarget);
-            drawingTarget.DrawText(
-                Screen.Width / 2, 56, "ENTER YOUR NAME", _enterNameFont, TextAlignment.Centre);
+                drawingTarget =>
+                {
+                    drawingTarget.ClearScreen();
+                    drawingTarget.DrawSprite(0, 0, backgroundSprite.GetHostImageObject(0));
+                    hiScoreScreenControl.DrawScreen(drawingTarget);
+                    drawingTarget.DrawText(
+                        Screen.Width / 2, 56, "ENTER YOUR NAME", enterNameFont, TextAlignment.Centre);
+                });
         }
     }
 }

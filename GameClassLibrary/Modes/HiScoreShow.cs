@@ -1,72 +1,58 @@
 ﻿
 using System;
 using GameClassLibrary.Graphics;
-using GameClassLibrary.Input;
 using GameClassLibrary.Controls.Hiscore;
 
 namespace GameClassLibrary.Modes
 {
-    public class HiScoreShow : GameMode
+    public static class HiScoreShow
     {
-        private uint _countDown;
-        private readonly uint _screenCycles;
-        private readonly HiScoreScreenControl _hiScoreScreenControl;
-        private readonly Font _tableFont;
-        private readonly Func<GameMode> _getStartNewGameModeFunction;
-        private readonly Func<GameMode> _getRollOverModeFunction;
-        private readonly SpriteTraits _backgroundSprite;
-
-
-
-        public HiScoreShow(
+        public static ModeFunctions New(
             uint screenCycles,
             SpriteTraits backgroundSprite,
             Font tableFont,
-            Func<GameMode> getStartNewGameModeFunction,
-            Func<GameMode> getRollOverModeFunction)
+            Func<ModeFunctions> getStartNewGameModeFunction,
+            Func<ModeFunctions> getRollOverModeFunction)
         {
-            _backgroundSprite = backgroundSprite;
-            _getStartNewGameModeFunction = getStartNewGameModeFunction;
-            _getRollOverModeFunction = getRollOverModeFunction;
-            _tableFont = tableFont;
-            _screenCycles = screenCycles;
-            _countDown = screenCycles;
+            uint countDown = screenCycles;
 
-            _hiScoreScreenControl = new HiScoreScreenControl(
+            var hiScoreScreenControl = new HiScoreScreenControl(
                 new GameClassLibrary.Math.Rectangle(10, 70, 300, 246 - 70),// TODO: screen dimension constants!
-                _tableFont,
+                tableFont,
                 null,
                 HiScoreEntry.HiScoreTableModel);
-        }
 
+            return new ModeFunctions(
 
+                // -- Advance one cycle --
 
-        public override void AdvanceOneCycle(KeyStates theKeyStates)
-        {
-            if (_countDown > 0)
-            {
-                if (theKeyStates.Fire)
+                keyStates =>
                 {
-                    if (_countDown < (_screenCycles * 3 / 4))
+                    if (countDown > 0)
                     {
-                        ActiveMode = _getStartNewGameModeFunction();
+                        if (keyStates.Fire)
+                        {
+                            if (countDown < (screenCycles * 3 / 4))
+                            {
+                                GameMode.ActiveMode = getStartNewGameModeFunction();
+                            }
+                        }
+                        --countDown;
                     }
-                }
-                --_countDown;
-            }
-            else
-            {
-                ActiveMode = _getRollOverModeFunction();
-            }
-        }
+                    else
+                    {
+                        GameMode.ActiveMode = getRollOverModeFunction();
+                    }
+                },
 
+                // -- Draw --
 
-
-        public override void Draw(IDrawingTarget drawingTarget)
-        {
-            drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, _backgroundSprite.GetHostImageObject(0));
-            _hiScoreScreenControl.DrawScreen(drawingTarget);
+                drawingTarget =>
+                {
+                    drawingTarget.ClearScreen();
+                    drawingTarget.DrawSprite(0, 0, backgroundSprite.GetHostImageObject(0));
+                    hiScoreScreenControl.DrawScreen(drawingTarget);
+                });
         }
     }
 }

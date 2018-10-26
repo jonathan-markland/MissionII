@@ -92,6 +92,7 @@
     <Compile Include="Math\Rng.cs" />
     <Compile Include="Modes\HiScoreEntry.cs" />
     <Compile Include="Modes\HiScoreShow.cs" />
+    <Compile Include="Modes\ModeFunctions.cs" />
     <Compile Include="Modes\Pause.cs" />
     <Compile Include="Modes\PauseWithChangeLevel.cs" />
     <Compile Include="Modes\PlacardScreen.cs" />

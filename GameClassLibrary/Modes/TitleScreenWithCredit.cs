@@ -1,84 +1,65 @@
 ﻿
 using System;
 using GameClassLibrary.Graphics;
-using GameClassLibrary.Input;
 
 namespace GameClassLibrary.Modes
 {
-    public class TitleScreenWithCredit : GameMode
+    public static class TitleScreenWithCredit
     {
-        private readonly int _titleScreenRollCycles;
-        private readonly int _fireButtonPressEnableTime;
-        private readonly Sound.SoundTraits _introSound;
-        private readonly SpriteTraits _titleScreenBackground;
-        private readonly Font _font;
-        private readonly Func<GameMode> _getStartGameModeObject;
-        private readonly Func<GameMode> _getRollOntoScreenObject;
-        private readonly string _creditMessageText;
-
-		private int _countDown;
-        private bool _releaseWaiting = true;
-        private bool _firstCycle = true;
-
-
-
-        public TitleScreenWithCredit(
+        public static ModeFunctions New(
             int titleScreenRollCycles,
             SpriteTraits titleScreenBackground,
             Sound.SoundTraits introSound,
             Font font, string creditMessageText,
-            Func<GameMode> getStartGameModeObject,
-            Func<GameMode> getRollOntoScreenObject)
+            Func<ModeFunctions> getStartGameModeObject,
+            Func<ModeFunctions> getRollOntoScreenObject)
         {
-            _creditMessageText = creditMessageText;
-            _getStartGameModeObject = getStartGameModeObject;
-            _getRollOntoScreenObject = getRollOntoScreenObject;
-            _font = font;
-            _titleScreenBackground = titleScreenBackground;
-            _introSound = introSound;
-            _countDown = titleScreenRollCycles;
-            _titleScreenRollCycles = titleScreenRollCycles;
-            _fireButtonPressEnableTime = (titleScreenRollCycles * 3) / 4;
-        }
+            var countDown = titleScreenRollCycles;
+            var fireButtonPressEnableTime = (titleScreenRollCycles * 3) / 4;
+            bool releaseWaiting = true;
+            bool firstCycle = true;
 
+            return new ModeFunctions(
 
+                // -- Advance one cycle --
 
-        public override void AdvanceOneCycle(KeyStates theKeyStates)
-        {
-            if (_firstCycle)
-            {
-                _introSound.PlayAsBackgroundMusic();
-                _firstCycle = false;
-            }
+                keyStates =>
+                {
+                    if (firstCycle)
+                    {
+                        introSound.PlayAsBackgroundMusic();
+                        firstCycle = false;
+                    }
 
-            if (theKeyStates.Fire)
-            {
-                if (_releaseWaiting || _countDown > _fireButtonPressEnableTime) return;
-                ActiveMode = _getStartGameModeObject();
-            }
+                    if (keyStates.Fire)
+                    {
+                        if (releaseWaiting || countDown > fireButtonPressEnableTime) return;
+                        GameMode.ActiveMode = getStartGameModeObject();
+                    }
 
-            _releaseWaiting = false;
+                    releaseWaiting = false;
 
-            if (_countDown > 0)
-            {
-                --_countDown;
-            }
-            else if (_getRollOntoScreenObject != null)
-            {
-                ActiveMode = _getRollOntoScreenObject();  // time to leave this mode  eg: a sequence of modes for rolling titles.
-            }
-        }
+                    if (countDown > 0)
+                    {
+                        --countDown;
+                    }
+                    else if (getRollOntoScreenObject != null)
+                    {
+                        GameMode.ActiveMode = getRollOntoScreenObject();  // time to leave this mode  eg: a sequence of modes for rolling titles.
+                    }
+                },
 
+                // -- Draw --
 
-
-        public override void Draw(IDrawingTarget drawingTarget)
-        {
-            drawingTarget.ClearScreen();
-            drawingTarget.DrawSprite(0, 0, _titleScreenBackground.GetHostImageObject(0));
-            if (_countDown < _titleScreenRollCycles / 2)
-            {
-                drawingTarget.DrawText(310, 230, _creditMessageText, _font, TextAlignment.Right);
-            }
+                drawingTarget =>
+                {
+                    drawingTarget.ClearScreen();
+                    drawingTarget.DrawSprite(0, 0, titleScreenBackground.GetHostImageObject(0));
+                    if (countDown < titleScreenRollCycles / 2)
+                    {
+                        drawingTarget.DrawText(310, 230, creditMessageText, font, TextAlignment.Right);
+                    }
+                });
         }
     }
 }

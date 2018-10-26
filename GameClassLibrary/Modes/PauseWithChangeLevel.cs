@@ -1,115 +1,93 @@
 ﻿
 using System;
 using GameClassLibrary.Graphics;
-using GameClassLibrary.Input;
 using GameClassLibrary.Controls;
 
 namespace GameClassLibrary.Modes
 {
-    public class PauseWithChangeLevel : GameMode
+    public static class PauseWithChangeLevel
     {
-        private readonly GameMode _originalMode;
-        private bool _keyReleaseSeen;
-        private bool _restartGameOnNextRelease;
-        private readonly AccessCodeAccumulatorControl _accessCodeControl;
-        private readonly Sound.SoundTraits _pauseSound;
-        private readonly Func<string, bool> _tryCode;
-        private readonly Func<GameMode> _getNextModeFunction;
-        private readonly Func<bool> _canChangeLevel;
-        private readonly SpriteTraits _pauseSprite;
-
-
-
-        public PauseWithChangeLevel(
-            GameMode originalMode, 
+        public static ModeFunctions New(
+            ModeFunctions originalMode,
             SpriteTraits pauseSprite,
             Sound.SoundTraits pauseSound,
             int accessCodeTextTopY,
             Font accessCodesFont,
             Sound.SoundTraits addLetterSound,
             Func<string, bool> tryCode,
-            Func<GameMode> getNextModeFunction,
+            Func<ModeFunctions> getNextModeFunction,
             Func<bool> canChangeLevel)
         {
-            _pauseSprite = pauseSprite;
-            _canChangeLevel = canChangeLevel;
-            _getNextModeFunction = getNextModeFunction;
-            _tryCode = tryCode;
-            _pauseSound = pauseSound;
-            _originalMode = originalMode;
-            _keyReleaseSeen = false; // PAUSE key is taken as held, at the time this object is created.
-            _restartGameOnNextRelease = false;
+            bool keyReleaseSeen = false; // PAUSE key is taken as held, at the time this object is created.
+            bool restartGameOnNextRelease = false;
+
+
+
+            AccessCodeAccumulatorControl accessCodeControl = null;
 
             if (accessCodesFont != null
                 && addLetterSound != null
                 && tryCode != null
                 && canChangeLevel != null)
             {
-                _accessCodeControl = new AccessCodeAccumulatorControl(
+                accessCodeControl = new AccessCodeAccumulatorControl(
                     Screen.Width / 2,
                     accessCodeTextTopY,
                     4,
-                    OnAccessCodeEntered,
+                    accessCode =>
+                    {
+                        if (tryCode(accessCode))
+                        {
+                            GameMode.ActiveMode = getNextModeFunction();
+                        }
+                        else
+                        {
+                            accessCodeControl?.ClearEntry();
+                            pauseSound.Play();
+                        }
+                    },
                     addLetterSound,
                     accessCodesFont);
             }
-        }
 
 
 
-        private void OnAccessCodeEntered(string accessCode)
-        {
-            if (_tryCode(accessCode))
-            {
-                ActiveMode = _getNextModeFunction();
-            }
-            else
-            { 
-                _accessCodeControl?.ClearEntry();
-                _pauseSound.Play();
-            }
-        }
+            return new ModeFunctions(
 
+                // -- Advance one cycle --
 
-
-        public override void AdvanceOneCycle(KeyStates theKeyStates)
-        {
-            if (!_keyReleaseSeen)
-            {
-                if (!theKeyStates.Pause)
+                keyStates =>
                 {
-                    _keyReleaseSeen = true;
-                    if (_restartGameOnNextRelease)
+                    if (!keyReleaseSeen)
                     {
-                        ExitToOriginalMode();
+                        if (!keyStates.Pause)
+                        {
+                            keyReleaseSeen = true;
+                            if (restartGameOnNextRelease)
+                            {
+                                GameMode.ActiveMode = originalMode;
+                            }
+                        }
                     }
-                }
-            }
-            else if (theKeyStates.Pause)
-            {
-                _restartGameOnNextRelease = true;
-                _keyReleaseSeen = false;
-            }
-            else if (_accessCodeControl != null && _canChangeLevel()) // Hint:  Allow pause, but disallow changing to avoid cheating:  eg: Man.IsDead!
-            {
-                _accessCodeControl.AdvanceOneCycle(theKeyStates);
-            }
-        }
+                    else if (keyStates.Pause)
+                    {
+                        restartGameOnNextRelease = true;
+                        keyReleaseSeen = false;
+                    }
+                    else if (accessCodeControl != null && canChangeLevel()) // Hint:  Allow pause, but disallow changing to avoid cheating:  eg: Man.IsDead!
+                    {
+                        accessCodeControl.AdvanceOneCycle(keyStates);
+                    }
+                },
 
+                // -- Draw --
 
-
-        public override void Draw(IDrawingTarget drawingTarget)
-        {
-            _originalMode.Draw(drawingTarget);
-            drawingTarget.DrawFirstSpriteScreenCentred(_pauseSprite);
-            _accessCodeControl?.Draw(drawingTarget);
-        }
-
-
-
-        private void ExitToOriginalMode()
-        {
-            ActiveMode = _originalMode;
+                drawingTarget =>
+                {
+                    originalMode.Draw(drawingTarget);
+                    drawingTarget.DrawFirstSpriteScreenCentred(pauseSprite);
+                    accessCodeControl?.Draw(drawingTarget);
+                });
         }
     }
 }
