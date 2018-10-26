@@ -4,16 +4,15 @@ using GameClassLibrary.Modes;
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class LeavingLevel : ChangeStageFreeze
+    public static class LeavingLevel
     {
-        public LeavingLevel(Func<GameMode> getNextModeFunction)
-            : base(
-                  Constants.LeavingLevelCycles,
-                  ActiveMode,
-                  MissionIISounds.LevelExitActivated,
-                  getNextModeFunction)
+        public static ModeFunctions New(Func<ModeFunctions> getNextModeFunction)
         {
-            // No actions
+            return ChangeStageFreeze.New(
+                  Constants.LeavingLevelCycles,
+                  GameMode.ActiveMode,
+                  MissionIISounds.LevelExitActivated,
+                  getNextModeFunction);
         }
     }
 }

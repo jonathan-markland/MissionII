@@ -1,18 +1,20 @@
 ﻿
+using GameClassLibrary.Modes;
+
 namespace MissionIIClassLibrary.Modes
 {
-    public class TitleScreen : GameClassLibrary.Modes.TitleScreenWithCredit
+    public static class TitleScreen
     {
-        public TitleScreen()
-            : base(
-                  Constants.TitleScreenRollCycles,
+        public static ModeFunctions New()
+        {
+            return GameClassLibrary.Modes.TitleScreenWithCredit.New(
+                Constants.TitleScreenRollCycles,
                   MissionIISprites.TitleScreen,
                   MissionIISounds.Intro,
                   MissionIIFonts.NarrowFont,
                   "RETRO REMAKE   BY JONATHAN MARKLAND",
-                  () => new StartNewGame(),
-                  () => new HiScoreShow())
-        {
+                  () => StartNewGame.New(),
+                  () => HiScoreShow.New());
         }
     }
 }

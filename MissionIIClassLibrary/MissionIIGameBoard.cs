@@ -166,7 +166,7 @@ namespace MissionIIClassLibrary
             }
             else
             {
-                GameClassLibrary.Modes.GameMode.ActiveMode = new Modes.GameOver(Score);
+                GameClassLibrary.Modes.GameMode.ActiveMode = Modes.GameOver.New(Score);
             }
         }
 
@@ -216,7 +216,7 @@ namespace MissionIIClassLibrary
             ChooseRoomsForCollectibleObjects();
             PrepareForNewRoom();
 
-            GameClassLibrary.Modes.GameMode.ActiveMode = new Modes.EnteringLevel(this);
+            GameClassLibrary.Modes.GameMode.ActiveMode = Modes.EnteringLevel.New(this);
         }
 
 
@@ -678,7 +678,7 @@ namespace MissionIIClassLibrary
             if (carryingEverything)
             {
                 GameClassLibrary.Modes.GameMode.ActiveMode = 
-                    new Modes.LeavingLevel(
+                    Modes.LeavingLevel.New(
                           () =>
                           {
                               var thisLevelNumber = GetLevelNumber();

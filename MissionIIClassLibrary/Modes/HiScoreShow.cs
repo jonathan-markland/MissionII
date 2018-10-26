@@ -1,16 +1,18 @@
 ﻿
+using GameClassLibrary.Modes;
+
 namespace MissionIIClassLibrary.Modes
 {
-    public class HiScoreShow : GameClassLibrary.Modes.HiScoreShow
+    public static class HiScoreShow
     {
-        public HiScoreShow()
-            : base(
-                  Constants.TitleScreenRollCycles,
-                  MissionIISprites.HiScoreScreen,
-                  MissionIIFonts.HiScoreFont,
-                  () => new StartNewGame(),
-                  () => new MissionRotatingInstructions())
+        public static ModeFunctions New()
         {
+            return GameClassLibrary.Modes.HiScoreShow.New(
+                Constants.TitleScreenRollCycles,
+                MissionIISprites.HiScoreScreen,
+                MissionIIFonts.HiScoreFont,
+                () => StartNewGame.New(),
+                () => MissionRotatingInstructions.New());
         }
     }
 }

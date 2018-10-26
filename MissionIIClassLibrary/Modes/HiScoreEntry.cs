@@ -1,20 +1,22 @@
 ﻿
+using GameClassLibrary.Modes;
+
 namespace MissionIIClassLibrary.Modes
 {
-    public class HiScoreEntry : GameClassLibrary.Modes.HiScoreEntry
+    public static class HiScoreEntry
     {
-        public HiScoreEntry(uint scoreAchieved)
-            : base(
-                  Constants.TitleScreenRollCycles,
+        public static ModeFunctions New(uint scoreAchieved)
+        {
+            return GameClassLibrary.Modes.HiScoreEntry.New(Constants.TitleScreenRollCycles,
                   MissionIISprites.HiScoreScreen,
                   MissionIIFonts.WideFont,
                   MissionIIFonts.HiScoreFont,
                   MissionIISprites.Life,
                   scoreAchieved,
-                  () => new TitleScreen(),
-                  () => new StartNewGame(),
-                  () => new MissionRotatingInstructions())
-        {
+                  () => TitleScreen.New(),
+                  () => StartNewGame.New(),
+                  () => MissionRotatingInstructions.New());
         }
+
     }
 }

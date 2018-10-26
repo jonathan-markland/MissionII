@@ -1,11 +1,14 @@
 ﻿
+using GameClassLibrary.Modes;
+
 namespace MissionIIClassLibrary.Modes
 {
-    public class MissionRotatingInstructions : GameClassLibrary.Modes.RotatingInstructions
+    public static class MissionRotatingInstructions
     {
-        public MissionRotatingInstructions()
-            : base(
-                        MissionIISprites.Background,
+        public static ModeFunctions New()
+        {
+            return GameClassLibrary.Modes.RotatingInstructions.New(
+                MissionIISprites.Background,
                         MissionIIFonts.NarrowFont,
                           "WRITTEN BY JONATHAN MARKLAND\n"
                         + "BASED ON AN\n"
@@ -26,10 +29,8 @@ namespace MissionIIClassLibrary.Modes
                         + "AVOID ELECTROCUTION\n\n\n"
                         + "USE CURSOR KEYS AND Z TO FIRE",
                           Constants.TitleScreenRollCycles,
-                          () => new StartNewGame(),
-                          () => new TitleScreen() 
-                    )
-        {
+                          () => StartNewGame.New(),
+                          () => TitleScreen.New());
         }
     }
 }

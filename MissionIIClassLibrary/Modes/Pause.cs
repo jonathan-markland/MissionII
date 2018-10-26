@@ -3,20 +3,21 @@ using GameClassLibrary.Modes;
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class Pause : PauseWithChangeLevel
+    public static class Pause
     {
-        public Pause(GameMode originalMode, MissionIIGameBoard theGameBoard)
-            : base(
-                  originalMode,
-                  MissionIISprites.Paused,
-                  MissionIISounds.PauseMode,
-                  Constants.ScreenHeight - 146,
-                  MissionIIFonts.GiantFont,
-                  MissionIISounds.ManFiring,
-                  s => theGameBoard.LevelCodeAccepted(s),
-                  () => new Modes.EnteringLevel(theGameBoard),
-                  () => !theGameBoard.Man.IsDead && !theGameBoard.Man.IsBeingElectrocuted)
+        public static ModeFunctions New(
+            ModeFunctions originalMode, MissionIIGameBoard theGameBoard)
         {
+            return PauseWithChangeLevel.New(
+                originalMode,
+                MissionIISprites.Paused,
+                MissionIISounds.PauseMode,
+                Constants.ScreenHeight - 146,
+                MissionIIFonts.GiantFont,
+                MissionIISounds.ManFiring,
+                s => theGameBoard.LevelCodeAccepted(s),
+                () => Modes.EnteringLevel.New(theGameBoard),
+                () => !theGameBoard.Man.IsDead && !theGameBoard.Man.IsBeingElectrocuted);
         }
     }
 

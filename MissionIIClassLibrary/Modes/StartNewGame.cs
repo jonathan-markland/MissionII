@@ -1,41 +1,46 @@
 ﻿
 using System.IO;
-using GameClassLibrary.Graphics;
-using GameClassLibrary.Input;
 using GameClassLibrary.Modes;
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class StartNewGame : GameMode
+    public static class StartNewGame
     {
-        public override void AdvanceOneCycle(KeyStates theKeyStates)
+        public static ModeFunctions New()
         {
-			using (var sr = new StreamReader(Path.Combine("Resources", "Levels.txt")))
-            {
-                var levelsList = MissionIIClassLibrary.LevelFileParser.Parse(sr);
-                MissionIIClassLibrary.LevelFileValidator.ExpectValidPathsInWorld(levelsList);
+            return new ModeFunctions(
 
-                var expandedLevelsList = MissionIIClassLibrary.LevelExpander.ExpandWallsInWorld(
-                    levelsList, imageSeed =>
+                // -- Advance one cycle --
+
+                keyStates =>
+                {
+                    using (var sr = new StreamReader(Path.Combine("Resources", "Levels.txt")))
                     {
-                        var s = MissionIISprites.PatternResamplingSprite;
-                        var imageIndex = imageSeed % s.ImageCount;
-                        var imagePixelsArray = s.GetHostImageObject(imageIndex).PixelsToUintArray();
-                        return imagePixelsArray;
-                    });
+                        var levelsList = MissionIIClassLibrary.LevelFileParser.Parse(sr);
+                        MissionIIClassLibrary.LevelFileValidator.ExpectValidPathsInWorld(levelsList);
 
-                var loadedWorld = new WorldWallData { Levels = expandedLevelsList };
-                var gameBoard = new MissionIIClassLibrary.MissionIIGameBoard(loadedWorld);
+                        var expandedLevelsList = MissionIIClassLibrary.LevelExpander.ExpandWallsInWorld(
+                            levelsList, imageSeed =>
+                            {
+                                var s = MissionIISprites.PatternResamplingSprite;
+                                var imageIndex = imageSeed % s.ImageCount;
+                                var imagePixelsArray = s.GetHostImageObject(imageIndex).PixelsToUintArray();
+                                return imagePixelsArray;
+                            });
 
-                gameBoard.PrepareForNewLevel(1);
-            }
-        }
+                        var loadedWorld = new WorldWallData { Levels = expandedLevelsList };
+                        var gameBoard = new MissionIIClassLibrary.MissionIIGameBoard(loadedWorld);
 
+                        gameBoard.PrepareForNewLevel(1);
+                    }
+                },
 
+                // -- Draw --
 
-        public override void Draw(IDrawingTarget drawingTarget)
-        {
-            // This is non-visual
+                drawingTarget =>
+                {
+                    // This is non-visual
+                });
         }
     }
 }

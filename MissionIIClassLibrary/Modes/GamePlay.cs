@@ -1,27 +1,33 @@
-﻿using GameClassLibrary.Graphics;
-using GameClassLibrary.Input;
+﻿
 using GameClassLibrary.Modes;
 
 namespace MissionIIClassLibrary.Modes
 {
-    public class GamePlay : GameMode
+    public static class GamePlay
     {
-        private MissionIIGameBoard _gameBoard;
-
-        public GamePlay(MissionIIGameBoard gameBoard)
+        public static ModeFunctions New(
+            MissionIIGameBoard gameBoard)
         {
-            _gameBoard = gameBoard;
-        }
+            var thisFuncs = new ModeFunctions();
 
-        public override void AdvanceOneCycle(KeyStates theKeyStates)
-        {
-            if (MissionIIModes.HandlePause(_gameBoard, theKeyStates, this)) return;
-            _gameBoard.AdvanceOneCycle(theKeyStates); // TODO: pull logic into this class
-        }
+            thisFuncs.SetAfterwards(
 
-        public override void Draw(IDrawingTarget drawingTarget)
-        {
-            _gameBoard.DrawBoardToTarget(drawingTarget);
+                // -- Advance one cycle --
+
+                keyStates =>
+                {
+                    if (MissionIIModes.HandlePause(gameBoard, keyStates, thisFuncs)) return;
+                    gameBoard.AdvanceOneCycle(keyStates); // TODO: pull logic into this class
+                },
+
+                // -- Draw --
+
+                drawingTarget =>
+                {
+                    gameBoard.DrawBoardToTarget(drawingTarget);
+                });
+
+            return thisFuncs;
         }
     }
 }

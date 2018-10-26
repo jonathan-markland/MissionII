@@ -1,23 +1,26 @@
 ﻿
+using GameClassLibrary.Modes;
+
 namespace MissionIIClassLibrary.Modes
 {
-    public class GameOver : GameClassLibrary.Modes.PlacardScreen
+    public static class GameOver
     {
-        public GameOver(uint finalScore)
-            : base(
+        public static ModeFunctions New(
+            uint finalScore)
+        {
+            return PlacardScreen.New(
                   Constants.GameOverMessageCycles,
                   MissionIISprites.GameOver,
                   MissionIISounds.GameOver,
                   () =>
                   {
-                      if(finalScore > 0 
+                      if (finalScore > 0
                           && GameClassLibrary.Modes.HiScoreEntry.HiScoreTableModel.CanPlayerEnterTable(finalScore))
                       {
-                          return new HiScoreEntry(finalScore);
+                          return HiScoreEntry.New(finalScore);
                       }
-                      return new HiScoreShow();
-                  })
-        {
+                      return HiScoreShow.New();
+                  });
         }
     }
 }

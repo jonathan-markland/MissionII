@@ -129,7 +129,7 @@ namespace MissionIIMonoGame
 
             // Now that the above is done, we can load everything:
 
-            MissionIIClassLibrary.Modes.HiScoreEntry.StaticInit(
+            GameClassLibrary.Modes.HiScoreEntry.StaticInit(
                 MissionIIClassLibrary.Constants.InitialLowestHiScore,
                 MissionIIClassLibrary.Constants.InitialHiScoresIncrement);
 
@@ -137,7 +137,7 @@ namespace MissionIIMonoGame
             MissionIIClassLibrary.MissionIIFonts.Load();
             MissionIIClassLibrary.MissionIISounds.Load();
 
-            GameClassLibrary.Modes.GameMode.ActiveMode = new MissionIIClassLibrary.Modes.TitleScreen();
+            GameClassLibrary.Modes.GameMode.ActiveMode = MissionIIClassLibrary.Modes.TitleScreen.New();
         }
 
 

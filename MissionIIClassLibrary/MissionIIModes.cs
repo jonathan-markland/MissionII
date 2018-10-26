@@ -8,11 +8,11 @@ namespace MissionIIClassLibrary
         public static bool HandlePause(
             MissionIIGameBoard theGameBoard,
             KeyStates theKeyStates,
-            GameMode theCurrentModeObject)
+            ModeFunctions theCurrentModeObject)
         {
             if (theKeyStates.Pause)
             {
-                GameClassLibrary.Modes.GameMode.ActiveMode = new Modes.Pause(theCurrentModeObject, theGameBoard);
+                GameClassLibrary.Modes.GameMode.ActiveMode = Modes.Pause.New(theCurrentModeObject, theGameBoard);
                 MissionIISounds.PauseMode.Play();
                 return true;
             }
