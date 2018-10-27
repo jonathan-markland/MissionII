@@ -535,9 +535,13 @@ namespace MissionIIClassLibrary
             {
                 AddDroidsForLevel2(objectsList);
             }
-            else
+            else if (LevelNumber == 3)
             {
                 AddDroidsForLevel3(objectsList);
+            }
+            else 
+            {
+                AddDroidsForLevel4(objectsList);
             }
 
             // ^^^ TODO: end of bit that needs refactor.
@@ -597,6 +601,12 @@ namespace MissionIIClassLibrary
         }
 
 
+        private Droids.KamikazeDroid NewKamikazeDroid()
+        {
+            return new Droids.KamikazeDroid(DestroyManByAdversary, ManWalksIntoDroidAction, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion);
+        }
+
+
         private Droids.WanderingDroid NewWanderingDroid()
         {
             return new Droids.WanderingDroid(GetFreeDirections, ManWalksIntoDroidAction, StartBullet, MoveAdversaryOnePixel, StartExplosion);
@@ -651,6 +661,34 @@ namespace MissionIIClassLibrary
                     objectsList.Add(NewDestroyerDroid());
                 }
                 else if (j < theThreshold2)
+                {
+                    objectsList.Add(NewWanderingDroid());
+                }
+                else
+                {
+                    objectsList.Add(NewHomingDroid());
+                }
+            }
+        }
+
+
+
+        public void AddDroidsForLevel4(List<GameObject> objectsList)
+        {
+            var theThreshold1 = Constants.IdealDroidCountPerRoom / 3;
+            var theThreshold2 = Constants.IdealDroidCountPerRoom / 2;
+
+            for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
+            {
+                if (j < 2)
+                {
+                    objectsList.Add(NewKamikazeDroid());
+                }
+                else if (j < 4)
+                {
+                    objectsList.Add(NewDestroyerDroid());
+                }
+                else if (j < 6)
                 {
                     objectsList.Add(NewWanderingDroid());
                 }

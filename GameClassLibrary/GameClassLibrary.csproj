@@ -48,6 +48,7 @@
     <Compile Include="ArtificialIntelligence\Constants.cs" />
     <Compile Include="ArtificialIntelligence\FiringAttractor.cs" />
     <Compile Include="ArtificialIntelligence\Guardian.cs" />
+    <Compile Include="ArtificialIntelligence\Kamikaze.cs" />
     <Compile Include="ArtificialIntelligence\LinearMover.cs" />
     <Compile Include="ArtificialIntelligence\SingleMinded.cs" />
     <Compile Include="ArtificialIntelligence\Swoop.cs" />

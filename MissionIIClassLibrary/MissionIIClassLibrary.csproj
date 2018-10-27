@@ -40,6 +40,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Droids\BouncingDroid.cs" />
     <Compile Include="Droids\GuardianDroid.cs" />
+    <Compile Include="Droids\KamikazeDroid.cs" />
     <Compile Include="Droids\LinearMoverDroid.cs" />
     <Compile Include="Droids\WanderingMineDroid.cs" />
     <Compile Include="Interactibles\InvincibilityAmulet.cs" />
