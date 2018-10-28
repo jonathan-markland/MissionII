@@ -10,6 +10,7 @@ namespace GameClassLibrary.Modes
             int titleScreenRollCycles,
             SpriteTraits titleScreenBackground,
             Sound.SoundTraits introSound,
+            Font fontLarge, string largeMessageText,
             Font font, string creditMessageText,
             Func<ModeFunctions> getStartGameModeObject,
             Func<ModeFunctions> getRollOntoScreenObject)
@@ -55,6 +56,7 @@ namespace GameClassLibrary.Modes
                 {
                     drawingTarget.ClearScreen();
                     drawingTarget.DrawSprite(0, 0, titleScreenBackground.GetHostImageObject(0));
+                    drawingTarget.DrawText(160, 100, largeMessageText, fontLarge, TextAlignment.Centre);
                     if (countDown < titleScreenRollCycles / 2)
                     {
                         drawingTarget.DrawText(310, 230, creditMessageText, font, TextAlignment.Right);

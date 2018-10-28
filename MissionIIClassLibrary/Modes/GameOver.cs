@@ -10,7 +10,8 @@ namespace MissionIIClassLibrary.Modes
         {
             return PlacardScreen.New(
                   Constants.GameOverMessageCycles,
-                  MissionIISprites.GameOver,
+                  MissionIISprites.Background2,
+                  MissionIIFonts.GiantFont, "GAME OVER",
                   MissionIISounds.GameOver,
                   () =>
                   {

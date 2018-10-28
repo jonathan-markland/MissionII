@@ -675,9 +675,6 @@ namespace MissionIIClassLibrary
 
         public void AddDroidsForLevel4(List<GameObject> objectsList)
         {
-            var theThreshold1 = Constants.IdealDroidCountPerRoom / 3;
-            var theThreshold2 = Constants.IdealDroidCountPerRoom / 2;
-
             for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
             {
                 if (j < 2)

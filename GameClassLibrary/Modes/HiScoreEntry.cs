@@ -27,6 +27,7 @@ namespace GameClassLibrary.Modes
         public static ModeFunctions New(
             uint screenCycles,
             SpriteTraits backgroundSprite,
+            Font titleFont,
             Font enterNameFont,
             Font tableFont,
             SpriteTraits cursorSprite,
@@ -56,7 +57,7 @@ namespace GameClassLibrary.Modes
                     else
                     {
                         var hiScoreShow = HiScoreShow.New(
-                                screenCycles, backgroundSprite, tableFont,
+                                screenCycles, backgroundSprite, titleFont, tableFont,
                                 getStartNewGameModeFunction, getTitleScreenModeFunction);
 
                         GameMode.ActiveMode = ChangeStageFreeze.New(
@@ -73,6 +74,7 @@ namespace GameClassLibrary.Modes
                 {
                     drawingTarget.ClearScreen();
                     drawingTarget.DrawSprite(0, 0, backgroundSprite.GetHostImageObject(0));
+                    drawingTarget.DrawText(Screen.Width / 2, 10, "HI SCORES", titleFont, TextAlignment.Centre);
                     hiScoreScreenControl.DrawScreen(drawingTarget);
                     drawingTarget.DrawText(
                         Screen.Width / 2, 56, "ENTER YOUR NAME", enterNameFont, TextAlignment.Centre);

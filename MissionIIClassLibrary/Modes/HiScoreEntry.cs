@@ -8,7 +8,8 @@ namespace MissionIIClassLibrary.Modes
         public static ModeFunctions New(uint scoreAchieved)
         {
             return GameClassLibrary.Modes.HiScoreEntry.New(Constants.TitleScreenRollCycles,
-                  MissionIISprites.HiScoreScreen,
+                  MissionIISprites.Background,
+                  MissionIIFonts.GiantFont,
                   MissionIIFonts.WideFont,
                   MissionIIFonts.HiScoreFont,
                   MissionIISprites.Life,

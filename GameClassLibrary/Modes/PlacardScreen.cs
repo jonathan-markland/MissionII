@@ -13,6 +13,7 @@ namespace GameClassLibrary.Modes
         public static ModeFunctions New(
             int placardCycles,
             SpriteTraits placardSprite,
+            Font largeFont, string messageText,
             Sound.SoundTraits placardSound,
             Func<ModeFunctions> getNextModeFunction)
         {
@@ -47,6 +48,7 @@ namespace GameClassLibrary.Modes
                 {
                     drawingTarget.ClearScreen();
                     drawingTarget.DrawFirstSpriteScreenCentred(placardSprite);
+                    drawingTarget.DrawText(Screen.Width / 2, 100, messageText, largeFont, TextAlignment.Centre);
                 });
         }
     }

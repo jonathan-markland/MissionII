@@ -9,8 +9,10 @@ namespace MissionIIClassLibrary.Modes
         {
             return GameClassLibrary.Modes.TitleScreenWithCredit.New(
                 Constants.TitleScreenRollCycles,
-                  MissionIISprites.TitleScreen,
+                  MissionIISprites.Background,
                   MissionIISounds.Intro,
+                  MissionIIFonts.GiantFont,
+                  "SECOND MISSION",
                   MissionIIFonts.NarrowFont,
                   "RETRO REMAKE   BY JONATHAN MARKLAND",
                   () => StartNewGame.New(),

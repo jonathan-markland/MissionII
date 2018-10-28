@@ -9,7 +9,8 @@ namespace MissionIIClassLibrary.Modes
         {
             return GameClassLibrary.Modes.HiScoreShow.New(
                 Constants.TitleScreenRollCycles,
-                MissionIISprites.HiScoreScreen,
+                MissionIISprites.Background,
+                MissionIIFonts.GiantFont,
                 MissionIIFonts.HiScoreFont,
                 () => StartNewGame.New(),
                 () => MissionRotatingInstructions.New());

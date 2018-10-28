@@ -43,10 +43,8 @@ namespace MissionIIClassLibrary
         public static SpriteTraits FloorTile;
         public static SpriteTraits WallOutline;
         public static SpriteTraits WallBrick;
-        public static SpriteTraits TitleScreen;
         public static SpriteTraits Background;
-        public static SpriteTraits HiScoreScreen;
-        public static SpriteTraits GameOver;
+        public static SpriteTraits Background2;
         public static SpriteTraits Paused;
         public static SpriteTraits PatternResamplingSprite;
         public static SpriteTraits FontSprite;
@@ -97,10 +95,8 @@ namespace MissionIIClassLibrary
             FloorTile = new SpriteTraits("FloorTile", 3);
             WallOutline = new SpriteTraits("WallOutline", 3);
             WallBrick = new SpriteTraits("WallBrick", 3);
-            HiScoreScreen = new SpriteTraits("HiScoreScreen", 1);
-            TitleScreen = new SpriteTraits("TitleScreen", 1);
             Background = new SpriteTraits("Background", 1);
-            GameOver = new SpriteTraits("GameOver", 1);
+            Background2 = new SpriteTraits("Background2", 1);
             Paused = new SpriteTraits("Paused", 1);
             PatternResamplingSprite = new SpriteTraits("PatternResamplingSprite", 4);
             FontSprite = new SpriteTraits("Font", 1);
