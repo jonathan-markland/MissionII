@@ -21,9 +21,10 @@ namespace GameClassLibrary.Modes
             Func<ModeFunctions> getStartGameMode,
             Func<ModeFunctions> getNextModeFunction)
         {
-            int countDown = 0;
-            int initialCycles = 0;
             var listOfPages = StringToPages(instructionPages);
+
+            int initialCycles = pageVisibleCycles * listOfPages.Count;
+            int countDown = pageVisibleCycles * listOfPages.Count;
 
             return new ModeFunctions(
 
