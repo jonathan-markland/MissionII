@@ -677,11 +677,11 @@ namespace MissionIIClassLibrary
         {
             for (int j = 0; j < Constants.IdealDroidCountPerRoom; j++)
             {
-                if (j < 2)
+                if (j < 1)
                 {
                     objectsList.Add(NewKamikazeDroid());
                 }
-                else if (j < 4)
+                else if (j < 3)
                 {
                     objectsList.Add(NewDestroyerDroid());
                 }
