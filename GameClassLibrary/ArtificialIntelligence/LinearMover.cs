@@ -11,7 +11,6 @@ namespace GameClassLibrary.ArtificialIntelligence
         public static ArtificialIntelligenceFunctions New(
             GameObject gameObject,
             Point startPoint, Point endPoint, int movesPerCycle, Action<GameObject> manWalksIntoDroidAction,
-            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents)
         {
             bool headToEnd = true;

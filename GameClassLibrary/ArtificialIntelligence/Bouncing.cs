@@ -12,7 +12,7 @@ namespace GameClassLibrary.ArtificialIntelligence
             GameObject gameObject,
             int leftLimit, int rightLimit, int maxBounceHeightOffFloor, int movesPerCycle,
             Action<GameObject> manWalksIntoDroidAction, int initialDx,
-            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
+            Action<GameObject, MovementDeltas> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents)
         {
             var movementDeltas = new MovementDeltas(initialDx, -1);  // Force upwards motion initially.

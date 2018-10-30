@@ -14,7 +14,7 @@ namespace MissionIIClassLibrary.Droids
         public KamikazeDroid(
             Action manDestroyAction,
             Action<GameObject> manWalksIntoDroidAction,
-            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
+            Action<GameObject, MovementDeltas> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents,
             Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
             : base(

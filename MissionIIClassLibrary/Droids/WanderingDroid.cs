@@ -11,7 +11,7 @@ namespace MissionIIClassLibrary.Droids
 {
     public class WanderingDroid : BaseDroid
     {
-        public WanderingDroid(Func<Rectangle, FoundDirections> freeDirectionFinder, Action<GameObject> manWalksIntoDroidAction, Action<Rectangle, MovementDeltas, bool> fireBullet, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
+        public WanderingDroid(Func<Rectangle, FoundDirections> freeDirectionFinder, Action<GameObject> manWalksIntoDroidAction, Action<Rectangle, MovementDeltas, bool> fireBullet, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> tryMoveAdversaryOnePixel, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
             : base(
                   MissionIISprites.Monster2, 
                   MissionIISprites.Explosion,
@@ -20,7 +20,7 @@ namespace MissionIIClassLibrary.Droids
                   startExplosion)
         {
             base.SetIntelligenceProvider(
-                SingleMinded.New(this, freeDirectionFinder, fireBullet, moveAdversaryOnePixel));
+                SingleMinded.New(this, freeDirectionFinder, fireBullet, tryMoveAdversaryOnePixel));
         }
 
         public override int KillScore

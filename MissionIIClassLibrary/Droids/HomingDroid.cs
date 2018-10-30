@@ -2,7 +2,6 @@
 using System;
 using GameClassLibrary.ArtificialIntelligence;
 using GameClassLibrary.Math;
-using GameClassLibrary.Walls;
 using GameClassLibrary.GameBoard;
 using GameClassLibrary.Sound;
 using GameClassLibrary.Graphics;
@@ -13,7 +12,7 @@ namespace MissionIIClassLibrary.Droids
     {
         public HomingDroid(
             Action<GameObject> manWalksIntoDroidAction,
-            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
+            Action<GameObject, MovementDeltas> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents,
             Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
             : base(

@@ -11,7 +11,7 @@ namespace GameClassLibrary.ArtificialIntelligence
         public static ArtificialIntelligenceFunctions New(
             GameObject gameObject,
             Func<Rectangle, FoundDirections> freeDirectionFinder, Action<GameObject> manWalksIntoDroidAction, int speedDivisor,
-            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
+            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> tryMoveAdversaryOnePixel,
             Func<Rectangle> getManExtents)
         {
             int countDown = 0;
@@ -29,7 +29,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                         --countDown;
                         if (!movementDeltas.IsStationary)
                         {
-                            var hitResult = moveAdversaryOnePixel(gameObject, movementDeltas);
+                            var hitResult = tryMoveAdversaryOnePixel(gameObject, movementDeltas);
 
                             // Check proximity to man, and detonate killing man:
 

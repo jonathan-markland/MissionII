@@ -13,7 +13,7 @@ namespace MissionIIClassLibrary.Droids
     {
         public BouncingDroid(
             Action<GameObject> manWalksIntoDroidAction,
-            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
+            Action<GameObject, MovementDeltas> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents,
             Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
             : base(

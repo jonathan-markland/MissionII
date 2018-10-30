@@ -609,7 +609,7 @@ namespace MissionIIClassLibrary
 
         private Droids.WanderingDroid NewWanderingDroid()
         {
-            return new Droids.WanderingDroid(GetFreeDirections, ManWalksIntoDroidAction, StartBullet, MoveAdversaryOnePixel, StartExplosion);
+            return new Droids.WanderingDroid(GetFreeDirections, ManWalksIntoDroidAction, StartBullet, TryMoveAdversaryOnePixel, StartExplosion);
         }
 
 
@@ -833,10 +833,27 @@ namespace MissionIIClassLibrary
 
 
 
-        public CollisionDetection.WallHitTestResult MoveAdversaryOnePixel(
+        private void MoveAdversaryOnePixel(
             GameObject adversaryObject,
             MovementDeltas movementDeltas)
         {
+            // We must separate horizontal and vertical movement in order to avoid
+            // things getting 'stuck' on walls because they can't move horizontally
+            // into the wall, but can moe vertically downward.  Trying to do both
+            // directions at once results in rejection of the move, and the
+            // sticking problem.
+
+            TryMoveAdversaryOnePixel(adversaryObject, movementDeltas.XComponent);
+            TryMoveAdversaryOnePixel(adversaryObject, movementDeltas.YComponent);
+        }
+
+
+
+        private CollisionDetection.WallHitTestResult TryMoveAdversaryOnePixel(
+            GameObject adversaryObject,
+            MovementDeltas movementDeltas)
+        {
+
             var r = adversaryObject.GetBoundingRectangle();
             var myNewRectangle = r.MovedBy(movementDeltas);
 

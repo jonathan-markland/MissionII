@@ -11,7 +11,7 @@ namespace GameClassLibrary.ArtificialIntelligence
         public static ArtificialIntelligenceFunctions New(
             GameObject gameObject,
             Action<GameObject> manWalksIntoDroidAction,
-            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
+            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> tryMoveAdversaryOnePixel,
             Func<Rectangle> getManExtents)
         {
             int facingDirection = 0;
@@ -26,7 +26,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                 }
                 else
                 {
-                    var hitResult = moveAdversaryOnePixel(gameObject, movementDeltas);  // TODO: differentiate walls/other droids
+                    var hitResult = tryMoveAdversaryOnePixel(gameObject, movementDeltas);  // TODO: differentiate walls/other droids
                     if (hitResult != CollisionDetection.WallHitTestResult.NothingHit)
                     {
                         if (gameObject.GetBoundingRectangle().Intersects(

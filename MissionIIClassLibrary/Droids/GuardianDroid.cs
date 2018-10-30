@@ -11,7 +11,7 @@ namespace MissionIIClassLibrary.Droids
 {
     public class GuardianDroid : BaseDroid  // Didn't make it into final release
     {
-        public GuardianDroid(Action<GameObject> manWalksIntoDroidAction, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel, Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
+        public GuardianDroid(Action<GameObject> manWalksIntoDroidAction, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> tryMoveAdversaryOnePixel, Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
             : base(
                   MissionIISprites.Monster4, 
                   MissionIISprites.Explosion,
@@ -20,7 +20,7 @@ namespace MissionIIClassLibrary.Droids
                   startExplosion)
         {
             base.SetIntelligenceProvider(
-                Guardian.New(this, manWalksIntoDroidAction, moveAdversaryOnePixel, getManExtents));
+                Guardian.New(this, manWalksIntoDroidAction, tryMoveAdversaryOnePixel, getManExtents));
         }
 
         public override int KillScore

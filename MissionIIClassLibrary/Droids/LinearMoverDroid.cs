@@ -11,7 +11,7 @@ namespace MissionIIClassLibrary.Droids
 {
     public class LinearMoverDroid : BaseDroid  // TODO: This is a development test and should be removed.
     {
-        public LinearMoverDroid(Action<GameObject> manWalksIntoDroidAction, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel, Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
+        public LinearMoverDroid(Action<GameObject> manWalksIntoDroidAction, Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
             : base(
                   MissionIISprites.Monster3,
                   MissionIISprites.Explosion,
@@ -23,7 +23,7 @@ namespace MissionIIClassLibrary.Droids
             base.SetIntelligenceProvider(
                 LinearMover.New(
                     this, new Point(100, 50), new Point(200, 50), 1, 
-                    manWalksIntoDroidAction, moveAdversaryOnePixel, getManExtents));
+                    manWalksIntoDroidAction, getManExtents));
         }
 
         public override int KillScore

@@ -12,7 +12,7 @@ namespace GameClassLibrary.ArtificialIntelligence
             GameObject gameObject,
             Func<Rectangle, FoundDirections> freeDirectionFinder,
             Action<Rectangle, MovementDeltas, bool> fireBullet,
-            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel)
+            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> tryMoveAdversaryOnePixel)
         {
             int countDown = 0;
             int facingDirection = 0;
@@ -30,7 +30,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
                         if (!movementDeltas.IsStationary)
                         {
-                            var hitResult = moveAdversaryOnePixel(gameObject, movementDeltas);
+                            var hitResult = tryMoveAdversaryOnePixel(gameObject, movementDeltas);
 
                             if ((Time.CycleCounter.Count32 & Constants.SingleMindedFiringCyclesAndMask) == 0)
                             {

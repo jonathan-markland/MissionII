@@ -11,7 +11,7 @@ namespace GameClassLibrary.ArtificialIntelligence
         public static ArtificialIntelligenceFunctions New(
             GameObject gameObject,
             Action<Rectangle, MovementDeltas, bool> fireBullet,
-            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> moveAdversaryOnePixel,
+            Action<GameObject, MovementDeltas> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents)
         {
             return new ArtificialIntelligenceFunctions(
@@ -24,14 +24,7 @@ namespace GameClassLibrary.ArtificialIntelligence
                         var moveDeltas = gameObject.GetBoundingRectangle().GetMovementDeltasToHeadTowards(
                             getManExtents());
 
-                        // We must separate horizontal and vertical movement in order to avoid
-                        // things getting 'stuck' on walls because they can't move horizontally
-                        // into the wall, but can moe vertically downward.  Trying to do both
-                        // directions at once results in rejection of the move, and the
-                        // sticking problem.
-
-                        moveAdversaryOnePixel(gameObject, moveDeltas.XComponent);
-                        moveAdversaryOnePixel(gameObject, moveDeltas.YComponent);
+                        moveAdversaryOnePixel(gameObject, moveDeltas);
 
                         if ((cycleCount & Constants.FiringAttractorFiringCyclesAndMask) == 0)
                         {
