@@ -8,7 +8,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public static class SingleMinded
     {
-        public static ArtificialIntelligenceFunctions New(
+        public static ArtificialIntelligenceFunctions NewSingleMinded(
             GameObject gameObject,
             Func<Rectangle, FoundDirections> freeDirectionFinder,
             Action<Rectangle, MovementDeltas, bool> fireBullet,

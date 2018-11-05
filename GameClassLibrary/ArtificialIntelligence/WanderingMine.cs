@@ -8,7 +8,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public static class WanderingMine
     {
-        public static ArtificialIntelligenceFunctions New(
+        public static ArtificialIntelligenceFunctions NewWanderingMine(
             GameObject gameObject,
             Func<Rectangle, FoundDirections> freeDirectionFinder, Action<GameObject> manWalksIntoDroidAction, int speedDivisor,
             Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> tryMoveAdversaryOnePixel,

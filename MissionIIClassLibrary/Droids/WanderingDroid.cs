@@ -20,7 +20,7 @@ namespace MissionIIClassLibrary.Droids
                   startExplosion)
         {
             base.SetIntelligenceProvider(
-                SingleMinded.New(this, freeDirectionFinder, fireBullet, tryMoveAdversaryOnePixel));
+                SingleMinded.NewSingleMinded(this, freeDirectionFinder, fireBullet, tryMoveAdversaryOnePixel));
         }
 
         public override int KillScore

@@ -8,7 +8,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public static class Attractor
     {
-        public static ArtificialIntelligenceFunctions New(
+        public static ArtificialIntelligenceFunctions NewAttractor(
             GameObject gameObject,
             Action<GameObject, MovementDeltas> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents)

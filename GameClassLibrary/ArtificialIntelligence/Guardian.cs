@@ -8,7 +8,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public static class Guardian
     {
-        public static ArtificialIntelligenceFunctions New(
+        public static ArtificialIntelligenceFunctions NewGuardian(
             GameObject gameObject,
             Action<GameObject> manWalksIntoDroidAction,
             Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> tryMoveAdversaryOnePixel,

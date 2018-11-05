@@ -8,7 +8,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public static class LinearMover
     {
-        public static ArtificialIntelligenceFunctions New(
+        public static ArtificialIntelligenceFunctions NewLinearMover(
             GameObject gameObject,
             Point startPoint, Point endPoint, int movesPerCycle, Action<GameObject> manWalksIntoDroidAction,
             Func<Rectangle> getManExtents)

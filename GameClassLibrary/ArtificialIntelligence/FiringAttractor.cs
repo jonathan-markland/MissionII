@@ -2,13 +2,12 @@
 using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.GameBoard;
-using GameClassLibrary.Walls;
 
 namespace GameClassLibrary.ArtificialIntelligence
 {
     public static class FiringAttractor
     {
-        public static ArtificialIntelligenceFunctions New(
+        public static ArtificialIntelligenceFunctions NewFiringAttractor(
             GameObject gameObject,
             Action<Rectangle, MovementDeltas, bool> fireBullet,
             Action<GameObject, MovementDeltas> moveAdversaryOnePixel,

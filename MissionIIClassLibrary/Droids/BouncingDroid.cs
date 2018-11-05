@@ -24,7 +24,7 @@ namespace MissionIIClassLibrary.Droids
                   startExplosion)
         {
             base.SetIntelligenceProvider(
-                Bouncing.New(this, 100, 200, 30, 2, manWalksIntoDroidAction, 1, moveAdversaryOnePixel, getManExtents));
+                Bouncing.NewBouncing(this, 100, 200, 30, 2, manWalksIntoDroidAction, 1, moveAdversaryOnePixel, getManExtents));
         }
 
         public override int KillScore

@@ -20,7 +20,7 @@ namespace MissionIIClassLibrary.Droids
                   startExplosion)
         {
             base.SetIntelligenceProvider(
-                Guardian.New(this, manWalksIntoDroidAction, tryMoveAdversaryOnePixel, getManExtents));
+                Guardian.NewGuardian(this, manWalksIntoDroidAction, tryMoveAdversaryOnePixel, getManExtents));
         }
 
         public override int KillScore

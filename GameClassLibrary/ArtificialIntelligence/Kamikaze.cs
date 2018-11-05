@@ -8,7 +8,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public static class Kamikaze
     {
-        public static ArtificialIntelligenceFunctions New(
+        public static ArtificialIntelligenceFunctions NewKamikaze(
             GameObject gameObject,
             Action manDestroyAction,
             Action<GameObject, MovementDeltas> moveAdversaryOnePixel,

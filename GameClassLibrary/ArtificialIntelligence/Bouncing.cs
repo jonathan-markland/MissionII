@@ -8,7 +8,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public static class Bouncing
     {
-        public static ArtificialIntelligenceFunctions New(
+        public static ArtificialIntelligenceFunctions NewBouncing(
             GameObject gameObject,
             int leftLimit, int rightLimit, int maxBounceHeightOffFloor, int movesPerCycle,
             Action<GameObject> manWalksIntoDroidAction, int initialDx,

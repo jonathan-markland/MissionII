@@ -25,7 +25,7 @@ namespace MissionIIClassLibrary.Droids
                   startExplosion)
         {
             base.SetIntelligenceProvider(
-                Kamikaze.New(this, manDestroyAction, moveAdversaryOnePixel, getManExtents));
+                Kamikaze.NewKamikaze(this, manDestroyAction, moveAdversaryOnePixel, getManExtents));
         }
 
         public override int KillScore

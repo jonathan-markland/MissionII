@@ -7,7 +7,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 {
     public static class Swoop
     {
-        public static ArtificialIntelligenceFunctions New(
+        public static ArtificialIntelligenceFunctions NewSwoop(
             GameObject gameObject,
             Action manDestroyAction,
             Func<Rectangle> getManExtents)
