@@ -5,7 +5,6 @@ using GameClassLibrary.Walls;
 using GameClassLibrary.Graphics;
 using GameClassLibrary.Input;
 using GameClassLibrary.GameBoard;
-using GameClassLibrary.GameObjects;
 
 namespace MissionIIClassLibrary.GameObjects
 {
@@ -29,7 +28,7 @@ namespace MissionIIClassLibrary.GameObjects
         private int _electrocutionCycles = 0;
         private bool _awaitingFireRelease = true;
         private int _invincibleCountDown = 0;
-        public int _cyclesMoving = 0;  // TODO: Why public?
+        private int _cyclesMoving = 0;
 
         public Man(
             Action<Rectangle, MovementDeltas, bool> fireBullet, 
@@ -70,7 +69,7 @@ namespace MissionIIClassLibrary.GameObjects
             {
                 DoElectrocution();
             }
-            else // if (!_isDead)
+            else
             {
                 FireButtonCheck(keyStates);
 
@@ -86,10 +85,6 @@ namespace MissionIIClassLibrary.GameObjects
 
                 HandleInvincibility();
             }
-//            else
-//            {
-//                DeadHandling();
-//            }
         }
 
         public void GainInvincibility()
@@ -191,19 +186,6 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-//        private void DeadHandling()
-//        {
-//            System.Diagnostics.Debug.Assert(_isDead);
-//            if (_whileDeadCount > 0)
-//            {
-//                --_whileDeadCount;
-//            }
-//            else
-//            {
-//                _playerLoseLife();
-//            }
-//        }
-
         private void AdvanceAnimation()
         {
             GameClassLibrary.Algorithms.Animation.Animate(
@@ -213,7 +195,7 @@ namespace MissionIIClassLibrary.GameObjects
         public void Electrocute(ElectrocutionMethod electrocutionMethod)
         {
             if (_debugInvulnerable) return;
-            if (!IsInvincible /*&& !_isDead*/ && !_isElectrocuting)
+            if (!IsInvincible && !_isElectrocuting)
             {
                 _isElectrocuting = true;
                 _isElectrocutedByWalls = electrocutionMethod == ElectrocutionMethod.ByWalls;
@@ -249,7 +231,6 @@ namespace MissionIIClassLibrary.GameObjects
 
         public void Alive(int theDirection, int roomX, int roomY) // TODO: refactor to create fresh Man object instead and do all this in the constructor
         {
-//            _isDead = false;
             _facingDirection = theDirection;
             Standing(theDirection);
             SpriteInstance.X = roomX;
@@ -260,25 +241,7 @@ namespace MissionIIClassLibrary.GameObjects
         {
             if (_debugInvulnerable) return;
             _killMan(this);  // removes this object, replaces with new ManDead
-//             if (!_isDead)
-//             {
-//                 _isElectrocuting = false;
-//                 _isElectrocutedByWalls = false;
-//                 _isDead = true;
-//                 _imageIndex = 0;
-//                 _invincibleCountDown = 0;
-// //                SpriteInstance.Traits = MissionIISprites.Dead;
-//                 // TODO: Sound
-//                 // TODO: Reduce lives.
-// //                _whileDeadCount = Constants.ManDeadDelayCycles;
-// //                MissionIISounds.ManGrunt.Play();
-//             }
         }
-
-//        public bool IsDead
-//        {
-//            get { return _isDead; }
-//        }
 
         private void RoomUp()
         {
