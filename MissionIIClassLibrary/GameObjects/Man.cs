@@ -19,13 +19,10 @@ namespace MissionIIClassLibrary.GameObjects
 
         private SpriteInstance SpriteInstance = new SpriteInstance();
         private bool _debugInvulnerable = false;
-//        private bool _isElectrocuting;
-//        private bool _isElectrocutedByWalls;
         private int _facingDirection;
         private int _imageIndex = 0;
         private int _animationCountdown = WalkingAnimationReset;
         private const int WalkingAnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
-//        private int _electrocutionCycles = 0;
         private bool _awaitingFireRelease = true;
         private int _invincibleCountDown = 0;
         private int _cyclesMoving = 0;
@@ -66,26 +63,19 @@ namespace MissionIIClassLibrary.GameObjects
 
         public override void AdvanceOneCycle(KeyStates keyStates)
         {
-            // if (_isElectrocuting || _isElectrocutedByWalls)
-            // {
-            //     DoElectrocution();
-            // }
-            // else
-            // {
-                FireButtonCheck(keyStates);
+            FireButtonCheck(keyStates);
 
-                int theDirection = keyStates.ToDirectionIndex();
-                if (theDirection != -1)
-                {
-                    DoWalking(keyStates, theDirection);
-                }
-                else
-                {
-                    Standing(_facingDirection);
-                }
+            int theDirection = keyStates.ToDirectionIndex();
+            if (theDirection != -1)
+            {
+                DoWalking(keyStates, theDirection);
+            }
+            else
+            {
+                Standing(_facingDirection);
+            }
 
-                HandleInvincibility();
-            //}
+            HandleInvincibility();
         }
 
         public void GainInvincibility()
@@ -100,16 +90,6 @@ namespace MissionIIClassLibrary.GameObjects
                 --_invincibleCountDown;
             }
         }
-
-//        private void DoElectrocution()
-//        {
-//            AdvanceAnimation();
-//            --_electrocutionCycles;
-//            if (_electrocutionCycles == 0)
-//            {
-//                Die();
-//            }
-//        }
 
         private void DoWalking(KeyStates keyStates, int theDirection)
         {
@@ -226,16 +206,9 @@ namespace MissionIIClassLibrary.GameObjects
         public void Electrocute(ElectrocutionMethod electrocutionMethod)
         {
             if (_debugInvulnerable) return;
-            if (!IsInvincible /*&& !_isElectrocuting*/)
+            if (!IsInvincible)
             {
                 _electrocuteMan(this, electrocutionMethod);
-                //                _isElectrocuting = true;
-                //                _isElectrocutedByWalls = electrocutionMethod == ElectrocutionMethod.ByWalls;
-                //                _electrocutionCycles = ElectrocutionAnimationReset * 5;
-                //                SpriteInstance.Traits = MissionIISprites.Electrocution;
-                //                _imageIndex = 0;
-                //                _animationCountdown = ElectrocutionAnimationReset;
-                //                MissionIISounds.Electrocution.Play();
             }
         }
 
@@ -321,16 +294,6 @@ namespace MissionIIClassLibrary.GameObjects
 
         public override bool CanBeOverlapped { get { return true; } }
 
-//        public bool IsBeingElectrocuted
-//        {
-//            get { return _isElectrocuting; }
-//        }
-//
-//        public bool IsBeingElectrocutedByWalls
-//        {
-//            get { return _isElectrocutedByWalls; }
-//        }
-
         public bool IsInvincible
         {
             get
@@ -340,5 +303,3 @@ namespace MissionIIClassLibrary.GameObjects
         }
     }
 }
-
-
