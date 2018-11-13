@@ -14,12 +14,11 @@ namespace MissionIIClassLibrary.GameObjects
         private readonly Action<Rectangle, MovementDeltas, bool> _fireBullet;
         private readonly Action<int> _moveRoomNumberByDelta;
         private readonly Func<Rectangle, CollisionDetection.WallHitTestResult> _hitTest;
-        private readonly Action _playerLoseLife;
+        private readonly Action<GameObject> _killMan;
         private readonly Action _checkManCollidingWithGameObjects;
 
-        public SpriteInstance SpriteInstance = new SpriteInstance();
+        private SpriteInstance SpriteInstance = new SpriteInstance();
         private bool _debugInvulnerable = false;
-        private bool _isDead;
         private bool _isElectrocuting;
         private bool _isElectrocutedByWalls;
         private int _facingDirection;
@@ -29,21 +28,20 @@ namespace MissionIIClassLibrary.GameObjects
         private const int ElectrocutionAnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
         private int _electrocutionCycles = 0;
         private bool _awaitingFireRelease = true;
-        private int _whileDeadCount = 0;
         private int _invincibleCountDown = 0;
-        public int _cyclesMoving = 0;
+        public int _cyclesMoving = 0;  // TODO: Why public?
 
         public Man(
             Action<Rectangle, MovementDeltas, bool> fireBullet, 
             Action<int> moveRoomNumberByDelta,
             Func<Rectangle, CollisionDetection.WallHitTestResult> hitTest,
-            Action playerLoseLife,
+            Action<GameObject> killMan,
             Action checkManCollidingWithGameObjects)
         {
             _fireBullet = fireBullet;
             _moveRoomNumberByDelta = moveRoomNumberByDelta;
             _hitTest = hitTest;
-            _playerLoseLife = playerLoseLife;
+            _killMan = killMan;
             _checkManCollidingWithGameObjects = checkManCollidingWithGameObjects;
         }
 
@@ -58,7 +56,7 @@ namespace MissionIIClassLibrary.GameObjects
 
             set
             {
-                _isDead = false;
+//                _isDead = false;
                 SpriteInstance.X = value.Position.X;
                 SpriteInstance.Y = value.Position.Y;
                 _facingDirection = value.FacingDirection;
@@ -72,7 +70,7 @@ namespace MissionIIClassLibrary.GameObjects
             {
                 DoElectrocution();
             }
-            else if (!_isDead)
+            else // if (!_isDead)
             {
                 FireButtonCheck(keyStates);
 
@@ -88,10 +86,10 @@ namespace MissionIIClassLibrary.GameObjects
 
                 HandleInvincibility();
             }
-            else
-            {
-                DeadHandling();
-            }
+//            else
+//            {
+//                DeadHandling();
+//            }
         }
 
         public void GainInvincibility()
@@ -193,18 +191,18 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        private void DeadHandling()
-        {
-            System.Diagnostics.Debug.Assert(_isDead);
-            if (_whileDeadCount > 0)
-            {
-                --_whileDeadCount;
-            }
-            else
-            {
-                _playerLoseLife();
-            }
-        }
+//        private void DeadHandling()
+//        {
+//            System.Diagnostics.Debug.Assert(_isDead);
+//            if (_whileDeadCount > 0)
+//            {
+//                --_whileDeadCount;
+//            }
+//            else
+//            {
+//                _playerLoseLife();
+//            }
+//        }
 
         private void AdvanceAnimation()
         {
@@ -215,7 +213,7 @@ namespace MissionIIClassLibrary.GameObjects
         public void Electrocute(ElectrocutionMethod electrocutionMethod)
         {
             if (_debugInvulnerable) return;
-            if (!IsInvincible && !_isDead && !_isElectrocuting)
+            if (!IsInvincible /*&& !_isDead*/ && !_isElectrocuting)
             {
                 _isElectrocuting = true;
                 _isElectrocutedByWalls = electrocutionMethod == ElectrocutionMethod.ByWalls;
@@ -249,9 +247,9 @@ namespace MissionIIClassLibrary.GameObjects
             return (_invincibleCountDown & n) > (n / 4);
         }
 
-        public void Alive(int theDirection, int roomX, int roomY) // TODO: refactor to use the Position property.
+        public void Alive(int theDirection, int roomX, int roomY) // TODO: refactor to create fresh Man object instead and do all this in the constructor
         {
-            _isDead = false;
+//            _isDead = false;
             _facingDirection = theDirection;
             Standing(theDirection);
             SpriteInstance.X = roomX;
@@ -261,25 +259,26 @@ namespace MissionIIClassLibrary.GameObjects
         private void Die()
         {
             if (_debugInvulnerable) return;
-            if (!_isDead)
-            {
-                _isElectrocuting = false;
-                _isElectrocutedByWalls = false;
-                _isDead = true;
-                _imageIndex = 0;
-                _invincibleCountDown = 0;
-                SpriteInstance.Traits = MissionIISprites.Dead;
-                // TODO: Sound
-                // TODO: Reduce lives.
-                _whileDeadCount = Constants.ManDeadDelayCycles;
-                MissionIISounds.ManGrunt.Play();
-            }
+            _killMan(this);  // removes this object, replaces with new ManDead
+//             if (!_isDead)
+//             {
+//                 _isElectrocuting = false;
+//                 _isElectrocutedByWalls = false;
+//                 _isDead = true;
+//                 _imageIndex = 0;
+//                 _invincibleCountDown = 0;
+// //                SpriteInstance.Traits = MissionIISprites.Dead;
+//                 // TODO: Sound
+//                 // TODO: Reduce lives.
+// //                _whileDeadCount = Constants.ManDeadDelayCycles;
+// //                MissionIISounds.ManGrunt.Play();
+//             }
         }
 
-        public bool IsDead
-        {
-            get { return _isDead; }
-        }
+//        public bool IsDead
+//        {
+//            get { return _isDead; }
+//        }
 
         private void RoomUp()
         {
@@ -330,7 +329,7 @@ namespace MissionIIClassLibrary.GameObjects
             _moveRoomNumberByDelta(roomNumberDelta);
         }
 
-        public override Rectangle GetBoundingRectangle() // TODO: Dont have this just get from the sprite
+        public override Rectangle GetBoundingRectangle()
         {
             return SpriteInstance.Extents;
         }

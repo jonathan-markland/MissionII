@@ -6,7 +6,7 @@ namespace MissionIIClassLibrary.Modes
     public static class Pause
     {
         public static ModeFunctions New(
-            ModeFunctions originalMode, MissionIIGameBoard theGameBoard)
+            ModeFunctions originalMode, MissionIIGameBoard theGameBoard)   // TODO: Avoid passing MissionIIGameBoard
         {
             return PauseWithChangeLevel.New(
                 originalMode,
@@ -17,7 +17,7 @@ namespace MissionIIClassLibrary.Modes
                 MissionIISounds.ManFiring,
                 s => theGameBoard.LevelCodeAccepted(s),
                 () => Modes.EnteringLevel.New(theGameBoard),
-                () => !theGameBoard.Man.IsDead && !theGameBoard.Man.IsBeingElectrocuted);
+                () => !theGameBoard.DeadManExistsInRoom() && !theGameBoard.Man.IsBeingElectrocuted);
         }
     }
 

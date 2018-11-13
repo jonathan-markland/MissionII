@@ -48,10 +48,13 @@ namespace MissionIIClassLibrary
 
         public MissionIIGameBoard(WorldWallData worldWallData)
         {
-            Man = new GameObjects.Man(StartBullet, MoveRoomNumberByDelta, HitTest, PlayerLoseLife, CheckManCollidingWithGameObjects);
+            Man = new GameObjects.Man(
+                StartBullet, MoveRoomNumberByDelta, HitTest, KillMan, CheckManCollidingWithGameObjects);
+
             TheWorldWallData = worldWallData;
             Lives = Constants.InitialLives;
             LevelNumber = Constants.StartLevelNumber;
+
             WhiteBulletTraits = new BulletTraits
             {
                 AdversaryFiring = MissionIISounds.DroidFiring,
@@ -59,6 +62,17 @@ namespace MissionIIClassLibrary
                 BulletSpriteTraits = MissionIISprites.Bullet,
                 DuoBonus = MissionIISounds.DuoBonus
             };
+        }
+
+
+
+        private void KillMan(GameObject obj)
+        {
+            if (!DeadManExistsInRoom())
+            {
+                Remove(Man);
+                Add(new GameObjects.ManDead(Man.TopLeftPosition, PlayerLoseLife));
+            }
         }
 
 
@@ -824,7 +838,7 @@ namespace MissionIIClassLibrary
             var manRectangle = Man.GetBoundingRectangle();
             ForEachObjectInPlayDo<GameObject>(roomObject =>
             {
-                if (!Man.IsDead && manRectangle.Intersects(roomObject.GetBoundingRectangle()))
+                if (!DeadManExistsInRoom() && manRectangle.Intersects(roomObject.GetBoundingRectangle()))
                 {
                     roomObject.ManWalkedIntoYou();
                 }
@@ -928,6 +942,21 @@ namespace MissionIIClassLibrary
                 foundDroids = true;   // TODO: Library issue:  It's not optimal that we can't break the ForEach.
             });
             return foundDroids;
+        }
+
+
+
+        /// <summary>
+        /// Returns true if dead man exists in room.
+        /// </summary>
+        public bool DeadManExistsInRoom()
+        {
+            bool foundDeadMan = false;
+            ObjectsInRoom.ForEach<GameObjects.ManDead>(o =>
+            {
+                foundDeadMan = true;   // TODO: Library issue:  It's not optimal that we can't break the ForEach.
+            });
+            return foundDeadMan;
         }
 
 
