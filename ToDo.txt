@@ -1,22 +1,24 @@
 
 Oct 2018 -- the Room abstraction project
 --------
-[ ] Want to move everything into Model-Space coordinates
+[X] Want to move everything into Model-Space coordinates
     The expanded level matrix has rooms with 25*25 tiles, of 12*8 model-pixels each.
 	
-[ ] Decide positions for all level objects at level start, rather than per-room.
+[X] Decide positions for all level objects at level start, rather than per-room.
     Decide positions to the model-pixel accuracy.
+	-- Actually decided the positions on entry to the room then remembered forever.
 	
-[ ] Modify the tile matrix renderer to accept an offset, and width/height of the 
+[X] Modify the tile matrix renderer to accept an offset, and width/height of the 
     range to actually render.
+    -- This was done by an SDL surface subsetting technique.
 	
-[ ] The game board will need a Point that indicates the offset of the current room's
+[X] The game board will need a Point that indicates the offset of the current room's
     top-left into the level tile matrix. (property "RoomXY" "TileOrigin" "ModelPixelOrigin")
-	[ ] When the room moves, we adjust this origin.  All 3 properties automatically change.
+	[X] When the room moves, we adjust this origin.  All 3 properties automatically change.
 
-[ ] When entering the room, construct the monsters in model-space of the current room.
+[X] When entering the room, construct the monsters in model-space of the current room.
 
-[ ] The painting routines need to take account of the model-space origin.
+[X] The painting routines need to take account of the model-space origin.
 
 [ ] TileMatrix:  remove knowledge of tile widths.  Refactor all to use ArrayView2d?
 

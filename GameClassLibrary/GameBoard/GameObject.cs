@@ -4,7 +4,7 @@ using GameClassLibrary.Input;
 
 namespace GameClassLibrary.GameBoard
 {
-    public abstract class GameObject // TODO: Move into library AFTER IGameBoard is distilled
+    public abstract class GameObject
     {
         // Note - We avoid restricting a GameObject to be a *single* SpriteInstance.
 
