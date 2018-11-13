@@ -13,19 +13,19 @@ namespace MissionIIClassLibrary.GameObjects
         private readonly Action<Rectangle, MovementDeltas, bool> _fireBullet;
         private readonly Action<int> _moveRoomNumberByDelta;
         private readonly Func<Rectangle, CollisionDetection.WallHitTestResult> _hitTest;
+        private readonly Action<GameObject, ElectrocutionMethod> _electrocuteMan;
         private readonly Action<GameObject> _killMan;
         private readonly Action _checkManCollidingWithGameObjects;
 
         private SpriteInstance SpriteInstance = new SpriteInstance();
         private bool _debugInvulnerable = false;
-        private bool _isElectrocuting;
-        private bool _isElectrocutedByWalls;
+//        private bool _isElectrocuting;
+//        private bool _isElectrocutedByWalls;
         private int _facingDirection;
         private int _imageIndex = 0;
         private int _animationCountdown = WalkingAnimationReset;
         private const int WalkingAnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
-        private const int ElectrocutionAnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
-        private int _electrocutionCycles = 0;
+//        private int _electrocutionCycles = 0;
         private bool _awaitingFireRelease = true;
         private int _invincibleCountDown = 0;
         private int _cyclesMoving = 0;
@@ -35,12 +35,14 @@ namespace MissionIIClassLibrary.GameObjects
             Action<int> moveRoomNumberByDelta,
             Func<Rectangle, CollisionDetection.WallHitTestResult> hitTest,
             Action<GameObject> killMan,
+            Action<GameObject, ElectrocutionMethod> electrocuteMan,
             Action checkManCollidingWithGameObjects)
         {
             _fireBullet = fireBullet;
             _moveRoomNumberByDelta = moveRoomNumberByDelta;
             _hitTest = hitTest;
             _killMan = killMan;
+            _electrocuteMan = electrocuteMan;
             _checkManCollidingWithGameObjects = checkManCollidingWithGameObjects;
         }
 
@@ -55,7 +57,6 @@ namespace MissionIIClassLibrary.GameObjects
 
             set
             {
-//                _isDead = false;
                 SpriteInstance.X = value.Position.X;
                 SpriteInstance.Y = value.Position.Y;
                 _facingDirection = value.FacingDirection;
@@ -65,12 +66,12 @@ namespace MissionIIClassLibrary.GameObjects
 
         public override void AdvanceOneCycle(KeyStates keyStates)
         {
-            if (_isElectrocuting || _isElectrocutedByWalls)
-            {
-                DoElectrocution();
-            }
-            else
-            {
+            // if (_isElectrocuting || _isElectrocutedByWalls)
+            // {
+            //     DoElectrocution();
+            // }
+            // else
+            // {
                 FireButtonCheck(keyStates);
 
                 int theDirection = keyStates.ToDirectionIndex();
@@ -84,7 +85,7 @@ namespace MissionIIClassLibrary.GameObjects
                 }
 
                 HandleInvincibility();
-            }
+            //}
         }
 
         public void GainInvincibility()
@@ -100,15 +101,15 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        private void DoElectrocution()
-        {
-            AdvanceAnimation();
-            --_electrocutionCycles;
-            if (_electrocutionCycles == 0)
-            {
-                Die();
-            }
-        }
+//        private void DoElectrocution()
+//        {
+//            AdvanceAnimation();
+//            --_electrocutionCycles;
+//            if (_electrocutionCycles == 0)
+//            {
+//                Die();
+//            }
+//        }
 
         private void DoWalking(KeyStates keyStates, int theDirection)
         {
@@ -192,21 +193,6 @@ namespace MissionIIClassLibrary.GameObjects
                 ref _animationCountdown, ref _imageIndex, WalkingAnimationReset, SpriteInstance.Traits.ImageCount);
         }
 
-        public void Electrocute(ElectrocutionMethod electrocutionMethod)
-        {
-            if (_debugInvulnerable) return;
-            if (!IsInvincible && !_isElectrocuting)
-            {
-                _isElectrocuting = true;
-                _isElectrocutedByWalls = electrocutionMethod == ElectrocutionMethod.ByWalls;
-                _electrocutionCycles = ElectrocutionAnimationReset * 5;
-                SpriteInstance.Traits = MissionIISprites.Electrocution;
-                _imageIndex = 0;
-                _animationCountdown = ElectrocutionAnimationReset;
-                MissionIISounds.Electrocution.Play();
-            }
-        }
-
         private void Standing(int theDirection)
         {
             _animationCountdown = WalkingAnimationReset; // for next time
@@ -235,6 +221,22 @@ namespace MissionIIClassLibrary.GameObjects
             Standing(theDirection);
             SpriteInstance.X = roomX;
             SpriteInstance.Y = roomY;
+        }
+
+        public void Electrocute(ElectrocutionMethod electrocutionMethod)
+        {
+            if (_debugInvulnerable) return;
+            if (!IsInvincible /*&& !_isElectrocuting*/)
+            {
+                _electrocuteMan(this, electrocutionMethod);
+                //                _isElectrocuting = true;
+                //                _isElectrocutedByWalls = electrocutionMethod == ElectrocutionMethod.ByWalls;
+                //                _electrocutionCycles = ElectrocutionAnimationReset * 5;
+                //                SpriteInstance.Traits = MissionIISprites.Electrocution;
+                //                _imageIndex = 0;
+                //                _animationCountdown = ElectrocutionAnimationReset;
+                //                MissionIISounds.Electrocution.Play();
+            }
         }
 
         private void Die()
@@ -319,15 +321,15 @@ namespace MissionIIClassLibrary.GameObjects
 
         public override bool CanBeOverlapped { get { return true; } }
 
-        public bool IsBeingElectrocuted
-        {
-            get { return _isElectrocuting; }
-        }
-
-        public bool IsBeingElectrocutedByWalls
-        {
-            get { return _isElectrocutedByWalls; }
-        }
+//        public bool IsBeingElectrocuted
+//        {
+//            get { return _isElectrocuting; }
+//        }
+//
+//        public bool IsBeingElectrocutedByWalls
+//        {
+//            get { return _isElectrocutedByWalls; }
+//        }
 
         public bool IsInvincible
         {

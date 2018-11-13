@@ -34,6 +34,7 @@ namespace MissionIIClassLibrary
         private int RoomNumber; // one-based
         private BulletTraits WhiteBulletTraits;
         private Point RoomXY;
+        private ElectrocutionMethod _mostRecentElectrocutionMethod;
 
 
 
@@ -48,8 +49,10 @@ namespace MissionIIClassLibrary
 
         public MissionIIGameBoard(WorldWallData worldWallData)
         {
+            _mostRecentElectrocutionMethod = ElectrocutionMethod.ByDroid;  // arbitrary initialisation
+
             Man = new GameObjects.Man(
-                StartBullet, MoveRoomNumberByDelta, HitTest, KillMan, CheckManCollidingWithGameObjects);
+                StartBullet, MoveRoomNumberByDelta, HitTest, KillMan, ElectrocuteMan, CheckManCollidingWithGameObjects);
 
             TheWorldWallData = worldWallData;
             Lives = Constants.InitialLives;
@@ -66,12 +69,24 @@ namespace MissionIIClassLibrary
 
 
 
+        private void ElectrocuteMan(GameObject obj, ElectrocutionMethod electrocutionMethod)
+        {
+            if (!ElectrocutingManExistsInRoom())
+            {
+                _mostRecentElectrocutionMethod = electrocutionMethod;
+                Remove(obj);
+                Add(new GameObjects.ManElectrocuted(obj.TopLeftPosition, electrocutionMethod, KillMan));
+            }
+        }
+
+
+
         private void KillMan(GameObject obj)
         {
             if (!DeadManExistsInRoom())
             {
-                Remove(Man);
-                Add(new GameObjects.ManDead(Man.TopLeftPosition, PlayerLoseLife));
+                Remove(obj);
+                Add(new GameObjects.ManDead(obj.TopLeftPosition, PlayerLoseLife));
             }
         }
 
@@ -946,10 +961,26 @@ namespace MissionIIClassLibrary
 
 
 
+        
+        /// <summary>
+        /// Returns true if electrocuting man exists in room.
+        /// </summary>
+        public bool ElectrocutingManExistsInRoom()  // TODO: not ideal design.
+        {
+            bool foundElectrocutingMan = false;
+            ObjectsInRoom.ForEach<GameObjects.ManElectrocuted>(o =>
+            {
+                foundElectrocutingMan = true;   // TODO: Library issue:  It's not optimal that we can't break the ForEach.
+            });
+            return foundElectrocutingMan;
+        }
+
+
+
         /// <summary>
         /// Returns true if dead man exists in room.
         /// </summary>
-        public bool DeadManExistsInRoom()
+        public bool DeadManExistsInRoom()  // TODO: not ideal design.
         {
             bool foundDeadMan = false;
             ObjectsInRoom.ForEach<GameObjects.ManDead>(o =>
@@ -1000,7 +1031,8 @@ namespace MissionIIClassLibrary
             // The Room tiles:
 
             var cycleCount = GameClassLibrary.Time.CycleCounter.Count32;
-            var drawTileMatrix = (!Man.IsBeingElectrocutedByWalls) | (cycleCount & 2) == 0;
+            var beingElectrocutedByWalls = _mostRecentElectrocutionMethod == ElectrocutionMethod.ByWalls && ElectrocutingManExistsInRoom(); // TODO: avoid expensive call. 
+            var drawTileMatrix = (!beingElectrocutedByWalls) | (cycleCount & 2) == 0;
 
             if (drawTileMatrix)
             {

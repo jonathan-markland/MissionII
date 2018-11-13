@@ -44,6 +44,7 @@
     <Compile Include="Droids\LinearMoverDroid.cs" />
     <Compile Include="Droids\WanderingMineDroid.cs" />
     <Compile Include="GameObjects\ManDead.cs" />
+    <Compile Include="GameObjects\ManElectrocuted.cs" />
     <Compile Include="Interactibles\InvincibilityAmulet.cs" />
     <Compile Include="Interactibles\MissionIIInteractibleObject.cs" />
     <Compile Include="Level.cs" />
