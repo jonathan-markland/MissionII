@@ -29,8 +29,6 @@ namespace MissionIIClassLibrary.GameObjects
             set { SpriteInstance.TopLeftPosition = value; }
         }
 
-        public override bool CanBeOverlapped => true;
-
         public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
             if (_whileDeadCount > 0)

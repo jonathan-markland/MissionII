@@ -38,6 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Collisions\CollectionScore.cs" />
+    <Compile Include="Collisions\DroidOverlap.cs" />
     <Compile Include="Collisions\KillScore.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Droids\BouncingDroid.cs" />

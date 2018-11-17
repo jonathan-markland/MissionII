@@ -89,7 +89,5 @@ namespace MissionIIClassLibrary.GameObjects
             get { return _spriteInstance.TopLeftPosition; }
             set { _spriteInstance.TopLeftPosition = value; }
         }
-
-        public override bool CanBeOverlapped { get { return false; } }
     }
 }

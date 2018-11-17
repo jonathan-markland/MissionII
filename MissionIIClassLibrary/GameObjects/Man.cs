@@ -287,8 +287,6 @@ namespace MissionIIClassLibrary.GameObjects
             set { SpriteInstance.TopLeftPosition = value; }
         }
 
-        public override bool CanBeOverlapped { get { return true; } }
-
         public bool IsInvincible
         {
             get

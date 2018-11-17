@@ -922,7 +922,7 @@ namespace MissionIIClassLibrary
             ObjectsInRoom.ForEach<GameObject>(theObject =>
             {
                 if (hitResult == CollisionDetection.WallHitTestResult.NothingHit
-                    && theObject.CanBeOverlapped)
+                    && !Collisions.DroidOverlap.IsAllowed(theObject))
                 {
                     var objectRectangle = theObject.GetBoundingRectangle();
                     if (objectRectangle.Left != r.Left || objectRectangle.Top != r.Top) // TODO: crude way of avoiding self-intersection test

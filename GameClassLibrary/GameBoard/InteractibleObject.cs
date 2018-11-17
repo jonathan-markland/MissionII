@@ -24,12 +24,5 @@ namespace GameClassLibrary.GameBoard
             // This cannot be shot (ignore)
 			return new ShotStruct(affirmed: false, scoreIncrease:0);
         }
-
-
-
-        public override bool CanBeOverlapped
-        {
-            get { return true; }
-        }
     }
 }

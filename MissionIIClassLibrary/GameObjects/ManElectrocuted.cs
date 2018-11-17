@@ -37,8 +37,6 @@ namespace MissionIIClassLibrary.GameObjects
             set { SpriteInstance.TopLeftPosition = value; }
         }
 
-        public override bool CanBeOverlapped => true;
-
         private void AdvanceAnimation()
         {
             GameClassLibrary.Algorithms.Animation.Animate(

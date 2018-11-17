@@ -83,9 +83,5 @@ namespace MissionIIClassLibrary.Droids
             get { return _spriteInstance.TopLeftPosition; }
             set { _spriteInstance.TopLeftPosition = value; }
         }
-
-
-
-        public override bool CanBeOverlapped { get { return true; } }
     }
 }

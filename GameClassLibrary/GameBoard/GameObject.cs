@@ -10,7 +10,6 @@ namespace GameClassLibrary.GameBoard
 
         public abstract Rectangle GetBoundingRectangle();
         public abstract Point TopLeftPosition { get; set; }
-        public abstract bool CanBeOverlapped { get; }
         public abstract void AdvanceOneCycle(KeyStates theKeyStates);
         public abstract void Draw(IDrawingTarget drawingTarget);
         public abstract ShotStruct YouHaveBeenShot(bool shotByMan);
