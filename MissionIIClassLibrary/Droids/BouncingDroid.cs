@@ -26,10 +26,5 @@ namespace MissionIIClassLibrary.Droids
             base.SetIntelligenceProvider(
                 Bouncing.NewBouncing(this, 100, 200, 30, 2, manWalksIntoDroidAction, 1, moveAdversaryOnePixel, getManExtents));
         }
-
-        public override int KillScore
-        {
-            get { return Constants.DestroyerDroidKillScore; }
-        }
     }
 }

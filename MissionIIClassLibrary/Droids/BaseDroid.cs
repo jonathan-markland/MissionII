@@ -69,7 +69,7 @@ namespace MissionIIClassLibrary.Droids
         public override ShotStruct YouHaveBeenShot(bool shotByMan)
         {
             _startExplosion(this, _explosionSpriteTraits, _explosionSound);
-			return new ShotStruct(affirmed: true, scoreIncrease: KillScore);
+			return new ShotStruct(affirmed: true, scoreIncrease: Collisions.KillScore.Get(this));
         }
 
 

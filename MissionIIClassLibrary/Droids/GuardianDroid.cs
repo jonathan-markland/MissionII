@@ -22,10 +22,5 @@ namespace MissionIIClassLibrary.Droids
             base.SetIntelligenceProvider(
                 Guardian.NewGuardian(this, manWalksIntoDroidAction, tryMoveAdversaryOnePixel, getManExtents));
         }
-
-        public override int KillScore
-        {
-            get { return Constants.GuardianDroidKillScore; }
-        }
     }
 }

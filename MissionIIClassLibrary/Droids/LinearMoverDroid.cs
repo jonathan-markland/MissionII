@@ -25,10 +25,5 @@ namespace MissionIIClassLibrary.Droids
                     this, new Point(100, 50), new Point(200, 50), 1, 
                     manWalksIntoDroidAction, getManExtents));
         }
-
-        public override int KillScore
-        {
-            get { return Constants.DestroyerDroidKillScore; }
-        }
     }
 }

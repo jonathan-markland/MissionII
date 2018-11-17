@@ -24,10 +24,5 @@ namespace MissionIIClassLibrary.Droids
                       GameClassLibrary.ArtificialIntelligence.Constants.WanderingMineSpeedDivisor, 
                       tryMoveAdversaryOnePixel, getManExtents));
         }
-
-        public override int KillScore
-        {
-            get { return Constants.WanderingMineDroidKillScore; }
-        }
     }
 }

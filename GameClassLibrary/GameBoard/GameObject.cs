@@ -15,7 +15,6 @@ namespace GameClassLibrary.GameBoard
         public abstract void Draw(IDrawingTarget drawingTarget);
         public abstract void ManWalkedIntoYou();
         public abstract ShotStruct YouHaveBeenShot(bool shotByMan);
-        public virtual int KillScore { get { return 0; } }
         public virtual int CollectionScore { get { return 0; } }
     }
 }

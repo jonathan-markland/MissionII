@@ -22,10 +22,5 @@ namespace MissionIIClassLibrary.Droids
             base.SetIntelligenceProvider(
                 SingleMinded.NewSingleMinded(this, freeDirectionFinder, fireBullet, tryMoveAdversaryOnePixel));
         }
-
-        public override int KillScore
-        {
-            get { return Constants.WanderingDroidKillScore; }
-        }
     }
 }

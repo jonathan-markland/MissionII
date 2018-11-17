@@ -37,6 +37,7 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collisions\KillScore.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Droids\BouncingDroid.cs" />
     <Compile Include="Droids\GuardianDroid.cs" />

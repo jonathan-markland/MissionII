@@ -27,10 +27,5 @@ namespace MissionIIClassLibrary.Droids
             base.SetIntelligenceProvider(
                 FiringAttractor.NewFiringAttractor(this, fireBullet, moveAdversaryOnePixel, getManExtents));
         }
-
-        public override int KillScore
-        {
-            get { return Constants.DestroyerDroidKillScore; }
-        }
     }
 }

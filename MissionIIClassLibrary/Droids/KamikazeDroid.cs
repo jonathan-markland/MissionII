@@ -27,10 +27,5 @@ namespace MissionIIClassLibrary.Droids
             base.SetIntelligenceProvider(
                 Kamikaze.NewKamikaze(this, manDestroyAction, moveAdversaryOnePixel, getManExtents));
         }
-
-        public override int KillScore
-        {
-            get { return Constants.HomingDroidKillScore; }
-        }
     }
 }
