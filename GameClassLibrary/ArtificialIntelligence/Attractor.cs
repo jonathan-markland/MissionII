@@ -15,7 +15,7 @@ namespace GameClassLibrary.ArtificialIntelligence
             return new ArtificialIntelligenceFunctions(
                 () =>
                 {
-                    if ((Time.CycleCounter.Count32 & 1) == 0)
+                    if (Time.CycleCounter.EveryOtherCycle())
                     {
                         var moveDeltas = gameObject.GetBoundingRectangle().GetMovementDeltasToHeadTowards(getManExtents());
                         moveAdversaryOnePixel(gameObject, moveDeltas);

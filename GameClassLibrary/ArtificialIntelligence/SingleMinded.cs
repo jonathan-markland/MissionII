@@ -20,7 +20,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
             return new ArtificialIntelligenceFunctions(() => 
             {
-                if (Time.CycleCounter.Count32 % Constants.SingleMindedSpeedDivisor == 0)
+                if (Time.CycleCounter.Every(Constants.SingleMindedSpeedDivisor))
                 {
                     if (countDown > 0)
                     {

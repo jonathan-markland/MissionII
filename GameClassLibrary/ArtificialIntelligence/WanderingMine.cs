@@ -20,7 +20,7 @@ namespace GameClassLibrary.ArtificialIntelligence
 
             return new ArtificialIntelligenceFunctions(() =>
             {
-                if (Time.CycleCounter.Count32 % speedDivisor == 0)
+                if (Time.CycleCounter.Every(speedDivisor))
                 {
                     if (countDown > 0)
                     {

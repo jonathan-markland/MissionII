@@ -25,6 +25,20 @@ namespace GameClassLibrary.Time
 
 
 
+        public static bool Every(int n)
+        {
+            return Count32 % n == 0;
+        }
+
+
+
+        public static bool EveryOtherCycle()
+        {
+            return (Count32 & 1) == 0;
+        }
+
+
+
         /// <summary>
         /// Only to be called by the root function that handles game cycle updates.
         /// </summary>
