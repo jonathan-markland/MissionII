@@ -16,13 +16,5 @@ namespace GameClassLibrary.GameBoard
         {
             // No action required.
         }
-
-
-
-        public override ShotStruct YouHaveBeenShot(bool shotByMan)
-        {
-            // This cannot be shot (ignore)
-			return new ShotStruct(affirmed: false, scoreIncrease:0);
-        }
     }
 }

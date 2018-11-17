@@ -12,13 +12,8 @@ namespace MissionIIClassLibrary.Droids
     {
         public HomingDroid(
             Action<GameObject, MovementDeltas> moveAdversaryOnePixel,
-            Func<Rectangle> getManExtents,
-            Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
-            : base(
-                  MissionIISprites.Monster1, 
-                  MissionIISprites.Explosion, 
-                  MissionIISounds.Explosion,
-                  startExplosion)
+            Func<Rectangle> getManExtents)
+            : base(MissionIISprites.Monster1)
         {
             base.SetIntelligenceProvider(
                 Attractor.NewAttractor(this, moveAdversaryOnePixel, getManExtents));

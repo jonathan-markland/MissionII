@@ -1,9 +1,7 @@
 ﻿
-using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.Input;
 using GameClassLibrary.Graphics;
-using GameClassLibrary.Sound;
 using GameClassLibrary.GameBoard;
 using GameClassLibrary.ArtificialIntelligence;
 
@@ -11,10 +9,7 @@ namespace MissionIIClassLibrary.Droids
 {
     public class BaseDroid : GameObject
     {
-        private readonly Action<GameObject, SpriteTraits, SoundTraits> _startExplosion;
         private SpriteInstance _spriteInstance = new SpriteInstance();
-        private SpriteTraits _explosionSpriteTraits;
-        private SoundTraits _explosionSound;
         private int _imageIndex = 0;
         private int _animationCountdown = AnimationReset;
         private const int AnimationReset = 10; // TODO: Put constant elsewhere because we don't know the units
@@ -22,18 +17,11 @@ namespace MissionIIClassLibrary.Droids
 
 
 
-        public BaseDroid(
-            SpriteTraits spriteTraits,
-            SpriteTraits explosionSpriteTraits,
-            SoundTraits explosionSound,
-            Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
+        public BaseDroid(SpriteTraits spriteTraits)
         {
             System.Diagnostics.Debug.Assert(spriteTraits != null);
             _spriteInstance.Traits = spriteTraits;
-            _explosionSpriteTraits = explosionSpriteTraits;
-            _explosionSound = explosionSound;
             _intelligenceProvider = null;
-            _startExplosion = startExplosion;
         }
 
 
@@ -59,14 +47,6 @@ namespace MissionIIClassLibrary.Droids
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawIndexedSprite(_spriteInstance, _imageIndex);
-        }
-
-
-
-        public override ShotStruct YouHaveBeenShot(bool shotByMan)
-        {
-            _startExplosion(this, _explosionSpriteTraits, _explosionSound);
-			return new ShotStruct(affirmed: true, scoreIncrease: Collisions.KillScore.Get(this));
         }
 
 

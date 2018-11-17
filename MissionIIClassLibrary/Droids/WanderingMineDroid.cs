@@ -15,12 +15,8 @@ namespace MissionIIClassLibrary.Droids
             Func<Rectangle, FoundDirections> freeDirectionFinder, 
             Action<GameObject> manWalksIntoDroidAction, 
             Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> tryMoveAdversaryOnePixel, 
-            Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
-            : base(
-                  MissionIISprites.Monster5, 
-                  MissionIISprites.Explosion,
-                  MissionIISounds.Explosion,
-                  startExplosion)
+            Func<Rectangle> getManExtents)
+            : base(MissionIISprites.Monster5)
         {
             base.SetIntelligenceProvider(
                 WanderingMine.NewWanderingMine(this, freeDirectionFinder, manWalksIntoDroidAction,

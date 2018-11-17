@@ -64,15 +64,10 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        public override ShotStruct YouHaveBeenShot(bool shotByMan)
+        public void Stun()
         {
-            if (shotByMan)
-            {
-                _stunCountDown = Constants.GhostStunnedCycles;
-                _spriteInstance.Traits = MissionIISprites.GhostStunned;
-                MissionIISounds.StunGhost.Play();
-            }
-			return new ShotStruct(affirmed:true);
+            _stunCountDown = Constants.GhostStunnedCycles;
+            _spriteInstance.Traits = MissionIISprites.GhostStunned;
         }
 
         public override Rectangle GetBoundingRectangle()

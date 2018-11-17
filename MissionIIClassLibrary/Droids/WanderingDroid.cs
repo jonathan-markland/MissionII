@@ -14,13 +14,8 @@ namespace MissionIIClassLibrary.Droids
         public WanderingDroid(
             Func<Rectangle, FoundDirections> freeDirectionFinder, 
             Action<Rectangle, MovementDeltas, bool> fireBullet, 
-            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> tryMoveAdversaryOnePixel, 
-            Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
-            : base(
-                  MissionIISprites.Monster2, 
-                  MissionIISprites.Explosion,
-                  MissionIISounds.Explosion,
-                  startExplosion)
+            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> tryMoveAdversaryOnePixel)
+            : base(MissionIISprites.Monster2)
         {
             base.SetIntelligenceProvider(
                 SingleMinded.NewSingleMinded(this, freeDirectionFinder, fireBullet, tryMoveAdversaryOnePixel));

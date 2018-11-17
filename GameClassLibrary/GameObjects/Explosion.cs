@@ -71,14 +71,6 @@ namespace GameClassLibrary.GameObjects
 
 
 
-        public override ShotStruct YouHaveBeenShot(bool shotByMan)
-        {
-            // no action required
-			return new ShotStruct(affirmed:false); // ignore this.
-        }
-
-
-
         public override Point TopLeftPosition
         {
             get { return _spriteInstance.TopLeftPosition; }

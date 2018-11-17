@@ -212,7 +212,7 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        private void Die()
+        public void Die()
         {
             if (_debugInvulnerable) return;
             _killMan(this);  // removes this object, replaces with new ManDead
@@ -270,15 +270,6 @@ namespace MissionIIClassLibrary.GameObjects
         public override Rectangle GetBoundingRectangle()
         {
             return SpriteInstance.Extents;
-        }
-
-        public override ShotStruct YouHaveBeenShot(bool shotByMan)
-        {
-            if (!IsInvincible)
-            {
-                Die(); // No electrocution animation desired here.
-            }
-			return new ShotStruct(affirmed:true);
         }
 
         public override Point TopLeftPosition

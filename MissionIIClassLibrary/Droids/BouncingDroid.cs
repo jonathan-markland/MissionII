@@ -14,13 +14,8 @@ namespace MissionIIClassLibrary.Droids
         public BouncingDroid(
             Action<GameObject> manWalksIntoDroidAction,
             Action<GameObject, MovementDeltas> moveAdversaryOnePixel,
-            Func<Rectangle> getManExtents,
-            Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
-            : base(
-                  MissionIISprites.Monster2,
-                  MissionIISprites.Explosion,
-                  MissionIISounds.Explosion,
-                  startExplosion)
+            Func<Rectangle> getManExtents)
+            : base(MissionIISprites.Monster2)
         {
             base.SetIntelligenceProvider(
                 Bouncing.NewBouncing(this, 100, 200, 30, 2, manWalksIntoDroidAction, 1, moveAdversaryOnePixel, getManExtents));

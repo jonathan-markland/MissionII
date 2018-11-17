@@ -174,14 +174,6 @@ namespace GameClassLibrary.GameObjects
 
 
 
-        public override ShotStruct YouHaveBeenShot(bool shotByMan)
-        {
-            // No action -- bullets cannot be shot.
-			return new ShotStruct(affirmed: false); // ignore this.
-        }
-
-
-
         public bool IncreasesScore
         {
             get { return _increasesScore; }

@@ -13,12 +13,9 @@ namespace MissionIIClassLibrary.Droids
     {
         public GuardianDroid(
             Action<GameObject> manWalksIntoDroidAction, 
-            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> tryMoveAdversaryOnePixel, Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
-            : base(
-                  MissionIISprites.Monster4, 
-                  MissionIISprites.Explosion,
-                  MissionIISounds.Explosion,
-                  startExplosion)
+            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> tryMoveAdversaryOnePixel, 
+            Func<Rectangle> getManExtents)
+            : base(MissionIISprites.Monster4)
         {
             base.SetIntelligenceProvider(
                 Guardian.NewGuardian(this, manWalksIntoDroidAction, tryMoveAdversaryOnePixel, getManExtents));

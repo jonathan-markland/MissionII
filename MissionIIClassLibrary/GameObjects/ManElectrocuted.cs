@@ -62,10 +62,5 @@ namespace MissionIIClassLibrary.GameObjects
         {
             return SpriteInstance.Extents;
         }
-
-        public override ShotStruct YouHaveBeenShot(bool shotByMan)
-        {
-            return new ShotStruct(affirmed: false);
-        }
     }
 }

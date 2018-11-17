@@ -11,13 +11,9 @@ namespace MissionIIClassLibrary.Droids
 {
     public class LinearMoverDroid : BaseDroid  // TODO: This is a development test and should be removed.
     {
-        public LinearMoverDroid(Action<GameObject> manWalksIntoDroidAction, Func<Rectangle> getManExtents, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
-            : base(
-                  MissionIISprites.Monster3,
-                  MissionIISprites.Explosion,
-                  MissionIISounds.Explosion,
+        public LinearMoverDroid(Action<GameObject> manWalksIntoDroidAction, Func<Rectangle> getManExtents)
+            : base(MissionIISprites.Monster3)
                   // TODO: Demo no longer works since we are using model-space coordinates:
-                  startExplosion)
         {
             base.SetIntelligenceProvider(
                 LinearMover.NewLinearMover(

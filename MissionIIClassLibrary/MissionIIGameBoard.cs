@@ -626,25 +626,25 @@ namespace MissionIIClassLibrary
 
         private Droids.HomingDroid NewHomingDroid()
         {
-            return new Droids.HomingDroid(MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion);
+            return new Droids.HomingDroid(MoveAdversaryOnePixel, GetManExtentsRectangle);
         }
 
 
         private Droids.KamikazeDroid NewKamikazeDroid()
         {
-            return new Droids.KamikazeDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion);
+            return new Droids.KamikazeDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle);
         }
 
 
         private Droids.WanderingDroid NewWanderingDroid()
         {
-            return new Droids.WanderingDroid(GetFreeDirections, StartBullet, TryMoveAdversaryOnePixel, StartExplosion);
+            return new Droids.WanderingDroid(GetFreeDirections, StartBullet, TryMoveAdversaryOnePixel);
         }
 
 
         private Droids.DestroyerDroid NewDestroyerDroid()
         {
-            return new Droids.DestroyerDroid(StartBullet, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion);
+            return new Droids.DestroyerDroid(StartBullet, MoveAdversaryOnePixel, GetManExtentsRectangle);
         }
 
 
@@ -837,7 +837,7 @@ namespace MissionIIClassLibrary
             }
             else
             {
-                droidObject.YouHaveBeenShot(true);
+                ObjectHasBeenShot(droidObject, true);
             }
         }
 
@@ -956,7 +956,7 @@ namespace MissionIIClassLibrary
             {
                 if (o.GetBoundingRectangle().Intersects(bulletRectangle))
                 {
-                    var shotResult = o.YouHaveBeenShot(increasesScore);
+                    var shotResult = ObjectHasBeenShot(o, increasesScore);
                     if (shotResult.Affirmed)
                     {
                         if (increasesScore)
@@ -972,6 +972,34 @@ namespace MissionIIClassLibrary
         }
 
 
+
+        private ShotStruct ObjectHasBeenShot(GameObject o, bool shotByMan)
+        {
+            if (o is GameObjects.Ghost)
+            {
+                if (shotByMan)
+                {
+                    (o as GameObjects.Ghost).Stun();
+                    MissionIISounds.StunGhost.Play();
+                }
+                return new ShotStruct(affirmed: true);
+            }
+            else if (o is GameObjects.Man)
+            {
+                if (!Man.IsInvincible)
+                {
+                    Man.Die(); // No electrocution animation desired here.
+                }
+                return new ShotStruct(affirmed: true);
+            }
+            else if (o is Droids.BaseDroid)
+            {
+                StartExplosion(o, MissionIISprites.Explosion, MissionIISounds.Explosion);
+                return new ShotStruct(affirmed: true, scoreIncrease: Collisions.KillScore.Get(o));
+            }
+
+            return new ShotStruct(affirmed: false, scoreIncrease: 0);
+        }
 
 
 
