@@ -12,7 +12,6 @@ namespace MissionIIClassLibrary.Droids
     public class BaseDroid : GameObject
     {
         private readonly Action<GameObject, SpriteTraits, SoundTraits> _startExplosion;
-        private readonly Action<GameObject> _manWalksIntoDroidAction;
         private SpriteInstance _spriteInstance = new SpriteInstance();
         private SpriteTraits _explosionSpriteTraits;
         private SoundTraits _explosionSound;
@@ -27,7 +26,6 @@ namespace MissionIIClassLibrary.Droids
             SpriteTraits spriteTraits,
             SpriteTraits explosionSpriteTraits,
             SoundTraits explosionSound,
-            Action<GameObject> manWalksIntoDroidAction,
             Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
         {
             System.Diagnostics.Debug.Assert(spriteTraits != null);
@@ -35,7 +33,6 @@ namespace MissionIIClassLibrary.Droids
             _explosionSpriteTraits = explosionSpriteTraits;
             _explosionSound = explosionSound;
             _intelligenceProvider = null;
-            _manWalksIntoDroidAction = manWalksIntoDroidAction;
             _startExplosion = startExplosion;
         }
 
@@ -77,13 +74,6 @@ namespace MissionIIClassLibrary.Droids
         public override Rectangle GetBoundingRectangle()
         {
             return _spriteInstance.Extents;
-        }
-
-
-
-        public override void ManWalkedIntoYou()
-        {
-            _manWalksIntoDroidAction(this);
         }
 
 

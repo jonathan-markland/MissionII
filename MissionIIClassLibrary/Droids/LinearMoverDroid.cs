@@ -17,7 +17,6 @@ namespace MissionIIClassLibrary.Droids
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
                   // TODO: Demo no longer works since we are using model-space coordinates:
-                  manWalksIntoDroidAction,
                   startExplosion)
         {
             base.SetIntelligenceProvider(

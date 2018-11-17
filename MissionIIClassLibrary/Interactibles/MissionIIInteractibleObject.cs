@@ -11,8 +11,8 @@ namespace MissionIIClassLibrary.Interactibles
         private SpriteInstance Sprite;
         protected int _roomNumber;
 
-        public MissionIIInteractibleObject(SpriteInstance spriteInstance, int roomNumber, Action<InteractibleObject, int> collectObject)
-            : base(collectObject)
+        public MissionIIInteractibleObject(SpriteInstance spriteInstance, int roomNumber)
+            : base()
         {
             _positionedAlready = false;
             Sprite = spriteInstance;
@@ -35,7 +35,7 @@ namespace MissionIIClassLibrary.Interactibles
             get { return _roomNumber; }
         }
 
-        protected void MarkCollected()
+        public void MarkCollected()
         {
             _roomNumber = -1; // so will not be added to ObjectsInRoom container again.
         }
@@ -43,13 +43,6 @@ namespace MissionIIClassLibrary.Interactibles
         public override Rectangle GetBoundingRectangle()
         {
             return Sprite.Extents; // Note: applies in every room!
-        }
-
-        public override void ManWalkedIntoYou()
-        {
-            MarkCollected();
-            base.ManWalkedIntoYou();
-            MissionIISounds.PickUpObject.Play();
         }
 
         public override Point TopLeftPosition

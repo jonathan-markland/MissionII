@@ -71,13 +71,6 @@ namespace GameClassLibrary.GameObjects
 
 
 
-        public override void ManWalkedIntoYou()
-        {
-            // No action required.
-        }
-
-
-
         public override ShotStruct YouHaveBeenShot(bool shotByMan)
         {
             // no action required

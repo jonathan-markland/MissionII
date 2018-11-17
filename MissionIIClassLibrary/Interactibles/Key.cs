@@ -6,11 +6,9 @@ namespace MissionIIClassLibrary.Interactibles
 {
     public class Key : MissionIIInteractibleObject
     {
-        public Key(int roomNumber, Action<InteractibleObject, int> collectObject)
-            : base(new SpriteInstance { Traits = MissionIISprites.Key }, roomNumber, collectObject)
+        public Key(int roomNumber)
+            : base(new SpriteInstance { Traits = MissionIISprites.Key }, roomNumber)
         {
         }
-
-        public override int CollectionScore => Constants.KeyCollectionScore;
     }
 }

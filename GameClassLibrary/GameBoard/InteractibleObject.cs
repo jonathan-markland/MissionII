@@ -6,12 +6,8 @@ namespace GameClassLibrary.GameBoard
 {
     public abstract class InteractibleObject : GameObject
     {
-        private readonly Action<InteractibleObject, int> _collectObject;
-
-
-        public InteractibleObject(Action<InteractibleObject, int> collectObject)
+        public InteractibleObject()
         {
-            _collectObject = collectObject;
         }
 
 
@@ -19,13 +15,6 @@ namespace GameClassLibrary.GameBoard
         public override void AdvanceOneCycle(KeyStates theKeyStates)
         {
             // No action required.
-        }
-
-
-
-        public override void ManWalkedIntoYou()
-        {
-            _collectObject(this, CollectionScore);
         }
 
 

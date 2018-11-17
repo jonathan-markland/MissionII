@@ -11,12 +11,15 @@ namespace MissionIIClassLibrary.Droids
 {
     public class WanderingDroid : BaseDroid
     {
-        public WanderingDroid(Func<Rectangle, FoundDirections> freeDirectionFinder, Action<GameObject> manWalksIntoDroidAction, Action<Rectangle, MovementDeltas, bool> fireBullet, Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> tryMoveAdversaryOnePixel, Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
+        public WanderingDroid(
+            Func<Rectangle, FoundDirections> freeDirectionFinder, 
+            Action<Rectangle, MovementDeltas, bool> fireBullet, 
+            Func<GameObject, MovementDeltas, CollisionDetection.WallHitTestResult> tryMoveAdversaryOnePixel, 
+            Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
             : base(
                   MissionIISprites.Monster2, 
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  manWalksIntoDroidAction,
                   startExplosion)
         {
             base.SetIntelligenceProvider(

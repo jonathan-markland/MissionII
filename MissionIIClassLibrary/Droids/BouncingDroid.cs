@@ -20,7 +20,6 @@ namespace MissionIIClassLibrary.Droids
                   MissionIISprites.Monster2,
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  manWalksIntoDroidAction,
                   startExplosion)
         {
             base.SetIntelligenceProvider(

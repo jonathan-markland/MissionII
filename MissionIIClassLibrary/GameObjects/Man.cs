@@ -272,11 +272,6 @@ namespace MissionIIClassLibrary.GameObjects
             return SpriteInstance.Extents;
         }
 
-        public override void ManWalkedIntoYou()
-        {
-            // No action for self-intersection.
-        }
-
         public override ShotStruct YouHaveBeenShot(bool shotByMan)
         {
             if (!IsInvincible)

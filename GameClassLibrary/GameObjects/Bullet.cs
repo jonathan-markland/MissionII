@@ -160,13 +160,6 @@ namespace GameClassLibrary.GameObjects
 
 
 
-        public override void ManWalkedIntoYou()
-        {
-            // Not handled here.  Bullets killing man happens in AdvanceOneCycle().
-        }
-
-
-
         public override void Draw(IDrawingTarget drawingTarget)
         {
             drawingTarget.DrawIndexedSprite(_spriteInstance, 0);

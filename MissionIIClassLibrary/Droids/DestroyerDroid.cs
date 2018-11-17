@@ -12,7 +12,6 @@ namespace MissionIIClassLibrary.Droids
     public class DestroyerDroid : BaseDroid
     {
         public DestroyerDroid(
-            Action<GameObject> manWalksIntoDroidAction, 
             Action<Rectangle, MovementDeltas, bool> fireBullet, 
             Action<GameObject, MovementDeltas> moveAdversaryOnePixel, 
             Func<Rectangle> getManExtents, 
@@ -21,7 +20,6 @@ namespace MissionIIClassLibrary.Droids
                   MissionIISprites.Monster3, 
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  manWalksIntoDroidAction,
                   startExplosion)
         {
             base.SetIntelligenceProvider(

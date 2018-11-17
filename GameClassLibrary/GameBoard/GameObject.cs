@@ -13,8 +13,6 @@ namespace GameClassLibrary.GameBoard
         public abstract bool CanBeOverlapped { get; }
         public abstract void AdvanceOneCycle(KeyStates theKeyStates);
         public abstract void Draw(IDrawingTarget drawingTarget);
-        public abstract void ManWalkedIntoYou();
         public abstract ShotStruct YouHaveBeenShot(bool shotByMan);
-        public virtual int CollectionScore { get { return 0; } }
     }
 }

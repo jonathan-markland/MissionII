@@ -56,11 +56,6 @@ namespace MissionIIClassLibrary.GameObjects
             }
         }
 
-        public override void ManWalkedIntoYou()
-        {
-            // The ghost kills the man via its AI.  No action needed here.
-        }
-
         public override void Draw(IDrawingTarget drawingTarget)
         {
             if (IsActive)

@@ -13,7 +13,6 @@ namespace MissionIIClassLibrary.Droids
     {
         public KamikazeDroid(
             Action manDestroyAction,
-            Action<GameObject> manWalksIntoDroidAction,
             Action<GameObject, MovementDeltas> moveAdversaryOnePixel,
             Func<Rectangle> getManExtents,
             Action<GameObject, SpriteTraits, SoundTraits> startExplosion)
@@ -21,7 +20,6 @@ namespace MissionIIClassLibrary.Droids
                   MissionIISprites.Monster4,
                   MissionIISprites.Explosion,
                   MissionIISounds.Explosion,
-                  manWalksIntoDroidAction,
                   startExplosion)
         {
             base.SetIntelligenceProvider(

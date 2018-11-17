@@ -65,11 +65,6 @@ namespace MissionIIClassLibrary.GameObjects
             return SpriteInstance.Extents;
         }
 
-        public override void ManWalkedIntoYou()
-        {
-            // Cannot happen
-        }
-
         public override ShotStruct YouHaveBeenShot(bool shotByMan)
         {
             return new ShotStruct(affirmed: false);

@@ -294,9 +294,9 @@ namespace MissionIIClassLibrary
             // TODO: This could be done better, as it's a bit weird requiring the objects already to
             //       be created, and then only to replace them.  At least this way we have ONE
             //       place that decides what is to be found on the level (ForEachThingWeHaveToFindOnThisLevel)
-            Key = new MissionIIClassLibrary.Interactibles.Key(0, PickUpObject);
-            Ring = new MissionIIClassLibrary.Interactibles.Ring(0, PickUpObject);
-            Gold = new MissionIIClassLibrary.Interactibles.Gold(0, PickUpObject);
+            Key = new MissionIIClassLibrary.Interactibles.Key(0);
+            Ring = new MissionIIClassLibrary.Interactibles.Ring(0);
+            Gold = new MissionIIClassLibrary.Interactibles.Gold(0);
 
             var roomNumberAllocator = new UniqueNumberAllocator(1, Constants.NumRooms);
             // var roomNumberAllocator = new IncrementingNumberAllocator(1, Constants.NumRooms); // For testing purposes.
@@ -306,15 +306,15 @@ namespace MissionIIClassLibrary
                 var roomNumber = roomNumberAllocator.Next();
                 if (o is Interactibles.Key)
                 {
-                    Key = new MissionIIClassLibrary.Interactibles.Key(roomNumber, PickUpObject);
+                    Key = new MissionIIClassLibrary.Interactibles.Key(roomNumber);
                 }
                 else if (o is Interactibles.Ring)
                 {
-                    Ring = new MissionIIClassLibrary.Interactibles.Ring(roomNumber, PickUpObject);
+                    Ring = new MissionIIClassLibrary.Interactibles.Ring(roomNumber);
                 }
                 else if (o is Interactibles.Gold)
                 {
-                    Gold = new MissionIIClassLibrary.Interactibles.Gold(roomNumber, PickUpObject);
+                    Gold = new MissionIIClassLibrary.Interactibles.Gold(roomNumber);
                 }
                 else
                 {
@@ -322,9 +322,9 @@ namespace MissionIIClassLibrary
                 }
             });
 
-            LevelExit = new MissionIIClassLibrary.Interactibles.LevelExit(roomNumberAllocator.Next(), PickUpObject, LevelObjectivesMet);
-            Potion = new MissionIIClassLibrary.Interactibles.Potion(roomNumberAllocator.Next(), PickUpObject, GainLife);
-            InvincibilityAmulet = new MissionIIClassLibrary.Interactibles.InvincibilityAmulet(roomNumberAllocator.Next(), PickUpObject, GainInvincibility);
+            LevelExit = new MissionIIClassLibrary.Interactibles.LevelExit(roomNumberAllocator.Next());
+            Potion = new MissionIIClassLibrary.Interactibles.Potion(roomNumberAllocator.Next());
+            InvincibilityAmulet = new MissionIIClassLibrary.Interactibles.InvincibilityAmulet(roomNumberAllocator.Next());
         }
 
 
@@ -626,25 +626,25 @@ namespace MissionIIClassLibrary
 
         private Droids.HomingDroid NewHomingDroid()
         {
-            return new Droids.HomingDroid(ManWalksIntoDroidAction, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion);
+            return new Droids.HomingDroid(MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion);
         }
 
 
         private Droids.KamikazeDroid NewKamikazeDroid()
         {
-            return new Droids.KamikazeDroid(DestroyManByAdversary, ManWalksIntoDroidAction, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion);
+            return new Droids.KamikazeDroid(DestroyManByAdversary, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion);
         }
 
 
         private Droids.WanderingDroid NewWanderingDroid()
         {
-            return new Droids.WanderingDroid(GetFreeDirections, ManWalksIntoDroidAction, StartBullet, TryMoveAdversaryOnePixel, StartExplosion);
+            return new Droids.WanderingDroid(GetFreeDirections, StartBullet, TryMoveAdversaryOnePixel, StartExplosion);
         }
 
 
         private Droids.DestroyerDroid NewDestroyerDroid()
         {
-            return new Droids.DestroyerDroid(ManWalksIntoDroidAction, StartBullet, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion);
+            return new Droids.DestroyerDroid(StartBullet, MoveAdversaryOnePixel, GetManExtentsRectangle, StartExplosion);
         }
 
 
@@ -806,6 +806,8 @@ namespace MissionIIClassLibrary
             AddToPlayerInventory(objectToPickUp);
             Remove(objectToPickUp);
             PlayerIncrementScore(scoreIncrease);
+            MissionIISounds.PickUpObject.Play();
+            (objectToPickUp as MissionIIInteractibleObject).MarkCollected();
         }
 
 
@@ -815,6 +817,7 @@ namespace MissionIIClassLibrary
             Man.GainInvincibility();
             Remove(amuletObject);
             MissionIISounds.InvincibilityAmuletSound.Play();
+            (amuletObject as MissionIIInteractibleObject).MarkCollected();
         }
 
 
@@ -844,18 +847,47 @@ namespace MissionIIClassLibrary
         {
             PlayerGainLife();
             Remove(potionObject);
+            (potionObject as MissionIIInteractibleObject).MarkCollected();
         }
 
 
 
         private void CheckManCollidingWithGameObjects()
         {
+            // TODO: Have a companion routine for things bumping into the man.
+
             var manRectangle = Man.GetBoundingRectangle();
             ForEachObjectInPlayDo<GameObject>(roomObject =>
             {
                 if (AliveManExistsInRoom() && manRectangle.Intersects(roomObject.GetBoundingRectangle()))
                 {
-                    roomObject.ManWalkedIntoYou();
+                    if (roomObject is InvincibilityAmulet)
+                    {
+                        GainInvincibility(roomObject);
+                    }
+                    else if (roomObject is LevelExit)
+                    {
+                        LevelObjectivesMet();
+                    }
+                    else if (roomObject is Potion)
+                    {
+                        GainLife(roomObject);
+                    }
+
+                    // WARNING:  Bases follow!
+
+                    else if (roomObject is Droids.BaseDroid)
+                    {
+                        ManWalksIntoDroidAction(roomObject);
+                    }
+                    else if (roomObject is InteractibleObject)
+                    {
+                        PickUpObject(roomObject as InteractibleObject, Collisions.CollectionScore.Get(this));
+                    }
+                    else
+                    {
+                        // Ignore.
+                    }
                 }
             });
         }
