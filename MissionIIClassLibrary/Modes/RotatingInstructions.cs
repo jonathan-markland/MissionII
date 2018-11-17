@@ -14,12 +14,11 @@ namespace MissionIIClassLibrary.Modes
                         + "BASED ON AN\n"
                         + "ORIGINAL CONCEPT\n"
                         + "BY MATTHEW BATES\n\n"
-                        + "SOUNDS FROM FREESOUND WEBSITE\n\n\n"
-                        + "USE CURSOR KEYS AND Z TO FIRE\v"
+                        + "SOUNDS FROM FREESOUND WEBSITE\v"
 
                         + "USE CURSOR KEYS\n"
-                        + "       Z  FIRE \n"
-                        + "       P  PAUSE\n\n"
+                        + "Z  FIRE  AND  START\n"
+                        + "P  PAUSE  AND  LEVEL SELECT\n\n"
                         + "OR JOYSTICK OR PAD\n\n\n"
                         + "F11  OR  F12   FULL SCREEN TOGGLE\v"
                         // + "F2 F3     VIEW SIZE         \v"
@@ -27,8 +26,10 @@ namespace MissionIIClassLibrary.Modes
                         + "COLLECT OBJECTS ON LEVEL\n"
                         + "THEN FIND THE EXIT\n"
                         + "AVOID ELECTROCUTION\n\n\n"
-                        + "USE CURSOR KEYS AND Z TO FIRE",
-                          Constants.TitleScreenRollCycles,
+                        + "SELECT LEVEL IN PAUSE MODE\n"
+                        + "BY ENTERING PASS CODE USING\n"
+                        + "DIRECTIONS AND FIRE BUTTON\n",
+                          (Constants.TitleScreenRollCycles*3)/2,
                           () => StartNewGame.New(),
                           () => TitleScreen.New());
         }

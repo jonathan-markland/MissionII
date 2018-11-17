@@ -14,7 +14,7 @@ namespace MissionIIClassLibrary.Modes
                   MissionIIFonts.GiantFont,
                   "SECOND MISSION",
                   MissionIIFonts.NarrowFont,
-                  "RETRO REMAKE   BY JONATHAN MARKLAND",
+                  "A RETRO GAME BY JONATHAN MARKLAND",
                   () => StartNewGame.New(),
                   () => HiScoreShow.New());
         }

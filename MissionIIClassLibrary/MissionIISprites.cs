@@ -49,6 +49,9 @@ namespace MissionIIClassLibrary
         public static SpriteTraits PatternResamplingSprite;
         public static SpriteTraits FontSprite;
         public static SpriteTraits InvincibilityAmulet;
+        public static SpriteTraits CursorKeys;
+        public static SpriteTraits ZKey;
+        public static SpriteTraits PKey;
 
         // And references to the above, for convenience:
         public static List<SpriteTraits> ManStanding;
@@ -117,6 +120,9 @@ namespace MissionIIClassLibrary
             WalkingRightDown = new SpriteTraits("WalkingRightDown", 2);
             WalkingRightUp = new SpriteTraits("WalkingRightUp", 2);
             WalkingUp = new SpriteTraits("WalkingUp", 2);
+            CursorKeys = new SpriteTraits("CursorKeys", 1);
+            ZKey = new SpriteTraits("ZKey", 1);
+            PKey = new SpriteTraits("PKey", 1);
 
             ManStanding = new List<SpriteTraits>
             {

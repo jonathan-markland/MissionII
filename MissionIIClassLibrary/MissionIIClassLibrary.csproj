@@ -71,6 +71,7 @@
     <Compile Include="Modes\GameOver.cs" />
     <Compile Include="Modes\GamePlay.cs" />
     <Compile Include="Modes\HiScoreShow.cs" />
+    <Compile Include="Modes\PlayerControls.cs" />
     <Compile Include="Modes\RotatingInstructions.cs" />
     <Compile Include="Modes\LeavingLevel.cs" />
     <Compile Include="Modes\Pause.cs" />

@@ -13,7 +13,7 @@ namespace MissionIIClassLibrary.Modes
                 MissionIIFonts.GiantFont,
                 MissionIIFonts.HiScoreFont,
                 () => StartNewGame.New(),
-                () => MissionRotatingInstructions.New());
+                () => PlayerControls.New());
         }
     }
 }

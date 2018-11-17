@@ -26,6 +26,17 @@ namespace GameClassLibrary.Graphics
 
 
 
+        public static void DrawSpriteCentred(
+            this IDrawingTarget drawingTarget, int cx, int cy, SpriteTraits theSprite, int spriteIndex)
+        {
+            drawingTarget.DrawSprite(
+                cx - theSprite.Width / 2,
+                cy - theSprite.Height / 2,
+                theSprite.GetHostImageObject(spriteIndex));
+        }
+
+
+
         public static void DrawFirstSpriteCentred(
             this IDrawingTarget drawingTarget, int cx, int cy, SpriteTraits theSprite)
         {
@@ -34,6 +45,7 @@ namespace GameClassLibrary.Graphics
                 cy - theSprite.Height / 2,
                 theSprite.GetHostImageObject(0));
         }
+
 
 
         public static void DrawFirstSpriteScreenCentred(
