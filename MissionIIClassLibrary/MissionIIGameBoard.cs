@@ -71,7 +71,7 @@ namespace MissionIIClassLibrary
 
         private void ElectrocuteMan(GameObject obj, ElectrocutionMethod electrocutionMethod)
         {
-            if (!ElectrocutingManExistsInRoom())
+            if (AliveManExistsInRoom())
             {
                 _mostRecentElectrocutionMethod = electrocutionMethod;
                 Remove(obj);
@@ -83,7 +83,7 @@ namespace MissionIIClassLibrary
 
         private void KillMan(GameObject obj)
         {
-            if (!DeadManExistsInRoom())
+            if (AliveManExistsInRoom() || ElectrocutingManExistsInRoom())
             {
                 Remove(obj);
                 Add(new GameObjects.ManDead(obj.TopLeftPosition, PlayerLoseLife));
@@ -853,7 +853,7 @@ namespace MissionIIClassLibrary
             var manRectangle = Man.GetBoundingRectangle();
             ForEachObjectInPlayDo<GameObject>(roomObject =>
             {
-                if (!DeadManExistsInRoom() && manRectangle.Intersects(roomObject.GetBoundingRectangle()))
+                if (AliveManExistsInRoom() && manRectangle.Intersects(roomObject.GetBoundingRectangle()))
                 {
                     roomObject.ManWalkedIntoYou();
                 }
@@ -965,7 +965,7 @@ namespace MissionIIClassLibrary
         /// <summary>
         /// Returns true if electrocuting man exists in room.
         /// </summary>
-        public bool ElectrocutingManExistsInRoom()  // TODO: not ideal design.
+        public bool ElectrocutingManExistsInRoom()  // TODO: not ideal design.  Crude way of knowing man state.
         {
             bool foundElectrocutingMan = false;
             ObjectsInRoom.ForEach<GameObjects.ManElectrocuted>(o =>
@@ -978,16 +978,16 @@ namespace MissionIIClassLibrary
 
 
         /// <summary>
-        /// Returns true if dead man exists in room.
+        /// Returns true if alive man exists in room.
         /// </summary>
-        public bool DeadManExistsInRoom()  // TODO: not ideal design.
+        public bool AliveManExistsInRoom()  // TODO: not ideal design.  Crude way of knowing man state.
         {
-            bool foundDeadMan = false;
-            ObjectsInRoom.ForEach<GameObjects.ManDead>(o =>
+            bool foundAliveMan = false;
+            ObjectsInRoom.ForEach<GameObjects.Man>(o =>
             {
-                foundDeadMan = true;   // TODO: Library issue:  It's not optimal that we can't break the ForEach.
+                foundAliveMan = true;   // TODO: Library issue:  It's not optimal that we can't break the ForEach.
             });
-            return foundDeadMan;
+            return foundAliveMan;
         }
 
 

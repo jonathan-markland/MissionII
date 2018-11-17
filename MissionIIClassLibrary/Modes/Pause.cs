@@ -17,7 +17,7 @@ namespace MissionIIClassLibrary.Modes
                 MissionIISounds.ManFiring,
                 s => theGameBoard.LevelCodeAccepted(s),
                 () => Modes.EnteringLevel.New(theGameBoard),
-                () => !theGameBoard.DeadManExistsInRoom() && !theGameBoard.ElectrocutingManExistsInRoom());
+                () => theGameBoard.AliveManExistsInRoom());
         }
     }
 

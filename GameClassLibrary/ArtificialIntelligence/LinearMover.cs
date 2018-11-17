@@ -2,7 +2,6 @@
 using System;
 using GameClassLibrary.GameBoard;
 using GameClassLibrary.Math;
-using GameClassLibrary.Walls;
 
 namespace GameClassLibrary.ArtificialIntelligence
 {

@@ -2,7 +2,6 @@
 using System;
 using GameClassLibrary.Math;
 using GameClassLibrary.GameBoard;
-using GameClassLibrary.Walls;
 
 namespace GameClassLibrary.ArtificialIntelligence
 {
@@ -17,18 +16,15 @@ namespace GameClassLibrary.ArtificialIntelligence
             return new ArtificialIntelligenceFunctions(
                 () =>
                 {
-                    // if ((Time.CycleCounter.Count32 & 1) == 0)
+                    var moveDeltas = gameObject.GetBoundingRectangle().GetMovementDeltasToHeadTowards(getManExtents());
+                    moveAdversaryOnePixel(gameObject, moveDeltas);
+
+                    // Check proximity to man, and detonate killing man:
+
+                    var detonationRectangle = getManExtents().Inflate(5); // TODO: constant
+                    if (gameObject.GetBoundingRectangle().Intersects(detonationRectangle))
                     {
-                        var moveDeltas = gameObject.GetBoundingRectangle().GetMovementDeltasToHeadTowards(getManExtents());
-                        moveAdversaryOnePixel(gameObject, moveDeltas);
-
-                        // Check proximity to man, and detonate killing man:
-
-                        var detonationRectangle = getManExtents().Inflate(5); // TODO: constant
-                        if (gameObject.GetBoundingRectangle().Intersects(detonationRectangle))
-                        {
-                            manDestroyAction();
-                        }
+                        manDestroyAction();
                     }
                 });
         }
