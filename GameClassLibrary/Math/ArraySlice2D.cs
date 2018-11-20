@@ -62,6 +62,32 @@ namespace GameClassLibrary.Math
 
 
         /// <summary>
+        /// Construct a new array instance including translation of all the elements.
+        /// </summary>
+        /// <typeparam name="X">The desired output element type</typeparam>
+        /// <param name="sourceArray">Array to be translated.</param>
+        /// <param name="translateElement">Function to translate an element from one type to another.</param>
+        /// <returns>New 2D array, with new element types, as an ArraySlice2D.</returns>
+        public ArraySlice2D<X> ConvertElementsTo<X>(Func<T, X> translateElement)
+        {
+            var v = CountV;
+            var h = CountH;
+            var newArray = new X[h * v];
+            int t = 0;
+            for (int y = 0; y < v; y++)
+            {
+                for (int x = 0; x < h; x++)
+                {
+                    newArray[t] = translateElement(At(x, y));
+                    ++t;
+                }
+            }
+            return new ArraySlice2D<X>(newArray, h);
+        }
+
+
+
+        /// <summary>
         /// The number of elements horizontally in this view.
         /// </summary>
         public int CountH { get { return _elemCountH; } }

@@ -41,6 +41,7 @@
     <Compile Include="Algorithms\IListExtensions.cs" />
     <Compile Include="Algorithms\IncrementingNumberAllocator.cs" />
     <Compile Include="Algorithms\LevelAccessCodes.cs" />
+    <Compile Include="Algorithms\RotateArray2D.cs" />
     <Compile Include="Algorithms\UniqueNumberAllocator.cs" />
     <Compile Include="ArtificialIntelligence\ArtificialIntelligenceFunctions.cs" />
     <Compile Include="ArtificialIntelligence\Attractor.cs" />

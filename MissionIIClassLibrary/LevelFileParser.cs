@@ -3,6 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using GameClassLibrary.Math;
 using GameClassLibrary.Walls;
+using System.Linq;
 
 namespace MissionIIClassLibrary
 {
@@ -12,15 +13,19 @@ namespace MissionIIClassLibrary
 
         public static List<Level> Parse(StreamReader streamReader)
         {
-            return ForEachLevelInFileDo(streamReader,
+            var levelWidth = Constants.RoomsHorizontally * Constants.ClustersHorizontally * Constants.SourceClusterSide;
+            var levelHeight = Constants.RoomsVertically * Constants.ClustersVertically * Constants.SourceClusterSide;
+
+            // Load the file into arrays of char, each with treatment as ArraySlice2D.
+            // We don't translate into arrays of Tile yet.
+
+            var listOfLevelsAsCharArrays = ForEachLevelInFileDo(
+                streamReader,
                 nextLevelNumber =>
                 {
-                    var wholeOfLevelMatrix = new WriteableArraySlice2D<Tile>(
-                        Constants.RoomsHorizontally * Constants.ClustersHorizontally * Constants.SourceClusterSide,
-                        Constants.RoomsVertically * Constants.ClustersVertically * Constants.SourceClusterSide);
+                    var wholeOfLevelCharMatrix = new WriteableArraySlice2D<char>(levelWidth, levelHeight);
 
                     int rowOnLevel = 0;
-                    int manX = -1, manY = -1;
 
                     for (int roomY = 0; roomY < Constants.RoomsVertically; ++roomY)
                     {
@@ -60,12 +65,7 @@ namespace MissionIIClassLibrary
                                     var x = roomX - 1;
                                     var sourceString = theSplittings[x];
                                     var roomSideOffset = x * Constants.SourceFileRoomCharsHorizontally;
-                                    PaintLine(wholeOfLevelMatrix, roomSideOffset, rowOnLevel, sourceString);
-                                    ForEachSpecialMarker(sourceString, roomSideOffset,
-                                        columnOnLevel => {
-                                            manX = columnOnLevel;
-                                            manY = rowOnLevel;
-                                        });
+                                    PaintLine(wholeOfLevelCharMatrix, roomSideOffset, rowOnLevel, sourceString);
                                 }
                                 catch (Exception e)
                                 {
@@ -77,31 +77,87 @@ namespace MissionIIClassLibrary
                         }
                     }
 
-                    var specialMarkers = new SpecialMarkers();
-
-                    specialMarkers.SetManStartCluster(
-                        new Point(manX / Constants.SourceClusterSide, manY / Constants.SourceClusterSide),
-                        MissionIITile.Floor,
-                        wholeOfLevelMatrix.WholeArea);
-
-                    return new Level(nextLevelNumber, wholeOfLevelMatrix.WholeArea, specialMarkers);
+                    return wholeOfLevelCharMatrix.WholeArea;
                 });
+
+            // Now duplicate the char-arrays rotated 90 degrees each time.
+            // This will give later levels some variety.
+
+            var rotatedOnce = Rotate(listOfLevelsAsCharArrays);
+            var rotatedTwice = Rotate(rotatedOnce);
+            var rotatedThreeTimes = Rotate(rotatedTwice);
+
+            // Concatenate these lists.
+
+            var allCharLevels = listOfLevelsAsCharArrays
+                .Concat(rotatedOnce)
+                .Concat(rotatedTwice)
+                .Concat(rotatedThreeTimes);
+
+            // Translate these to type "Level", which involves finding the man 'x':
+
+            var listOfLevels = new List<Level>();
+            int levelNumber = 1;
+
+            foreach (var charLevel in allCharLevels)
+            {
+                // Find man 'x' position:
+
+                var manPoint = GameClassLibrary.Algorithms.Array2D.FindPositionOf(charLevel, c => (c == 'x'));
+                if (manPoint.X == -1)
+                {
+                    throw new Exception($"Cannot locate 'x' (man start position) in level {levelNumber}");
+                }
+
+                // Generate Level:
+
+                var levelTileMatrix = CharToTile(charLevel);
+
+                var specialMarkers = new SpecialMarkers();
+
+                specialMarkers.SetManStartCluster(
+                    new Point(manPoint.X / Constants.SourceClusterSide, manPoint.Y / Constants.SourceClusterSide),
+                    MissionIITile.Floor,
+                    levelTileMatrix);
+
+                var thisLevel = new Level(levelNumber, levelTileMatrix, specialMarkers);
+
+                listOfLevels.Add(thisLevel);
+
+                ++levelNumber;
+            }
+
+            return listOfLevels;
         }
 
         #endregion
 
 
 
-        public static List<Level> ForEachLevelInFileDo(StreamReader streamReader, Func<int, Level> levelMaker)
+        public static List<ArraySlice2D<T>> Rotate<T>(List<ArraySlice2D<T>> sourceList)
         {
-            var levelsList = new List<Level>();
+            return sourceList.Select(a => GameClassLibrary.Algorithms.Array2D.RotateRight90(a)).ToList();
+        }
+
+        public static ArraySlice2D<Tile> CharToTile(ArraySlice2D<char> charLevel)
+        {
+            return charLevel.ConvertElementsTo(CharToWallMatrixChar);
+        }
+
+
+
+        public static List<ArraySlice2D<char>> ForEachLevelInFileDo(
+            StreamReader streamReader, 
+            Func<int, ArraySlice2D<char>> levelReader)
+        {
+            var levelsList = new List<ArraySlice2D<char>>();
             int nextLevelNumber = 1;
 
             while (FindNextLevel(streamReader, nextLevelNumber))
             {
                 try
                 {
-                    levelsList.Add(levelMaker(nextLevelNumber));
+                    levelsList.Add(levelReader(nextLevelNumber));
                 }
                 catch (Exception e)
                 {
@@ -172,25 +228,11 @@ namespace MissionIIClassLibrary
 
 
 
-        public static void PaintLine(WriteableArraySlice2D<Tile> targetMatrix, int x, int rowNumber, string thisLine)
+        public static void PaintLine(WriteableArraySlice2D<char> targetMatrix, int x, int rowNumber, string thisLine)
         {
             foreach(char ch in thisLine)
             {
-                targetMatrix.Write(x, rowNumber, CharToWallMatrixChar(ch));
-                x++;
-            }
-        }
-
-
-
-        public static void ForEachSpecialMarker(string sourceString, int x, Action<int> foundAt)
-        {
-            foreach (char ch in sourceString)
-            {
-                if (ch == 'x')
-                {
-                    foundAt(x);
-                }
+                targetMatrix.Write(x, rowNumber, ch);
                 x++;
             }
         }
