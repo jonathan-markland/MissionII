@@ -13,11 +13,26 @@ namespace MissionIIClassLibrary
 
         public static List<Level> Parse(StreamReader streamReader)
         {
+            var listOfLevelsAsCharArrays = LoadLevelsFromFile(streamReader);
+
+            var rotatedOnce = Rotate(listOfLevelsAsCharArrays);
+            var rotatedTwice = Rotate(rotatedOnce);
+            var rotatedThreeTimes = Rotate(rotatedTwice);
+
+            var allCharLevels = listOfLevelsAsCharArrays
+                .Concat(rotatedOnce)
+                .Concat(rotatedTwice)
+                .Concat(rotatedThreeTimes);
+
+            return TranslateLevelsFromCharsToTiles(allCharLevels);
+        }
+
+
+
+        public static List<ArraySlice2D<char>> LoadLevelsFromFile(StreamReader streamReader)
+        {
             var levelWidth = Constants.RoomsHorizontally * Constants.ClustersHorizontally * Constants.SourceClusterSide;
             var levelHeight = Constants.RoomsVertically * Constants.ClustersVertically * Constants.SourceClusterSide;
-
-            // Load the file into arrays of char, each with treatment as ArraySlice2D.
-            // We don't translate into arrays of Tile yet.
 
             var listOfLevelsAsCharArrays = ForEachLevelInFileDo(
                 streamReader,
@@ -80,20 +95,13 @@ namespace MissionIIClassLibrary
                     return wholeOfLevelCharMatrix.WholeArea;
                 });
 
-            // Now duplicate the char-arrays rotated 90 degrees each time.
-            // This will give later levels some variety.
+            return listOfLevelsAsCharArrays;
+        }
 
-            var rotatedOnce = Rotate(listOfLevelsAsCharArrays);
-            var rotatedTwice = Rotate(rotatedOnce);
-            var rotatedThreeTimes = Rotate(rotatedTwice);
 
-            // Concatenate these lists.
 
-            var allCharLevels = listOfLevelsAsCharArrays
-                .Concat(rotatedOnce)
-                .Concat(rotatedTwice)
-                .Concat(rotatedThreeTimes);
-
+        public static List<Level> TranslateLevelsFromCharsToTiles(IEnumerable<ArraySlice2D<char>> allCharLevels)
+        {
             // Translate these to type "Level", which involves finding the man 'x':
 
             var listOfLevels = new List<Level>();
@@ -112,7 +120,6 @@ namespace MissionIIClassLibrary
                 // Generate Level:
 
                 var levelTileMatrix = CharToTile(charLevel);
-
                 var specialMarkers = new SpecialMarkers();
 
                 specialMarkers.SetManStartCluster(
@@ -129,6 +136,7 @@ namespace MissionIIClassLibrary
 
             return listOfLevels;
         }
+
 
         #endregion
 
