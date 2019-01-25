@@ -1,5 +1,4 @@
-﻿
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -7,7 +6,7 @@ using Microsoft.Xna.Framework.Audio;
 using GameClassLibrary.Sound;
 using GameClassLibrary.Input;
 
-namespace MissionIIMonoGame
+namespace MissionII
 {
     public enum ScalingModes
     {

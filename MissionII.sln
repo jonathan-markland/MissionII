@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MissionIIMonoGame", "MissionIIMonoGame\MissionIIMonoGame.csproj", "{D4CFCA37-F25D-4CD3-8DA3-26C2E3AF8696}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MissionII", "MissionIIMonoGame\MissionII.csproj", "{D4CFCA37-F25D-4CD3-8DA3-26C2E3AF8696}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MissionIIClassLibrary", "MissionIIClassLibrary\MissionIIClassLibrary.csproj", "{5935B105-51E8-46D7-941C-2860502AE324}"
 EndProject
@@ -34,11 +34,9 @@ Global
 		{8C616ABA-F701-41AB-9C1F-6339FE229664}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8C616ABA-F701-41AB-9C1F-6339FE229664}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C616ABA-F701-41AB-9C1F-6339FE229664}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C616ABA-F701-41AB-9C1F-6339FE229664}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E5C74B9-ADBB-41AA-94DA-9D909DA49BA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{3E5C74B9-ADBB-41AA-94DA-9D909DA49BA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E5C74B9-ADBB-41AA-94DA-9D909DA49BA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E5C74B9-ADBB-41AA-94DA-9D909DA49BA2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

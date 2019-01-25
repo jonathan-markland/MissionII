@@ -9,8 +9,8 @@
     <ProjectGuid>{D4CFCA37-F25D-4CD3-8DA3-26C2E3AF8696}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MonogameTest</RootNamespace>
-    <AssemblyName>MonogameTest</AssemblyName>
+    <RootNamespace>MissionII</RootNamespace>
+    <AssemblyName>MissionII</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MonoGamePlatform>DesktopGL</MonoGamePlatform>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>

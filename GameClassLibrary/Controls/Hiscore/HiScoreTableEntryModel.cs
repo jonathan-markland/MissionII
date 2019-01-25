@@ -2,7 +2,7 @@
 
 namespace GameClassLibrary.Controls.Hiscore
 {
-    public class HiScoreTableEntryModel
+    public class HiScoreTableEntryModel   // TODO: Make read only
     {
         private uint _score;
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace MissionIIMonoGame
+namespace MissionII
 {
     /// <summary>
     /// The main class.
